@@ -1,0 +1,17 @@
+package statements;
+
+/**
+ * Created by lveeckha on 31/05/2015.
+ */
+public abstract class Instruction
+{
+    public Instruction()
+    {}
+    public abstract void execute();
+
+    public String toString()
+    {
+        return this.getClass().getSimpleName();
+    }
+
+}
