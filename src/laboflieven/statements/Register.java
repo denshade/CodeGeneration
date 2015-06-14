@@ -1,4 +1,4 @@
-package statements;
+package laboflieven.statements;
 
 import java.util.ArrayList;
 import java.util.List;

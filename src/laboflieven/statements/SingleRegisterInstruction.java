@@ -1,4 +1,4 @@
-package statements;
+package laboflieven.statements;
 
 /**
  * Created by lveeckha on 4/06/2015.

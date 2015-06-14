@@ -1,5 +1,7 @@
-import statements.Instruction;
-import statements.Register;
+package laboflieven;
+
+import laboflieven.statements.Instruction;
+import laboflieven.statements.Register;
 import java.util.Map;
 
 /**
@@ -15,12 +17,12 @@ public class StatementRunner {
     {
         for (Register register : program.getRegisters())
         {
+            if (!registerValues.containsKey(register.name)){
+                throw new IllegalArgumentException("You have not specified the initial values for " + register.name);
+            }
             register.value = registerValues.get(register.name);
         }
-        for(Instruction instruction : program.getInstructions())
-        {
-            instruction.execute();
-        }
+        program.getInstructions().forEach(laboflieven.statements.Instruction::execute);
     }
 }
 /*      r1.value = 2;

@@ -1,4 +1,4 @@
-package statements;
+package laboflieven.statements;
 
 /**
  * Invert the signum.

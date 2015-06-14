@@ -1,7 +1,9 @@
-import statements.Instruction;
-import statements.InstructionEnum;
-import statements.InstructionFactory;
-import statements.Register;
+package laboflieven;
+
+import laboflieven.statements.Instruction;
+import laboflieven.statements.InstructionEnum;
+import laboflieven.statements.InstructionFactory;
+import laboflieven.statements.Register;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -11,19 +13,18 @@ import java.util.Map;
 /**
  * Created by lveeckha on 31/05/2015.
  */
-public class NoUselessMovesProgramIterator
+public class BruteForceProgramIterator
 {
     public static int maximumInstructions = 12;
     public long counter = 0;
-    private Map<String, Double> initialParameters;
-
-
-    public NoUselessMovesProgramIterator(Map<String, Double> initialParameters)
-    {
-        this.initialParameters = initialParameters;
-    }
 
     public List<List<Instruction>> positiveSolutions = new ArrayList<List<Instruction>>();
+    private Map<String, Double> initialParameters;
+
+    public BruteForceProgramIterator(Map<String, Double> values)
+    {
+        initialParameters = values;
+    }
     public void iterate()
     {
         Register[] registers = new Register[4];
@@ -39,32 +40,21 @@ public class NoUselessMovesProgramIterator
             return;
         for (InstructionEnum instruction : InstructionEnum.values())
         {
-            for (int register1Index = 0; register1Index < registers.length; register1Index++)
-            {
-                Register register1 = registers[register1Index];
-                if (instruction.isDualRegister())
-                {
-                    for (int register2Index = 0; register2Index < registers.length; register2Index++)
-                    {
-                        if (instruction == InstructionEnum.Move && register1Index == register2Index)
-                        {
-                            continue;
-                        }
-                        Register register2 = registers[register2Index];
+            for (Register register1 : registers) {
+                if (instruction.isDualRegister()) {
+                    for (Register register2 : registers) {
                         Instruction actualInstruction = InstructionFactory.createInstruction(instruction, register1, register2);
                         instructions.add(actualInstruction);
                         eval(instructions);
                         recurse(instructions, registers);
                         instructions.remove(instructions.size() - 1);
                     }
-                }
-                else
-                {
-                        Instruction actualInstruction = InstructionFactory.createInstruction(instruction, register1);
-                        instructions.add(actualInstruction);
-                        eval(instructions);
-                        recurse(instructions, registers);
-                        instructions.remove(instructions.size() - 1);
+                } else {
+                    Instruction actualInstruction = InstructionFactory.createInstruction(instruction, register1);
+                    instructions.add(actualInstruction);
+                    eval(instructions);
+                    recurse(instructions, registers);
+                    instructions.remove(instructions.size() - 1);
                 }
 
             }
@@ -94,9 +84,8 @@ public class NoUselessMovesProgramIterator
         startParameters.put("r2", -8.0);
         startParameters.put("r3", -24.0);
         startParameters.put("r4", 0.0);
-
-        NoUselessMovesProgramIterator iterator = new NoUselessMovesProgramIterator(startParameters);
-        maximumInstructions = 2;
+        BruteForceProgramIterator iterator = new BruteForceProgramIterator(startParameters);
+        maximumInstructions = 3;
         iterator.iterate();
         System.out.println(iterator.counter);
         System.out.println(iterator.positiveSolutions.size());

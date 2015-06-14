@@ -1,5 +1,7 @@
-import statements.Instruction;
-import statements.Register;
+package laboflieven;
+
+import laboflieven.statements.Instruction;
+import laboflieven.statements.Register;
 
 import java.util.ArrayList;
 import java.util.List;

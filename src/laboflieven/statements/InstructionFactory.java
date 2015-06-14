@@ -1,4 +1,4 @@
-package statements;
+package laboflieven.statements;
 
 import com.sun.javaws.exceptions.InvalidArgumentException;
 
