@@ -5,10 +5,7 @@ import laboflieven.statements.InstructionEnum;
 import laboflieven.statements.InstructionFactory;
 import laboflieven.statements.Register;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by lveeckha on 31/05/2015.
@@ -19,11 +16,12 @@ public class BruteForceProgramIterator
     public long counter = 0;
 
     public List<List<Instruction>> positiveSolutions = new ArrayList<List<Instruction>>();
-    private Map<String, Double> initialParameters;
+    private ProgramEvaluator evaluator;
 
-    public BruteForceProgramIterator(Map<String, Double> values)
+
+    public BruteForceProgramIterator(ProgramEvaluator evaluator)
     {
-        initialParameters = values;
+        this.evaluator = evaluator;
     }
     public void iterate()
     {
@@ -63,14 +61,8 @@ public class BruteForceProgramIterator
 
     private void eval(List<Instruction> instructions) {
         counter++;
-        StatementRunner runner = new StatementRunner();
-
-        List<Register> registers = Register.create4Registers();
-        Program program = new Program(instructions, Register.create4Registers());
-
-        runner.execute(program, initialParameters);
-        if (registers.get(3).value == 6){
-            positiveSolutions.add(new ArrayList<Instruction>(instructions));
+        if (evaluator.evaluate(instructions)){
+            System.out.println(instructions);
         }
         if (counter % 10000000 == 0)
         {
@@ -84,7 +76,14 @@ public class BruteForceProgramIterator
         startParameters.put("r2", -8.0);
         startParameters.put("r3", -24.0);
         startParameters.put("r4", 0.0);
-        BruteForceProgramIterator iterator = new BruteForceProgramIterator(startParameters);
+        Map<String, Double> endParameters = new HashMap<String, Double>(1);
+        endParameters.put("r4", 6.0);
+        InOutParameters parameters = new InOutParameters();
+        parameters.input = startParameters;
+        parameters.expectedOutput = endParameters;
+
+        ProgramEvaluator evaluator = new ProgramEvaluator(Collections.singletonList(parameters));
+        BruteForceProgramIterator iterator = new BruteForceProgramIterator(evaluator);
         maximumInstructions = 3;
         iterator.iterate();
         System.out.println(iterator.counter);
