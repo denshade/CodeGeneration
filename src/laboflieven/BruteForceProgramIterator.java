@@ -69,15 +69,15 @@ public class BruteForceProgramIterator
             System.out.println(counter);
         }
     }
-    public static void mainOrig(String[] args)
+    public static void main(String[] args)
     {
         Map<String, Double> startParameters = new HashMap<>(4);
-        startParameters.put("r1", 2.0);
-        startParameters.put("r2", -8.0);
-        startParameters.put("r3", -24.0);
-        startParameters.put("r4", 0.0);
+        startParameters.put("r0", 2.0);
+        startParameters.put("r1", -8.0);
+        startParameters.put("r2", -24.0);
+        startParameters.put("r3", 0.0);
         Map<String, Double> endParameters = new HashMap<>(1);
-        endParameters.put("r4", 6.0);
+        endParameters.put("r3", 6.0);
         InOutParameters parameters = new InOutParameters();
         parameters.input = startParameters;
         parameters.expectedOutput = endParameters;
@@ -90,7 +90,7 @@ public class BruteForceProgramIterator
         System.out.println(iterator.positiveSolutions.size());
     }
 
-    public static void main(String[] args)
+    public static void mainSimple(String[] args)
     {
         Map<String, Double> startParameters = new HashMap<>(4);
         startParameters.put("r0", 1.0);
