@@ -22,7 +22,10 @@ public class StatementRunner {
             }
             register.value = registerValues.get(register.name);
         }
-        program.getInstructions().forEach(laboflieven.statements.Instruction::execute);
+        for (Instruction instruction : program.getInstructions())
+        {
+            instruction.execute();
+        }
     }
 }
 /*      r1.value = 2;

@@ -17,7 +17,7 @@ public class Register
     public double value;
     public String toString()
     {
-        return name + " "+value;
+        return name;
     }
 
     public boolean equals(Register register)

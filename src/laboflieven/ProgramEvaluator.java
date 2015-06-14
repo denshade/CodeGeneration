@@ -10,7 +10,6 @@ import java.util.List;
  */
 public class ProgramEvaluator
 {
-    public List<Program> goodPrograms;
     private List<InOutParameters> conditions;
 
     /**
@@ -22,12 +21,10 @@ public class ProgramEvaluator
         this.conditions = conditions;
     }
 
-    public boolean evaluate(List<Instruction> instructions)
+    public boolean evaluate(List<Instruction> instructions, List<Register> registers)
     {
         StatementRunner runner = new StatementRunner();
-
-        List<Register> registers = Register.create4Registers();
-        Program program = new Program(instructions, Register.create4Registers());
+        Program program = new Program(instructions, registers);
 
         for(InOutParameters parameter : conditions)
         {
@@ -41,7 +38,6 @@ public class ProgramEvaluator
                 }
             }
         }
-        goodPrograms.add(program);
         return true;
     }
 }

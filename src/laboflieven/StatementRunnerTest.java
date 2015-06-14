@@ -26,7 +26,7 @@ public class StatementRunnerTest {
         instructions.add(new Add(registers.get(0), registers.get(1)));
         Program program = new Program(instructions, registers);
         runner.execute(program, results);
-        assertEquals(5.0, registers.get(1).value, 0.0);
+        assertEquals(5.0, program.getRegisters().get(1).value, 0.0);
     }
 
     @org.junit.Test
@@ -52,7 +52,7 @@ public class StatementRunnerTest {
                 program,
                 results
         );
-        assertEquals(1, registers.get(3).value, 0.0);
+        assertEquals(1, program.getRegisters().get(3).value, 0.0);
     }
 
     @org.junit.Test

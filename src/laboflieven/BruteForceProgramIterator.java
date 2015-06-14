@@ -29,7 +29,7 @@ public class BruteForceProgramIterator
         for (int i = 0; i <  registers.length; i++){
             registers[i] = new Register("r"+i);
         }
-        recurse(new ArrayList<Instruction>(), registers);
+        recurse(new ArrayList<>(), registers);
     }
 
     public void recurse(List<Instruction> instructions, Register[] registers)
@@ -43,14 +43,14 @@ public class BruteForceProgramIterator
                     for (Register register2 : registers) {
                         Instruction actualInstruction = InstructionFactory.createInstruction(instruction, register1, register2);
                         instructions.add(actualInstruction);
-                        eval(instructions);
+                        eval(instructions, Arrays.asList(registers));
                         recurse(instructions, registers);
                         instructions.remove(instructions.size() - 1);
                     }
                 } else {
                     Instruction actualInstruction = InstructionFactory.createInstruction(instruction, register1);
                     instructions.add(actualInstruction);
-                    eval(instructions);
+                    eval(instructions, Arrays.asList(registers));
                     recurse(instructions, registers);
                     instructions.remove(instructions.size() - 1);
                 }
@@ -59,9 +59,9 @@ public class BruteForceProgramIterator
         }
     }
 
-    private void eval(List<Instruction> instructions) {
+    private void eval(List<Instruction> instructions, List<Register> registers) {
         counter++;
-        if (evaluator.evaluate(instructions)){
+        if (evaluator.evaluate(instructions, registers)){
             System.out.println(instructions);
         }
         if (counter % 10000000 == 0)
@@ -69,14 +69,14 @@ public class BruteForceProgramIterator
             System.out.println(counter);
         }
     }
-    public static void main(String[] args)
+    public static void mainOrig(String[] args)
     {
-        Map<String, Double> startParameters = new HashMap<String, Double>(4);
+        Map<String, Double> startParameters = new HashMap<>(4);
         startParameters.put("r1", 2.0);
         startParameters.put("r2", -8.0);
         startParameters.put("r3", -24.0);
         startParameters.put("r4", 0.0);
-        Map<String, Double> endParameters = new HashMap<String, Double>(1);
+        Map<String, Double> endParameters = new HashMap<>(1);
         endParameters.put("r4", 6.0);
         InOutParameters parameters = new InOutParameters();
         parameters.input = startParameters;
@@ -85,6 +85,27 @@ public class BruteForceProgramIterator
         ProgramEvaluator evaluator = new ProgramEvaluator(Collections.singletonList(parameters));
         BruteForceProgramIterator iterator = new BruteForceProgramIterator(evaluator);
         maximumInstructions = 3;
+        iterator.iterate();
+        System.out.println(iterator.counter);
+        System.out.println(iterator.positiveSolutions.size());
+    }
+
+    public static void main(String[] args)
+    {
+        Map<String, Double> startParameters = new HashMap<>(4);
+        startParameters.put("r0", 1.0);
+        startParameters.put("r1", 2.0);
+        startParameters.put("r2", 3.0);
+        startParameters.put("r3", 4.0);
+        Map<String, Double> endParameters = new HashMap<String, Double>(1);
+        endParameters.put("r1", 3.0);
+        InOutParameters parameters = new InOutParameters();
+        parameters.input = startParameters;
+        parameters.expectedOutput = endParameters;
+
+        ProgramEvaluator evaluator = new ProgramEvaluator(Collections.singletonList(parameters));
+        BruteForceProgramIterator iterator = new BruteForceProgramIterator(evaluator);
+        maximumInstructions = 1;
         iterator.iterate();
         System.out.println(iterator.counter);
         System.out.println(iterator.positiveSolutions.size());

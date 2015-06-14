@@ -18,7 +18,7 @@ public abstract class DualRegisterInstruction extends Instruction {
 
     public String toString()
     {
-        return this.getClass().getSimpleName() + " " + source + " " + destination ;
+        return this.getClass().getSimpleName() + " " + source + " -> " + destination ;
     }
 
 }
