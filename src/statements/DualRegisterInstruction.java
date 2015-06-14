@@ -5,8 +5,8 @@ package statements;
  */
 public abstract class DualRegisterInstruction extends Instruction {
 
-    protected Register source;
-    protected Register destination;
+    public Register source;
+    public Register destination;
 
     public DualRegisterInstruction(Register source, Register destination)
     {

@@ -1,16 +1,23 @@
 import statements.Instruction;
 import statements.Register;
-
-import java.util.List;
+import java.util.Map;
 
 /**
  * Created by lveeckha on 31/05/2015.
  */
 public class StatementRunner {
 
-    public void execute(List<Instruction> instructions, List<Register> registers)
+    /**
+     *
+     * @param registerValues name => Value pairs.
+     */
+    public void execute(Program program, Map<String, Double> registerValues)
     {
-        for(Instruction instruction : instructions)
+        for (Register register : program.getRegisters())
+        {
+            register.value = registerValues.get(register.name);
+        }
+        for(Instruction instruction : program.getInstructions())
         {
             instruction.execute();
         }
