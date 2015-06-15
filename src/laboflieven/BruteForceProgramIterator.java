@@ -62,15 +62,30 @@ public class BruteForceProgramIterator
     private void eval(List<Instruction> instructions, List<Register> registers) {
         counter++;
         if (evaluator.evaluate(instructions, registers)){
-            System.out.println(instructions);
+            //System.out.println(instructions);
+            positiveSolutions.add(new ArrayList<>(instructions));
         }
         if (counter % 10000000 == 0)
         {
-            System.out.println(counter);
+            System.out.println(counter + " " + positiveSolutions.size());
         }
     }
     public static void main(String[] args)
     {
+        InOutParameters parameters = getInOutParameters1();
+        InOutParameters parameters2 = getInOutParameters2();
+        List<InOutParameters> collection = new ArrayList<>();
+        collection.add(parameters);
+        collection.add(parameters2);
+        ProgramEvaluator evaluator = new ProgramEvaluator(collection);
+        BruteForceProgramIterator iterator = new BruteForceProgramIterator(evaluator);
+        maximumInstructions = 5;
+        iterator.iterate();
+        System.out.println(iterator.counter);
+        System.out.println(iterator.positiveSolutions.size());
+    }
+
+    private static InOutParameters getInOutParameters1() {
         Map<String, Double> startParameters = new HashMap<>(4);
         startParameters.put("r0", 2.0);
         startParameters.put("r1", -8.0);
@@ -81,15 +96,22 @@ public class BruteForceProgramIterator
         InOutParameters parameters = new InOutParameters();
         parameters.input = startParameters;
         parameters.expectedOutput = endParameters;
-
-        ProgramEvaluator evaluator = new ProgramEvaluator(Collections.singletonList(parameters));
-        BruteForceProgramIterator iterator = new BruteForceProgramIterator(evaluator);
-        maximumInstructions = 3;
-        iterator.iterate();
-        System.out.println(iterator.counter);
-        System.out.println(iterator.positiveSolutions.size());
+        return parameters;
     }
 
+    private static InOutParameters getInOutParameters2() {
+        Map<String, Double> startParameters = new HashMap<>(4);
+        startParameters.put("r0", 1.0);
+        startParameters.put("r1", 2.0);
+        startParameters.put("r2", 1.0);
+        startParameters.put("r3", 0.0);
+        Map<String, Double> endParameters = new HashMap<>(1);
+        endParameters.put("r3", -1.0);
+        InOutParameters parameters = new InOutParameters();
+        parameters.input = startParameters;
+        parameters.expectedOutput = endParameters;
+        return parameters;
+    }
     public static void mainSimple(String[] args)
     {
         Map<String, Double> startParameters = new HashMap<>(4);
