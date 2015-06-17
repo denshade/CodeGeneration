@@ -34,7 +34,6 @@ public class StatementRunnerTest {
         results.put("r3", c);
         results.put("r4", d);
         return results;
-
     }
     @org.junit.Test
     public void testExecuteQuadrant() throws Exception {

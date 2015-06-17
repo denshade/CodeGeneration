@@ -13,7 +13,6 @@ public class ProgramEvaluator
     private List<InOutParameters> conditions;
 
     /**
-     * Todo Make a type out of input parameters
      * @param conditions Conditions that define the input parameters & the expected outcome.
      */
     public ProgramEvaluator(List<InOutParameters> conditions)
