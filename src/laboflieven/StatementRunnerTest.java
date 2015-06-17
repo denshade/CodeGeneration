@@ -14,11 +14,7 @@ public class StatementRunnerTest {
     @org.junit.Test
     public void testExecute() throws Exception {
         List<Register> registers = Register.create4Registers();
-        Map<String, Double> results = new HashMap<String, Double>();
-        results.put("r1", 2.0);
-        results.put("r2", 3.0);
-        results.put("r3", 0.0);
-        results.put("r4", 0.0);
+        Map<String, Double> results = getMap(2.0, 3.0, 0.0, 0.0);
 
         List<Instruction> instructions = new ArrayList<Instruction>();
 
@@ -29,14 +25,21 @@ public class StatementRunnerTest {
         assertEquals(5.0, program.getRegisters().get(1).value, 0.0);
     }
 
+
+    private static Map<String, Double> getMap(double a,double b,double c,double d)
+    {
+        Map<String, Double> results = new HashMap<String, Double>();
+        results.put("r1", a);
+        results.put("r2", b);
+        results.put("r3", c);
+        results.put("r4", d);
+        return results;
+
+    }
     @org.junit.Test
     public void testExecuteQuadrant() throws Exception {
         List<Register> registers = Register.create4Registers();
-        Map<String, Double> results = new HashMap<String, Double>();
-        results.put("r1", 1.0);
-        results.put("r2", 2.0);
-        results.put("r3", -3.0);
-        results.put("r4", 0.0);
+        Map<String, Double> results = getMap(1.0,2.0,-3.0,0.0);
 
         StatementRunner runner = new StatementRunner();
 
@@ -59,12 +62,7 @@ public class StatementRunnerTest {
     public void testExecuteQuadrantOther() throws Exception {
         List<Register> registers = Register.create4Registers();
 
-        Map<String, Double> results = new HashMap<String, Double>();
-        results.put("r1", 2.0);
-        results.put("r2", -8.0);
-        results.put("r3", -24.0);
-        results.put("r4", 0.0);
-
+        Map<String, Double> results = getMap(2.0,-8.0,-24.0,0.0);
 
         StatementRunner runner = new StatementRunner();
 
