@@ -36,6 +36,7 @@ public class ProgramEvaluator
                     return false;
                 }
             }
+            //Should also check that expected values are actually compared. eg. R3 doesn't exist => OK.(wrong)
         }
         return true;
     }

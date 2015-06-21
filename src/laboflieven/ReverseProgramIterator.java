@@ -18,15 +18,17 @@ public class ReverseProgramIterator
     public List<List<Instruction>> positiveSolutions = new ArrayList<>();
     private ProgramEvaluator evaluator;
     private Register[] registers;
+    private int numberOfRegisters;
 
 
     public ReverseProgramIterator(ProgramEvaluator evaluator)
     {
         this.evaluator = evaluator;
     }
-    public void iterate()
+    public void iterate(int numberOfRegisters)
     {
-        registers = new Register[4];
+        this.numberOfRegisters = numberOfRegisters;
+        registers = new Register[numberOfRegisters];
         for (int i = 0; i <  registers.length; i++){
             registers[i] = new Register("r"+i);
         }
@@ -39,6 +41,17 @@ public class ReverseProgramIterator
     {
         if (instructions.size() >= maximumInstructions)
             return;
+
+        /*Random r = new Random();
+        if (r.nextInt(1000)==0){
+            System.out.println(instructions);
+        }*/
+        int unusedRegisters = numberOfRegisters - (availableRegisters.size() + 1); //not entirely correct, register1 can be part of available.
+        int instructionsLeft = maximumInstructions - instructions.size();
+        if (unusedRegisters > instructionsLeft)
+        {
+            return;
+        }
         for (InstructionEnum instruction : InstructionEnum.values())
         {
             if (instruction.isDualRegister()) {
@@ -48,6 +61,7 @@ public class ReverseProgramIterator
                         if (instruction == InstructionEnum.Move && register1.name.equals(register2.name)) {
                             continue;
                         }
+
                         Instruction actualInstruction = InstructionFactory.createInstruction(instruction, register1, register2);
                         instructions.add(0, actualInstruction);
                         eval(instructions, Arrays.asList(registers));
@@ -97,7 +111,7 @@ public class ReverseProgramIterator
         collection.add(createParameter(1.0, 2, -15, 0.0, 3));
         ProgramEvaluator evaluator = new ProgramEvaluator(collection);
         ReverseProgramIterator iterator = new ReverseProgramIterator(evaluator);
-        iterator.iterate();
+        iterator.iterate(4);
         System.out.println(iterator.counter);
         System.out.println(iterator.positiveSolutions.size());
     }
@@ -123,6 +137,19 @@ public class ReverseProgramIterator
         return parameters;
     }
 
+    private static InOutParameters createParameterSimple(double a, double b, double result)
+    {
+        Map<String, Double> startParameters = new HashMap<>();
+        startParameters.put("r0", a);
+        startParameters.put("r1", b);
+        Map<String, Double> endParameters = new HashMap<>(1);
+        endParameters.put("r1", result);
+        InOutParameters parameters = new InOutParameters();
+        parameters.input = startParameters;
+        parameters.expectedOutput = endParameters;
+        return parameters;
+    }
+
     public static void main(String[] args)
     {
         boolean easy = false;
@@ -134,11 +161,11 @@ public class ReverseProgramIterator
 
     public static void mainEasy()
     {
-        ProgramEvaluator evaluator = new ProgramEvaluator(Collections.singletonList(createParameter(1,2,3,4,3)));
+        ProgramEvaluator evaluator = new ProgramEvaluator(Collections.singletonList(createParameterSimple(1,2,3)));
         ReverseProgramIterator iterator = new ReverseProgramIterator(evaluator);
-        iterator.iterate();
+        iterator.iterate(2);
         System.out.println(iterator.counter);
-        //System.out.println(iterator.positiveSolutions);
+        System.out.println(iterator.positiveSolutions);
         System.out.println(iterator.positiveSolutions.size());
     }
 }
