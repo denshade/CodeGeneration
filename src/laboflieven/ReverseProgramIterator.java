@@ -10,53 +10,68 @@ import java.util.*;
 /**
  * Created by lveeckha on 31/05/2015.
  */
-public class BruteForceProgramIterator
+public class ReverseProgramIterator
 {
     public static int maximumInstructions = 12;
     public long counter = 0;
 
     public List<List<Instruction>> positiveSolutions = new ArrayList<>();
     private ProgramEvaluator evaluator;
+    private Register[] registers;
 
 
-    public BruteForceProgramIterator(ProgramEvaluator evaluator)
+    public ReverseProgramIterator(ProgramEvaluator evaluator)
     {
         this.evaluator = evaluator;
     }
     public void iterate()
     {
-        Register[] registers = new Register[4];
+        registers = new Register[4];
         for (int i = 0; i <  registers.length; i++){
             registers[i] = new Register("r"+i);
         }
-        recurse(new ArrayList<>(), registers);
+        Set<Register> availableRegisters = new HashSet<>();
+        availableRegisters.add(registers[registers.length - 1]);// Add the result register.
+        recurse(new ArrayList<>(), availableRegisters);
     }
 
-    public void recurse(List<Instruction> instructions, Register[] registers)
+    public void recurse(List<Instruction> instructions, Set<Register> availableRegisters)
     {
         if (instructions.size() >= maximumInstructions)
             return;
         for (InstructionEnum instruction : InstructionEnum.values())
         {
-            for (Register register1 : registers) {
-                if (instruction.isDualRegister()) {
-                    for (Register register2 : registers) {
-                        if (instruction == InstructionEnum.Move && register1.name.equals(register2.name))
-                        {
+            if (instruction.isDualRegister()) {
+                for (Register register1 : registers) {
+
+                    for (Register register2 : availableRegisters) {
+                        if (instruction == InstructionEnum.Move && register1.name.equals(register2.name)) {
                             continue;
                         }
                         Instruction actualInstruction = InstructionFactory.createInstruction(instruction, register1, register2);
-                        instructions.add(actualInstruction);
+                        instructions.add(0, actualInstruction);
                         eval(instructions, Arrays.asList(registers));
-                        recurse(instructions, registers);
-                        instructions.remove(instructions.size() - 1);
+                        Set<Register> newlyAvailableRegisters = new HashSet<>(availableRegisters);
+                        newlyAvailableRegisters.add(register1);
+                        /*
+                        Why not just add the newly added register? And be done with create sets every iteration?
+                        You can't properly cleanup. You'd have to go over all instructions and check the available registers.
+                         */
+
+                        recurse(instructions, newlyAvailableRegisters);
+                        instructions.remove(0);
                     }
-                } else {
+                }
+            } else {
+                for (Register register1 : availableRegisters) {
                     Instruction actualInstruction = InstructionFactory.createInstruction(instruction, register1);
-                    instructions.add(actualInstruction);
+                    instructions.add(0, actualInstruction);
                     eval(instructions, Arrays.asList(registers));
-                    recurse(instructions, registers);
-                    instructions.remove(instructions.size() - 1);
+                    /**
+                     * Available registers remains the same. No new registers are used.
+                     */
+                    recurse(instructions, availableRegisters);
+                    instructions.remove(0);
                 }
 
             }
@@ -73,7 +88,7 @@ public class BruteForceProgramIterator
             System.out.println(counter + " " + positiveSolutions.size());
         }
     }
-    public static void mainHard(String[] args)
+    public static void mainHard()
     {
         List<InOutParameters> collection = new ArrayList<>();
         collection.add(createParameter(2.0,-8.0,-24.0,0.0, 6.0));
@@ -81,8 +96,7 @@ public class BruteForceProgramIterator
         collection.add(createParameter(1.0, -1, -56, 0.0, 8));
         collection.add(createParameter(1.0, 2, -15, 0.0, 3));
         ProgramEvaluator evaluator = new ProgramEvaluator(collection);
-        BruteForceProgramIterator iterator = new BruteForceProgramIterator(evaluator);
-        maximumInstructions = 5;
+        ReverseProgramIterator iterator = new ReverseProgramIterator(evaluator);
         iterator.iterate();
         System.out.println(iterator.counter);
         System.out.println(iterator.positiveSolutions.size());
@@ -111,11 +125,20 @@ public class BruteForceProgramIterator
 
     public static void main(String[] args)
     {
+        boolean easy = false;
+        maximumInstructions = 4;
+
+        if (easy)mainEasy();
+                else mainHard();
+    }
+
+    public static void mainEasy()
+    {
         ProgramEvaluator evaluator = new ProgramEvaluator(Collections.singletonList(createParameter(1,2,3,4,3)));
-        BruteForceProgramIterator iterator = new BruteForceProgramIterator(evaluator);
-        maximumInstructions = 1;
+        ReverseProgramIterator iterator = new ReverseProgramIterator(evaluator);
         iterator.iterate();
         System.out.println(iterator.counter);
+        //System.out.println(iterator.positiveSolutions);
         System.out.println(iterator.positiveSolutions.size());
     }
 }
