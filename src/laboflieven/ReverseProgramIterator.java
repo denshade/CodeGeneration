@@ -94,7 +94,8 @@ public class ReverseProgramIterator
 
     private void eval(List<Instruction> instructions, List<Register> registers) {
         counter++;
-        if (evaluator.evaluate(instructions, registers)){
+
+        if (instructions.size() == maximumInstructions && evaluator.evaluate(instructions, registers)){
             positiveSolutions.add(new ArrayList<>(instructions));
         }
         if (counter % 10000000 == 0)
@@ -104,6 +105,7 @@ public class ReverseProgramIterator
     }
     public static void mainHard()
     {
+        long time = System.currentTimeMillis();
         List<InOutParameters> collection = new ArrayList<>();
         collection.add(createParameter(2.0,-8.0,-24.0,0.0, 6.0));
         collection.add(createParameter(1.0, 2.0, 1.0, 0.0, -1.0));
@@ -114,6 +116,7 @@ public class ReverseProgramIterator
         iterator.iterate(4);
         System.out.println(iterator.counter);
         System.out.println(iterator.positiveSolutions.size());
+        System.out.println((System.currentTimeMillis() - time)  + " ms");
     }
 
     private static Map<String, Double> getMap(double a,double b,double c,double d)
@@ -153,7 +156,7 @@ public class ReverseProgramIterator
     public static void main(String[] args)
     {
         boolean easy = false;
-        maximumInstructions = 4;
+        maximumInstructions = 5;
 
         if (easy)mainEasy();
                 else mainHard();

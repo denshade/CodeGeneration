@@ -57,6 +57,18 @@ public class StatementRunnerTest {
         assertEquals(1, program.getRegisters().get(3).value, 0.0);
     }
 
+    @org.junit.Test(expected=IllegalArgumentException.class)
+    public void testExecuteRunnerThrows() {
+        StatementRunner runner = new StatementRunner();
+        List<Instruction> instructions = new ArrayList<>();
+        Register register1 = new Register("R1");
+        instructions.add(new Sqrt(register1));
+        List<Register> registers = new ArrayList<>();
+        registers.add(register1);
+        Program program = new Program(instructions, registers);
+        Map<String, Double> results = new HashMap<>();
+        runner.execute(program, results);
+    }
     @org.junit.Test
     public void testExecuteQuadrantOther() throws Exception {
         List<Register> registers = Register.create4Registers();
