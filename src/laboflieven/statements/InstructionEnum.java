@@ -10,7 +10,6 @@ public enum InstructionEnum
     public boolean isDualRegister()
     {
         if (this.equals(Invert)) return false;
-        if (this.equals(Sqrt)) return false;
-        return true;
+        return !this.equals(Sqrt);
     }
 }

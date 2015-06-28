@@ -12,7 +12,7 @@ import java.util.*;
  */
 public class ReverseProgramIterator
 {
-    public static int maximumInstructions = 12;
+    public int maximumInstructions = 12;
     public long counter = 0;
 
     public List<List<Instruction>> positiveSolutions = new ArrayList<>();
@@ -25,9 +25,10 @@ public class ReverseProgramIterator
     {
         this.evaluator = evaluator;
     }
-    public void iterate(int numberOfRegisters)
+    public void iterate(int numberOfRegisters, int maximumInstructions)
     {
         this.numberOfRegisters = numberOfRegisters;
+        this.maximumInstructions = maximumInstructions;
         registers = new Register[numberOfRegisters];
         for (int i = 0; i <  registers.length; i++){
             registers[i] = new Register("r"+i);
@@ -98,77 +99,7 @@ public class ReverseProgramIterator
         if (instructions.size() == maximumInstructions && evaluator.evaluate(instructions, registers)){
             positiveSolutions.add(new ArrayList<>(instructions));
         }
-        if (counter % 10000000 == 0)
-        {
-            System.out.println(counter + " " + positiveSolutions.size());
-        }
-    }
-    public static void mainHard()
-    {
-        long time = System.currentTimeMillis();
-        List<InOutParameters> collection = new ArrayList<>();
-        collection.add(createParameter(2.0,-8.0,-24.0,0.0, 6.0));
-        collection.add(createParameter(1.0, 2.0, 1.0, 0.0, -1.0));
-        collection.add(createParameter(1.0, -1, -56, 0.0, 8));
-        collection.add(createParameter(1.0, 2, -15, 0.0, 3));
-        ProgramEvaluator evaluator = new ProgramEvaluator(collection);
-        ReverseProgramIterator iterator = new ReverseProgramIterator(evaluator);
-        iterator.iterate(4);
-        System.out.println(iterator.counter);
-        System.out.println(iterator.positiveSolutions.size());
-        System.out.println((System.currentTimeMillis() - time)  + " ms");
+
     }
 
-    private static Map<String, Double> getMap(double a,double b,double c,double d)
-    {
-        Map<String, Double> results = new HashMap<>();
-        results.put("r0", a);
-        results.put("r1", b);
-        results.put("r2", c);
-        results.put("r3", d);
-        return results;
-    }
-
-    private static InOutParameters createParameter(double a, double b, double c, double d, double result)
-    {
-        Map<String, Double> startParameters  = getMap(a,b,c,d);
-        Map<String, Double> endParameters = new HashMap<>(1);
-        endParameters.put("r3", result);
-        InOutParameters parameters = new InOutParameters();
-        parameters.input = startParameters;
-        parameters.expectedOutput = endParameters;
-        return parameters;
-    }
-
-    private static InOutParameters createParameterSimple(double a, double b, double result)
-    {
-        Map<String, Double> startParameters = new HashMap<>();
-        startParameters.put("r0", a);
-        startParameters.put("r1", b);
-        Map<String, Double> endParameters = new HashMap<>(1);
-        endParameters.put("r1", result);
-        InOutParameters parameters = new InOutParameters();
-        parameters.input = startParameters;
-        parameters.expectedOutput = endParameters;
-        return parameters;
-    }
-
-    public static void main(String[] args)
-    {
-        boolean easy = false;
-        maximumInstructions = 5;
-
-        if (easy)mainEasy();
-                else mainHard();
-    }
-
-    public static void mainEasy()
-    {
-        ProgramEvaluator evaluator = new ProgramEvaluator(Collections.singletonList(createParameterSimple(1,2,3)));
-        ReverseProgramIterator iterator = new ReverseProgramIterator(evaluator);
-        iterator.iterate(2);
-        System.out.println(iterator.counter);
-        System.out.println(iterator.positiveSolutions);
-        System.out.println(iterator.positiveSolutions.size());
-    }
 }

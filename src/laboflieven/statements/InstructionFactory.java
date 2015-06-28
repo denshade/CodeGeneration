@@ -24,7 +24,7 @@ public class InstructionFactory
                 instruction = new  Mul(register1, register2);
                 break;
             case Sub:
-                instruction = new  Mul(register1, register2);
+                instruction = new  Sub(register1, register2);
                 break;
             default:
                 throw new IllegalArgumentException("invalid instruction " + instructionEnum.toString());
