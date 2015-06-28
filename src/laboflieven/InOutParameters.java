@@ -1,5 +1,6 @@
 package laboflieven;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -7,6 +8,11 @@ import java.util.Map;
  */
 public class InOutParameters
 {
+    public InOutParameters() {
+        input = new HashMap<>();
+        expectedOutput = new HashMap<>();
+    }
+
     public Map<String, Double> input;
     public Map<String, Double> expectedOutput;
 
