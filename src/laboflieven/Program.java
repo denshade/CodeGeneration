@@ -26,4 +26,9 @@ public class Program
     public List<Instruction> getInstructions() {
         return instructions;
     }
+
+    public String toString()
+    {
+        return instructions.toString();
+    }
 }
