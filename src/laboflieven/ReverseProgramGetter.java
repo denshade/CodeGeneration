@@ -11,85 +11,79 @@ import java.util.*;
  * Created by lveeckha on 31/05/2015.
  */
 public class ReverseProgramGetter {
-    public int maximumInstructions = 12;
-    private int instructionCount;
+    private int maximumInstructions = 12;
     public long counter = 0;
-
-    public List<List<Instruction>> positiveSolutions = new ArrayList<>();
-
-    private Register[] registers;
-    private int numberOfRegisters;
+    private int programCount;
 
 
-    public ReverseProgramGetter() {
-
+    public ReverseProgramGetter(int programCount)
+    {
+        this.programCount = programCount;
     }
 
-    public Program iterate(int numberOfRegisters, int maximumInstructions, int instructionCount) {
-        this.numberOfRegisters = numberOfRegisters;
+    public Program iterate(int nrRegisters, int maximumInstructions)
+    {
         this.maximumInstructions = maximumInstructions;
-        this.instructionCount = instructionCount;
-        registers = new Register[numberOfRegisters];
-        for (int i = 0; i < registers.length; i++) {
-            registers[i] = new Register("r" + i);
+        Register[] registers = new Register[nrRegisters];
+        for (int i = 0; i <  registers.length; i++){
+            registers[i] = new Register("r"+i);
         }
-        Set<Register> availableRegisters = new HashSet<>();
-        availableRegisters.add(registers[registers.length - 1]);// Add the result register.
-        return recurse(new ArrayList<>(), availableRegisters);
+        return recurse(new ArrayList<>(), registers);
     }
 
-    public Program recurse(List<Instruction> instructions, Set<Register> availableRegisters) {
+    public Program recurse(List<Instruction> instructions, Register[] registers)
+    {
         if (instructions.size() >= maximumInstructions)
             return null;
-
-        /*Random r = new Random();
-        if (r.nextInt(1000)==0){
-            System.out.println(instructions);
-        }*/
-        int unusedRegisters = numberOfRegisters - (availableRegisters.size() + 1); //not entirely correct, register1 can be part of available.
-        int instructionsLeft = maximumInstructions - instructions.size();
-        if (unusedRegisters > instructionsLeft) {
-            return null;
+        List<Register> registerList = new ArrayList<>();
+        for(Register r : registers)
+        {
+            registerList.add(r);
         }
-        for (InstructionEnum instruction : InstructionEnum.values()) {
-            if (instruction.isDualRegister()) {
-                for (Register register1 : registers) {
-
-                    for (Register register2 : availableRegisters) {
-                        if (instruction == InstructionEnum.Move && register1.name.equals(register2.name)) {
+        for (InstructionEnum instruction : InstructionEnum.values())
+        {
+            for (int register1Index = 0; register1Index < registers.length; register1Index++)
+            {
+                Register register1 = registers[register1Index];
+                if (instruction.isDualRegister())
+                {
+                    for (int register2Index = 0; register2Index < registers.length; register2Index++)
+                    {
+                        if (instruction == InstructionEnum.Move && register1Index == register2Index)
+                        {
                             continue;
                         }
-
+                        Register register2 = registers[register2Index];
                         Instruction actualInstruction = InstructionFactory.createInstruction(instruction, register1, register2);
-                        instructions.add(0, actualInstruction);
-                        Program program = eval(instructions, Arrays.asList(registers));
-                        if (program != null)
-                            return program;
-                        Set<Register> newlyAvailableRegisters = new HashSet<>(availableRegisters);
-                        newlyAvailableRegisters.add(register1);
-                        /*
-                        Why not just add the newly added register? And be done with create sets every iteration?
-                        You can't properly cleanup. You'd have to go over all instructions and check the available registers.
-                         */
-
-                        program = recurse(instructions, newlyAvailableRegisters);
-                        if (program != null)
-                            return program;
-                        instructions.remove(0);
+                        instructions.add(actualInstruction);
+                        Program sol = eval(instructions, registerList);
+                        if (sol != null)
+                        {
+                            return sol;
+                        }
+                        sol = recurse(instructions, registers);
+                        if (sol != null)
+                        {
+                            return sol;
+                        }
+                        instructions.remove(instructions.size() - 1);
                     }
                 }
-            } else {
-                for (Register register1 : availableRegisters) {
+                else
+                {
                     Instruction actualInstruction = InstructionFactory.createInstruction(instruction, register1);
-                    instructions.add(0, actualInstruction);
-                    eval(instructions, Arrays.asList(registers));
-                    /**
-                     * Available registers remains the same. No new registers are used.
-                     */
-                    Program program = recurse(instructions, availableRegisters);
-                    if (program != null)
-                        return program;
-                    instructions.remove(0);
+                    instructions.add(actualInstruction);
+                    Program sol = eval(instructions, registerList);
+                    if (sol != null)
+                    {
+                        return sol;
+                    }
+                    sol = recurse(instructions, registers);
+                    if (sol != null)
+                    {
+                        return sol;
+                    }
+                    instructions.remove(instructions.size() - 1);
                 }
 
             }
@@ -99,15 +93,21 @@ public class ReverseProgramGetter {
 
     private Program eval(List<Instruction> instructions, List<Register> registers) {
         counter++;
-        if (counter == instructionCount) {
-            return new Program(instructions, registers);
+        //StatementRunner runner = new StatementRunner();
+
+        Program program = new Program(instructions, registers);
+
+        //runner.execute(program, initialParameters);
+        if (counter >= programCount) {
+            return program;
         }
         return null;
-    }
 
+    }
     public static void main(String[] args)
     {
-        ReverseProgramGetter getter = new ReverseProgramGetter();
-        System.out.println(getter.iterate(2,2,2));
+        ReverseProgramGetter getter = new ReverseProgramGetter(55550);
+        System.out.println(getter.iterate(3,3));
+
     }
 }
