@@ -9,9 +9,6 @@ public abstract class Instruction
     {}
     public abstract void execute();
 
-    public String toString()
-    {
-        return this.getClass().getSimpleName();
-    }
+    public abstract String toString();
 
 }

@@ -20,11 +20,6 @@ public class Register
         return name;
     }
 
-    public boolean equals(Register register)
-    {
-        return register.name.equals(name);
-    }
-
     public static List<Register> create4Registers()
     {
         Register r1 = new Register("r1");//a

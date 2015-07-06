@@ -104,10 +104,4 @@ public class ReverseProgramGetter {
         return null;
 
     }
-    public static void main(String[] args)
-    {
-        ReverseProgramGetter getter = new ReverseProgramGetter(55550);
-        System.out.println(getter.iterate(3,3));
-
-    }
 }
