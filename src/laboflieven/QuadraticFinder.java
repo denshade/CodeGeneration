@@ -1,15 +1,25 @@
 package laboflieven;
 
-import junit.framework.TestCase;
-
 import java.util.*;
 
 /**
- * Created by Lieven on 28/06/2015.
+ * Created by Lieven on 8/07/2015.
  */
-public class ReverseProgramIteratorTest extends TestCase {
+public class QuadraticFinder {
 
-    public void testMainHard() throws Exception {
+    /**
+     * //No solutions for 2 -> 5.
+     *
+     * @param args
+     */
+    public static void main(String[] args)
+    {
+        if (args.length != 1)
+        {
+            System.err.println("Usage : QuadraticFinder <nrSolutions>");
+            System.exit(1);
+        }
+        int nrSolutions = Integer.parseInt(args[0]);
         List<InOutParameters> collection = new ArrayList<>();
         collection.add(createParameter(2.0,-8.0,-24.0,0.0, 6.0));
         collection.add(createParameter(1.0, 2.0, 1.0, 0.0, -1.0));
@@ -17,9 +27,9 @@ public class ReverseProgramIteratorTest extends TestCase {
         collection.add(createParameter(1.0, 2, -15, 0.0, 3));
         ProgramEvaluator evaluator = new ProgramEvaluator(collection);
         ReverseProgramIterator iterator = new ReverseProgramIterator(evaluator);
-        iterator.iterate(4, 2);
-
-        assertEquals(0, iterator.positiveSolutions.size());
+        iterator.iterate(4, nrSolutions);
+        //No solutions for 2 -> 5.
+        System.out.println( iterator.positiveSolutions.size());
         //34242100000
     }
 
@@ -44,12 +54,6 @@ public class ReverseProgramIteratorTest extends TestCase {
         return results;
     }
 
-    public void testMainEasy() throws Exception {
-        ProgramEvaluator evaluator = new ProgramEvaluator(Collections.singletonList(createParameterSimple(1, 2, 3)));
-        ReverseProgramIterator iterator = new ReverseProgramIterator(evaluator);
-        iterator.iterate(2, 1);
-        assertEquals(1, iterator.positiveSolutions.size());
-    }
 
     private static InOutParameters createParameterSimple(double a, double b, double result)
     {

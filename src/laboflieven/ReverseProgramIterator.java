@@ -4,6 +4,7 @@ import laboflieven.statements.Instruction;
 import laboflieven.statements.InstructionEnum;
 import laboflieven.statements.InstructionFactory;
 import laboflieven.statements.Register;
+import org.junit.runner.notification.StoppedByUserException;
 
 import java.util.*;
 
@@ -95,9 +96,14 @@ public class ReverseProgramIterator
 
     private void eval(List<Instruction> instructions, List<Register> registers) {
         counter++;
-
+        if (counter % 1000000 == 0)
+        {
+            System.out.println(counter + " " + instructions);
+        }                                   //11237000000
         if (instructions.size() == maximumInstructions && evaluator.evaluate(instructions, registers)){
             positiveSolutions.add(new ArrayList<>(instructions));
+            System.out.println("Found a program! " + positiveSolutions);
+            throw new StoppedByUserException();
         }
 
     }
