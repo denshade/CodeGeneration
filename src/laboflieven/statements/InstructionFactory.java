@@ -41,6 +41,12 @@ public class InstructionFactory
             case Sqrt:
                 instruction = new Sqrt(register1);
                 break;
+            case Sin:
+                instruction = new Sin(register1);
+                break;
+            case Cos:
+                instruction = new Cos(register1);
+                break;
             default:
                 throw new IllegalArgumentException("invalid instruction " + instructionEnum.toString());
         }

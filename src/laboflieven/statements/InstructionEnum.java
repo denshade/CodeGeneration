@@ -5,11 +5,11 @@ package laboflieven.statements;
  */
 public enum InstructionEnum
 {
-    Add, Div, Invert, Move, Mul, Sqrt, Sub;
+    Add, Div, Invert, Move, Mul, Sqrt, Sub, Sin, Cos;
 
     public boolean isDualRegister()
     {
-        if (this.equals(Invert)) return false;
+        if (this.equals(Invert) || this.equals(Sin) || this.equals(Cos)) return false;
         return !this.equals(Sqrt);
     }
 }

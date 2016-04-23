@@ -17,12 +17,21 @@ public class BruteForceProgramIterator
 
     public List<List<Instruction>> positiveSolutions = new ArrayList<>();
     private ProgramEvaluator evaluator;
+    private InstructionEnum[] instructionEnums;
 
 
     public BruteForceProgramIterator(ProgramEvaluator evaluator)
     {
         this.evaluator = evaluator;
+        instructionEnums = InstructionEnum.values();
     }
+
+    public BruteForceProgramIterator(ProgramEvaluator evaluator, InstructionEnum[] instructions)
+    {
+        this.evaluator = evaluator;
+        instructionEnums = instructions;
+    }
+
     public void iterate(final int nrOfRegisters, int maximumInstructions)
     {
         this.maximumInstructions = maximumInstructions;
@@ -37,7 +46,8 @@ public class BruteForceProgramIterator
     {
         if (instructions.size() >= maximumInstructions)
             return;
-        for (InstructionEnum instruction : InstructionEnum.values())
+        instructionEnums = InstructionEnum.values();
+        for (InstructionEnum instruction : instructionEnums)
         {
             for (Register register1 : registers) {
                 if (instruction.isDualRegister()) {
@@ -67,6 +77,7 @@ public class BruteForceProgramIterator
     private void eval(List<Instruction> instructions, List<Register> registers) {
         counter++;
         if (evaluator.evaluate(instructions, registers)){
+            System.out.println("Found a program: " + instructions);
             positiveSolutions.add(new ArrayList<>(instructions));
         }
     }

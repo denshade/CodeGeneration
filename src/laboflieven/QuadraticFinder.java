@@ -16,7 +16,7 @@ public class QuadraticFinder {
     {
         if (args.length != 1)
         {
-            System.err.println("Usage : QuadraticFinder <nrSolutions>");
+            System.err.println("Usage : QuadraticFinder <maxInstructions>");
             System.exit(1);
         }
         int nrSolutions = Integer.parseInt(args[0]);
@@ -26,10 +26,10 @@ public class QuadraticFinder {
         collection.add(createParameter(1.0, -1, -56, 0.0, 8));
         collection.add(createParameter(1.0, 2, -15, 0.0, 3));
         ProgramEvaluator evaluator = new ProgramEvaluator(collection);
-        ReverseProgramIterator iterator = new ReverseProgramIterator(evaluator);
+        //ReverseProgramIterator iterator = new ReverseProgramIterator(evaluator);
+        RandomProgramIterator iterator = new RandomProgramIterator(evaluator);
         iterator.iterate(4, nrSolutions);
         //No solutions for 2 -> 5.
-        System.out.println( iterator.positiveSolutions.size());
         //34242100000
     }
 

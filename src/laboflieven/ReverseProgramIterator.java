@@ -4,7 +4,6 @@ import laboflieven.statements.Instruction;
 import laboflieven.statements.InstructionEnum;
 import laboflieven.statements.InstructionFactory;
 import laboflieven.statements.Register;
-import org.junit.runner.notification.StoppedByUserException;
 
 import java.util.*;
 
