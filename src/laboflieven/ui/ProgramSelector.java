@@ -24,7 +24,7 @@ public class ProgramSelector
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         JLabel registers = new JLabel("#registers");
-        JSlider registerCountSlider = new JSlider(1, 10);
+        final JSlider registerCountSlider = new JSlider(1, 10);
 
         JLabel instructions = new JLabel("Allowed instructions");
         JList allowedInstructions = new JList(new String[] {
@@ -32,7 +32,7 @@ public class ProgramSelector
         });
 
         JLabel instructionCount = new JLabel("instructionCount");
-        JSlider instructionCountSlider = new JSlider(1, 10);
+        final JSlider instructionCountSlider = new JSlider(1, 10);
 
         instructionCountSlider.setMajorTickSpacing(3);
         instructionCountSlider.setMinorTickSpacing(1);
@@ -44,10 +44,10 @@ public class ProgramSelector
         registerCountSlider.setPaintLabels(true);
         registerCountSlider.setPaintTicks(true);
         JLabel strategies = new JLabel("Strategy");
-        JComboBox<String> combo = new JComboBox<>(new String[] {BRUTE_FORCE, REVERSE_SOLUTION_SEARCH, RANDOM});
+        final JComboBox<String> combo = new JComboBox<>(new String[] {BRUTE_FORCE, REVERSE_SOLUTION_SEARCH, RANDOM});
 
         JLabel boundaries = new JLabel("boundaries. value1,value2,value3,...;solution in register0");
-        JTextArea boundariesTextArea = new JTextArea();
+        final JTextArea boundariesTextArea = new JTextArea();
 
         JButton button = new JButton("start");
         button.addActionListener(new ActionListener() {
