@@ -53,27 +53,32 @@ public class ProgramSelector
         button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                java.util.List<InOutParameters> collection = new ArrayList<>();
-                collection.add(createParameter(2.0, 2.0));
-                collection.add(createParameter(-15.0, 15.0));
-                collection.add(createParameter(0.0, 0.0));
+                TextToCriteria converter = new TextToCriteria();
+                java.util.List<InOutParameters> collection;
+                try {
+                    collection = converter.parseMultipleStrings(boundariesTextArea.getText());
+                } catch (Exception e1) {
+                    JOptionPane.showMessageDialog(null, e1.getMessage());
+                    return;
+                }
+
                 ProgramEvaluator evaluator = new ProgramEvaluator(collection);
                 System.out.println("Start");
                 long start = System.currentTimeMillis();
                 if (combo.getSelectedItem().equals(BRUTE_FORCE))
                 {
                     BruteForceProgramIterator iterator = new BruteForceProgramIterator(evaluator);
-                    iterator.iterate(1, instructionCountSlider.getValue());
+                    iterator.iterate(registerCountSlider.getValue(), instructionCountSlider.getValue());
                 }
                 if (combo.getSelectedItem().equals(REVERSE_SOLUTION_SEARCH))
                 {
                     ReverseProgramIterator iterator = new ReverseProgramIterator(evaluator);
-                    iterator.iterate(1, instructionCountSlider.getValue());
+                    iterator.iterate(registerCountSlider.getValue(), instructionCountSlider.getValue());
                 }
                 if (combo.getSelectedItem().equals(RANDOM))
                 {
                     RandomProgramIterator iterator = new RandomProgramIterator(evaluator);
-                    iterator.iterate(1, instructionCountSlider.getValue());
+                    iterator.iterate(registerCountSlider.getValue(), instructionCountSlider.getValue());
                 }
                 long end = System.currentTimeMillis();
                 System.out.println("Finished in " + (end - start) + " ms ");
