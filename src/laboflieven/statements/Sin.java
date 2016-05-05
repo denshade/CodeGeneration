@@ -10,7 +10,8 @@ public class Sin extends SingleRegisterInstruction{
     }
 
     @Override
-    public void execute() {
+    public Integer execute() {
         destination.value = Math.sin(destination.value);
+        return null;
     }
 }

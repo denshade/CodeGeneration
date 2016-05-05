@@ -11,7 +11,8 @@ public class Invert extends SingleRegisterInstruction
         this.destination = destination;
     }
 
-    public void execute() {
+    public Integer execute() {
         destination.value = destination.value * -1;
+        return null;
     }
 }

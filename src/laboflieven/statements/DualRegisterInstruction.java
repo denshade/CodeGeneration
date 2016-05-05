@@ -14,7 +14,7 @@ public abstract class DualRegisterInstruction extends Instruction {
         this.destination = destination;
     }
 
-    abstract public void execute();
+    abstract public Integer execute();
 
     public String toString()
     {

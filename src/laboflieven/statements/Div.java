@@ -9,8 +9,9 @@ public class Div extends DualRegisterInstruction
         super(source, destination);
     }
 
-    public void execute()
+    public Integer execute()
     {
         destination.value = destination.value / source.value;
+        return null;
     }
 }

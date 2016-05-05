@@ -10,7 +10,8 @@ public class Cos extends SingleRegisterInstruction{
     }
 
     @Override
-    public void execute() {
+    public Integer execute() {
         destination.value = Math.cos(destination.value);
+        return null;
     }
 }

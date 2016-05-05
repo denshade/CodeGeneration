@@ -101,8 +101,7 @@ public class ReverseProgramIterator
         }                                   //11237000000
         if (instructions.size() == maximumInstructions && evaluator.evaluate(instructions, registers)){
             positiveSolutions.add(new ArrayList<>(instructions));
-            System.out.println("Found a program! " + positiveSolutions);
-            throw new StoppedByUserException();
+            System.out.println("Found a program: " + instructions);
         }
 
     }

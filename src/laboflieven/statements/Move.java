@@ -10,8 +10,9 @@ public class Move extends DualRegisterInstruction
         super(source, destination);
     }
 
-    public void execute()
+    public Integer execute()
     {
         destination.value = source.value;
+        return null;
     }
 }

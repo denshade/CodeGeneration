@@ -1,6 +1,5 @@
 package laboflieven.statements;
 
-import com.sun.javaws.exceptions.InvalidArgumentException;
 
 /**
  * Created by lveeckha on 4/06/2015.
@@ -31,6 +30,7 @@ public class InstructionFactory
         }
         return instruction;
     }
+
     public static Instruction createInstruction(InstructionEnum instructionEnum, Register register1)
     {
         Instruction instruction;
