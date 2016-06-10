@@ -16,6 +16,9 @@ public class InstructionFactory
             case Div:
                 instruction = new  Div(register1, register2);
                 break;
+            case Mod:
+                instruction = new  Mod(register1, register2);
+                break;
             case Move:
                 instruction = new  Move(register1, register2);
                 break;
