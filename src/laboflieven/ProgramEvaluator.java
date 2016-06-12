@@ -40,4 +40,24 @@ public class ProgramEvaluator
         }
         return true;
     }
+
+    public double evaluateDifference(Program program)
+    {
+        StatementRunner runner = new StatementRunner();
+        double result = 0.0;
+        for(InOutParameters parameter : conditions)
+        {
+            runner.execute(program, parameter.input);
+            for (Register register : program.getRegisters())
+            {
+                if (parameter.expectedOutput.containsKey(register.name) && //Has a value, but it's not what was expected.
+                        parameter.expectedOutput.get(register.name) != register.value)
+                {
+                    result += Math.abs(parameter.expectedOutput.get(register.name) - register.value);
+                }
+            }
+            //Should also check that expected values are actually compared. eg. R3 doesn't exist => OK.(wrong)
+        }
+        return result;
+    }
 }

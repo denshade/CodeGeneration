@@ -19,6 +19,8 @@ public class ProgramSelector
     public static final String BRUTE_FORCE = "Brute force";
     public static final String REVERSE_SOLUTION_SEARCH = "Reverse solution search";
     public static final String RANDOM = "Random";
+    public static final String ASTAR = "A*";
+
 
     public static void main(String[] args)
     {
@@ -34,7 +36,7 @@ public class ProgramSelector
 
 
         JLabel instructionCount = new JLabel("instructionCount");
-        JSlider instructionCountSlider = new JSlider(1, 10);
+        JSlider instructionCountSlider = new JSlider(1, 12);
 
         instructionCountSlider.setMajorTickSpacing(3);
         instructionCountSlider.setMinorTickSpacing(1);
@@ -46,10 +48,13 @@ public class ProgramSelector
         registerCountSlider.setPaintLabels(true);
         registerCountSlider.setPaintTicks(true);
         JLabel strategies = new JLabel("Strategy");
-        JComboBox<String> combo = new JComboBox<>(new String[] {BRUTE_FORCE, REVERSE_SOLUTION_SEARCH, RANDOM});
+        JComboBox<String> combo = new JComboBox<>(new String[] {ASTAR, BRUTE_FORCE, REVERSE_SOLUTION_SEARCH, RANDOM});
 
         JLabel boundaries = new JLabel("boundaries. value1,value2,value3,...;solution in register0");
         JTextArea boundariesTextArea = new JTextArea();
+        boundariesTextArea.setText("1,0,1600,4;40\n" +
+                "1,-700,100000,4;3\n" +
+                "1,400,-50000,4;100");
 
         JButton button = new JButton("start");
         button.addActionListener(e -> {
@@ -81,6 +86,11 @@ public class ProgramSelector
             if (combo.getSelectedItem().equals(RANDOM))
             {
                 RandomProgramIterator iterator = new RandomProgramIterator(evaluator, enums);
+                iterator.iterate(registerCountSlider.getValue(), instructionCountSlider.getValue());
+            }
+            if (combo.getSelectedItem().equals(ASTAR))
+            {
+                PriorityProgramIterator iterator = new PriorityProgramIterator(evaluator, enums);
                 iterator.iterate(registerCountSlider.getValue(), instructionCountSlider.getValue());
             }
             long end = System.currentTimeMillis();
