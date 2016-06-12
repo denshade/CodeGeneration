@@ -43,7 +43,7 @@ public class PriorityProgramIterator
         while (priorityQueue.size() > 0)
         {
             ComparableProgram currentProgram = priorityQueue.remove();
-            System.out.println(currentProgram);
+            if (priorityQueue.size()% 1000 == 0) System.out.println(priorityQueue.size() + ":" + currentProgram);
             if (currentProgram.getProgram().getInstructions().size() < maximumInstructions)
             {
                 createNewProgramsFrom(currentProgram);
