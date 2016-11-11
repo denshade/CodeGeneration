@@ -16,11 +16,10 @@ import java.util.PriorityQueue;
 public class PriorityProgramIterator
 {
 
+    public static final int MAXBADPROGRAM = 300;
     private final ProgramEvaluator evaluator;
     private final InstructionEnum[] enums;
     PriorityQueue<ComparableProgram> priorityQueue = new PriorityQueue<>();
-    private int nrOfRegisters;
-    private int maximumInstructions;
     private Register[] registers;
 
     public PriorityProgramIterator(ProgramEvaluator evaluator, InstructionEnum[] enums) {
@@ -31,9 +30,6 @@ public class PriorityProgramIterator
     public void iterate(final int nrOfRegisters, int maximumInstructions)
     {
 
-        this.nrOfRegisters = nrOfRegisters;
-        this.maximumInstructions = maximumInstructions;
-        this.maximumInstructions = maximumInstructions;
         registers = new Register[nrOfRegisters];
         for (int i = 0; i < registers.length; i++) {
             registers[i] = new Register("r" + i);
@@ -70,10 +66,7 @@ public class PriorityProgramIterator
                         Program program = new Program(newInstructions, registerList);
 
                         ComparableProgram e = new ComparableProgram(program, evaluator);
-                        if (!(Double.isNaN(e.getScore()) || Double.isInfinite(e.getScore())))
-                        {
-                            priorityQueue.add(e);
-                        }
+                        addifImportant(e);
                     }
                 }
             }
@@ -84,17 +77,21 @@ public class PriorityProgramIterator
                     newInstructions.add(actualInstruction);
                     Program program = new Program(newInstructions, registerList);
                     ComparableProgram e = new ComparableProgram(program, evaluator);
-                    if (e.getScore() == 0)
-                    {
-                        System.out.println("Found a solution " + e.getProgram());
-                        throw new StoppedByUserException();
-                    }
-                    if (!(Double.isNaN(e.getScore()) || Double.isInfinite(e.getScore())))
-                    {
-                        priorityQueue.add(e);
-                    }
+                    addifImportant(e);
                 }
             }
+        }
+    }
+
+    private void addifImportant(ComparableProgram e) {
+        if (e.getScore() == 0)
+        {
+            System.out.println("Found a solution " + e.getProgram());
+            throw new StoppedByUserException();
+        }
+        if (!(Double.isNaN(e.getScore()) || Double.isInfinite(e.getScore()) || e.getScore() > MAXBADPROGRAM))
+        {
+            priorityQueue.add(e);
         }
     }
 
@@ -110,7 +107,7 @@ public class PriorityProgramIterator
                         }
                         Instruction actualInstruction = InstructionFactory.createInstruction(instruction, register1, register2);
                         Program program = new Program(Arrays.asList(actualInstruction), registerList);
-                        priorityQueue.add(new ComparableProgram(program, evaluator));
+                        addifImportant(new ComparableProgram(program, evaluator));
                     }
                 }
             }
@@ -118,7 +115,7 @@ public class PriorityProgramIterator
                 for (Register register1 : registers) {
                     Instruction actualInstruction = InstructionFactory.createInstruction(instruction, register1);
                     Program program = new Program(Arrays.asList(actualInstruction), registerList);
-                    priorityQueue.add(new ComparableProgram(program, evaluator));
+                    addifImportant(new ComparableProgram(program, evaluator));
                 }
             }
         }

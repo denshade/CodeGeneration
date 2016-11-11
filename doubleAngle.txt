@@ -1,0 +1,16 @@
+
+sin(2alpha)	=	2sin(alpha)cos(alpha)
+
+r0 = 2*alpha
+
+Werken ahv. alpha en niet 2*alpha.
+
+3.14159265359;0
+1.57079632679;0
+0.78539816339;1
+0.25;0.4794255386
+
+
+
+
+

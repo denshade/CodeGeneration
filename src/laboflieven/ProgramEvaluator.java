@@ -11,7 +11,7 @@ import java.util.List;
 public class ProgramEvaluator
 {
     private List<InOutParameters> conditions;
-
+    private final double closeEnough = 0.00001;
     /**
      * @param conditions Conditions that define the input parameters & the expected outcome.
      */
@@ -31,7 +31,8 @@ public class ProgramEvaluator
             for (Register register : program.getRegisters())
             {
                 if (parameter.expectedOutput.containsKey(register.name) && //Has a value, but it's not what was expected.
-                    parameter.expectedOutput.get(register.name) != register.value)
+                    Math.abs(parameter.expectedOutput.get(register.name) - register.value) > closeEnough
+                        || Double.isNaN(register.value))
                 {
                     return false;
                 }
@@ -51,7 +52,7 @@ public class ProgramEvaluator
             for (Register register : program.getRegisters())
             {
                 if (parameter.expectedOutput.containsKey(register.name) && //Has a value, but it's not what was expected.
-                        parameter.expectedOutput.get(register.name) != register.value)
+                        Math.abs(parameter.expectedOutput.get(register.name) - register.value) > closeEnough)
                 {
                     result += Math.abs(parameter.expectedOutput.get(register.name) - register.value);
                 }

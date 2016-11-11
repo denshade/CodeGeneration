@@ -54,7 +54,9 @@ public class ProgramSelector
         JTextArea boundariesTextArea = new JTextArea();
         boundariesTextArea.setText("1,0,1600,4;40\n" +
                 "1,-700,100000,4;3\n" +
-                "1,400,-50000,4;100");
+                "1,400,-50000,4;100\n" +
+                "4,800,-50000,4;50\n" +
+                "-2,1100,-50000,4;50");
 
         JButton button = new JButton("start");
         button.addActionListener(e -> {
