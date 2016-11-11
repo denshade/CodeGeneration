@@ -36,12 +36,7 @@ public class ProgramSelector
 
 
         JLabel instructionCount = new JLabel("instructionCount");
-<<<<<<< HEAD
-        final JSlider instructionCountSlider = new JSlider(1, 10);
-=======
         JSlider instructionCountSlider = new JSlider(1, 12);
->>>>>>> origin/master
-
         instructionCountSlider.setMajorTickSpacing(3);
         instructionCountSlider.setMinorTickSpacing(1);
         instructionCountSlider.setPaintLabels(true);
