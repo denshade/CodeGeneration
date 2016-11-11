@@ -1,12 +1,14 @@
 package laboflieven.ui;
 
 import laboflieven.*;
+import laboflieven.statements.InstructionEnum;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.*;
+import java.util.List;
 
 /**
  * Created by Lieven on 5-5-2016.
@@ -17,6 +19,8 @@ public class ProgramSelector
     public static final String BRUTE_FORCE = "Brute force";
     public static final String REVERSE_SOLUTION_SEARCH = "Reverse solution search";
     public static final String RANDOM = "Random";
+    public static final String ASTAR = "A*";
+
 
     public static void main(String[] args)
     {
@@ -27,12 +31,16 @@ public class ProgramSelector
         final JSlider registerCountSlider = new JSlider(1, 10);
 
         JLabel instructions = new JLabel("Allowed instructions");
-        JList allowedInstructions = new JList(new String[] {
-                "+", "-", "*", "/", "%", "sqrt", "move"
-        });
+
+        JList allowedInstructions = new JList(InstructionEnum.values());
+
 
         JLabel instructionCount = new JLabel("instructionCount");
+<<<<<<< HEAD
         final JSlider instructionCountSlider = new JSlider(1, 10);
+=======
+        JSlider instructionCountSlider = new JSlider(1, 12);
+>>>>>>> origin/master
 
         instructionCountSlider.setMajorTickSpacing(3);
         instructionCountSlider.setMinorTickSpacing(1);
@@ -44,45 +52,55 @@ public class ProgramSelector
         registerCountSlider.setPaintLabels(true);
         registerCountSlider.setPaintTicks(true);
         JLabel strategies = new JLabel("Strategy");
-        final JComboBox<String> combo = new JComboBox<>(new String[] {BRUTE_FORCE, REVERSE_SOLUTION_SEARCH, RANDOM});
+        JComboBox<String> combo = new JComboBox<>(new String[] {ASTAR, BRUTE_FORCE, REVERSE_SOLUTION_SEARCH, RANDOM});
 
         JLabel boundaries = new JLabel("boundaries. value1,value2,value3,...;solution in register0");
-        final JTextArea boundariesTextArea = new JTextArea();
+        JTextArea boundariesTextArea = new JTextArea();
+        boundariesTextArea.setText("1,0,1600,4;40\n" +
+                "1,-700,100000,4;3\n" +
+                "1,400,-50000,4;100\n" +
+                "4,800,-50000,4;50\n" +
+                "-2,1100,-50000,4;50");
 
         JButton button = new JButton("start");
-        button.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                TextToCriteria converter = new TextToCriteria();
-                java.util.List<InOutParameters> collection;
-                try {
-                    collection = converter.parseMultipleStrings(boundariesTextArea.getText());
-                } catch (Exception e1) {
-                    JOptionPane.showMessageDialog(null, e1.getMessage());
-                    return;
-                }
-
-                ProgramEvaluator evaluator = new ProgramEvaluator(collection);
-                System.out.println("Start");
-                long start = System.currentTimeMillis();
-                if (combo.getSelectedItem().equals(BRUTE_FORCE))
-                {
-                    BruteForceProgramIterator iterator = new BruteForceProgramIterator(evaluator);
-                    iterator.iterate(registerCountSlider.getValue(), instructionCountSlider.getValue());
-                }
-                if (combo.getSelectedItem().equals(REVERSE_SOLUTION_SEARCH))
-                {
-                    ReverseProgramIterator iterator = new ReverseProgramIterator(evaluator);
-                    iterator.iterate(registerCountSlider.getValue(), instructionCountSlider.getValue());
-                }
-                if (combo.getSelectedItem().equals(RANDOM))
-                {
-                    RandomProgramIterator iterator = new RandomProgramIterator(evaluator);
-                    iterator.iterate(registerCountSlider.getValue(), instructionCountSlider.getValue());
-                }
-                long end = System.currentTimeMillis();
-                System.out.println("Finished in " + (end - start) + " ms ");
+        button.addActionListener(e -> {
+            TextToCriteria converter = new TextToCriteria();
+            java.util.List<InOutParameters> collection;
+            try {
+                collection = converter.parseMultipleStrings(boundariesTextArea.getText());
+            } catch (Exception e1) {
+                JOptionPane.showMessageDialog(null, e1.getMessage());
+                return;
             }
+            List<InstructionEnum> selectedValuesList = allowedInstructions.getSelectedValuesList();
+            InstructionEnum[] enums = selectedValuesList.toArray(new InstructionEnum[0]);
+
+            ProgramEvaluator evaluator = new ProgramEvaluator(collection);
+            System.out.println("Start");
+            long start = System.currentTimeMillis();
+            if (combo.getSelectedItem().equals(BRUTE_FORCE))
+            {
+
+                BruteForceProgramIterator iterator = new BruteForceProgramIterator(evaluator, enums);
+                iterator.iterate(registerCountSlider.getValue(), instructionCountSlider.getValue());
+            }
+            if (combo.getSelectedItem().equals(REVERSE_SOLUTION_SEARCH))
+            {
+                ReverseProgramIterator iterator = new ReverseProgramIterator(evaluator, enums);
+                iterator.iterate(registerCountSlider.getValue(), instructionCountSlider.getValue());
+            }
+            if (combo.getSelectedItem().equals(RANDOM))
+            {
+                RandomProgramIterator iterator = new RandomProgramIterator(evaluator, enums);
+                iterator.iterate(registerCountSlider.getValue(), instructionCountSlider.getValue());
+            }
+            if (combo.getSelectedItem().equals(ASTAR))
+            {
+                PriorityProgramIterator iterator = new PriorityProgramIterator(evaluator, enums);
+                iterator.iterate(registerCountSlider.getValue(), instructionCountSlider.getValue());
+            }
+            long end = System.currentTimeMillis();
+            System.out.println("Finished in " + (end - start) + " ms ");
         });
         GridLayout gridLayout = new GridLayout(6, 2);
         frame.setLayout(gridLayout);
@@ -105,17 +123,4 @@ public class ProgramSelector
 
     }
 
-    private static InOutParameters createParameter(double a, double result)
-    {
-        Map<String, Double> startParameters  = new HashMap<>();
-        startParameters.put("r0", a);
-
-        Map<String, Double> endParameters = new HashMap<>(1);
-        endParameters.put("r0", result);
-
-        InOutParameters parameters = new InOutParameters();
-        parameters.input = startParameters;
-        parameters.expectedOutput = endParameters;
-        return parameters;
-    }
 }

@@ -16,12 +16,20 @@ public class RandomProgramIterator {
 
     public List<List<Instruction>> positiveSolutions = new ArrayList<>();
     private ProgramEvaluator evaluator;
+    private InstructionEnum[] enums;
     private Register[] registers;
     private int numberOfRegisters;
 
 
     public RandomProgramIterator(ProgramEvaluator evaluator) {
         this.evaluator = evaluator;
+        enums = InstructionEnum.values();
+    }
+
+    public RandomProgramIterator(ProgramEvaluator evaluator, InstructionEnum[] enums) {
+        this.evaluator = evaluator;
+
+        this.enums = enums;
     }
 
     public void iterate(int numberOfRegisters, int maximumInstructions) {
@@ -48,8 +56,8 @@ public class RandomProgramIterator {
         }
 
         Random r = new Random();
-        int location = r.nextInt(InstructionEnum.values().length);
-        InstructionEnum instruction = InstructionEnum.values()[location];
+        int location = r.nextInt(enums.length);
+        InstructionEnum instruction = enums[location];
         if (instruction.isDualRegister()) {
             Register register1 = registers[r.nextInt(registers.length)];
             Register register2 = registers[r.nextInt(registers.length)];

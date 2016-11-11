@@ -15,4 +15,9 @@ public class Add extends DualRegisterInstruction
         destination.value = source.value + destination.value;
         return null;
     }
+
+    public String toString()
+    {
+        return destination + "+= " +  source;
+    }
 }

@@ -46,7 +46,6 @@ public class BruteForceProgramIterator
     {
         if (instructions.size() >= maximumInstructions)
             return;
-        instructionEnums = InstructionEnum.values();
         for (InstructionEnum instruction : instructionEnums)
         {
             for (Register register1 : registers) {

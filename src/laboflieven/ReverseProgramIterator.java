@@ -17,6 +17,7 @@ public class ReverseProgramIterator
 
     public List<List<Instruction>> positiveSolutions = new ArrayList<>();
     private ProgramEvaluator evaluator;
+    private InstructionEnum[] enums;
     private Register[] registers;
     private int numberOfRegisters;
 
@@ -24,6 +25,13 @@ public class ReverseProgramIterator
     public ReverseProgramIterator(ProgramEvaluator evaluator)
     {
         this.evaluator = evaluator;
+        enums = InstructionEnum.values();
+    }
+
+    public ReverseProgramIterator(ProgramEvaluator evaluator, InstructionEnum[] enums)
+    {
+        this.evaluator = evaluator;
+        this.enums = enums;
     }
     public void iterate(int numberOfRegisters, int maximumInstructions)
     {
@@ -53,7 +61,7 @@ public class ReverseProgramIterator
         {
             return;
         }
-        for (InstructionEnum instruction : InstructionEnum.values())
+        for (InstructionEnum instruction : enums)
         {
             if (instruction.isDualRegister()) {
                 for (Register register1 : registers) {
