@@ -47,6 +47,7 @@ public class ProgramRenderPanel extends JPanel {
 
     public void drawProgram(Program program)
     {
+        System.out.println(program.getInstructions());
         StatementRunner runner = new StatementRunner();
         Map<String, Double> results = new HashMap<>();
         for (int x = 0; x < 256;x++)
