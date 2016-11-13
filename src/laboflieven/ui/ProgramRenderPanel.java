@@ -17,8 +17,13 @@ public class ProgramRenderPanel extends JPanel {
 
     private BufferedImage canvas;
 
+    private int width;
+    private int height;
+
 
     public ProgramRenderPanel(int width, int height) {
+        this.width = width;
+        this.height = height;
         canvas = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
         fillCanvas(Color.BLUE);
         drawRect(Color.RED, 0, 0, width / 2, height / 2);
@@ -45,30 +50,34 @@ public class ProgramRenderPanel extends JPanel {
         repaint();
     }
 
-    public void drawProgram(Program program)
+    public boolean drawProgram(Program program)
     {
         System.out.println(program.getInstructions());
+        boolean isAllBlack = true;
         StatementRunner runner = new StatementRunner();
-        Map<String, Double> results = new HashMap<>();
-        for (int x = 0; x < 256;x++)
-        {
-            for (int y = 0; y < 256;y++)
-            {
-                results.put("r0", (double)x);
-                results.put("r1", (double)y);
-                results.put("r2", (double)y);
-                runner.execute(program, results);
-                double r0 = program.getRegisters().get(0).value;
-                double r1 = program.getRegisters().get(1).value;
-                double r2 = program.getRegisters().get(2).value;
-                int rInt0 = r0 > 255?255:(int)r0;
-                int rInt1 = r1 > 255?255:(int)r1;
-                int rInt2 = r2 > 255?255:(int)r2;
-                canvas.setRGB(x, y, rInt0 + rInt1*256+rInt2*256*256);
-            }
+        DefaultRenderStrategy strategy = new DefaultRenderStrategy(width, height, runner, program);
+        int[][] grid = strategy.calculate();
+        for (int x = 0; x < width; x++)
+            for (int y = 0; y < height; y++)
+                if (grid[x][y] > 10) isAllBlack = false;
+        if (isAllBlack) return true;
+        for (int x = 0; x < width; x++)
+            for (int y = 0; y < height; y++)
+                canvas.setRGB(x, y, grid[x][y]);
 
-        }
         repaint();
+        return isAllBlack;
+    }
+
+    private int getResultColor(Program program) {
+        double r0 = Math.abs(program.getRegisters().get(0).value);
+        double r1 = Math.abs(program.getRegisters().get(1).value);
+        double r2 = Math.abs(program.getRegisters().get(2).value);
+
+        int rInt0 = r0 > 255?255:(int)r0;
+        int rInt1 = r1 > 255?255:(int)r1;
+        int rInt2 = r2 > 255?255:(int)r2;
+        return rInt0 + rInt1 * 256 + rInt2 * 256 * 256;
     }
 
     public void drawLine(Color c, int x1, int y1, int x2, int y2) {

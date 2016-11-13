@@ -27,13 +27,13 @@ public class ProgramDrawer
         JFrame frame = new JFrame("program specifics");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        JLabel registers = new JLabel("#registers");
-        final JSlider registerCountSlider = new JSlider(1, 10);
+        JLabel registers = new JLabel("#instructions");
+        final JSlider registerCountSlider = new JSlider(1, 30);
 
         JLabel instructions = new JLabel("Allowed instructions");
 
         JList allowedInstructions = new JList(InstructionEnum.values());
-        ProgramRenderPanel programPanel = new ProgramRenderPanel(256,256);
+        ProgramRenderPanel programPanel = new ProgramRenderPanel(1000,1000);
 
         registerCountSlider.setMajorTickSpacing(3);
         registerCountSlider.setMinorTickSpacing(1);
@@ -41,7 +41,8 @@ public class ProgramDrawer
         registerCountSlider.setPaintTicks(true);
         JButton button = new JButton("start");
         button.addActionListener(e -> {
-            drawPrograms(5, programPanel);
+            drawPrograms(registerCountSlider.getValue(), programPanel);
+            JOptionPane.showMessageDialog(frame, programPanel);
         });
         GridLayout gridLayout = new GridLayout(3, 2);
         frame.setLayout(gridLayout);
@@ -51,7 +52,7 @@ public class ProgramDrawer
         contentPane.add(instructions);
         contentPane.add(allowedInstructions);
         contentPane.add(button);
-        contentPane.add(programPanel);
+        //contentPane.add(programPanel);
 
         frame.pack();
         frame.setVisible(true);
@@ -61,7 +62,11 @@ public class ProgramDrawer
     private static void drawPrograms(int instructionCount, ProgramRenderPanel programPanel) {
         RealRandomProgramIterator iterator = new RealRandomProgramIterator();
         Program program = iterator.getNextProgram(3, instructionCount);
-        programPanel.drawProgram(program);
+        boolean isAllBlack = programPanel.drawProgram(program);
+        while (isAllBlack) {
+            program = iterator.getNextProgram(3, instructionCount);
+            isAllBlack = programPanel.drawProgram(program);
+        }
     }
 
 
