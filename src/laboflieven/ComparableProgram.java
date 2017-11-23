@@ -1,7 +1,5 @@
 package laboflieven;
 
-import java.util.List;
-
 /**
  * Created by Lieven on 12-6-2016.
  */
@@ -19,7 +17,7 @@ public class ComparableProgram implements Comparable<ComparableProgram>
 
     private double score;
 
-    public ComparableProgram(Program program, ProgramEvaluator evaluator) {
+    public ComparableProgram(Program program, ProgramFitnessExaminer evaluator) {
         this.program = program;
         score = ProgramDifferenceScoringStrategy.evaluate(evaluator, program);
     }

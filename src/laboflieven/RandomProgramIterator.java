@@ -15,18 +15,19 @@ public class RandomProgramIterator {
     public long counter = 0;
 
     public List<List<Instruction>> positiveSolutions = new ArrayList<>();
-    private ProgramEvaluator evaluator;
+    private ProgramFitnessExaminer evaluator;
     private InstructionEnum[] enums;
     private Register[] registers;
     private int numberOfRegisters;
+    private List<Instruction> bestSolution;
+    private double bestScore = 1000;
 
-
-    public RandomProgramIterator(ProgramEvaluator evaluator) {
+    public RandomProgramIterator(ProgramFitnessExaminer evaluator) {
         this.evaluator = evaluator;
         enums = InstructionEnum.values();
     }
 
-    public RandomProgramIterator(ProgramEvaluator evaluator, InstructionEnum[] enums) {
+    public RandomProgramIterator(ProgramFitnessExaminer evaluator, InstructionEnum[] enums) {
         this.evaluator = evaluator;
 
         this.enums = enums;
@@ -91,14 +92,18 @@ public class RandomProgramIterator {
     }
 
     private void eval(List<Instruction> instructions, List<Register> registers) {
-        counter++;
-        if (counter % 100000 == 0) {
-            System.out.println(counter + " " + instructions);
+        if (instructions.size() != maximumInstructions) return;
+        double val =  evaluator.calculateFitness(instructions, registers);
+        if (val < bestScore)
+        {
+            bestScore = val;
+            bestSolution = instructions;
+            System.out.println( instructions + " " + evaluator.calculateFitness(instructions, registers));
         }
-        if (instructions.size() == maximumInstructions && evaluator.evaluate(instructions, registers)) {
+        if (instructions.size() == maximumInstructions && evaluator.isFit(instructions, registers)) {
             positiveSolutions.add(new ArrayList<>(instructions));
             System.out.println("Found a program! " + positiveSolutions);
-            //throw new StoppedByUserException();
+            throw new StoppedByUserException();
         }
 
     }

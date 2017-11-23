@@ -10,7 +10,7 @@ import java.util.TreeSet;
  */
 public class ProgramClassScoringStrategy
 {
-    public static double evaluate(ProgramEvaluator evaluator, Program program)
+    public static double evaluate(ProgramFitnessExaminer evaluator, Program program)
     {
         Set<String> shortnames = new TreeSet<>();
         //programs with few instructions are unlikely.

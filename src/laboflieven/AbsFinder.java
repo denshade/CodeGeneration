@@ -27,7 +27,7 @@ public class AbsFinder {
         collection.add(createParameter(2.0, 2.0));
         collection.add(createParameter(-15.0, 15.0));
         collection.add(createParameter(0.0, 0.0));
-        ProgramEvaluator evaluator = new ProgramEvaluator(collection);
+        ProgramFitnessExaminer evaluator = new ProgramFitnessExaminer(collection);
         //ReverseProgramIterator iterator = new ReverseProgramIterator(evaluator);
         BruteForceProgramIterator iterator = new BruteForceProgramIterator(evaluator);
         iterator.iterate(1, nrSolutions);

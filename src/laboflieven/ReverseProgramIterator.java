@@ -16,19 +16,22 @@ public class ReverseProgramIterator
     public long counter = 0;
 
     public List<List<Instruction>> positiveSolutions = new ArrayList<>();
-    private ProgramEvaluator evaluator;
+    private ProgramFitnessExaminer evaluator;
     private InstructionEnum[] enums;
     private Register[] registers;
     private int numberOfRegisters;
 
+    private List<Instruction> bestSolution;
+    private double bestScore = 1000;
 
-    public ReverseProgramIterator(ProgramEvaluator evaluator)
+
+    public ReverseProgramIterator(ProgramFitnessExaminer evaluator)
     {
         this.evaluator = evaluator;
         enums = InstructionEnum.values();
     }
 
-    public ReverseProgramIterator(ProgramEvaluator evaluator, InstructionEnum[] enums)
+    public ReverseProgramIterator(ProgramFitnessExaminer evaluator, InstructionEnum[] enums)
     {
         this.evaluator = evaluator;
         this.enums = enums;
@@ -61,6 +64,7 @@ public class ReverseProgramIterator
         {
             return;
         }
+        List<Register> registerList = Arrays.asList(registers);
         for (InstructionEnum instruction : enums)
         {
             if (instruction.isDualRegister()) {
@@ -73,7 +77,7 @@ public class ReverseProgramIterator
 
                         Instruction actualInstruction = InstructionFactory.createInstruction(instruction, register1, register2);
                         instructions.add(0, actualInstruction);
-                        eval(instructions, Arrays.asList(registers));
+                        eval(instructions, registerList);
                         Set<Register> newlyAvailableRegisters = new HashSet<>(availableRegisters);
                         newlyAvailableRegisters.add(register1);
                         /*
@@ -102,14 +106,19 @@ public class ReverseProgramIterator
     }
 
     private void eval(List<Instruction> instructions, List<Register> registers) {
-        counter++;
-        if (counter % 1000000 == 0)
+        if (instructions.size() != maximumInstructions)
+            return;
+        double val =  evaluator.calculateFitness(instructions, registers);
+        if (val < bestScore)
         {
-            System.out.println(counter + " " + instructions);
-        }                                   //11237000000
-        if (instructions.size() == maximumInstructions && evaluator.evaluate(instructions, registers)){
+            bestScore = val;
+            bestSolution = instructions;
+            System.out.println(counter + " " + instructions + " " + evaluator.calculateFitness(instructions, registers));
+        }
+        if (val < 0.0001){ //evaluator.isFit(instructions, registers
             positiveSolutions.add(new ArrayList<>(instructions));
             System.out.println("Found a program: " + instructions);
+            throw new StoppedByUserException();
         }
 
     }

@@ -17,12 +17,12 @@ public class PriorityProgramIterator
 {
 
     public static final int MAXBADPROGRAM = 300;
-    private final ProgramEvaluator evaluator;
+    private final ProgramFitnessExaminer evaluator;
     private final InstructionEnum[] enums;
     PriorityQueue<ComparableProgram> priorityQueue = new PriorityQueue<>();
     private Register[] registers;
 
-    public PriorityProgramIterator(ProgramEvaluator evaluator, InstructionEnum[] enums) {
+    public PriorityProgramIterator(ProgramFitnessExaminer evaluator, InstructionEnum[] enums) {
         this.evaluator = evaluator;
         this.enums = enums;
     }

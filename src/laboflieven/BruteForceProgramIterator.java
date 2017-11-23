@@ -16,17 +16,17 @@ public class BruteForceProgramIterator
     public long counter = 0;
 
     public List<List<Instruction>> positiveSolutions = new ArrayList<>();
-    private ProgramEvaluator evaluator;
+    private ProgramFitnessExaminer evaluator;
     private InstructionEnum[] instructionEnums;
 
 
-    public BruteForceProgramIterator(ProgramEvaluator evaluator)
+    public BruteForceProgramIterator(ProgramFitnessExaminer evaluator)
     {
         this.evaluator = evaluator;
         instructionEnums = InstructionEnum.values();
     }
 
-    public BruteForceProgramIterator(ProgramEvaluator evaluator, InstructionEnum[] instructions)
+    public BruteForceProgramIterator(ProgramFitnessExaminer evaluator, InstructionEnum[] instructions)
     {
         this.evaluator = evaluator;
         instructionEnums = instructions;
@@ -75,7 +75,7 @@ public class BruteForceProgramIterator
 
     private void eval(List<Instruction> instructions, List<Register> registers) {
         counter++;
-        if (evaluator.evaluate(instructions, registers)){
+        if (evaluator.isFit(instructions, registers)){
             System.out.println("Found a program: " + instructions);
             positiveSolutions.add(new ArrayList<>(instructions));
         }

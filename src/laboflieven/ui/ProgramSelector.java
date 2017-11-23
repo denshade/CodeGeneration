@@ -5,9 +5,6 @@ import laboflieven.statements.InstructionEnum;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.*;
 import java.util.List;
 
 /**
@@ -70,7 +67,7 @@ public class ProgramSelector
             List<InstructionEnum> selectedValuesList = allowedInstructions.getSelectedValuesList();
             InstructionEnum[] enums = selectedValuesList.toArray(new InstructionEnum[0]);
 
-            ProgramEvaluator evaluator = new ProgramEvaluator(collection);
+            ProgramFitnessExaminer evaluator = new ProgramFitnessExaminer(collection);
             System.out.println("Start");
             long start = System.currentTimeMillis();
             if (combo.getSelectedItem().equals(BRUTE_FORCE))

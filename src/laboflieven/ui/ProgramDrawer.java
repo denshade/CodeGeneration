@@ -28,14 +28,14 @@ public class ProgramDrawer
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         JLabel registers = new JLabel("#instructions");
-        final JSlider registerCountSlider = new JSlider(1, 30);
+        final JSlider registerCountSlider = new JSlider(1, 80);
 
         JLabel instructions = new JLabel("Allowed instructions");
 
         JList allowedInstructions = new JList(InstructionEnum.values());
         ProgramRenderPanel programPanel = new ProgramRenderPanel(1000,1000);
 
-        registerCountSlider.setMajorTickSpacing(3);
+        registerCountSlider.setMajorTickSpacing(10);
         registerCountSlider.setMinorTickSpacing(1);
         registerCountSlider.setPaintLabels(true);
         registerCountSlider.setPaintTicks(true);
