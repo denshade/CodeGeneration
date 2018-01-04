@@ -1,5 +1,6 @@
-package laboflieven;
+package laboflieven.humanresource;
 
+import laboflieven.humanresource.model.HumanInstruction;
 import laboflieven.statements.Instruction;
 
 import java.util.ArrayList;
@@ -10,14 +11,14 @@ import java.util.Random;
 /**
  * Created by Lieven on 20-11-2017.
  */
-public class ProgramResolution implements Comparable<ProgramResolution>
+public class HumanProgramResolution implements Comparable<HumanProgramResolution>
 {
-    public List<Instruction> instructions;
+    public List<HumanInstruction> instructions;
     public double weight;
 
-    List<Instruction> procreate(ProgramResolution partner)
+    List<HumanInstruction> procreate(HumanProgramResolution partner)
     {
-        List<Instruction> childinstructions = new ArrayList<>();
+        List<HumanInstruction> childinstructions = new ArrayList<>();
         Random r = new Random();
         for (int i = 0; i < instructions.size(); i++)
         {
@@ -31,9 +32,9 @@ public class ProgramResolution implements Comparable<ProgramResolution>
         return childinstructions;
     }
 
-    List<List<Instruction>> procreate(ProgramResolution partner, int nrChildren)
+    List<List<HumanInstruction>> procreate(HumanProgramResolution partner, int nrChildren)
     {
-        List<Instruction> childinstructions = new ArrayList<>();
+        List<HumanInstruction> childinstructions = new ArrayList<>();
         Random r = new Random();
         for (int i = 0; i < instructions.size(); i++)
         {
@@ -44,10 +45,10 @@ public class ProgramResolution implements Comparable<ProgramResolution>
                 childinstructions.add(partner.instructions.get(i));
             }
         }
-        List<List<Instruction>> results = new ArrayList<>();
+        List<List<HumanInstruction>> results = new ArrayList<>();
         for (int i = 0; i < nrChildren; i++)
         {
-            List<Instruction> item = new ArrayList<>(childinstructions);
+            List<HumanInstruction> item = new ArrayList<>(childinstructions);
             Collections.shuffle(item);
             results.add(item);
         }
@@ -55,7 +56,7 @@ public class ProgramResolution implements Comparable<ProgramResolution>
     }
 
     @Override
-    public int compareTo(ProgramResolution o) {
+    public int compareTo(HumanProgramResolution o) {
         return weight > o.weight? 1: -1;
     }
 

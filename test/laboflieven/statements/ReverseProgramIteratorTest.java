@@ -15,7 +15,7 @@ public class ReverseProgramIteratorTest extends TestCase {
         collection.add(createParameter(1.0, 2.0, 1.0, 0.0, -1.0));
         collection.add(createParameter(1.0, -1, -56, 0.0, 8));
         collection.add(createParameter(1.0, 2, -15, 0.0, 3));
-        ProgramEvaluator evaluator = new ProgramEvaluator(collection);
+        ProgramFitnessExaminer evaluator = new ProgramFitnessExaminer(collection);
         ReverseProgramIterator iterator = new ReverseProgramIterator(evaluator);
         iterator.iterate(4, 2);
 
@@ -45,7 +45,7 @@ public class ReverseProgramIteratorTest extends TestCase {
     }
 
     public void testMainEasy() throws Exception {
-        ProgramEvaluator evaluator = new ProgramEvaluator(Collections.singletonList(createParameterSimple(1, 2, 3)));
+        ProgramFitnessExaminer evaluator = new ProgramFitnessExaminer(Collections.singletonList(createParameterSimple(1, 2, 3)));
         ReverseProgramIterator iterator = new ReverseProgramIterator(evaluator);
         iterator.iterate(2, 1);
         assertEquals(1, iterator.positiveSolutions.size());

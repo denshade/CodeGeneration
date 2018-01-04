@@ -1,5 +1,11 @@
-package laboflieven;
+package laboflieven.humanresource;
 
+import laboflieven.ProgramFitnessExaminer;
+import laboflieven.ProgramResolution;
+import laboflieven.humanresource.model.HumanInstruction;
+import laboflieven.humanresource.model.HumanInstructionEnum;
+import laboflieven.humanresource.model.HumanInstructionFactory;
+import laboflieven.humanresource.model.HumanRegister;
 import laboflieven.statements.Instruction;
 import laboflieven.statements.InstructionEnum;
 import laboflieven.statements.InstructionFactory;
@@ -11,32 +17,32 @@ import java.util.*;
  * Created by lveeckha on 31/05/2015.
  */
 public class RandomGeneticProgramIterator {
-    public int POPULATION_MAX = 1000;
+    public int POPULATION_MAX = 100;
     private double popularParents;
     private double maxOverflow;
     public int maximumInstructions;
     public long counter = 0;
 
-    public List<List<Instruction>> positiveSolutions = new ArrayList<>();
-    private ProgramFitnessExaminer evaluator;
-    private InstructionEnum[] enums;
+    public List<List<HumanInstruction>> positiveSolutions = new ArrayList<>();
+    private HumanProgramFitnessExaminer evaluator;
+    private HumanInstructionEnum[] enums;
     private int maxPopulation;
-    private Register[] registers;
+    private HumanRegister[] registers;
     private int numberOfRegisters;
-    private List<Instruction> bestSolution;
-    private List<List<Instruction>> chosenSolutions;
+    private List<HumanInstruction> bestSolution;
+    private List<List<HumanInstruction>> chosenSolutions;
 
 
     private double bestScore = 1000;
 
-    public RandomGeneticProgramIterator(ProgramFitnessExaminer evaluator, int maxPopulation, double maxOverflow, double popularParents) {
+    public RandomGeneticProgramIterator(HumanProgramFitnessExaminer evaluator, int maxPopulation, double maxOverflow, double popularParents) {
         this.evaluator = evaluator;
         POPULATION_MAX = maxPopulation;
         this.maxOverflow = maxOverflow;
-        enums = InstructionEnum.values();
+        enums = HumanInstructionEnum.values();
     }
 
-    public RandomGeneticProgramIterator(ProgramFitnessExaminer evaluator, InstructionEnum[] enums, int maxPopulation, double maxOverflow, double popularParents) {
+    public RandomGeneticProgramIterator(HumanProgramFitnessExaminer evaluator, HumanInstructionEnum[] enums, int maxPopulation, double maxOverflow, double popularParents) {
         this.evaluator = evaluator;
         this.enums = enums;
         this.maxPopulation = maxPopulation;
@@ -44,24 +50,24 @@ public class RandomGeneticProgramIterator {
         this.popularParents = popularParents;
     }
 
-    public ProgramResolution iterate(int numberOfRegisters, int maximumInstructions) {
+    public HumanProgramResolution iterate(int numberOfRegisters, int maximumInstructions) {
         chosenSolutions = new ArrayList<>();
         this.numberOfRegisters = numberOfRegisters;
         this.maximumInstructions = maximumInstructions;
-        registers = new Register[numberOfRegisters];
+        registers = new HumanRegister[numberOfRegisters];
         for (int i = 0; i < registers.length; i++) {
-            registers[i] = new Register("r" + i);
+            registers[i] = new HumanRegister("r" + i);
         }
-        Set<Register> availableRegisters = new HashSet<>();
+        Set<HumanRegister> availableRegisters = new HashSet<>();
         availableRegisters.add(registers[registers.length - 1]);// Add the result register.
-        for (int i = 0; i < 1000; i++) {
+        while (chosenSolutions.size() < 1000) {
             recurse(new ArrayList<>());
         }
-       // System.out.println(chosenSolutions);
-        PriorityQueue<ProgramResolution> solutions = new PriorityQueue<>();
-        for (List<Instruction> instruction : chosenSolutions)
+        // System.out.println(chosenSolutions);
+        PriorityQueue<HumanProgramResolution> solutions = new PriorityQueue<>();
+        for (List<HumanInstruction> instruction : chosenSolutions)
         {
-            ProgramResolution res = new ProgramResolution();
+            HumanProgramResolution res = new HumanProgramResolution();
             res.weight = eval(instruction, Arrays.asList(registers));
             res.instructions = instruction;
             solutions.add(res);
@@ -70,7 +76,7 @@ public class RandomGeneticProgramIterator {
         int bestSolutionCycle = 10000;
         //Let the best 10 solutions procreate.
 
-        while (solutions.peek().weight > 0.10 && bestSolutionCycle > 0)
+        while (solutions.peek().weight > 1000 && bestSolutionCycle > 0)
         {
             double weight = solutions.peek().weight;
             if (weight < bestSolution)
@@ -82,7 +88,7 @@ public class RandomGeneticProgramIterator {
             {
                 bestSolutionCycle--;
             }
-            //System.out.println("Best solution " + weight);
+            System.out.println("Best solution " + weight);
             reproduce(solutions);
             //System.out.println(child);
             if (solutions.size() > POPULATION_MAX * maxOverflow)
@@ -94,20 +100,20 @@ public class RandomGeneticProgramIterator {
         return solutions.peek();
     }
 
-    private void reproduce(PriorityQueue<ProgramResolution> solutions) {
-        ProgramResolution mom = getNthVar(solutions);
-        ProgramResolution dad = getNthVar(solutions);
+    private void reproduce(PriorityQueue<HumanProgramResolution> solutions) {
+        HumanProgramResolution mom = getNthVar(solutions);
+        HumanProgramResolution dad = getNthVar(solutions);
 
-        for (List<Instruction> childDNA : mom.procreate(dad, 3))
+        for (List<HumanInstruction> childDNA : mom.procreate(dad, 3))
         {
-            ProgramResolution child = new ProgramResolution();
+            HumanProgramResolution child = new HumanProgramResolution();
             child.instructions = childDNA;
             child.weight = eval(child.instructions, Arrays.asList(registers));
             solutions.add(child);
         }
     }
 
-    private PriorityQueue<ProgramResolution> cutPopulation(PriorityQueue<ProgramResolution> solutions) {
+    private PriorityQueue cutPopulation(PriorityQueue solutions) {
         List l = new ArrayList<>();
 
         for (int i = 0; i < POPULATION_MAX; i++)
@@ -118,11 +124,11 @@ public class RandomGeneticProgramIterator {
         return solutions;
     }
 
-    private ProgramResolution getNthVar(PriorityQueue<ProgramResolution> solutions) {
+    private HumanProgramResolution getNthVar(PriorityQueue<HumanProgramResolution> solutions) {
         Random r = new Random();
-        int p = r.nextInt((int)(POPULATION_MAX * popularParents));
-        Iterator<ProgramResolution> it = solutions.iterator();
-        ProgramResolution val = null;
+        int p = r.nextInt((int)(solutions.size()));
+        Iterator<HumanProgramResolution> it = solutions.iterator();
+        HumanProgramResolution val = null;
         for (int k = 0; k <= p; k++)
         {
             val = it.next();
@@ -130,7 +136,7 @@ public class RandomGeneticProgramIterator {
         return val;
     }
 
-    public void recurse(List<Instruction> instructions) {
+    public void recurse(List<HumanInstruction> instructions) {
         if (instructions.size() >= maximumInstructions)
         {
             chosenSolutions.add(new ArrayList<>(instructions));
@@ -143,32 +149,32 @@ public class RandomGeneticProgramIterator {
 
         Random r = new Random();
         int location = r.nextInt(enums.length);
-        InstructionEnum instruction = enums[location];
-        if (instruction.isDualRegister()) {
-            Register register1 = registers[r.nextInt(registers.length)];
-            Register register2 = registers[r.nextInt(registers.length)];
-
-            if (isUselessOp(instruction, register1, register2)) {
-                return;
-            }
-
-            Instruction actualInstruction = InstructionFactory.createInstruction(instruction, register1, register2);
+        HumanInstructionEnum instruction = enums[location];
+        if (instruction.isSingleRegister()) {
+            HumanRegister register1 = registers[r.nextInt(registers.length)];
+            HumanInstruction actualInstruction = HumanInstructionFactory.createInstruction(instruction, register1);
             instructions.add(actualInstruction);
+            if (!isValid(instructions, Arrays.asList(registers)))
+                return;
             //eval(instructions, Arrays.asList(registers));
             recurse(instructions);
             instructions.remove(0);
-        } else {
-
-            Register register1 = registers[r.nextInt(registers.length)];
-            Instruction actualInstruction = InstructionFactory.createInstruction(instruction, register1);
+        } else if (instruction.isLoop()){
+            HumanInstruction actualInstruction = HumanInstructionFactory.createLoopInstruction(instruction, r.nextInt(maximumInstructions));
             instructions.add(0, actualInstruction);
+            if (!isValid(instructions, Arrays.asList(registers)))
+                return;
             //eval(instructions, Arrays.asList(registers));
-            /**
-             * Available registers remains the same. No new registers are used.
-             */
             recurse(instructions);
             instructions.remove(0);
-
+        } else
+        {
+            HumanInstruction actualInstruction = HumanInstructionFactory.createInstruction(instruction);
+            instructions.add(actualInstruction);
+            if (!isValid(instructions, Arrays.asList(registers)))
+                return;
+            recurse(instructions);
+            instructions.remove(0);
         }
     }
 
@@ -176,8 +182,12 @@ public class RandomGeneticProgramIterator {
         return instruction == InstructionEnum.Move && register1.name.equals(register2.name);
     }
 
-    private double eval(List<Instruction> instructions, List<Register> registers) {
+    private double eval(List<HumanInstruction> instructions, List<HumanRegister> registers) {
         return evaluator.calculateFitness(instructions, registers);
+    }
+
+    private boolean isValid(List<HumanInstruction> instructions, List<HumanRegister> registers) {
+        return evaluator.isValid(instructions, registers);
     }
 
 }

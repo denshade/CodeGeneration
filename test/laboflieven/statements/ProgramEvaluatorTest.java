@@ -20,13 +20,13 @@ public class ProgramEvaluatorTest extends TestCase {
         parameter1.input.put("R1", 1.0);
         parameter1.expectedOutput.put("R1", 2.0);
         parameters.add(parameter1);
-        ProgramEvaluator ev = new ProgramEvaluator(parameters);
+        ProgramFitnessExaminer ev = new ProgramFitnessExaminer(parameters);
 
         Register register1 = new Register("R1");
 
         List<Instruction> instructions = new ArrayList<>();
         instructions.add(new Add(register1, register1));
-        assertTrue(ev.evaluate(instructions, Collections.singletonList(register1)));
+        assertTrue(ev.isFit(instructions, Collections.singletonList(register1)));
 
     }
     public void testEvaluateFalse() throws Exception {
@@ -35,13 +35,13 @@ public class ProgramEvaluatorTest extends TestCase {
         parameter1.input.put("R1", 1.0);
         parameter1.expectedOutput.put("R1", 1.0);
         parameters.add(parameter1);
-        ProgramEvaluator ev = new ProgramEvaluator(parameters);
+        ProgramFitnessExaminer ev = new ProgramFitnessExaminer(parameters);
 
         Register register1 = new Register("R1");
 
         List<Instruction> instructions = new ArrayList<>();
         instructions.add(new Add(register1, register1));
-        assertFalse(ev.evaluate(instructions, Collections.singletonList(register1)));
+        assertFalse(ev.isFit(instructions, Collections.singletonList(register1)));
 
     }
 

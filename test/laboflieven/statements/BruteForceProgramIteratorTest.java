@@ -10,7 +10,7 @@ import java.util.*;
 public class BruteForceProgramIteratorTest extends TestCase {
 
     public void testIterate() throws Exception {
-        ProgramEvaluator ev = new ProgramEvaluator(Collections.EMPTY_LIST);
+        ProgramFitnessExaminer ev = new ProgramFitnessExaminer(Collections.EMPTY_LIST);
         BruteForceProgramIterator iterator = new BruteForceProgramIterator(ev);
         iterator.iterate(4, 2);
 
@@ -44,7 +44,7 @@ public class BruteForceProgramIteratorTest extends TestCase {
         collection.add(createParameter(1.0, 2.0, 1.0, 0.0, -1.0));
         collection.add(createParameter(1.0, -1, -56, 0.0, 8));
         collection.add(createParameter(1.0, 2, -15, 0.0, 3));
-        ProgramEvaluator evaluator = new ProgramEvaluator(collection);
+        ProgramFitnessExaminer evaluator = new ProgramFitnessExaminer(collection);
         BruteForceProgramIterator iterator = new BruteForceProgramIterator(evaluator);
         int maximumInstructions = 1;
         iterator.iterate(4, maximumInstructions);

@@ -29,17 +29,19 @@ public class QuadraticFinder {
             List<InOutParameters> collection = new ArrayList<>();
             collection.add(createParameter(fillDoubleArray(new double [] {2.0,-8.0,-24.0}, curMaxRegisters), 6.0));
             collection.add(createParameter(fillDoubleArray(new double [] {1.0, 2.0, 1.0}, curMaxRegisters), -1.0));
+            collection.add(createParameter(fillDoubleArray(new double [] {1.0, 2.0, -3.0}, curMaxRegisters), 1.0));
             collection.add(createParameter(fillDoubleArray(new double [] {1.0, -1, -56}, curMaxRegisters), 8));
             collection.add(createParameter(fillDoubleArray(new double [] {1.0, 2, -15}, curMaxRegisters), 3));
             collection.add(createParameter(fillDoubleArray(new double [] {1.0, -100, 2500}, curMaxRegisters), 50));
             collection.add(createParameter(fillDoubleArray(new double [] {1.0, -200, 10000}, curMaxRegisters), 100));
+            collection.add(createParameter(fillDoubleArray(new double [] {1.0, -400, 40000}, curMaxRegisters), 200));
             collection.add(createParameter(fillDoubleArray(new double [] {1.0, -400, 40000}, curMaxRegisters), 200));
 
 
 
             ProgramFitnessExaminer evaluator = new ProgramFitnessExaminer(collection);
 
-            for (int curMaxInstructions = 5; curMaxInstructions < 15; curMaxInstructions++) {
+            for (int curMaxInstructions = 15; curMaxInstructions < 20; curMaxInstructions++) {
 
                 RandomGeneticProgramIterator iterator = new RandomGeneticProgramIterator(evaluator, new InstructionEnum[]{InstructionEnum.Add, InstructionEnum.Sub, InstructionEnum.Mul, InstructionEnum.Div, InstructionEnum.Sqrt},
                         maxSizePopulation,
@@ -47,16 +49,18 @@ public class QuadraticFinder {
                         curpopularParents);
 
                 double bestInRetries = 450000;
+                ProgramResolution result = null;
                 for (int retries = 0; retries < 20; retries++) {
 
-                    double result = iterator.iterate(curMaxRegisters, curMaxInstructions);
-                    if (result < bestInRetries)
-                        bestInRetries = result;
+                    result = iterator.iterate(curMaxRegisters, curMaxInstructions);
+
+                    if (result.weight < bestInRetries)
+                        bestInRetries = result.weight;
                 }
 
                 if (bestInRetries < winnerOfTheWorldWeight) {
                     winnerOfTheWorldWeight = bestInRetries;
-                    winner = "#registers " + curMaxRegisters + " #maxinstructions " + curMaxInstructions  + " curpopularparents " + curpopularParents +" #maxpopulation " + maxSizePopulation;
+                    winner = "#registers " + curMaxRegisters + " #maxinstructions " + curMaxInstructions  + " curpopularparents " + curpopularParents +" #maxpopulation " + maxSizePopulation + ' ' + result.instructions;
                     System.out.println(winner + " with " + winnerOfTheWorldWeight );
                 }
             }
