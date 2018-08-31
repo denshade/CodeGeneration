@@ -1,6 +1,9 @@
-package laboflieven;
+package laboflieven.statements;
 
 import junit.framework.TestCase;
+import laboflieven.BruteForceProgramIterator;
+import laboflieven.InOutParameters;
+import laboflieven.ProgramFitnessExaminer;
 
 import java.util.*;
 

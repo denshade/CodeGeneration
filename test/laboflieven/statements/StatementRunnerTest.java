@@ -1,5 +1,7 @@
-package laboflieven;
+package laboflieven.statements;
 
+import laboflieven.Program;
+import laboflieven.StatementRunner;
 import laboflieven.statements.*;
 
 import java.util.ArrayList;
