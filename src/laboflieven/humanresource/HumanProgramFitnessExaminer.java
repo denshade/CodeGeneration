@@ -1,5 +1,9 @@
 package laboflieven.humanresource;
 
+import laboflieven.humanresource.instructions.Inbox;
+import laboflieven.humanresource.instructions.Jump;
+import laboflieven.humanresource.instructions.JumpIfNegative;
+import laboflieven.humanresource.instructions.JumpIfZero;
 import laboflieven.humanresource.model.HumanInstruction;
 import laboflieven.humanresource.model.HumanRegister;
 import laboflieven.humanresource.model.HumanResourceProgram;
@@ -112,6 +116,37 @@ public class HumanProgramFitnessExaminer
                     return 10000000;
                 Iterator<Integer> it = outQ.iterator();
                 int inputIndex = 0;
+                if (instructions.get(0) instanceof Jump)
+                {
+                    penalty += 5000;
+                }
+                HumanInstruction prevInstruction = instructions.get(0);
+                for (int i = 1; i < instructions.size(); i++)
+                {
+                    if (instructions.get(i) instanceof Inbox && prevInstruction instanceof Inbox)
+                    {
+                        penalty += 5000;
+                    }
+                    prevInstruction = instructions.get(i);
+                }
+
+
+                int nrJumps = 0;
+                for(HumanInstruction instr : program.getInstructions())
+                {
+                    if (instr instanceof Jump || instr instanceof JumpIfZero || instr instanceof JumpIfNegative)
+                    {
+                        nrJumps++;
+                    }
+                }
+                if (nrJumps == 0)
+                {
+                    penalty += 1000;
+                }
+                if (nrJumps > 3)
+                {
+                    penalty += 10000;
+                }
 
                 while (it.hasNext()) {
                     if (currentExample.output.get(inputIndex++) != it.next()) {

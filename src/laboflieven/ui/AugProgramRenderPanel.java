@@ -6,13 +6,11 @@ import laboflieven.StatementRunner;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Created by Lieven on 12-11-2016.
  */
-public class ProgramRenderPanel extends JPanel {
+public class AugProgramRenderPanel extends JPanel {
 
 
     private BufferedImage canvas;
@@ -21,7 +19,7 @@ public class ProgramRenderPanel extends JPanel {
     private int height;
 
 
-    public ProgramRenderPanel(int width, int height) {
+    public AugProgramRenderPanel(int width, int height) {
         this.width = width;
         this.height = height;
         canvas = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
@@ -56,52 +54,32 @@ public class ProgramRenderPanel extends JPanel {
         StatementRunner runner = new StatementRunner();
         DefaultRenderStrategy strategy = new DefaultRenderStrategy(width, height, runner, program);
         int[][] grid = strategy.calculate();
-        int sumR = 0;
-        int sumG = 0;
-        int sumB = 0;
+        long sumR = 0;
+        long sumG = 0;
+        long sumB = 0;
         for (int x = 0; x < width; x++)
             for (int y = 0; y < height; y++)
             {
-                sumR = Math.max(sumR, grid[x][y]%255);
-                sumG = Math.max(sumG, (grid[x][y]/255)%255);
-                sumB = Math.max(sumB, (grid[x][y]/65536)%255);
+                sumR += grid[x][y]%255;
+                sumG += (grid[x][y]/255)%255;
+                sumB += (grid[x][y]/65536)%255;
             }
 
+        long avgR = sumR/(width*height);
+        long avgG = sumG/(width*height);
+        long avgB = sumB/(width*height);
 
-        System.out.println(sumR + " " + sumG + " " + sumB);
+        System.out.println(avgR + " " + avgG + " " + avgB);
 
-        if (sumR + sumG + sumB < 1) return true;
+        if (avgB + avgG + avgR < 10) return true;
         for (int x = 0; x < width; x++)
             for (int y = 0; y < height; y++)
-                canvas.setRGB(x, y, getRgb(grid[x][y], sumR, sumG, sumB));
+                canvas.setRGB(x, y, grid[x][y]);
 
 
 
         repaint();
         return false;
-    }
-
-    public int getRgb(int color, int maxR, int maxG, int maxB)
-    {
-        int r = color%255;
-        int g = (color/256)%255;
-        int b = (color/65536)%255;
-        int newR = r;
-        if (r!= 0)
-        {
-            newR = (255 / maxR)*r;
-        }
-        int newG = g;
-        if (g != 0)
-        {
-            newG = (255 / maxG)*g;
-        }
-        int newB = b;
-        if (b!= 0)
-        {
-            newB = (255 / maxB)*b;
-        }
-        return newR + newG*256 + newB * 65536;
     }
 
     private int getResultColor(Program program) {

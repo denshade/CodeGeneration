@@ -120,7 +120,7 @@ public class RandomGeneticProgramIterator {
 
     private ProgramResolution getNthVar(PriorityQueue<ProgramResolution> solutions) {
         Random r = new Random();
-        int p = r.nextInt((int)(POPULATION_MAX * popularParents));
+        int p = r.nextInt((int)(solutions.size() * popularParents));
         Iterator<ProgramResolution> it = solutions.iterator();
         ProgramResolution val = null;
         for (int k = 0; k <= p; k++)

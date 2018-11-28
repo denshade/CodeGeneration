@@ -28,6 +28,9 @@ public class InstructionFactory
             case Sub:
                 instruction = new  Sub(register1, register2);
                 break;
+            case Nand:
+                instruction = new  Nand(register1, register2);
+                break;
             default:
                 throw new IllegalArgumentException("invalid instruction " + instructionEnum.toString());
         }

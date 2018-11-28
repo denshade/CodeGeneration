@@ -61,9 +61,10 @@ public class ProgramFitnessExaminer
                 if (Double.isNaN(register.value))
                 {
                     return NO_FIT_AT_ALL;
-                } else if (registerValueIsCloseEnough(register, expectedOutput))
+                } else
                 {
-                     err += Math.abs(expectedOutput.get(register.name) - register.value);
+                    if (expectedOutput.containsKey(register.name))
+                        err += Math.min(10000, Math.abs(expectedOutput.get(register.name) - register.value));
                 }
             }
             //Should also check that expected values are actually compared. eg. R3 doesn't exist => OK.(wrong)

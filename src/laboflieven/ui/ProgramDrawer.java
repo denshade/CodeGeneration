@@ -41,7 +41,7 @@ public class ProgramDrawer
         registerCountSlider.setPaintTicks(true);
         JButton button = new JButton("start");
         button.addActionListener(e -> {
-            drawPrograms(registerCountSlider.getValue(), programPanel);
+            drawPrograms(registerCountSlider.getValue(), programPanel, allowedInstructions);
             JOptionPane.showMessageDialog(frame, programPanel);
         });
         GridLayout gridLayout = new GridLayout(3, 2);
@@ -59,8 +59,15 @@ public class ProgramDrawer
 
     }
 
-    private static void drawPrograms(int instructionCount, ProgramRenderPanel programPanel) {
-        RealRandomProgramIterator iterator = new RealRandomProgramIterator();
+    private static void drawPrograms(int instructionCount, ProgramRenderPanel programPanel, JList allowedInstructions) {
+        InstructionEnum[] enums = new InstructionEnum[allowedInstructions.getSelectedValuesList().size()];
+        for (int i = 0; i < allowedInstructions.getSelectedValuesList().size(); i++)
+        {
+            enums[i] = (InstructionEnum)allowedInstructions.getSelectedValuesList().get(i);
+        }
+        if (enums.length == 0) return;
+        RealRandomProgramIterator iterator = new RealRandomProgramIterator(enums);
+
         Program program = iterator.getNextProgram(3, instructionCount);
         boolean isAllBlack = programPanel.drawProgram(program);
         while (isAllBlack) {

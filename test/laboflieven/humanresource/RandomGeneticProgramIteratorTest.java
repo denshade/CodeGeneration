@@ -50,7 +50,9 @@ public class RandomGeneticProgramIteratorTest
                         HumanInstructionEnum.BumpMin,
                         HumanInstructionEnum.BumpPlus,
                         HumanInstructionEnum.JumpIfZero,
-                        HumanInstructionEnum.JumpIfNegative
+                        HumanInstructionEnum.JumpIfNegative,
+                        HumanInstructionEnum.CopyFrom,
+                        HumanInstructionEnum.CopyTo,
                 },
                 1000,1000,1000
         );

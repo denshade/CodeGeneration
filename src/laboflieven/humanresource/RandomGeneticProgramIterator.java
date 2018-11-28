@@ -2,6 +2,7 @@ package laboflieven.humanresource;
 
 import laboflieven.ProgramFitnessExaminer;
 import laboflieven.ProgramResolution;
+import laboflieven.humanresource.instructions.Inbox;
 import laboflieven.humanresource.model.HumanInstruction;
 import laboflieven.humanresource.model.HumanInstructionEnum;
 import laboflieven.humanresource.model.HumanInstructionFactory;
@@ -58,54 +59,56 @@ public class RandomGeneticProgramIterator {
         for (int i = 0; i < registers.length; i++) {
             registers[i] = new HumanRegister("r" + i);
         }
+        HumanProgramResolution bestProgram = new HumanProgramResolution();
         Set<HumanRegister> availableRegisters = new HashSet<>();
         availableRegisters.add(registers[registers.length - 1]);// Add the result register.
-        while (chosenSolutions.size() < 1000) {
-            recurse(new ArrayList<>());
-        }
-        // System.out.println(chosenSolutions);
-        PriorityQueue<HumanProgramResolution> solutions = new PriorityQueue<>();
-        for (List<HumanInstruction> instruction : chosenSolutions)
-        {
-            HumanProgramResolution res = new HumanProgramResolution();
-            res.weight = eval(instruction, Arrays.asList(registers));
-            res.instructions = instruction;
-            solutions.add(res);
-        }
-        double bestSolution = 446489;
-        int bestSolutionCycle = 10000;
-        //Let the best 10 solutions procreate.
+        for (int i = 0; i < 10; i++) {
 
-        while (solutions.peek().weight > 1000 && bestSolutionCycle > 0)
-        {
-            double weight = solutions.peek().weight;
-            if (weight < bestSolution)
-            {
-                bestSolution = weight;
-                bestSolutionCycle = 10000;
+            while (chosenSolutions.size() < 1000) {
+                recurse(new ArrayList<>(Arrays.asList(new Inbox())));
 
-            } else if (Math.abs(weight - bestSolution) < 0.005)
-            {
-                bestSolutionCycle--;
             }
-            System.out.println("Best solution " + weight);
-            reproduce(solutions);
-            //System.out.println(child);
-            if (solutions.size() > POPULATION_MAX * maxOverflow)
-            {
-                solutions = cutPopulation(solutions);
+
+            // System.out.println(chosenSolutions);
+            PriorityQueue<HumanProgramResolution> solutions = new PriorityQueue<>();
+            for (List<HumanInstruction> instruction : chosenSolutions) {
+                HumanProgramResolution res = new HumanProgramResolution();
+                res.weight = eval(instruction, Arrays.asList(registers));
+                res.instructions = instruction;
+                solutions.add(res);
             }
+            double bestSolution = 446489;
+            int bestSolutionCycle = 10000;
+            //Let the best 10 solutions procreate.
+
+            //while (solutions.peek().weight > 0 && bestSolutionCycle > 0)
+            {
+
+                HumanProgramResolution peek = solutions.peek();
+                double weight = peek.weight;
+                if (weight < bestSolution) {
+                    bestSolution = weight;
+                    bestSolutionCycle = 10000;
+                    bestProgram.instructions = peek.instructions;
+                    bestProgram.weight = weight;
+                } else if (Math.abs(weight - bestSolution) < 0.005) {
+                    bestSolutionCycle--;
+                }
+                System.out.println("Best solution " + weight + " " + solutions.peek().instructions);
+//                reproduce(solutions);
+
+            }
+            System.out.println("Best solution" + solutions.peek().weight + " " + solutions.peek().instructions);
+            chosenSolutions.clear();
         }
-        System.out.println("Best solution" + solutions.peek().weight + " " + solutions.peek().instructions);
-        return solutions.peek();
+        return bestProgram;
     }
 
     private void reproduce(PriorityQueue<HumanProgramResolution> solutions) {
         HumanProgramResolution mom = getNthVar(solutions);
         HumanProgramResolution dad = getNthVar(solutions);
 
-        for (List<HumanInstruction> childDNA : mom.procreate(dad, 3))
-        {
+        for (List<HumanInstruction> childDNA : mom.procreate(dad, 3)) {
             HumanProgramResolution child = new HumanProgramResolution();
             child.instructions = childDNA;
             child.weight = eval(child.instructions, Arrays.asList(registers));
@@ -116,8 +119,7 @@ public class RandomGeneticProgramIterator {
     private PriorityQueue cutPopulation(PriorityQueue solutions) {
         List l = new ArrayList<>();
 
-        for (int i = 0; i < POPULATION_MAX; i++)
-        {
+        for (int i = 0; i < POPULATION_MAX; i++) {
             l.add(solutions.poll());
         }
         solutions = new PriorityQueue<>(l);
@@ -126,19 +128,17 @@ public class RandomGeneticProgramIterator {
 
     private HumanProgramResolution getNthVar(PriorityQueue<HumanProgramResolution> solutions) {
         Random r = new Random();
-        int p = r.nextInt((int)(solutions.size()));
+        int p = r.nextInt((int) (solutions.size()));
         Iterator<HumanProgramResolution> it = solutions.iterator();
         HumanProgramResolution val = null;
-        for (int k = 0; k <= p; k++)
-        {
+        for (int k = 0; k <= p; k++) {
             val = it.next();
         }
         return val;
     }
 
     public void recurse(List<HumanInstruction> instructions) {
-        if (instructions.size() >= maximumInstructions)
-        {
+        if (instructions.size() >= maximumInstructions) {
             chosenSolutions.add(new ArrayList<>(instructions));
             return;
         }
@@ -156,26 +156,23 @@ public class RandomGeneticProgramIterator {
             instructions.add(actualInstruction);
             if (!isValid(instructions, Arrays.asList(registers)))
                 return;
-            //eval(instructions, Arrays.asList(registers));
-            recurse(instructions);
-            instructions.remove(0);
-        } else if (instruction.isLoop()){
-            HumanInstruction actualInstruction = HumanInstructionFactory.createLoopInstruction(instruction, r.nextInt(maximumInstructions));
-            instructions.add(0, actualInstruction);
+        } else if (instruction.isLoop()) {
+            int jumpToInstruction = r.nextInt(maximumInstructions);
+            while (jumpToInstruction == instructions.size() - 1) {
+                jumpToInstruction = r.nextInt(maximumInstructions);
+            }
+            HumanInstruction actualInstruction = HumanInstructionFactory.createLoopInstruction(instruction, jumpToInstruction);
+            instructions.add(actualInstruction);
             if (!isValid(instructions, Arrays.asList(registers)))
                 return;
-            //eval(instructions, Arrays.asList(registers));
-            recurse(instructions);
-            instructions.remove(0);
-        } else
-        {
+        } else {
             HumanInstruction actualInstruction = HumanInstructionFactory.createInstruction(instruction);
             instructions.add(actualInstruction);
             if (!isValid(instructions, Arrays.asList(registers)))
                 return;
-            recurse(instructions);
-            instructions.remove(0);
         }
+        recurse(instructions);
+        instructions.remove(instructions.size() - 1);
     }
 
     private boolean isUselessOp(InstructionEnum instruction, Register register1, Register register2) {
