@@ -18,13 +18,15 @@ public class FormulaFinder {
      *
      * @param args
      */
-    public static void main(String[] args)
+    public static void mainRnd(String[] args)
     {
         double maxPopulationOverflow = 1.1;
         //double popularParents = .8;
         double[][] doubles = {new double[]{ 10, 1, 1}, new double[]{ 1, 10, 1}, new double[]{ 1, 1, 10},
                 new double[]{ 0, 0, 0}, new double[]{ 1, 100, 1}, new double[]{ 1, 1, 100},
-                new double[]{ 1000, 50, 1}, new double[]{ 1000, 1, 50}, new double[]{ 50, 1, 1000}
+                new double[]{ 1000, 50, 1}, new double[]{ 1000, 1, 50}, new double[]{ 50, 1, 1000},
+                new double[]{ 10000, 50, 10}, new double[]{ 10000, -1, 50}, new double[]{ -10000, -100, 1000}
+
         };
 
         double winnerOfTheWorldWeight = 45000;
@@ -44,16 +46,16 @@ public class FormulaFinder {
 
             ProgramFitnessExaminer evaluator = new ProgramFitnessExaminer(collection);
 
-            for (int curMaxInstructions = 3; curMaxInstructions < 5; curMaxInstructions++) {
+            for (int curMaxInstructions = 4; curMaxInstructions < 7; curMaxInstructions++) {
 
-                RandomGeneticProgramIterator iterator = new RandomGeneticProgramIterator(evaluator, InstructionEnum.values(), //);// new InstructionEnum[]{InstructionEnum.Add, InstructionEnum.Sub, InstructionEnum.Mul, InstructionEnum.Div, InstructionEnum.Sqrt},
+                RandomGeneticProgramIterator iterator = new RandomGeneticProgramIterator(evaluator, new InstructionEnum[]{InstructionEnum.Add, InstructionEnum.Sub, InstructionEnum.Mul, InstructionEnum.Div, InstructionEnum.Sqrt},
                         maxSizePopulation,
                         maxPopulationOverflow,
                         curpopularParents);
 
                 double bestInRetries = 450000;
                 ProgramResolution result = null;
-                for (int retries = 0; retries < 20; retries++) {
+                for (int retries = 0; retries < 200; retries++) {
 
                     result = iterator.iterate(curMaxRegisters, curMaxInstructions);
 
@@ -79,17 +81,15 @@ public class FormulaFinder {
     {
         double a = args[0];
         double b = args[1];
-        double c = args[2];
-        return Math.sqrt(b*b - 4*a*c);
+        double c = args[2]; // c *= a;[c = c*a] b*=b;[b=b²] a += a [a=2*a]; a = 4*a; b²-
+        return b*b - 4*a*c; // Mul r2 -> r0, Mul r1 -> r1, r0+= r0, r0+= r0, Sub r1 -> r0, r3+= r0]
+        // Math.sqrt(b*b - 4*a*c);
     }
 
     private static double[] fillDoubleArray(double[] original, int newSize)
     {
         double[] result = new double[newSize];
-        for (int i = 0; i < original.length; i++)
-        {
-            result[i] = original[i];
-        }
+        System.arraycopy(original, 0, result, 0, original.length);
         return result;
     }
 
@@ -115,28 +115,26 @@ public class FormulaFinder {
         return results;
     }
 
-    public static void mainStr(String[] args)
+    public static void main(String[] args)
     {
-        int curMaxRegisters = 4;
-        List<InOutParameters> collection = new ArrayList<>();
-        collection.add(createParameter(fillDoubleArray(new double [] {2.0,-8.0,-24.0}, curMaxRegisters), calcQuad(new double [] {2.0,-8.0,-24.0})));
-        collection.add(createParameter(fillDoubleArray(new double [] {1.0, 2.0, 1.0}, curMaxRegisters), calcQuad(new double [] {1.0, 2.0, 1.0})));// -1
-        collection.add(createParameter(fillDoubleArray(new double [] {1.0, 2.0, -3.0}, curMaxRegisters), calcQuad(new double [] {1.0, 2.0, -3.0})));
-        collection.add(createParameter(fillDoubleArray(new double [] {1.0, -1, -56}, curMaxRegisters), calcQuad(new double [] {1.0, -1, -56})));
-        collection.add(createParameter(fillDoubleArray(new double [] {1.0, 2, -15}, curMaxRegisters), calcQuad(new double [] {1.0, 2.0, -15})));
-        collection.add(createParameter(fillDoubleArray(new double [] {1.0, -100, 2500}, curMaxRegisters), calcQuad(new double [] {1.0, -100, 2500})));
-        collection.add(createParameter(fillDoubleArray(new double [] {1.0, -200, 10000}, curMaxRegisters), calcQuad(new double [] {1.0, -200, 10000})));
-        collection.add(createParameter(fillDoubleArray(new double [] {1.0, -400, 40000}, curMaxRegisters), calcQuad(new double [] {1.0, -400, 40000})));
-        collection.add(createParameter(fillDoubleArray(new double [] {1.0, 500, 0}, curMaxRegisters), calcQuad(new double [] {1.0, 500, 0})));
-        collection.add(createParameter(fillDoubleArray(new double [] {1.0, 15000, 0}, curMaxRegisters), calcQuad(new double [] {1.0, 15000, 0})));
-        collection.add(createParameter(fillDoubleArray(new double [] {-1.0, 15000, 0}, curMaxRegisters), calcQuad(new double [] {-1.0, 15000, 0})));
-        collection.add(createParameter(fillDoubleArray(new double [] {2.0, 1000, 0}, curMaxRegisters), calcQuad(new double [] {2.0, 1000, 0})));
+        int curMaxRegisters = 3;
+        double[][] doubles = {new double[]{ 10, 1, 1}, new double[]{ 1, 10, 1}, new double[]{ 1, 1, 10},
+                new double[]{ 0, 0, 0}, new double[]{ 1, 100, 1}, new double[]{ 1, 1, 100},
+                new double[]{ 1000, 50, 1}, new double[]{ 1000, 1, 50}, new double[]{ 50, 1, 1000},
+                new double[]{ 10000, 50, 10}, new double[]{ 10000, -1, 50}, new double[]{ -10000, -100, 1000}
 
+        };
+        List<InOutParameters> collection = new ArrayList<>();
+        for (double[] doubleRow : doubles)
+        {
+            if (!Double.isNaN(calcQuad(doubleRow)))
+                collection.add(createParameter(fillDoubleArray(doubleRow, curMaxRegisters), calcQuad(doubleRow)));
+        }
 
         ProgramFitnessExaminer evaluator = new ProgramFitnessExaminer(collection);
 
         ReverseProgramIterator iter = new ReverseProgramIterator(evaluator, new InstructionEnum[]{InstructionEnum.Add, InstructionEnum.Sub, InstructionEnum.Mul, InstructionEnum.Div, InstructionEnum.Sqrt, InstructionEnum.Move});
-        iter.iterate(curMaxRegisters, 14);
+        iter.iterate(curMaxRegisters, 6);
 
     }
 
