@@ -78,12 +78,10 @@ public class BruteForceProgramIterator
         if (evaluator.isFit(instructions, registers)){
             System.out.println("Found a program: " + instructions);
             positiveSolutions.add(new ArrayList<>(instructions));
+            evaluator.calculateFitness(instructions, registers);
         } else {
-            if (counter % 1000000 == 0)
-            {
-                System.out.println("Current fitness " + evaluator.calculateFitness(instructions, registers) + " " + instructions);
-
-            }
+            evaluator.calculateFitness(instructions, registers);
+            //System.out.println("Current fitness " + evaluator.calculateFitness(instructions, registers) + " " + instructions);
         }
     }
 

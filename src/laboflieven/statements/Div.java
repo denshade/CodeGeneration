@@ -14,4 +14,9 @@ public class Div extends DualRegisterInstruction
         destination.value = destination.value / source.value;
         return null;
     }
+
+    public String toString()
+    {
+        return destination + "/= " +  source;
+    }
 }

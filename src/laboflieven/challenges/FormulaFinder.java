@@ -1,12 +1,10 @@
 package laboflieven.challenges;
 
 import laboflieven.*;
-import laboflieven.statements.InstructionEnum;
+import laboflieven.statements.*;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.io.IOException;
+import java.util.*;
 
 /**
  * Created by Lieven on 8/07/2015.
@@ -18,7 +16,7 @@ public class FormulaFinder {
      *
      * @param args
      */
-    public static void mainRnd(String[] args)
+    public static void mainRndGenetic(String[] args)
     {
         double maxPopulationOverflow = 1.1;
         //double popularParents = .8;
@@ -82,8 +80,10 @@ public class FormulaFinder {
         double a = args[0];
         double b = args[1];
         double c = args[2]; // c *= a;[c = c*a] b*=b;[b=b²] a += a [a=2*a]; a = 4*a; b²-
-        return b*b - 4*a*c; // Mul r2 -> r0, Mul r1 -> r1, r0+= r0, r0+= r0, Sub r1 -> r0, r3+= r0]
-        // Math.sqrt(b*b - 4*a*c);
+        //return Math.log(a + b);
+
+        //b*b - 4ac = Mul r2 -> r0, Mul r1 -> r1, r0+= r0, r0+= r0, Sub r1 -> r0, r3+= r0]
+        return Math.sqrt(b*b - 4*a*c);
     }
 
     private static double[] fillDoubleArray(double[] original, int newSize)
@@ -115,7 +115,7 @@ public class FormulaFinder {
         return results;
     }
 
-    public static void main(String[] args)
+    public static void mainReverseProgramIterator(String[] args)
     {
         int curMaxRegisters = 3;
         double[][] doubles = {new double[]{ 10, 1, 1}, new double[]{ 1, 10, 1}, new double[]{ 1, 1, 10},
@@ -133,9 +133,87 @@ public class FormulaFinder {
 
         ProgramFitnessExaminer evaluator = new ProgramFitnessExaminer(collection);
 
-        ReverseProgramIterator iter = new ReverseProgramIterator(evaluator, new InstructionEnum[]{InstructionEnum.Add, InstructionEnum.Sub, InstructionEnum.Mul, InstructionEnum.Div, InstructionEnum.Sqrt, InstructionEnum.Move});
+        ReverseProgramIterator iter = new ReverseProgramIterator(evaluator, new InstructionEnum[]{InstructionEnum.Add, InstructionEnum.Sub, InstructionEnum.Mul, InstructionEnum.Div, InstructionEnum.Sqrt, InstructionEnum.Move, InstructionEnum.Log});
+        iter.iterate(curMaxRegisters, 3);
+
+    }
+    public static void main(String[] args)
+    {
+        try {
+            mainBruteWithLogging(args);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void mainRnd(String[] args)
+    {
+        int curMaxRegisters = 3;
+        double[][] doubles = {new double[]{ 10, 1, 1}, new double[]{ 1, 10, 1}, new double[]{ 1, 1, 10},
+                new double[]{ 0, 0, 0}, new double[]{ 1, 100, 1}, new double[]{ 1, 1, 100},
+                new double[]{ 1000, 50, 1}, new double[]{ 1000, 1, 50}, new double[]{ 50, 1, 1000},
+                new double[]{ 10000, 50, 10}, new double[]{ 10000, -1, 50}, new double[]{ -10000, -100, 1000}
+
+        };
+        List<InOutParameters> collection = new ArrayList<>();
+        for (double[] doubleRow : doubles)
+        {
+            if (!Double.isNaN(calcQuad(doubleRow)))
+                collection.add(createParameter(fillDoubleArray(doubleRow, curMaxRegisters), calcQuad(doubleRow)));
+        }
+
+        ProgramFitnessExaminer evaluator = new ProgramFitnessExaminer(collection);
+
+        RandomProgramIterator iter = new RandomProgramIterator(evaluator, new InstructionEnum[]{InstructionEnum.Add, InstructionEnum.Sub, InstructionEnum.Mul, InstructionEnum.Div, InstructionEnum.Sqrt, InstructionEnum.Move, InstructionEnum.Log});
         iter.iterate(curMaxRegisters, 6);
 
     }
+
+    public static void mainBrute(String[] args)
+    {
+        int curMaxRegisters = 3;
+        double[][] doubles = {new double[]{ 10, 1, 1}, new double[]{ 1, 10, 1}, new double[]{ 1, 1, 10},
+                new double[]{ 0, 0, 0}, new double[]{ 1, 100, 1}, new double[]{ 1, 1, 100},
+                new double[]{ 1000, 50, 1}, new double[]{ 1000, 1, 50}, new double[]{ 50, 1, 1000},
+                new double[]{ 10000, 50, 10}, new double[]{ 10000, -1, 50}, new double[]{ -10000, -100, 1000}
+
+        };
+        List<InOutParameters> collection = new ArrayList<>();
+        for (double[] doubleRow : doubles)
+        {
+            if (!Double.isNaN(calcQuad(doubleRow)))
+                collection.add(createParameter(fillDoubleArray(doubleRow, curMaxRegisters), calcQuad(doubleRow)));
+        }
+
+        ProgramFitnessExaminer evaluator = new ProgramFitnessExaminer(collection);
+        BruteForceProgramIterator iter = new BruteForceProgramIterator(evaluator, new InstructionEnum[]{InstructionEnum.Add, InstructionEnum.Sub, InstructionEnum.Mul, InstructionEnum.Div, InstructionEnum.Sqrt, InstructionEnum.Move, InstructionEnum.Log});
+        iter.iterate(curMaxRegisters, 5);
+    }
+
+    public static void mainBruteWithLogging(String[] args) throws IOException {
+        int curMaxRegisters = 3;
+        double[][] doubles = {new double[]{ 10, 1, 1}, new double[]{ 1, 10, 1}, new double[]{ 1, 1, 10},
+                new double[]{ 0, 0, 0}, new double[]{ 1, 100, 1}, new double[]{ 1, 1, 100},
+                new double[]{ 1000, 50, 1}, new double[]{ 1000, 1, 50}, new double[]{ 50, 1, 1000},
+                new double[]{ 10000, 50, 10}, new double[]{ 10000, -1, 50}, new double[]{ -10000, -100, 1000}
+
+        };
+        List<InOutParameters> collection = new ArrayList<>();
+        for (double[] doubleRow : doubles)
+        {
+            if (!Double.isNaN(calcQuad(doubleRow)) && !Double.isInfinite(calcQuad(doubleRow)))
+                collection.add(createParameter(fillDoubleArray(doubleRow, curMaxRegisters), calcQuad(doubleRow)));
+        }
+        InstructionEnum[] enums = new InstructionEnum[]{InstructionEnum.Add, InstructionEnum.Sub, InstructionEnum.Mul, InstructionEnum.Div, InstructionEnum.Sqrt, InstructionEnum.Move, InstructionEnum.Log};
+        //enums = new InstructionEnum[]{InstructionEnum.Add, InstructionEnum.Sub, InstructionEnum.Mul, InstructionEnum.Div, InstructionEnum.Log};
+        FitnessLogger logger = new BitmapFitnessLogger(new java.io.File("hello.png"), enums.length, curMaxRegisters );
+        ProgramFitnessExaminer evaluator = new ProgramFitnessExaminer(collection);
+        evaluator.addListener(logger);
+        BruteForceProgramIterator iter = new BruteForceProgramIterator(evaluator, enums);
+        iter.iterate(curMaxRegisters, 3);
+        ((BitmapFitnessLogger) logger).finish();
+    }
+
+
 
 }

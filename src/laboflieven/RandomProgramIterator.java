@@ -98,7 +98,7 @@ public class RandomProgramIterator {
         {
             bestScore = val;
             bestSolution = instructions;
-            System.out.println( instructions + " " + evaluator.calculateFitness(instructions, registers));
+            System.out.println( evaluator.calculateFitness(instructions, registers) + "," + difference(instructions) );
         }
         if (instructions.size() == maximumInstructions && evaluator.isFit(instructions, registers)) {
             positiveSolutions.add(new ArrayList<>(instructions));
@@ -106,6 +106,17 @@ public class RandomProgramIterator {
             throw new StoppedByUserException();
         }
 
+    }
+
+    public static int difference(List<Instruction> instructions) {
+        Map<String, Integer> counter = new HashMap<>();
+        for (Instruction instruction : instructions)
+        {
+            counter.putIfAbsent(instruction.getClass().toString(), 0);
+            Integer count = counter.get(instruction.getClass().toString());
+            counter.put(instruction.getClass().toString(), count + 1);
+        }
+        return counter.keySet().size();
     }
 
 }

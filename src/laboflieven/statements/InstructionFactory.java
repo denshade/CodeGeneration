@@ -53,6 +53,9 @@ public class InstructionFactory
             case Cos:
                 instruction = new Cos(register1);
                 break;
+            case Log:
+                instruction = new Log(register1);
+                break;
             default:
                 throw new IllegalArgumentException("invalid instruction " + instructionEnum.toString());
         }
