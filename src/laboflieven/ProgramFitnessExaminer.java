@@ -18,6 +18,8 @@ public class ProgramFitnessExaminer
     private List<InOutParameters> conditions;
     private final double closeEnough = 0.00001;
     private List<FitnessLogger> loggers = new ArrayList<>();
+    StatementRunner runner = new StatementRunner();
+
     /**
      * @param conditions Conditions that define the input parameters & the expected outcome.
      */
@@ -33,32 +35,15 @@ public class ProgramFitnessExaminer
 
     public boolean isFit(List<Instruction> instructions, List<Register> registers)
     {
-        StatementRunner runner = new StatementRunner();
-        Program program = new Program(instructions, registers);
-
-        for(InOutParameters parameter : conditions)
-        {
-            runner.execute(program, parameter.input);
-            for (Register register : program.getRegisters())
-            {
-                Map<String, Double> expectedOutput = parameter.expectedOutput;
-                if ( Double.isNaN(register.value) || Double.isInfinite(register.value) || registerValueIsCloseEnough(register, expectedOutput))
-                {
-                    return false;
-                }
-            }
-            //Should also check that expected values are actually compared. eg. R3 doesn't exist => OK.(wrong)
-        }
-        return true;
+        return calculateFitness(instructions, registers) < closeEnough;
     }
 
-    private boolean registerValueIsCloseEnough(Register register, Map<String, Double> expectedOutput) {
+    private boolean registerValueIsTooFar(Register register, Map<String, Double> expectedOutput) {
         return expectedOutput.containsKey(register.name) && Math.abs(expectedOutput.get(register.name) - register.value) > closeEnough;
     }
 
     public double calculateFitness(List<Instruction> instructions, List<Register> registers)
     {
-        StatementRunner runner = new StatementRunner();
         Program program = new Program(instructions, registers);
         double err = 0.0;
         total:
@@ -75,7 +60,12 @@ public class ProgramFitnessExaminer
                 } else
                 {
                     if (expectedOutput.containsKey(register.name))
-                        err += Math.min(NO_FIT_AT_ALL, Math.abs(expectedOutput.get(register.name) - register.value));
+                    {
+                        err += Math.abs(expectedOutput.get(register.name) - register.value);
+                        if (err >= NO_FIT_AT_ALL){
+                            return NO_FIT_AT_ALL;
+                        }
+                    }
                 }
             }
             //Should also check that expected values are actually compared. eg. R3 doesn't exist => OK.(wrong)
@@ -97,7 +87,7 @@ public class ProgramFitnessExaminer
             runner.execute(program, parameter.input);
             for (Register register : program.getRegisters())
             {
-                if (registerValueIsCloseEnough(register, parameter.expectedOutput))
+                if (registerValueIsTooFar(register, parameter.expectedOutput))
                 {
                     result += Math.abs(parameter.expectedOutput.get(register.name) - register.value);
                 }

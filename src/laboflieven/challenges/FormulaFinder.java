@@ -79,11 +79,11 @@ public class FormulaFinder {
     {
         double a = args[0];
         double b = args[1];
-        double c = args[2]; // c *= a;[c = c*a] b*=b;[b=b²] a += a [a=2*a]; a = 4*a; b²-
-        //return Math.log(a + b);
+//        double c = args[2]; // c *= a;[c = c*a] b*=b;[b=b²] a += a [a=2*a]; a = 4*a; b²-
+        return Math.log(a)/Math.log(b);
 
         //b*b - 4ac = Mul r2 -> r0, Mul r1 -> r1, r0+= r0, r0+= r0, Sub r1 -> r0, r3+= r0]
-        return Math.sqrt(b*b - 4*a*c);
+        //return Math.sqrt(b*b - 4*a*c);
     }
 
     private static double[] fillDoubleArray(double[] original, int newSize)
@@ -140,7 +140,7 @@ public class FormulaFinder {
     public static void main(String[] args)
     {
         try {
-            mainBruteWithLogging(args);
+            mainBruteWithBmpLogging(args);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -190,23 +190,32 @@ public class FormulaFinder {
         iter.iterate(curMaxRegisters, 5);
     }
 
-    public static void mainBruteWithLogging(String[] args) throws IOException {
-        int curMaxRegisters = 3;
+    public static void mainBruteWithBmpLogging(String[] args) throws IOException {
+        /*int curMaxRegisters = 3;
         double[][] doubles = {new double[]{ 10, 1, 1}, new double[]{ 1, 10, 1}, new double[]{ 1, 1, 10},
                 new double[]{ 0, 0, 0}, new double[]{ 1, 100, 1}, new double[]{ 1, 1, 100},
                 new double[]{ 1000, 50, 1}, new double[]{ 1000, 1, 50}, new double[]{ 50, 1, 1000},
                 new double[]{ 10000, 50, 10}, new double[]{ 10000, -1, 50}, new double[]{ -10000, -100, 1000}
 
+        };*/
+        int curMaxRegisters = 2;
+        double[][] doubles = {new double[]{ 10, 1}, new double[]{ 1, 10}, new double[]{ 1, 1},
+                new double[]{ 0, 0}, new double[]{ 1, 100},
+                new double[]{ 1000, 50}, new double[]{ 1000, 1}, new double[]{ 50, 1},
+                new double[]{ 10000, 50}, new double[]{ 10000, -1}, new double[]{ -10000, -100}
+
         };
+
         List<InOutParameters> collection = new ArrayList<>();
         for (double[] doubleRow : doubles)
         {
             if (!Double.isNaN(calcQuad(doubleRow)) && !Double.isInfinite(calcQuad(doubleRow)))
                 collection.add(createParameter(fillDoubleArray(doubleRow, curMaxRegisters), calcQuad(doubleRow)));
         }
-        InstructionEnum[] enums = new InstructionEnum[]{InstructionEnum.Add, InstructionEnum.Sub, InstructionEnum.Mul, InstructionEnum.Div, InstructionEnum.Sqrt, InstructionEnum.Move, InstructionEnum.Log};
+        InstructionEnum[] enums = InstructionEnum.values();
+        //InstructionEnum[] enums = new InstructionEnum[]{InstructionEnum.Add, InstructionEnum.Sub, InstructionEnum.Mul, InstructionEnum.Div, InstructionEnum.Sqrt, InstructionEnum.Move, InstructionEnum.Log};
         //enums = new InstructionEnum[]{InstructionEnum.Add, InstructionEnum.Sub, InstructionEnum.Mul, InstructionEnum.Div, InstructionEnum.Log};
-        FitnessLogger logger = new BitmapFitnessLogger(new java.io.File("hello.png"), enums.length, curMaxRegisters );
+        FitnessLogger logger = new BitmapFitnessLogger(new java.io.File("hello.bmp"), enums.length, curMaxRegisters );
         ProgramFitnessExaminer evaluator = new ProgramFitnessExaminer(collection);
         evaluator.addListener(logger);
         BruteForceProgramIterator iter = new BruteForceProgramIterator(evaluator, enums);

@@ -43,6 +43,7 @@ public class BitmapFitnessLogger implements FitnessLogger
         if (p.y > maxY) maxY = p.y;
 
         elements.put(p, error);
+        if (error < 0.000001) System.out.println(instructions);
     }
 
     public void finish() throws IOException {
@@ -55,12 +56,12 @@ public class BitmapFitnessLogger implements FitnessLogger
             if (el.getValue() < 1){
                 res.setRGB(p.x, p.y, Color.WHITE.getRGB());
             }else {
-                float relative = (float)(Math.min(1.0, (el.getValue() / ProgramFitnessExaminer.NO_FIT_AT_ALL)));
+                float relative = (float)(Math.min(1.0, (el.getValue() / 5000)));
                 res.setRGB(p.x, p.y, new Color(1-relative, 0, 0).getRGB());
                 //res.setRGB(p.x, p.y, new Color(1-relative, 0, relative).getRGB());
             }
         }
-        ImageIO.write(res, "png", file);
+        ImageIO.write(res, "bmp", file);
 
 
     }

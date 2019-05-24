@@ -23,6 +23,7 @@ public class ProgramFitnessExaminerTest {
         // Math.sqrt(b*b - 4*a*c);
     }
 
+
     @Test
     public void calculateFitness() {
         double[][] doubles = {new double[]{ 10, 1, 1}, new double[]{ 1, 10, 1}, new double[]{ 1, 1, 10},
@@ -52,6 +53,10 @@ public class ProgramFitnessExaminerTest {
         instructions.add(new Move(r2,r1));
 
         assertEquals(0, evaluator.calculateFitness(instructions, registers),0.01);
+        assertTrue(evaluator.isFit(instructions, registers));
+        instructions.remove(3);
+        assertFalse(evaluator.isFit(instructions, registers));
+
     }
 
     private static double[] fillDoubleArray(double[] original, int newSize)
