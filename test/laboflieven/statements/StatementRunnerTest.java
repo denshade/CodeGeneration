@@ -71,6 +71,26 @@ public class StatementRunnerTest {
         Map<String, Double> results = new HashMap<>();
         runner.execute(program, results);
     }
+
+    @org.junit.Test
+    public void testExecuteRunnerJumps() {
+        StatementRunner runner = new StatementRunner();
+        List<Instruction> instructions = new ArrayList<>();
+        Register register1 = new Register("R0");
+        register1.value = 0;
+        Register register2 = new Register("R1");
+        register2.value = 2;
+        instructions.add(new JumpIfRegister1Zero(register1, register2));
+        List<Register> registers = new ArrayList<>();
+        registers.add(register1);
+        registers.add(register2);
+        Program program = new Program(instructions, registers);
+        Map<String, Double> results = new HashMap<>();
+        results.put("R0", 0.0);
+        results.put("R1", 2.0);
+        runner.execute(program, results);
+    }
+
     @org.junit.Test
     public void testExecuteQuadrantOther() throws Exception {
         List<Register> registers = Register.create4Registers();

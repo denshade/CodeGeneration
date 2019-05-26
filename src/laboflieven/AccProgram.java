@@ -1,5 +1,6 @@
 package laboflieven;
 
+import laboflieven.accinstructions.AccRegisterInstruction;
 import laboflieven.statements.Instruction;
 import laboflieven.statements.Register;
 
@@ -10,12 +11,12 @@ import java.util.Map;
 /**
  * Created by lveeckha on 14/06/2015.
  */
-public class Program
+public class AccProgram
 {
-    private List<Instruction> instructions = new ArrayList<Instruction>();
+    private List<AccRegisterInstruction> instructions = new ArrayList<>();
     private List<Register> registers = new ArrayList<Register>();
 
-    public Program(List<Instruction> instructions, List<Register> registers) {
+    public AccProgram(List<AccRegisterInstruction> instructions, List<Register> registers) {
         this.instructions = instructions;
         this.registers = registers;
     }
@@ -24,7 +25,7 @@ public class Program
         return registers;
     }
 
-    public List<Instruction> getInstructions() {
+    public List<AccRegisterInstruction> getInstructions() {
         return instructions;
     }
 

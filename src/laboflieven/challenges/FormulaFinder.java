@@ -140,7 +140,7 @@ public class FormulaFinder {
     public static void main(String[] args)
     {
         try {
-            mainBruteWithBmpLogging(args);
+            mainBruteAcc(args);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -223,6 +223,42 @@ public class FormulaFinder {
         ((BitmapFitnessLogger) logger).finish();
     }
 
+    public static void mainBruteAcc(String[] args) throws IOException {
+        /*int curMaxRegisters = 3;
+        double[][] doubles = {new double[]{ 10, 1, 1}, new double[]{ 1, 10, 1}, new double[]{ 1, 1, 10},
+                new double[]{ 0, 0, 0}, new double[]{ 1, 100, 1}, new double[]{ 1, 1, 100},
+                new double[]{ 1000, 50, 1}, new double[]{ 1000, 1, 50}, new double[]{ 50, 1, 1000},
+                new double[]{ 10000, 50, 10}, new double[]{ 10000, -1, 50}, new double[]{ -10000, -100, 1000}
+
+        };*/
+        int curMaxRegisters = 2;
+        double[][] doubles = {new double[]{ 10, 1}, new double[]{ 1, 10}, new double[]{ 1, 1},
+                new double[]{ 0, 0}, new double[]{ 1, 100},
+                new double[]{ 1000, 50}, new double[]{ 1000, 1}, new double[]{ 50, 1},
+                new double[]{ 10000, 50}, new double[]{ 10000, -1}, new double[]{ -10000, -100}
+
+        };
+
+        List<InOutParameters> collection = new ArrayList<>();
+        for (double[] doubleRow : doubles)
+        {
+            if (!Double.isNaN(calcQuad(doubleRow)) && !Double.isInfinite(calcQuad(doubleRow)))
+                collection.add(createParameter(fillDoubleArray(doubleRow, curMaxRegisters), calcQuad(doubleRow)));
+        }
+        //laboflieven.accinstructions.InstructionEnum[] enums = laboflieven.accinstructions.InstructionEnum.values();
+        laboflieven.accinstructions.InstructionEnum[] enums = new laboflieven.accinstructions.InstructionEnum[] {
+                laboflieven.accinstructions.InstructionEnum.Log,
+                laboflieven.accinstructions.InstructionEnum.Div,
+                laboflieven.accinstructions.InstructionEnum.AccLeftPull,
+                laboflieven.accinstructions.InstructionEnum.AccRightPull,
+                laboflieven.accinstructions.InstructionEnum.AccLeftPush,
+                laboflieven.accinstructions.InstructionEnum.AccRightPush
+        };
+        //enums = new InstructionEnum[]{InstructionEnum.Add, InstructionEnum.Sub, InstructionEnum.Mul, InstructionEnum.Div, InstructionEnum.Log};
+        AccProgramFitnessExaminer evaluator = new AccProgramFitnessExaminer(collection);
+        AccBruteForceProgramIterator iter = new AccBruteForceProgramIterator(evaluator, enums);
+        iter.iterate(curMaxRegisters, 10);
+    }
 
 
 }
