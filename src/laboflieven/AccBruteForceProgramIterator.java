@@ -103,7 +103,7 @@ public class AccBruteForceProgramIterator
             System.out.println("Found a program: " + instructions);
             positiveSolutions.add(new ArrayList<>(instructions));
             evaluator.calculateFitness(instructions, registers);
-            System.exit(1);
+            throw new RuntimeException("Found solution");
         } else {
             double err = evaluator.calculateFitness(instructions, registers);
             if (err < 100 && counter++ % 100000 == 0)
