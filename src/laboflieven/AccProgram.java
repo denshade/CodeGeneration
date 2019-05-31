@@ -1,6 +1,6 @@
 package laboflieven;
 
-import laboflieven.accinstructions.AccRegisterInstruction;
+import laboflieven.accinstructions.*;
 import laboflieven.statements.Instruction;
 import laboflieven.statements.Register;
 
@@ -42,6 +42,40 @@ public class AccProgram
             }
             register.value = registerValues.get(register.name);
         }
+    }
+
+    public boolean isUseless(AccRegisterInstruction instruction, int maximumInstructions)
+    {
+        //First instruction must be a push
+        if (instructions.size() == 0 && !(instruction instanceof AccLeftPush ||instruction instanceof AccRightPush))
+            return true;
+        //Finish must be a push to a register.
+        if (instructions.size() == maximumInstructions - 1 && !(instruction instanceof AccLeftPull ||instruction instanceof  AccRightPull))
+            return true;
+        //Don't use pull from right/left before a push.
+        if (instruction instanceof AccLeftPull)
+        {
+            boolean used = false;
+            for ( AccRegisterInstruction instructionI: instructions)
+            {
+                if (instructionI instanceof AccLeftPush) {
+                    used = true;
+                }
+            }
+            if (!used)return true;
+        }
+        if (instruction instanceof AccRightPull)
+        {
+            boolean used = false;
+            for ( AccRegisterInstruction instructionI: instructions)
+            {
+                if (instructionI instanceof AccRightPush) {
+                    used = true;
+                }
+            }
+            if (!used)return true;
+        }
+        return false;
     }
 
     public String toString()

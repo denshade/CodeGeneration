@@ -144,8 +144,8 @@ public class FormulaFinderTest {
                 return Math.sqrt(b*b-4*a*c)/(2*a);
             }
         }, doubles, curMaxRegisters);
-        //laboflieven.accinstructions.InstructionEnum[] enums = laboflieven.accinstructions.InstructionEnum.values();
-        InstructionEnum[] enums = new InstructionEnum[] {
+        laboflieven.accinstructions.InstructionEnum[] enums = laboflieven.accinstructions.InstructionEnum.values();
+        /*InstructionEnum[] enums = new InstructionEnum[] {
                 InstructionEnum.Add,
                 InstructionEnum.Sub,
                 InstructionEnum.Mul,
@@ -154,11 +154,12 @@ public class FormulaFinderTest {
                 InstructionEnum.AccRightPull,
                 InstructionEnum.AccLeftPush,
                 InstructionEnum.AccRightPush
-        };
+        };*/
         //enums = new InstructionEnum[]{InstructionEnum.Add, InstructionEnum.Sub, InstructionEnum.Mul, InstructionEnum.Div, InstructionEnum.Log};
         AccProgramFitnessExaminer evaluator = new AccProgramFitnessExaminer(collection);
-        AccRandomGeneticProgramIterator iter = new AccRandomGeneticProgramIterator(evaluator, enums, 1000000, 1.1, 0.8);
-        iter.iterate(curMaxRegisters, 13);
+        AccRandomGeneticProgramIterator iter = new AccRandomGeneticProgramIterator(evaluator, enums, 1000000, 1.2, 0.6);
+        iter.nrChildren = 5;
+        iter.iterate(curMaxRegisters, 30);
     }
 
 

@@ -40,6 +40,7 @@ public class AccProgramResolution  implements Comparable<AccProgramResolution> {
             } else {
                 childinstructions.add(partner.instructions.get(i));
             }
+            //kill offspring that isn't viable.
         }
         List<List<AccRegisterInstruction>> results = new ArrayList<>();
         for (int i = 0; i < nrChildren; i++)
