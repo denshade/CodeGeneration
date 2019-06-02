@@ -32,7 +32,7 @@ public class AccStatementRunnerTest {
         instructions.add(new Nand());
         instructions.add(new Add());
         instructions.add(new JumpIfLteStart());
-        instructions.add(new AccLeftPull(r0));
+//        instructions.add(new AccLeftPull(r0));
         AccProgram p = new AccProgram(instructions, registers);
         Map<String, Double> doubleMap = new HashMap<>();
         doubleMap.put("r0", 0.0);
@@ -47,19 +47,26 @@ public class AccStatementRunnerTest {
         double r0 = 0;
         double left = 0;
         double right = 0;
-        do //left = left - right; ,  right = r0, r0 = left;, left = nand(left, right), left = left - right; ,  if left <=  R then goto 0 , r0 = left;
+        int l = 0;
+        do
         {
-            left = Math.cos(left); //cos
-            left = left + right;  //sub
-            r0 = left; //AccLeftPull
-            left = left + right; //sub
-            right = r0; // AccRightPush
-            r0 = left; // AccLeftPull
-            left = nand(left,right); //nand
-            left = left + right; //sub
+            left = Math.cos(left);
+            left += right;
+            r0 = left;
+            left += right;
+            right = r0;
+            r0 = left;
+            left = nand(left,right);
+            left += right;
+            if (l++ == 1000) {
+                System.out.println(r0);
+                return;
+            }
         } while(left <= right); //JumpIfLteStart
-        r0 = left;
-        System.out.println(r0);
+    }
+    private static void l(double l, double r, double r0)
+    {
+        System.out.println(l+","+r+","+r0);
     }
 
     public double nand(double leftvalue, double rightvalue)
