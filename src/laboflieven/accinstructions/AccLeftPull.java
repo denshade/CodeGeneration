@@ -6,7 +6,7 @@ public class AccLeftPull extends SingleRegisterInstruction
 {
     private Register register;
 
-    AccLeftPull(Register register)
+    public AccLeftPull(Register register)
     {
         this.register = register;
     }
@@ -19,7 +19,7 @@ public class AccLeftPull extends SingleRegisterInstruction
 
     @Override
     public String toString() {
-        return " AccLeft -> " + register.name ;
+        return register.name +" = left;" ;
     }
 
 }

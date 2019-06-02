@@ -9,12 +9,12 @@ public class Sub extends AccRegisterInstruction {
 
     public Integer execute(Register left, Register right)
     {
-        left.value = left.value + right.value;
+        left.value = left.value - right.value;
         return null;
     }
 
     public String toString()
     {
-        return  "left = left - right ";    }
+        return  "left = left - right; ";    }
 
 }

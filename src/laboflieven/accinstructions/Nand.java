@@ -15,6 +15,6 @@ public class Nand extends AccRegisterInstruction {
 
     public String toString()
     {
-        return  "left = left nand right";
+        return  "left = nand(left, right)";
     }
 }

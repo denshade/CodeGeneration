@@ -1,5 +1,6 @@
 package laboflieven.accinstructions;
 
+import laboflieven.AccProgram;
 import laboflieven.ProgramResolution;
 import laboflieven.statements.Instruction;
 
@@ -34,13 +35,14 @@ public class AccProgramResolution  implements Comparable<AccProgramResolution> {
         Random r = new Random();
         for (int i = 0; i < instructions.size(); i++)
         {
+            AccRegisterInstruction e;
             if (r.nextBoolean())
             {
-                childinstructions.add(instructions.get(i));
+                e = instructions.get(i);
             } else {
-                childinstructions.add(partner.instructions.get(i));
+                e = partner.instructions.get(i);
             }
-            //kill offspring that isn't viable.
+            childinstructions.add(e);
         }
         List<List<AccRegisterInstruction>> results = new ArrayList<>();
         for (int i = 0; i < nrChildren; i++)

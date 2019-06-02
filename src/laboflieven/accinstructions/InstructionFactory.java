@@ -45,6 +45,12 @@ public class InstructionFactory
             case Log:
                 instruction = new Log();
                 break;
+            case JumpIfGteStart:
+                instruction = new JumpIfGteStart();
+                break;
+            case JumpIfLteStart:
+                instruction = new JumpIfLteStart();
+                break;
             default:
                 throw new IllegalArgumentException("invalid instruction " + instructionEnum.toString());
         }
@@ -67,12 +73,12 @@ public class InstructionFactory
             case AccRightPull:
                 instruction = new AccRightPull(register1);
                 break;
-            case JumpIfGte:
+            /*case JumpIfGte:
                 instruction = new JumpIfGte(register1);
                 break;
             case JumpIfLte:
                 instruction = new JumpIfLte(register1);
-                break;
+                break;*/
             default:
                 throw new IllegalArgumentException("invalid instruction " + instructionEnum.toString());
         }

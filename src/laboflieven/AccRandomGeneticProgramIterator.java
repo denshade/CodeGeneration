@@ -89,7 +89,7 @@ public class AccRandomGeneticProgramIterator {
             {
                 bestSolution = weight;
                 bestSolutionCycle = BEST_SOLUTION_CYCLE;
-                System.out.println("Best solution " + weight);
+                //System.out.println("Best solution " + weight);
             } else if (Math.abs(weight - bestSolution) < 0.00005)
             {
                 bestSolutionCycle--;
@@ -101,8 +101,8 @@ public class AccRandomGeneticProgramIterator {
                 solutions = cutPopulation(solutions);
             }
         }
-        System.out.println("BestSolutionCycle:" + bestSolutionCycle);
-        System.out.println("Best solution" + solutions.peek().weight + " " + solutions.peek().instructions);
+        //System.out.println("BestSolutionCycle:" + bestSolutionCycle);
+        //System.out.println("Best solution" + solutions.peek().weight + " " + solutions.peek().instructions);
         return solutions.peek();
     }
 
@@ -159,13 +159,21 @@ public class AccRandomGeneticProgramIterator {
         while(!foundProgram)
         {
             int location = 0;
-        if (instructions.size() == 0)
+            InstructionEnum instruction = null;
+            if (instructions.size() == 0)
         {
-            location = r.nextInt(2) + 12;
+            if (r.nextBoolean())
+            {
+                instruction = InstructionEnum.AccLeftPush;
+            } else
+            {
+                instruction = InstructionEnum.AccRightPush;
+            }
         } else {
-            location = r.nextInt(enums.length);
+                location = r.nextInt(enums.length);
+                instruction = enums[location];
         }
-        InstructionEnum instruction = enums[location];
+
         if (instruction.isSingleRegister()) {
             Register register1 = registers[r.nextInt(registers.length)];
 

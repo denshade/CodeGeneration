@@ -6,7 +6,7 @@ public class AccLeftPush extends SingleRegisterInstruction
 {
     private Register register;
 
-    AccLeftPush(Register register)
+    public AccLeftPush(Register register)
     {
         this.register = register;
     }

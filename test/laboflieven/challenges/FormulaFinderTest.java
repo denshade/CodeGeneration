@@ -4,13 +4,11 @@ import laboflieven.AccBruteForceProgramIterator;
 import laboflieven.AccProgramFitnessExaminer;
 import laboflieven.AccRandomGeneticProgramIterator;
 import laboflieven.InOutParameters;
+import laboflieven.accinstructions.AccProgramResolution;
 import laboflieven.accinstructions.InstructionEnum;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static org.junit.Assert.*;
 
@@ -58,7 +56,7 @@ public class FormulaFinderTest {
         InstructionEnum[] enums = new InstructionEnum[] {
                 InstructionEnum.Add, InstructionEnum.Div, InstructionEnum.Invert, InstructionEnum.Mul, InstructionEnum.Sqrt,
                 InstructionEnum.Sub,  InstructionEnum.Cos, InstructionEnum.Mod, InstructionEnum.Nand, InstructionEnum.Log, InstructionEnum.AccLeftPull,
-                InstructionEnum.AccLeftPush, InstructionEnum.AccRightPush, InstructionEnum.AccRightPull, InstructionEnum.JumpIfLte, InstructionEnum.JumpIfGte
+                InstructionEnum.AccLeftPush, InstructionEnum.AccRightPush, InstructionEnum.AccRightPull, InstructionEnum.JumpIfLteStart, InstructionEnum.JumpIfGteStart
         };
         //enums = new InstructionEnum[]{InstructionEnum.Add, InstructionEnum.Sub, InstructionEnum.Mul, InstructionEnum.Div, InstructionEnum.Log};
         AccProgramFitnessExaminer evaluator = new AccProgramFitnessExaminer(collection);
@@ -88,8 +86,8 @@ public class FormulaFinderTest {
                 InstructionEnum.Sub,
                 InstructionEnum.Sin,
                 InstructionEnum.Cos,
-                InstructionEnum.JumpIfGte,
-                InstructionEnum.JumpIfLte,
+                InstructionEnum.JumpIfGteStart,
+                InstructionEnum.JumpIfLteStart,
                 InstructionEnum.AccLeftPull,
                 InstructionEnum.AccRightPull,
                 InstructionEnum.AccLeftPush,
@@ -159,8 +157,68 @@ public class FormulaFinderTest {
         AccProgramFitnessExaminer evaluator = new AccProgramFitnessExaminer(collection);
         AccRandomGeneticProgramIterator iter = new AccRandomGeneticProgramIterator(evaluator, enums, 1000000, 1.2, 0.6);
         iter.nrChildren = 5;
+        iter.initialPopSize = 100000;
         iter.iterate(curMaxRegisters, 30);
     }
+
+    @Test
+    public void mainGeneticAccSqrt() {
+        int curMaxRegisters = 1;
+        double[][] doubles = TestCases.getExampleInput1D();
+        List<InOutParameters> collection = TestCases.getTestCases(args -> {
+            double a = args[0];
+            return Math.sqrt(a);
+        }, doubles, curMaxRegisters);
+
+        //enums = new InstructionEnum[]{InstructionEnum.Add, InstructionEnum.Sub, InstructionEnum.Mul, InstructionEnum.Div, InstructionEnum.Log};
+        AccProgramFitnessExaminer evaluator = new AccProgramFitnessExaminer(collection);
+        AccRandomGeneticProgramIterator iter = new AccRandomGeneticProgramIterator(evaluator, InstructionEnum.allInstructionsExcept(InstructionEnum.Sqrt), 1000000, 1.2, 0.6);
+        for (int i = 0; i< 7; i++) {
+            iter.nrChildren = 10;
+            iter.initialPopSize = 1000;
+            System.out.println(iter.iterate(curMaxRegisters, 30).weight);
+        }
+    }
+
+    @Test
+    public void mainGeneticAccPI() {
+        int curMaxRegisters = 1;
+        double[][] doubles = TestCases.getExampleInput1D();
+        List<InOutParameters> collection = TestCases.getTestCases(args -> {
+            double a = args[0];
+            return Math.PI;
+        }, doubles, curMaxRegisters);
+
+        //enums = new InstructionEnum[]{InstructionEnum.Add, InstructionEnum.Sub, InstructionEnum.Mul, InstructionEnum.Div, InstructionEnum.Log};
+        AccProgramFitnessExaminer evaluator = new AccProgramFitnessExaminer(collection);
+        AccRandomGeneticProgramIterator iter = new AccRandomGeneticProgramIterator(evaluator, InstructionEnum.values(), 1000000, 1.2, 0.6);
+        for (int i = 0; i< 7; i++) {
+            iter.nrChildren = 10;
+            iter.initialPopSize = 1000;
+            AccProgramResolution solution = iter.iterate(curMaxRegisters, 10);
+            System.out.println(solution.weight + " " + solution.instructions);
+        }
+    }
+
+
+    @Test
+    public void mainGeneticAccSqrtRegular() {
+        int curMaxRegisters = 1;
+        double[][] doubles = TestCases.getExampleInput1D();
+        List<InOutParameters> collection = TestCases.getTestCases(args -> {
+            double a = args[0];
+            return Math.sqrt(a);
+        }, doubles, curMaxRegisters);
+        laboflieven.accinstructions.InstructionEnum[] enums = InstructionEnum.values();
+        for (int i = 0; i< 7; i++) {
+            AccProgramFitnessExaminer evaluator = new AccProgramFitnessExaminer(collection);
+            AccRandomGeneticProgramIterator iter = new AccRandomGeneticProgramIterator(evaluator, enums, 1000000, 1.2, 0.6);
+            iter.nrChildren = 5;
+            iter.initialPopSize = 100000;
+            iter.iterate(curMaxRegisters, 3);
+        }
+    }
+
 
 
 }

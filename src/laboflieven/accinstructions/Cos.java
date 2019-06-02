@@ -15,5 +15,5 @@ public class Cos extends AccRegisterInstruction {
 
     public String toString()
     {
-        return  "left = cos(left)";    }
+        return  "left = cos(left);";    }
 }

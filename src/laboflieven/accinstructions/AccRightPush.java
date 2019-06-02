@@ -6,7 +6,7 @@ public class AccRightPush extends SingleRegisterInstruction
 {
     private Register register;
 
-    AccRightPush(Register register)
+    public AccRightPush(Register register)
     {
         this.register = register;
     }
@@ -19,7 +19,7 @@ public class AccRightPush extends SingleRegisterInstruction
 
     @Override
     public String toString() {
-        return register.name + " -> AccRight ";
+        return " right = " + register.name;
     }
 
 }
