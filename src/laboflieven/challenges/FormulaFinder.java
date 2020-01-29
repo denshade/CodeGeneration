@@ -3,6 +3,8 @@ package laboflieven.challenges;
 import laboflieven.*;
 import laboflieven.statements.InstructionEnum;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -39,8 +41,8 @@ public class FormulaFinder {
             List<InOutParameters> collection = new ArrayList<>();
             for (double[] doubleRow : doubles)
             {
-                if (!Double.isNaN(calcQuad(doubleRow)))
-                    collection.add(createParameter(fillDoubleArray(doubleRow, curMaxRegisters), calcQuad(doubleRow)));
+                if (!Double.isNaN(simulateFormula(doubleRow)))
+                    collection.add(createParameter(fillDoubleArray(doubleRow, curMaxRegisters), simulateFormula(doubleRow)));
             }
 
 
@@ -77,12 +79,19 @@ public class FormulaFinder {
         //34242100000
     }
 
-    private static double calcQuad(double[] args)
+    private static double simulateFormula(double[] args)
     {
-        double a = args[0];
+/*        double a = args[0];
         double b = args[1];
         double c = args[2]; // c *= a;[c = c*a] b*=b;[b=b²] a += a [a=2*a]; a = 4*a; b²-
-        return b*b - 4*a*c; // Mul r2 -> r0, Mul r1 -> r1, r0+= r0, r0+= r0, Sub r1 -> r0, r3+= r0]
+        return (a - b) / 2*a;*/
+
+        double a = args[0];
+        return Math.sqrt(a);
+
+
+//        return (a - b) / 2*a;
+        //b*b - 4 a c. Mul r2 -> r0, Mul r1 -> r1, r0+= r0, r0+= r0, Sub r1 -> r0, r3+= r0]
         // Math.sqrt(b*b - 4*a*c);
     }
 
@@ -115,8 +124,7 @@ public class FormulaFinder {
         return results;
     }
 
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) throws IOException {
         int curMaxRegisters = 3;
         double[][] doubles = {new double[]{ 10, 1, 1}, new double[]{ 1, 10, 1}, new double[]{ 1, 1, 10},
                 new double[]{ 0, 0, 0}, new double[]{ 1, 100, 1}, new double[]{ 1, 1, 100},
@@ -127,14 +135,14 @@ public class FormulaFinder {
         List<InOutParameters> collection = new ArrayList<>();
         for (double[] doubleRow : doubles)
         {
-            if (!Double.isNaN(calcQuad(doubleRow)))
-                collection.add(createParameter(fillDoubleArray(doubleRow, curMaxRegisters), calcQuad(doubleRow)));
+            if (!Double.isNaN(simulateFormula(doubleRow)))
+                collection.add(createParameter(fillDoubleArray(doubleRow, curMaxRegisters), simulateFormula(doubleRow)));
         }
 
-        ProgramFitnessExaminer evaluator = new ProgramFitnessExaminer(collection);
+        ProgramFitnessExaminer evaluator = new LoggingProgramFitnessExaminer(new File("logs.csv"), collection);
 
-        ReverseProgramIterator iter = new ReverseProgramIterator(evaluator, new InstructionEnum[]{InstructionEnum.Add, InstructionEnum.Sub, InstructionEnum.Mul, InstructionEnum.Div, InstructionEnum.Sqrt, InstructionEnum.Move});
-        iter.iterate(curMaxRegisters, 6);
+        ReverseProgramIterator iter = new ReverseProgramIterator(evaluator, new InstructionEnum[]{InstructionEnum.Add, InstructionEnum.Sub, InstructionEnum.Mul, InstructionEnum.Sin, InstructionEnum.Cos});
+        iter.iterate(curMaxRegisters, 3);
 
     }
 

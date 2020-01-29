@@ -106,8 +106,8 @@ public class ReverseProgramIterator
     }
 
     private void eval(List<Instruction> instructions, List<Register> registers) {
-        if (instructions.size() != maximumInstructions)
-            return;
+        /*if (instructions.size() != maximumInstructions)
+            return;*/
         double val =  evaluator.calculateFitness(instructions, registers);
         if (val < bestScore)
         {
