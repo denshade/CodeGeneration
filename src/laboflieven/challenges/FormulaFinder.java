@@ -1,7 +1,7 @@
 package laboflieven.challenges;
 
 import laboflieven.*;
-import laboflieven.statements.InstructionEnum;
+import laboflieven.statements.*;
 
 import java.io.File;
 import java.io.IOException;
@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.io.IOException;
+import java.util.*;
 
 /**
  * Created by Lieven on 8/07/2015.
@@ -20,7 +22,7 @@ public class FormulaFinder {
      *
      * @param args
      */
-    public static void mainRnd(String[] args)
+    public static void mainRndGenetic(String[] args)
     {
         double maxPopulationOverflow = 1.1;
         //double popularParents = .8;
@@ -93,6 +95,11 @@ public class FormulaFinder {
 //        return (a - b) / 2*a;
         //b*b - 4 a c. Mul r2 -> r0, Mul r1 -> r1, r0+= r0, r0+= r0, Sub r1 -> r0, r3+= r0]
         // Math.sqrt(b*b - 4*a*c);
+//        double c = args[2]; // c *= a;[c = c*a] b*=b;[b=b²] a += a [a=2*a]; a = 4*a; b²-
+       // return Math.log(a)/Math.log(b);
+
+        //b*b - 4ac = Mul r2 -> r0, Mul r1 -> r1, r0+= r0, r0+= r0, Sub r1 -> r0, r3+= r0]
+        //return Math.sqrt(b*b - 4*a*c);
     }
 
     private static double[] fillDoubleArray(double[] original, int newSize)
@@ -124,7 +131,38 @@ public class FormulaFinder {
         return results;
     }
 
-    public static void main(String[] args) throws IOException {
+    public static void mainReverseProgramIterator(String[] args)
+    {
+        int curMaxRegisters = 3;
+        double[][] doubles = {new double[]{ 10, 1, 1}, new double[]{ 1, 10, 1}, new double[]{ 1, 1, 10},
+                new double[]{ 0, 0, 0}, new double[]{ 1, 100, 1}, new double[]{ 1, 1, 100},
+                new double[]{ 1000, 50, 1}, new double[]{ 1000, 1, 50}, new double[]{ 50, 1, 1000},
+                new double[]{ 10000, 50, 10}, new double[]{ 10000, -1, 50}, new double[]{ -10000, -100, 1000}
+
+        };
+        List<InOutParameters> collection = new ArrayList<>();
+        for (double[] doubleRow : doubles)
+        {
+            if (!Double.isNaN(simulateFormula(doubleRow)))
+                collection.add(createParameter(fillDoubleArray(doubleRow, curMaxRegisters), simulateFormula(doubleRow)));
+        }
+
+        ProgramFitnessExaminer evaluator = new ProgramFitnessExaminer(collection);
+
+        ReverseProgramIterator iter = new ReverseProgramIterator(evaluator, new InstructionEnum[]{InstructionEnum.Add, InstructionEnum.Sub, InstructionEnum.Mul, InstructionEnum.Div, InstructionEnum.Sqrt, InstructionEnum.Move, InstructionEnum.Log});
+        iter.iterate(curMaxRegisters, 3);
+
+    }
+    public static void main(String[] args)
+    {
+        try {
+            mainBruteAcc(args);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void mainRnd(String[] args) throws IOException {
         int curMaxRegisters = 3;
         double[][] doubles = {new double[]{ 10, 1, 1}, new double[]{ 1, 10, 1}, new double[]{ 1, 1, 10},
                 new double[]{ 0, 0, 0}, new double[]{ 1, 100, 1}, new double[]{ 1, 1, 100},
@@ -141,9 +179,101 @@ public class FormulaFinder {
 
         ProgramFitnessExaminer evaluator = new LoggingProgramFitnessExaminer(new File("logs.csv"), collection);
 
-        ReverseProgramIterator iter = new ReverseProgramIterator(evaluator, new InstructionEnum[]{InstructionEnum.Add, InstructionEnum.Sub, InstructionEnum.Mul, InstructionEnum.Sin, InstructionEnum.Cos});
-        iter.iterate(curMaxRegisters, 3);
+        RandomProgramIterator iter = new RandomProgramIterator(evaluator, new InstructionEnum[]{InstructionEnum.Add, InstructionEnum.Sub, InstructionEnum.Mul, InstructionEnum.Div, InstructionEnum.Sqrt, InstructionEnum.Move, InstructionEnum.Log});
+        iter.iterate(curMaxRegisters, 6);
 
     }
+
+    public static void mainBrute(String[] args)
+    {
+        int curMaxRegisters = 3;
+        double[][] doubles = {new double[]{ 10, 1, 1}, new double[]{ 1, 10, 1}, new double[]{ 1, 1, 10},
+                new double[]{ 0, 0, 0}, new double[]{ 1, 100, 1}, new double[]{ 1, 1, 100},
+                new double[]{ 1000, 50, 1}, new double[]{ 1000, 1, 50}, new double[]{ 50, 1, 1000},
+                new double[]{ 10000, 50, 10}, new double[]{ 10000, -1, 50}, new double[]{ -10000, -100, 1000}
+
+        };
+        List<InOutParameters> collection = new ArrayList<>();
+        for (double[] doubleRow : doubles)
+        {
+            if (!Double.isNaN(simulateFormula(doubleRow)))
+                collection.add(createParameter(fillDoubleArray(doubleRow, curMaxRegisters), simulateFormula(doubleRow)));
+        }
+
+        ProgramFitnessExaminer evaluator = new ProgramFitnessExaminer(collection);
+        BruteForceProgramIterator iter = new BruteForceProgramIterator(evaluator, new InstructionEnum[]{InstructionEnum.Add, InstructionEnum.Sub, InstructionEnum.Mul, InstructionEnum.Div, InstructionEnum.Sqrt, InstructionEnum.Move, InstructionEnum.Log});
+        iter.iterate(curMaxRegisters, 5);
+    }
+
+    public static void mainBruteWithBmpLogging(String[] args) throws IOException {
+        /*int curMaxRegisters = 3;
+        double[][] doubles = {new double[]{ 10, 1, 1}, new double[]{ 1, 10, 1}, new double[]{ 1, 1, 10},
+                new double[]{ 0, 0, 0}, new double[]{ 1, 100, 1}, new double[]{ 1, 1, 100},
+                new double[]{ 1000, 50, 1}, new double[]{ 1000, 1, 50}, new double[]{ 50, 1, 1000},
+                new double[]{ 10000, 50, 10}, new double[]{ 10000, -1, 50}, new double[]{ -10000, -100, 1000}
+
+        };*/
+        int curMaxRegisters = 2;
+        double[][] doubles = {new double[]{ 10, 1}, new double[]{ 1, 10}, new double[]{ 1, 1},
+                new double[]{ 0, 0}, new double[]{ 1, 100},
+                new double[]{ 1000, 50}, new double[]{ 1000, 1}, new double[]{ 50, 1},
+                new double[]{ 10000, 50}, new double[]{ 10000, -1}, new double[]{ -10000, -100}
+
+        };
+
+        List<InOutParameters> collection = new ArrayList<>();
+        for (double[] doubleRow : doubles)
+        {
+            if (!Double.isNaN(simulateFormula(doubleRow)) && !Double.isInfinite(simulateFormula(doubleRow)))
+                collection.add(createParameter(fillDoubleArray(doubleRow, curMaxRegisters), simulateFormula(doubleRow)));
+        }
+        InstructionEnum[] enums = InstructionEnum.values();
+        //InstructionEnum[] enums = new InstructionEnum[]{InstructionEnum.Add, InstructionEnum.Sub, InstructionEnum.Mul, InstructionEnum.Div, InstructionEnum.Sqrt, InstructionEnum.Move, InstructionEnum.Log};
+        //enums = new InstructionEnum[]{InstructionEnum.Add, InstructionEnum.Sub, InstructionEnum.Mul, InstructionEnum.Div, InstructionEnum.Log};
+        FitnessLogger logger = new BitmapFitnessLogger(new java.io.File("hello.bmp"), enums.length, curMaxRegisters );
+        ProgramFitnessExaminer evaluator = new ProgramFitnessExaminer(collection);
+        evaluator.addListener(logger);
+        BruteForceProgramIterator iter = new BruteForceProgramIterator(evaluator, enums);
+        iter.iterate(curMaxRegisters, 3);
+        ((BitmapFitnessLogger) logger).finish();
+    }
+
+    public static void mainBruteAcc(String[] args) throws IOException {
+        /*int curMaxRegisters = 3;
+        double[][] doubles = {new double[]{ 10, 1, 1}, new double[]{ 1, 10, 1}, new double[]{ 1, 1, 10},
+                new double[]{ 0, 0, 0}, new double[]{ 1, 100, 1}, new double[]{ 1, 1, 100},
+                new double[]{ 1000, 50, 1}, new double[]{ 1000, 1, 50}, new double[]{ 50, 1, 1000},
+                new double[]{ 10000, 50, 10}, new double[]{ 10000, -1, 50}, new double[]{ -10000, -100, 1000}
+
+        };*/
+        int curMaxRegisters = 2;
+        double[][] doubles = {new double[]{ 10, 1}, new double[]{ 1, 10}, new double[]{ 1, 1},
+                new double[]{ 0, 0}, new double[]{ 1, 100},
+                new double[]{ 1000, 50}, new double[]{ 1000, 1}, new double[]{ 50, 1},
+                new double[]{ 10000, 50}, new double[]{ 10000, -1}, new double[]{ -10000, -100}
+
+        };
+
+        List<InOutParameters> collection = new ArrayList<>();
+        for (double[] doubleRow : doubles)
+        {
+            if (!Double.isNaN(simulateFormula(doubleRow)) && !Double.isInfinite(simulateFormula(doubleRow)))
+                collection.add(createParameter(fillDoubleArray(doubleRow, curMaxRegisters), simulateFormula(doubleRow)));
+        }
+        //laboflieven.accinstructions.InstructionEnum[] enums = laboflieven.accinstructions.InstructionEnum.values();
+        laboflieven.accinstructions.InstructionEnum[] enums = new laboflieven.accinstructions.InstructionEnum[] {
+                laboflieven.accinstructions.InstructionEnum.Log,
+                laboflieven.accinstructions.InstructionEnum.Div,
+                laboflieven.accinstructions.InstructionEnum.AccLeftPull,
+                laboflieven.accinstructions.InstructionEnum.AccRightPull,
+                laboflieven.accinstructions.InstructionEnum.AccLeftPush,
+                laboflieven.accinstructions.InstructionEnum.AccRightPush
+        };
+        //enums = new InstructionEnum[]{InstructionEnum.Add, InstructionEnum.Sub, InstructionEnum.Mul, InstructionEnum.Div, InstructionEnum.Log};
+        AccProgramFitnessExaminer evaluator = new AccProgramFitnessExaminer(collection);
+        AccBruteForceProgramIterator iter = new AccBruteForceProgramIterator(evaluator, enums);
+        iter.iterate(curMaxRegisters, 10);
+    }
+
 
 }

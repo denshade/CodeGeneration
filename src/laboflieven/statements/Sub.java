@@ -10,7 +10,12 @@ public class Sub extends DualRegisterInstruction {
 
     public Integer execute()
     {
-        destination.value = source.value - destination.value;
+        destination.value = destination.value - source.value;
         return null;
+    }
+
+    public String toString()
+    {
+        return destination.name + " -= " + source.name;
     }
 }

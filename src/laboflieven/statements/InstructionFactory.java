@@ -31,6 +31,9 @@ public class InstructionFactory
             case Nand:
                 instruction = new  Nand(register1, register2);
                 break;
+            case JmpIfZero:
+                instruction = new JumpIfRegister1Zero(register1, register2);
+                break;
             default:
                 throw new IllegalArgumentException("invalid instruction " + instructionEnum.toString());
         }
@@ -52,6 +55,9 @@ public class InstructionFactory
                 break;
             case Cos:
                 instruction = new Cos(register1);
+                break;
+            case Log:
+                instruction = new Log(register1);
                 break;
             default:
                 throw new IllegalArgumentException("invalid instruction " + instructionEnum.toString());

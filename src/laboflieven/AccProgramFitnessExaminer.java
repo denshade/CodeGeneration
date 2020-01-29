@@ -1,5 +1,6 @@
 package laboflieven;
 
+import laboflieven.accinstructions.AccRegisterInstruction;
 import laboflieven.challenges.FitnessLogger;
 import laboflieven.statements.Instruction;
 import laboflieven.statements.InstructionEnum;
@@ -12,18 +13,18 @@ import java.util.Map;
 /**
  * Created by Lieven on 14/06/2015.
  */
-public class ProgramFitnessExaminer
+public class AccProgramFitnessExaminer
 {
     public static final int NO_FIT_AT_ALL = 100000;
     private List<InOutParameters> conditions;
     private final double closeEnough = 0.00001;
     private List<FitnessLogger> loggers = new ArrayList<>();
-    StatementRunner runner = new StatementRunner();
+    AccStatementRunner runner = new AccStatementRunner();
 
     /**
      * @param conditions Conditions that define the input parameters & the expected outcome.
      */
-    public ProgramFitnessExaminer(List<InOutParameters> conditions)
+    public AccProgramFitnessExaminer(List<InOutParameters> conditions)
     {
         this.conditions = conditions;
     }
@@ -33,7 +34,7 @@ public class ProgramFitnessExaminer
         loggers.add(logger);
     }
 
-    public boolean isFit(List<Instruction> instructions, List<Register> registers)
+    public boolean isFit(List<AccRegisterInstruction> instructions, List<Register> registers)
     {
         return calculateFitness(instructions, registers) < closeEnough;
     }
@@ -42,9 +43,9 @@ public class ProgramFitnessExaminer
         return expectedOutput.containsKey(register.name) && Math.abs(expectedOutput.get(register.name) - register.value) > closeEnough;
     }
 
-    public double calculateFitness(List<Instruction> instructions, List<Register> registers)
+    public double calculateFitness(List<AccRegisterInstruction> instructions, List<Register> registers)
     {
-        Program program = new Program(instructions, registers);
+        AccProgram program = new AccProgram(instructions, registers);
         double err = 0.0;
         total:
         for(InOutParameters parameter : conditions)
@@ -72,7 +73,7 @@ public class ProgramFitnessExaminer
         }
         for(FitnessLogger logger : loggers)
         {
-            logger.addFitness(instructions, InstructionEnum.values().length, registers.size(), err);
+            //logger.addFitness(instructions, InstructionEnum.values().length, registers.size(), err);
         }
         return err;
     }
