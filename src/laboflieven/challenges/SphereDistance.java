@@ -5,10 +5,7 @@ import laboflieven.ProgramFitnessExaminer;
 import laboflieven.ReverseProgramIterator;
 import laboflieven.statements.InstructionEnum;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class SphereDistance
 {
@@ -23,51 +20,24 @@ public class SphereDistance
         return Math.sqrt(distance);
     }
 
-    private static double[] fillDoubleArray(double[] original, int newSize)
-    {
-        double[] result = new double[newSize];
-        System.arraycopy(original, 0, result, 0, original.length);
-        return result;
-    }
-
-    private static InOutParameters createParameter(double[] doubles, double result)
-    {
-        Map<String, Double> startParameters  = getMap(doubles);
-        Map<String, Double> endParameters = new HashMap<>(1);
-        endParameters.put("r3", result);
-        InOutParameters parameters = new InOutParameters();
-        parameters.input = startParameters;
-        parameters.expectedOutput = endParameters;
-        return parameters;
-    }
-
-
-    private static Map<String, Double> getMap(double[] doubles)
-    {
-        Map<String, Double> results = new HashMap<>();
-        for (int l = 0; l < doubles.length; l++)
-        {
-            results.put("r"+l, doubles[l]);
-        }
-        return results;
-    }
 
     public static void main(String[] args)
     {
+        InOutParameters io = new InOutParameters();
         int curMaxRegisters = 4;
         List<InOutParameters> collection = new ArrayList<>();
-        collection.add(createParameter(fillDoubleArray(new double [] {2.0,-8.0,-24.0,0}, curMaxRegisters), distance(2.0,-8.0,-24.0,0)));
-        collection.add(createParameter(fillDoubleArray(new double [] {1.0, 2.0, 1.0,0}, curMaxRegisters), distance(1.0, 2.0, 1.0,0)));// -1
-        collection.add(createParameter(fillDoubleArray(new double [] {1.0, 2.0, -3.0,0}, curMaxRegisters), distance(1.0, 2.0, -3.0,0)));
-        collection.add(createParameter(fillDoubleArray(new double [] {1.0, -1, -56,0}, curMaxRegisters), distance(1.0, -1, -56,0)));
-        collection.add(createParameter(fillDoubleArray(new double [] {1.0, 2, -15,0}, curMaxRegisters), distance(1.0, 2.0, -15,0)));
-        collection.add(createParameter(fillDoubleArray(new double [] {1.0, -100, 2500,0}, curMaxRegisters), distance(1.0, -100, 2500,0)));
-        collection.add(createParameter(fillDoubleArray(new double [] {1.0, -200, 10000,0}, curMaxRegisters), distance(1.0, -200, 10000,0)));
-        collection.add(createParameter(fillDoubleArray(new double [] {1.0, -400, 40000,0}, curMaxRegisters), distance(1.0, -400, 40000,0)));
-        collection.add(createParameter(fillDoubleArray(new double [] {1.0, 500, 0,0}, curMaxRegisters), distance(1.0, 500, 0,0)));
-        collection.add(createParameter(fillDoubleArray(new double [] {1.0, 15000, 0,0}, curMaxRegisters), distance(1.0, 15000, 0,0)));
-        collection.add(createParameter(fillDoubleArray(new double [] {-1.0, 15000, 0,0}, curMaxRegisters), distance(-1.0, 15000, 0,0)));
-        collection.add(createParameter(fillDoubleArray(new double [] {2.0, 1000, 0,0}, curMaxRegisters), distance(2.0, 1000, 0,0)));
+        collection.add(io.createParameter(io.fillDoubleArray(new double [] {2.0,-8.0,-24.0,0}, curMaxRegisters), distance(2.0,-8.0,-24.0,0),3));
+        collection.add(io.createParameter(io.fillDoubleArray(new double [] {1.0, 2.0, 1.0,0}, curMaxRegisters), distance(1.0, 2.0, 1.0,0),3));// -1
+        collection.add(io.createParameter(io.fillDoubleArray(new double [] {1.0, 2.0, -3.0,0}, curMaxRegisters), distance(1.0, 2.0, -3.0,0),3));
+        collection.add(io.createParameter(io.fillDoubleArray(new double [] {1.0, -1, -56,0}, curMaxRegisters), distance(1.0, -1, -56,0),3));
+        collection.add(io.createParameter(io.fillDoubleArray(new double [] {1.0, 2, -15,0}, curMaxRegisters), distance(1.0, 2.0, -15,0),3));
+        collection.add(io.createParameter(io.fillDoubleArray(new double [] {1.0, -100, 2500,0}, curMaxRegisters), distance(1.0, -100, 2500,0),3));
+        collection.add(io.createParameter(io.fillDoubleArray(new double [] {1.0, -200, 10000,0}, curMaxRegisters), distance(1.0, -200, 10000,0),3));
+        collection.add(io.createParameter(io.fillDoubleArray(new double [] {1.0, -400, 40000,0}, curMaxRegisters), distance(1.0, -400, 40000,0),3));
+        collection.add(io.createParameter(io.fillDoubleArray(new double [] {1.0, 500, 0,0}, curMaxRegisters), distance(1.0, 500, 0,0),3));
+        collection.add(io.createParameter(io.fillDoubleArray(new double [] {1.0, 15000, 0,0}, curMaxRegisters), distance(1.0, 15000, 0,0),3));
+        collection.add(io.createParameter(io.fillDoubleArray(new double [] {-1.0, 15000, 0,0}, curMaxRegisters), distance(-1.0, 15000, 0,0),3));
+        collection.add(io.createParameter(io.fillDoubleArray(new double [] {2.0, 1000, 0,0}, curMaxRegisters), distance(2.0, 1000, 0,0),3));
 
 
         ProgramFitnessExaminer evaluator = new ProgramFitnessExaminer(collection);
