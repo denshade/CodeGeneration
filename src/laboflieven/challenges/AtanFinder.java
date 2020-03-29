@@ -2,6 +2,7 @@ package laboflieven.challenges;
 
 import laboflieven.InOutParameters;
 import laboflieven.ProgramFitnessExaminer;
+import laboflieven.RandomGeneticProgramIterator;
 import laboflieven.ReverseProgramIterator;
 import laboflieven.statements.InstructionEnum;
 
@@ -10,17 +11,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class SphereDistance
+public class AtanFinder
 {
-    public static double distance(double lat1, double lat2, double lon1, double lon2) {
-        final int R = 1;
-// Radius of the earth
-        double latDistance = Math.toRadians(lat2 - lat1);
-        double lonDistance = Math.toRadians(lon2 - lon1);
-        double a = Math.sin(latDistance / 2) * Math.sin(latDistance / 2) + Math.cos(Math.toRadians(lat1)) * Math.cos(Math.toRadians(lat2)) * Math.sin(lonDistance / 2) * Math.sin(lonDistance / 2);
-        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-        double distance = R * c * 1; // convert to meters double height = el1 - el2; distance = Math.pow(distance, 2) + Math.pow(height, 2);
-        return Math.sqrt(distance);
+    public static double distance(double x, double y) {
+        return Math.atan2(x,y);
     }
 
     private static double[] fillDoubleArray(double[] original, int newSize)
@@ -56,8 +50,16 @@ public class SphereDistance
     {
         int curMaxRegisters = 4;
         List<InOutParameters> collection = new ArrayList<>();
-        collection.add(createParameter(fillDoubleArray(new double [] {2.0,-8.0,-24.0,0}, curMaxRegisters), distance(2.0,-8.0,-24.0,0)));
-        collection.add(createParameter(fillDoubleArray(new double [] {1.0, 2.0, 1.0,0}, curMaxRegisters), distance(1.0, 2.0, 1.0,0)));// -1
+        for (double x = Math.PI/2 * -1; x < Math.PI/2; x += 0.1)
+        {
+            for (double y = Math.PI/2 * -1; y < Math.PI/2; y += 0.1)
+            {
+                collection.add(createParameter(fillDoubleArray(new double [] {x,y}, curMaxRegisters), distance(x,y)));
+            }
+
+        }
+
+        /*        collection.add(createParameter(fillDoubleArray(new double [] {1.0, 2.0, 1.0,0}, curMaxRegisters), distance(1.0, 2.0, 1.0,0)));// -1
         collection.add(createParameter(fillDoubleArray(new double [] {1.0, 2.0, -3.0,0}, curMaxRegisters), distance(1.0, 2.0, -3.0,0)));
         collection.add(createParameter(fillDoubleArray(new double [] {1.0, -1, -56,0}, curMaxRegisters), distance(1.0, -1, -56,0)));
         collection.add(createParameter(fillDoubleArray(new double [] {1.0, 2, -15,0}, curMaxRegisters), distance(1.0, 2.0, -15,0)));
@@ -68,12 +70,15 @@ public class SphereDistance
         collection.add(createParameter(fillDoubleArray(new double [] {1.0, 15000, 0,0}, curMaxRegisters), distance(1.0, 15000, 0,0)));
         collection.add(createParameter(fillDoubleArray(new double [] {-1.0, 15000, 0,0}, curMaxRegisters), distance(-1.0, 15000, 0,0)));
         collection.add(createParameter(fillDoubleArray(new double [] {2.0, 1000, 0,0}, curMaxRegisters), distance(2.0, 1000, 0,0)));
-
+*/
 
         ProgramFitnessExaminer evaluator = new ProgramFitnessExaminer(collection);
 
-        ReverseProgramIterator iter = new ReverseProgramIterator(evaluator, new InstructionEnum[]{InstructionEnum.Add, InstructionEnum.Sub, InstructionEnum.Mul, InstructionEnum.Div, InstructionEnum.Sqrt, InstructionEnum.Move, InstructionEnum.Sin, InstructionEnum.Cos});
-        iter.iterate(curMaxRegisters, 10);
+        //ReverseProgramIterator iter = new ReverseProgramIterator(evaluator, new InstructionEnum[]{InstructionEnum.Add, InstructionEnum.Sub, InstructionEnum.Mul, InstructionEnum.Div, InstructionEnum.Sqrt, InstructionEnum.Move, InstructionEnum.Sin, InstructionEnum.Cos});
+        RandomGeneticProgramIterator iter = new RandomGeneticProgramIterator(evaluator, InstructionEnum.values(),
+                10000, 1.3, 0.4);
+
+        iter.iterate(curMaxRegisters, 15);
 
     }
 

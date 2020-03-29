@@ -108,8 +108,11 @@ public class RandomGeneticProgramIterator {
     }
 
     private PriorityQueue<ProgramResolution> cutPopulation(PriorityQueue<ProgramResolution> solutions) {
-        List l = new ArrayList<>();
-
+        List<ProgramResolution> l = new ArrayList<>();
+        if (solutions.size() < POPULATION_MAX)
+        {
+            return solutions;
+        }
         for (int i = 0; i < POPULATION_MAX; i++)
         {
             l.add(solutions.poll());

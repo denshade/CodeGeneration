@@ -22,7 +22,7 @@ public class ReverseProgramIterator
     private int numberOfRegisters;
 
     private List<Instruction> bestSolution;
-    private double bestScore = 1000;
+    private double bestScore = Double.MAX_VALUE;
 
 
     public ReverseProgramIterator(ProgramFitnessExaminer evaluator)
@@ -94,7 +94,7 @@ public class ReverseProgramIterator
                     Instruction actualInstruction = InstructionFactory.createInstruction(instruction, register1);
                     instructions.add(0, actualInstruction);
                     eval(instructions, Arrays.asList(registers));
-                    /**
+                    /*
                      * Available registers remains the same. No new registers are used.
                      */
                     recurse(instructions, availableRegisters);
