@@ -18,6 +18,6 @@ public class Add extends DualRegisterInstruction
 
     public String toString()
     {
-        return destination + "+= " +  source;
+        return destination + " += " +  source;
     }
 }
