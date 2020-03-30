@@ -12,4 +12,8 @@ public abstract class Instruction
 
     public abstract String toString();
 
+    @Override
+    public boolean equals(Object obj) {
+        return toString().equals(obj.toString());
+    }
 }

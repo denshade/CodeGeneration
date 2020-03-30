@@ -69,8 +69,10 @@ public class QuadraticFinder {
         return (-b + (Math.sqrt(b*b - 4*a*c))) / 2*a;
     }
 
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) {
+        mainRandomized(args);
+    }
+    public static void reverseIterator(){
         int curMaxRegisters = 4;
         List<InOutParameters> collection = getInOutParameters(curMaxRegisters);
         ProgramFitnessExaminer evaluator = new ProgramFitnessExaminer(collection);
