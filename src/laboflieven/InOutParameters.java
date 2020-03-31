@@ -16,9 +16,14 @@ public class InOutParameters
 
     public static InOutParameters createParameter(double[] doubles, double result, int expectedOutputRegister)
     {
-        Map<String, Double> startParameters  = getMap(doubles);
+        return createParameter(doubles, result, expectedOutputRegister, "r");
+    }
+
+    public static InOutParameters createParameter(double[] doubles, double result, int expectedOutputRegister, String registerPrefix)
+    {
+        Map<String, Double> startParameters  = getMap(doubles, registerPrefix);
         Map<String, Double> endParameters = new HashMap<>(1);
-        endParameters.put("r"+expectedOutputRegister, result);
+        endParameters.put(registerPrefix+expectedOutputRegister, result);
         InOutParameters parameters = new InOutParameters();
         parameters.input = startParameters;
         parameters.expectedOutput = endParameters;
@@ -35,6 +40,16 @@ public class InOutParameters
         for (int l = 0; l < doubles.length; l++)
         {
             results.put("r"+l, doubles[l]);
+        }
+        return results;
+    }
+
+    private static Map<String, Double> getMap(double[] doubles, String prefix)
+    {
+        Map<String, Double> results = new HashMap<>();
+        for (int l = 0; l < doubles.length; l++)
+        {
+            results.put(prefix+(l + 1), doubles[l]);
         }
         return results;
     }

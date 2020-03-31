@@ -35,4 +35,14 @@ public class Register
         return registers;
     }
 
+    public static List<Register> createRegisters(int count, String prefix)
+    {
+        List<Register> registers = new ArrayList<Register>();
+        for (int k = 1; k <= count; k++)
+        {
+            registers.add(new Register(prefix + k));
+        }
+        return registers;
+    }
+
 }

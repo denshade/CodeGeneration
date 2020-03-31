@@ -1,7 +1,9 @@
 package laboflieven;
 
+import laboflieven.statements.DualRegisterInstruction;
 import laboflieven.statements.Instruction;
 import laboflieven.statements.Register;
+import laboflieven.statements.SingleRegisterInstruction;
 
 import java.util.List;
 import java.util.Map;
@@ -28,10 +30,10 @@ public class StatementRunner {
      *
      * @param registerValues name => Value pairs.
      */
-    public void execute(Program program, Map<String, Double> registerValues)
-    {
+    public void execute(Program program, Map<String, Double> registerValues)  {
         program.initializeRegisters(registerValues);
         List<Instruction> instructions = program.getInstructions();
+        if (false)checkIfBound(program, instructions);
         int ip = 0;
         int instructionsRun = 0;
         int size = instructions.size();
@@ -49,6 +51,26 @@ public class StatementRunner {
             else
             {
                 ip++;
+            }
+        }
+    }
+
+    private void checkIfBound(Program program, List<Instruction> instructions) {
+        for (Instruction instr : instructions)
+        {
+            Register toFind = null;
+            if (instr instanceof SingleRegisterInstruction){
+                toFind = ((SingleRegisterInstruction) instr).destination;
+            } else if (instr instanceof DualRegisterInstruction){
+                toFind = ((DualRegisterInstruction) instr).destination;
+            }
+
+            boolean found = false;
+            for (Register reg : program.getRegisters()) {
+                if (reg.equals(toFind)) found = true;
+            }
+            if (!found) {
+                throw new RuntimeException("Registers not bound! ");
             }
         }
     }

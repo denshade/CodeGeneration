@@ -66,7 +66,7 @@ public class QuadraticFinder {
         double a = args[0];
         double b = args[1];
         double c = args[2];
-        return (-b + (Math.sqrt(b*b - 4*a*c))) / 2*a;
+        return (-b + (Math.sqrt(b*b - 4*a*c))) / (2*a);
     }
 
     public static void main(String[] args) {
