@@ -43,8 +43,28 @@ public class ProgramParserTest {
         assertEquals(sin, instructs.get(i++));
         assertEquals(sqrt, instructs.get(i++));
         assertEquals(sub, instructs.get(i++));
+    }
+
+    @Test
+    public void testSqrt()
+    {
+        //-b + sqrt((b² - 4ac)) / 2a
+        // 1 R4 = R2
+        // 2 R4 *= R4 => b²
+        // 3 R3 = R3 * R1
+        // 4 R3 += R3
+        // 5 R3 += R3. 4AC
+        // 6 R3 = Invert(R3) = -4AC
+        // 7 R3 += R4
+        // 8 R3 = sqrt(R3) =
+        // 9 R2 = invert(R2) = -b
+        // 10 R1 = R1 + R1
+        // 11 R2 = R2 + R3 = -b + sqrt(b² - 4ac)
+        // 12 R2 = R2 / R1 . Final.
 
 
+        List<Instruction> instr = ProgramParser.parse("[Move R2 -> R4, Mult R4 -> R4, Mult R3 -> R3, R3 += R3, R3 += R3, Invert R3, R3 += R4, Sqrt R3 " +
+                ", Invert R2, R1 += R1, R2 += R3, R2 /= R1 ]");
 
     }
 }
