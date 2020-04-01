@@ -50,9 +50,10 @@ public class ProgramFitnessExaminer
         for(InOutParameters parameter : conditions)
         {
             runner.execute(program, parameter.input);
+            int foundExpectedRegisters = 0;
+            Map<String, Double> expectedOutput = parameter.expectedOutput;
             for (Register register : program.getRegisters())
             {
-                Map<String, Double> expectedOutput = parameter.expectedOutput;
                 if (Double.isNaN(register.value) || Double.isInfinite(register.value))
                 {
                     err = NO_FIT_AT_ALL;
@@ -61,10 +62,12 @@ public class ProgramFitnessExaminer
                 {
                     if (expectedOutput.containsKey(register.name))
                     {
+                        foundExpectedRegisters++;
                         err += Math.abs(expectedOutput.get(register.name) - register.value);
                         if (err >= NO_FIT_AT_ALL){
                             return NO_FIT_AT_ALL;
                         }
+                        if (foundExpectedRegisters == expectedOutput.size()) break;
                     }
                 }
             }

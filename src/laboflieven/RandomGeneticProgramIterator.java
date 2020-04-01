@@ -48,10 +48,7 @@ public class RandomGeneticProgramIterator {
         chosenSolutions = new ArrayList<>();
         this.numberOfRegisters = numberOfRegisters;
         this.maximumInstructions = maximumInstructions;
-        registers = new Register[numberOfRegisters];
-        for (int i = 0; i < registers.length; i++) {
-            registers[i] = new Register("r" + i);
-        }
+        registers = Register.createRegisters(numberOfRegisters, "r").toArray(new Register[0]);
         Set<Register> availableRegisters = new HashSet<>();
         availableRegisters.add(registers[registers.length - 1]);// Add the result register.
         for (int i = 0; i < 1000; i++) {
@@ -66,7 +63,7 @@ public class RandomGeneticProgramIterator {
             res.instructions = instruction;
             solutions.add(res);
         }
-        double bestSolution = 446489;
+        double bestSolution = Double.MAX_VALUE;
         int bestSolutionCycle = 10000;
         //Let the best 10 solutions procreate.
 
@@ -90,7 +87,7 @@ public class RandomGeneticProgramIterator {
                 solutions = cutPopulation(solutions);
             }
         }
-        System.out.println("Best solution" + solutions.peek().weight + " " + solutions.peek().instructions);
+        System.out.println("Best solution " + solutions.peek().weight + " " + solutions.peek().instructions);
         return solutions.peek();
     }
 

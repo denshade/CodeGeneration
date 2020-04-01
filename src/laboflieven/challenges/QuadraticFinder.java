@@ -1,7 +1,9 @@
 package laboflieven.challenges;
 
 import laboflieven.*;
+import laboflieven.statements.Instruction;
 import laboflieven.statements.InstructionEnum;
+import laboflieven.statements.Register;
 
 import java.util.*;
 
@@ -24,32 +26,38 @@ public class QuadraticFinder {
         String winner = "";
         for (int maxSizePopulation = 50000; maxSizePopulation < 100000; maxSizePopulation += 10000)
         for (double curpopularParents = 0.8; curpopularParents < 0.9; curpopularParents+= 0.2)
-        for (int curMaxRegisters = 4; curMaxRegisters < 8; curMaxRegisters++)
+        for (int curMaxRegisters = 4; curMaxRegisters < 5; curMaxRegisters++)
         {
             List<InOutParameters> collection = getInOutParameters(curMaxRegisters);
 
             ProgramFitnessExaminer evaluator = new ProgramFitnessExaminer(collection);
 
-            for (int curMaxInstructions = 15; curMaxInstructions < 20; curMaxInstructions++) {
+            for (int curMaxInstructions = 10; curMaxInstructions < 15; curMaxInstructions++) {
 
-                RandomGeneticProgramIterator iterator = new RandomGeneticProgramIterator(evaluator, InstructionEnum.values(), //);// new InstructionEnum[]{InstructionEnum.Add, InstructionEnum.Sub, InstructionEnum.Mul, InstructionEnum.Div, InstructionEnum.Sqrt},
+                RandomGeneticProgramIterator iterator = new RandomGeneticProgramIterator(evaluator, // InstructionEnum.values(), //);
+                        new InstructionEnum[]{InstructionEnum.Add, InstructionEnum.Sub, InstructionEnum.Mul, InstructionEnum.Div, InstructionEnum.Sqrt, InstructionEnum.Move, InstructionEnum.Invert},
                         maxSizePopulation,
                         maxPopulationOverflow,
                         curpopularParents);
 
                 double bestInRetries = 450000;
                 ProgramResolution result = null;
-                for (int retries = 0; retries < 20; retries++) {
+                List<Instruction> bestProgram = null;
+                for (int retries = 0; retries < 50; retries++) {
 
                     result = iterator.iterate(curMaxRegisters, curMaxInstructions);
 
                     if (result.weight < bestInRetries)
+                    {
                         bestInRetries = result.weight;
+                        bestProgram = result.instructions;
+                    }
+
                 }
 
                 if (bestInRetries < winnerOfTheWorldWeight) {
                     winnerOfTheWorldWeight = bestInRetries;
-                    winner = "#registers " + curMaxRegisters + " #maxinstructions " + curMaxInstructions  + " curpopularparents " + curpopularParents +" #maxpopulation " + maxSizePopulation + ' ' + result.instructions;
+                    winner = "#registers " + curMaxRegisters + " #maxinstructions " + curMaxInstructions  + " curpopularparents " + curpopularParents +" #maxpopulation " + maxSizePopulation + ' ' + bestProgram;
                     System.out.println(winner + " with " + winnerOfTheWorldWeight );
                 }
             }
@@ -69,7 +77,14 @@ public class QuadraticFinder {
         return (-b + (Math.sqrt(b*b - 4*a*c))) / (2*a);
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) {//[r1 /= r2, Move r1 -> r4, r4 -= r3, Mul r4 -> r4, Invert r1, Sqrt r4, Sqrt r2, Sqrt r4, r3 -= r4, r3 /= r1, r1 += r4]
+        List<Instruction> instructions = ProgramParser.parse("[r4 += r3, Mul r4 -> r1, Mul r3 -> r1, Mul r2 -> r3, r4 += r1, Sqrt r4, Invert r2, r2 += r1, Sqrt r4, r2 /= r4, r1 /= r2]"); //2.847396575786049
+        List<InOutParameters> collection = getInOutParameters(4);
+
+        Register[] registers = Register.createRegisters(4, "r").toArray(new Register[0]);
+        ProgramFitnessExaminer evaluator = new ProgramFitnessExaminer(collection);
+        System.out.println(evaluator.calculateFitness(instructions, Arrays.asList(registers))); // 3.4334286175154967
+
         mainRandomized(args);
     }
     public static void reverseIterator(){
@@ -96,6 +111,9 @@ public class QuadraticFinder {
         collection.add(io.createParameter(io.fillDoubleArray(new double [] {1.0, 15000, 0}, curMaxRegisters), calcQuad(new double [] {1.0, 15000, 0}),1 ));
         collection.add(io.createParameter(io.fillDoubleArray(new double [] {-1.0, 15000, 0}, curMaxRegisters), calcQuad(new double [] {-1.0, 15000, 0}),1 ));
         collection.add(io.createParameter(io.fillDoubleArray(new double [] {2.0, 1000, 0}, curMaxRegisters), calcQuad(new double [] {2.0, 1000, 0}),1 ));
+        collection.add(io.createParameter(io.fillDoubleArray(new double [] {100.0, 500, 0}, curMaxRegisters), calcQuad(new double [] {100.0, 500, 0}),1 ));
+        collection.add(io.createParameter(io.fillDoubleArray(new double [] {1000.0, 50, 0}, curMaxRegisters), calcQuad(new double [] {1000.0, 50, 0}),1 ));
+
         return collection;
     }
 
