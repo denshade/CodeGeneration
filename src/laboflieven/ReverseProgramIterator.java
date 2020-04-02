@@ -115,7 +115,7 @@ public class ReverseProgramIterator
         if (val < 0.0001){ //evaluator.isFit(instructions, registers
             positiveSolutions.add(new ArrayList<>(instructions));
             System.out.println("Found a program: " + instructions);
-            throw new StoppedByUserException();
+            //throw new StoppedByUserException();
         }
 
     }

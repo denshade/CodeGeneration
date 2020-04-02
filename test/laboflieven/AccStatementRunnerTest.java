@@ -10,11 +10,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static org.junit.Assert.*;
-
 public class AccStatementRunnerTest {
 
-    @Test
+    @org.junit.Test
     public void testMyStatement()
     {
         AccStatementRunner r = new AccStatementRunner();
