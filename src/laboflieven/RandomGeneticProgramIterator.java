@@ -36,6 +36,53 @@ public class RandomGeneticProgramIterator {
         enums = InstructionEnum.values();
     }
 
+
+    public static List<Instruction>  trySolutions(InOutParameterSource source, InstructionEnum[] enums, double maxPopulationOverflow, int startPopulation, int maxPopulation,
+                                    double minPopularParents, double maxPopularParents, int minRegisters, int maxRegisters) {
+        double winnerOfTheWorldWeight = Double.MAX_VALUE;
+        List<Instruction> bestProgram = null;
+
+        for (int maxSizePopulation = startPopulation; maxSizePopulation < maxPopulation; maxSizePopulation += 10000) {
+            for (double curpopularParents = minPopularParents; curpopularParents < maxPopularParents; curpopularParents += 0.2) {
+                for (int curMaxRegisters = minRegisters; curMaxRegisters < maxRegisters; curMaxRegisters++) {
+                    List<InOutParameters> collection = source.getInOutParameters(curMaxRegisters);
+
+                    ProgramFitnessExaminer evaluator = new ProgramFitnessExaminer(collection);
+
+                    for (int curMaxInstructions = 10; curMaxInstructions < 15; curMaxInstructions++) {
+
+                        RandomGeneticProgramIterator iterator = new RandomGeneticProgramIterator(evaluator, // InstructionEnum.values(), //);
+                                enums,
+                                maxSizePopulation,
+                                maxPopulationOverflow,
+                                curpopularParents);
+
+                        double bestInRetries = Double.MAX_VALUE;
+                        ProgramResolution result = null;
+                        for (int retries = 0; retries < 50; retries++) {
+
+                            result = iterator.iterate(curMaxRegisters, curMaxInstructions);
+
+                            if (result.weight < bestInRetries) {
+                                bestInRetries = result.weight;
+                                bestProgram = result.instructions;
+                            }
+
+                        }
+
+                        if (bestInRetries < winnerOfTheWorldWeight) {
+                            winnerOfTheWorldWeight = bestInRetries;
+                            String winner = "#registers " + curMaxRegisters + " #maxinstructions " + curMaxInstructions + " curpopularparents " + curpopularParents + " #maxpopulation " + maxSizePopulation + ' ' + bestProgram;
+                            System.out.println(winner + " with " + winnerOfTheWorldWeight);
+                        }
+                    }
+
+                }
+            }
+        }
+        return bestProgram;
+    }
+
     public RandomGeneticProgramIterator(ProgramFitnessExaminer evaluator, InstructionEnum[] enums, int maxPopulation, double maxOverflow, double popularParents) {
         this.evaluator = evaluator;
         this.enums = enums;
