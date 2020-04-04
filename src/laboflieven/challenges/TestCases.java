@@ -10,16 +10,37 @@ import java.util.function.Function;
 
 public class TestCases
 {
+
     public static double[][] getExampleInput2D()
     {
-        double[][] doubles = {new double[]{ 10, 1}, new double[]{ 1, 10}, new double[]{ 1, 1},
-                new double[]{ 0, 0}, new double[]{ 1, 100},
-                new double[]{ 1000, 50}, new double[]{ 1000, 1}, new double[]{ 50, 1},
-                new double[]{ 10000, 50}, new double[]{ 10000, -1}, new double[]{ -10000, -100}
-
-        };
-        return doubles;
+        return getExampleInput2D(100,10);
     }
+    public static double[][] getExampleInput2D(int max, int jump)
+    {
+        List<double[]> points = new ArrayList<>();
+        for (int x = 0; x < max; x+= jump){
+            for (int y = 0; y < max; y += jump)
+            {
+                points.add(new double[] {(double) x, (double) y});
+            }
+        }
+        return points.toArray(new double[0][0]);
+    }
+
+    public static double[][] getExampleInput4D(int max, int jump)
+    {
+        List<double[]> points = new ArrayList<>();
+        for (int x = 0; x < max; x+= jump){
+            for (int y = 0; y < max; y += jump)
+                for (int z = 0; z < max; z+= jump)
+                    for (int a = 0; a < max; a += jump)
+            {
+                points.add(new double[] {(double) x, (double) y, (double)z, (double)a});
+            }
+        }
+        return points.toArray(new double[0][0]);
+    }
+
 
     public static double[][] getExampleInput1D()
     {
@@ -37,7 +58,7 @@ public class TestCases
     {
         Map<String, Double> startParameters  = getMap(doubles);
         Map<String, Double> endParameters = new HashMap<>(1);
-        endParameters.put("r0", result);
+        endParameters.put("R1", result);
         InOutParameters parameters = new InOutParameters();
         parameters.input = startParameters;
         parameters.expectedOutput = endParameters;
@@ -48,7 +69,7 @@ public class TestCases
         Map<String, Double> results = new HashMap<>();
         for (int l = 0; l < doubles.length; l++)
         {
-            results.put("r"+l, doubles[l]);
+            results.put("R"+(l+1), doubles[l]);
         }
         return results;
     }
