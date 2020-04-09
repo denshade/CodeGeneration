@@ -59,6 +59,9 @@ public class InstructionFactory
             case Log:
                 instruction = new Log(register1);
                 break;
+            case PI:
+                instruction = new PI(register1);
+                break;
             default:
                 throw new IllegalArgumentException("invalid instruction " + instructionEnum.toString());
         }
