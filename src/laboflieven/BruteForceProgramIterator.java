@@ -1,5 +1,7 @@
 package laboflieven;
 
+import laboflieven.recursionheuristics.AlwaysRecursionHeuristic;
+import laboflieven.recursionheuristics.RecursionHeuristic;
 import laboflieven.statements.Instruction;
 import laboflieven.statements.InstructionEnum;
 import laboflieven.statements.InstructionFactory;
@@ -18,27 +20,36 @@ public class BruteForceProgramIterator
     public List<List<Instruction>> positiveSolutions = new ArrayList<>();
     private ProgramFitnessExaminer evaluator;
     private InstructionEnum[] instructionEnums;
+    private RecursionHeuristic recursionHeuristic;
+    private int nrRegisters;
 
 
     public BruteForceProgramIterator(ProgramFitnessExaminer evaluator)
     {
         this.evaluator = evaluator;
         instructionEnums = InstructionEnum.values();
+        recursionHeuristic = new AlwaysRecursionHeuristic();
+    }
+
+    public BruteForceProgramIterator(ProgramFitnessExaminer evaluator, RecursionHeuristic recursionHeuristic)
+    {
+        this.evaluator = evaluator;
+        instructionEnums = InstructionEnum.values();
+        this.recursionHeuristic = recursionHeuristic;
     }
 
     public BruteForceProgramIterator(ProgramFitnessExaminer evaluator, InstructionEnum[] instructions)
     {
         this.evaluator = evaluator;
         instructionEnums = instructions;
+        recursionHeuristic = new AlwaysRecursionHeuristic();
     }
 
     public void iterate(final int nrOfRegisters, int maximumInstructions)
     {
         this.maximumInstructions = maximumInstructions;
-        Register[] registers = new Register[nrOfRegisters];
-        for (int i = 0; i <  registers.length; i++){
-            registers[i] = new Register("r"+i);
-        }
+        Register[] registers = Register.createRegisters(nrOfRegisters, "R").toArray(new Register[0]);
+        this.nrRegisters = nrOfRegisters;
         recurse(new ArrayList<>(), registers);
     }
 
@@ -51,21 +62,23 @@ public class BruteForceProgramIterator
             for (Register register1 : registers) {
                 if (instruction.isDualRegister()) {
                     for (Register register2 : registers) {
-                        if (instruction == InstructionEnum.Move && register1.name.equals(register2.name))
-                        {
-                            continue;
-                        }
                         Instruction actualInstruction = InstructionFactory.createInstruction(instruction, register1, register2);
                         instructions.add(actualInstruction);
-                        eval(instructions, Arrays.asList(registers));
-                        recurse(instructions, registers);
+                        if (recursionHeuristic.shouldRecurse(instructions, nrRegisters))
+                        {
+                            eval(instructions, Arrays.asList(registers));
+                            recurse(instructions, registers);
+                        }
+
                         instructions.remove(instructions.size() - 1);
                     }
                 } else {
                     Instruction actualInstruction = InstructionFactory.createInstruction(instruction, register1);
                     instructions.add(actualInstruction);
-                    eval(instructions, Arrays.asList(registers));
-                    recurse(instructions, registers);
+                    if (recursionHeuristic.shouldRecurse(instructions, nrRegisters)) {
+                        eval(instructions, Arrays.asList(registers));
+                        recurse(instructions, registers);
+                    }
                     instructions.remove(instructions.size() - 1);
                 }
 

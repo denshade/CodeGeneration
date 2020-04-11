@@ -42,6 +42,17 @@ public class TestCases
     }
 
 
+    public static double[][] getExampleInput1D(int max, int jump)
+    {
+        List<double[]> points = new ArrayList<>();
+        for (int x = 0; x < max; x+= jump){
+            {
+                points.add(new double[] {(double) x});
+            }
+        }
+        return points.toArray(new double[0][0]);
+    }
+
     public static double[][] getExampleInput1D()
     {
         double[][] doubles = {new double[]{ 10}, new double[]{ 1}, new double[]{ 1},
