@@ -8,10 +8,10 @@ import java.util.List;
  */
 public enum InstructionEnum
 {
-    Add, Div, Invert, Move, Mul, Sqrt, Sub, Sin, Cos, Mod, Nand, Log, JmpIfZero, PI;
+    Add, Div, Invert, Move, Mul, Sqrt, Sub, Sin, Cos, Mod, Nand, Log, JmpIfZero, PI, Zero, One;
 
     public boolean isDualRegister() {
-        return !(this.equals(Invert) || this.equals(Sin) || this.equals(Cos)) && !this.equals(Sqrt) && !this.equals(Log) &&!this.equals(PI);
+        return !(this.equals(Invert) || this.equals(Sin) || this.equals(Cos)) && !this.equals(Sqrt) && !this.equals(Log) &&!this.equals(PI) &&!this.equals(Zero) && !this.equals(One);
     }
 
     public static InstructionEnum[] anyExcept(InstructionEnum eq)

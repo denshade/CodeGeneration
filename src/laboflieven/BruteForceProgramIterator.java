@@ -38,6 +38,13 @@ public class BruteForceProgramIterator
         this.recursionHeuristic = recursionHeuristic;
     }
 
+    public BruteForceProgramIterator(ProgramFitnessExaminer evaluator, RecursionHeuristic recursionHeuristic, InstructionEnum[] instructions)
+    {
+        this.evaluator = evaluator;
+        instructionEnums = instructions;
+        this.recursionHeuristic = recursionHeuristic;
+    }
+
     public BruteForceProgramIterator(ProgramFitnessExaminer evaluator, InstructionEnum[] instructions)
     {
         this.evaluator = evaluator;

@@ -62,6 +62,12 @@ public class InstructionFactory
             case PI:
                 instruction = new PI(register1);
                 break;
+            case Zero:
+                instruction = new Zero(register1);
+                break;
+            case One:
+                instruction = new One(register1);
+                break;
             default:
                 throw new IllegalArgumentException("invalid instruction " + instructionEnum.toString());
         }

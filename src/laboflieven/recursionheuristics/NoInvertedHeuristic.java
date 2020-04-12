@@ -16,7 +16,7 @@ public class NoInvertedHeuristic implements RecursionHeuristic
         if (s.startsWith("[PI")){
                 return false;
         }
-        if (s.startsWith("[Mov")){
+        if (s.startsWith("[Move")){
             return false;
         }
         for (int i = 1; i <= nrInstructions; i++) {
