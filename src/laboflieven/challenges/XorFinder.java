@@ -15,7 +15,7 @@ public class XorFinder implements ProgramTemplate
         public static double distance(double lat1, double lat2) {
             boolean a = lat1 > 0.0001;
             boolean b = lat2 > 0.0001;
-            return (a|b)?1.0:0.0;
+            return (a^b)?1.0:0.0;
         }
 
 
@@ -32,7 +32,7 @@ public class XorFinder implements ProgramTemplate
             ProgramFitnessExaminer evaluator = new ProgramFitnessExaminer(collection);
             BruteForceProgramIterator iter = new BruteForceProgramIterator(evaluator, new AlwaysRecursionHeuristic(), InstructionEnum.anyExcept(InstructionEnum.JmpIfZero));
             long start = System.currentTimeMillis();
-            iter.iterate(curMaxRegisters, 3);
+            iter.iterate(curMaxRegisters, 2);
             //evaluator.writeAndClose();
             System.out.println(System.currentTimeMillis() - start + "ms");
         }
