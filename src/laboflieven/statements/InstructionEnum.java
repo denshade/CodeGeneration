@@ -8,12 +8,12 @@ import java.util.List;
  */
 public enum InstructionEnum
 {
-    Add, Div, Invert, Move, Mul, Sqrt, Sub, Sin, Cos, Mod, Nand, Log, JmpIfZero, JmpIfZeroBegin, JmpIfZeroEnd, PI, Zero, One, JmpIfNotZeroBegin, JmpIfNotZeroEnd;
+    Add, Div, Invert, Move, Mul, Sqrt, Sub, Sin, Cos, Mod, Nand, Log, JmpIfZero, JmpIfZeroBegin, JmpIfZeroEnd, PI, Zero, One, JmpIfNotZeroBegin, JmpIfNotZeroEnd, JmpIfRegister2Steps;
 
     public boolean isDualRegister() {
         return !(this.equals(Invert) || this.equals(Sin) || this.equals(Cos)) && !this.equals(Sqrt) && !this.equals(Log) &&!this.equals(PI) &&!this.equals(Zero) && !this.equals(One)
                 && !this.equals(JmpIfZeroBegin) && !this.equals(JmpIfZeroEnd)
-                && !this.equals(JmpIfNotZeroBegin) && !this.equals(JmpIfNotZeroEnd);
+                && !this.equals(JmpIfNotZeroBegin) && !this.equals(JmpIfNotZeroEnd) && !this.equals(JmpIfRegister2Steps);
     }
 
     public static InstructionEnum[] anyExcept(InstructionEnum eq)

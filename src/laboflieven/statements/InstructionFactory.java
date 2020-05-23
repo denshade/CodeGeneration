@@ -80,6 +80,9 @@ public class InstructionFactory
             case JmpIfNotZeroEnd:
                 instruction = new JumpIfRegister1NotZeroToEnd(register1);
                 break;
+            case JmpIfRegister2Steps:
+                instruction = new JumpIfRegister2Steps(register1);
+                break;
             default:
                 throw new IllegalArgumentException("invalid instruction " + instructionEnum.toString());
         }
