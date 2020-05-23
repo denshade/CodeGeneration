@@ -61,6 +61,10 @@ public class ProgramParser {
         if (s.contains("-=")){
             i = new Sub(parseRegister(parts[2]), parseRegister(parts[0]));
         }
+        if (s.contains("One")) {
+            i = new One(parseRegister(parts[1]));
+        }
+        if (i == null) throw new RuntimeException("Unknown instruction " + s);
         return i;
     }
 

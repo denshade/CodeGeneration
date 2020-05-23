@@ -7,7 +7,7 @@ public class Log extends SingleRegisterInstruction {
         this.destination = destination;
     }
 
-    public Integer execute() {
+    public Integer execute(int current) {
         destination.value = Math.log(destination.value);
         return null;
     }

@@ -10,7 +10,7 @@ public class Add extends DualRegisterInstruction
         super(source, destination);
     }
 
-    public Integer execute()
+    public Integer execute(int current)
     {
         destination.value = source.value + destination.value;
         return null;

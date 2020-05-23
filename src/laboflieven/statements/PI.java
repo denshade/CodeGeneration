@@ -7,7 +7,7 @@ public class PI extends SingleRegisterInstruction {
         this.destination = destination;
     }
 
-    public Integer execute() {
+    public Integer execute(int current) {
         destination.value = Math.PI;
         return null;
     }

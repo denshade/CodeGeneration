@@ -56,4 +56,9 @@ public class InOutParameters
     public Map<String, Double> input;
     public Map<String, Double> expectedOutput;
 
+    public String toString()
+    {
+        return input.toString() + " = " + expectedOutput.toString();
+    }
+
 }

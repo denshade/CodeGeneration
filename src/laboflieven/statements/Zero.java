@@ -7,7 +7,7 @@ public class Zero extends SingleRegisterInstruction {
         this.destination = destination;
     }
 
-    public Integer execute() {
+    public Integer execute(int current) {
         destination.value = 0.0;
         return null;
     }

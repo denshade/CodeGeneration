@@ -9,9 +9,13 @@ public class Mod extends DualRegisterInstruction
         super(source, destination);
     }
 
-    public Integer execute()
+    public Integer execute(int current)
     {
         destination.value = destination.value % source.value;
         return null;
+    }
+    public String toString()
+    {
+        return destination.name + " = " + destination.name + " % " + source.name;
     }
 }
