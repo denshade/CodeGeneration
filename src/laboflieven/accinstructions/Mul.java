@@ -7,7 +7,7 @@ import laboflieven.statements.Register;
  */
 public class Mul extends AccRegisterInstruction
 {
-    public Integer execute(Register left, Register right)
+    public Integer execute(Register left, Register right, int ip)
     {
         left.value = left.value * right.value;
         return null;

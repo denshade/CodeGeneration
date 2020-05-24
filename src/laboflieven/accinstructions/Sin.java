@@ -7,7 +7,7 @@ import laboflieven.statements.Register;
  */
 public class Sin extends AccRegisterInstruction {
 
-    public Integer execute(Register left, Register right)
+    public Integer execute(Register left, Register right, int ip)
     {
         left.value = Math.sin(left.value);
         return null;

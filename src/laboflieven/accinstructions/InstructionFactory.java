@@ -51,6 +51,9 @@ public class InstructionFactory
             case JumpIfLteStart:
                 instruction = new JumpIfLteStart();
                 break;
+            case Jump2IfGte:
+                instruction = new Jump2IfGte();
+                break;
             default:
                 throw new IllegalArgumentException("invalid instruction " + instructionEnum.toString());
         }

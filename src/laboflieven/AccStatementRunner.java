@@ -42,7 +42,7 @@ public class AccStatementRunner {
             if (instructionsRun > MAXINSTRUCT)
                 break;
             AccRegisterInstruction instruction = instructions.get(ip);
-            Integer pointer = instruction.execute(left, right);
+            Integer pointer = instruction.execute(left, right, ip);
             if (pointer != null && pointer >= 0)
             {
                 ip = pointer;

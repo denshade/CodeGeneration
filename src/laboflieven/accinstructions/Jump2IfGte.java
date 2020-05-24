@@ -2,22 +2,20 @@ package laboflieven.accinstructions;
 
 import laboflieven.statements.Register;
 
-public class JumpIfLteStart extends SingleRegisterInstruction
+public class Jump2IfGte extends SingleRegisterInstruction
 {
-
-
     public Integer execute(Register left, Register right, int ip)
     {
-        if (left.value <= right.value)
+        if (left.value >= right.value)
         {
-            return 0;
+            return ip + 2;
         }
         return null;
     }
 
     @Override
     public String toString() {
-        return " if left <=  R then goto 0 ";
+        return " Jump if left >= right goto this + 2";
     }
 
 }

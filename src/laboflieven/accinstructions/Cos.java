@@ -7,7 +7,7 @@ import laboflieven.statements.Register;
  */
 public class Cos extends AccRegisterInstruction {
 
-    public Integer execute(Register left, Register right)
+    public Integer execute(Register left, Register right, int ip)
     {
         left.value = Math.cos(left.value);
         return null;
@@ -15,5 +15,5 @@ public class Cos extends AccRegisterInstruction {
 
     public String toString()
     {
-        return  "left = cos(left);";    }
+        return  "left = cos(left)";    }
 }

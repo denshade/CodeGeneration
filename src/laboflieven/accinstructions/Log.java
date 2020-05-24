@@ -11,7 +11,7 @@ public class Log extends AccRegisterInstruction {
 
 
 
-    public Integer execute(Register left, Register right)
+    public Integer execute(Register left, Register right, int ip)
     {
         left.value = Math.log(left.value);
         return null;

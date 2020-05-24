@@ -2,6 +2,7 @@ package laboflieven.statements;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by lveeckha on 4/06/2015.
@@ -22,6 +23,18 @@ public enum InstructionEnum
         for (InstructionEnum enu : InstructionEnum.values())
         {
             if (!enu.equals(eq)) {
+                result.add(enu);
+            }
+        }
+        return result.toArray(new InstructionEnum[0]);
+    }
+
+    public static InstructionEnum[] anyExcept(Set<InstructionEnum> eq)
+    {
+        List<InstructionEnum> result = new ArrayList<InstructionEnum>();
+        for (InstructionEnum enu : InstructionEnum.values())
+        {
+            if (!eq.contains(enu)) {
                 result.add(enu);
             }
         }
