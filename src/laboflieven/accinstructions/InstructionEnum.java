@@ -3,6 +3,7 @@ package laboflieven.accinstructions;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by lveeckha on 4/06/2015.
@@ -23,5 +24,17 @@ public enum InstructionEnum
         enumList.remove(except);
         enumList.toArray(enums);
         return enums;
+    }
+
+    public static InstructionEnum[] anyExcept(Set<InstructionEnum> eq)
+    {
+        List<InstructionEnum> result = new ArrayList<InstructionEnum>();
+        for (InstructionEnum enu : InstructionEnum.values())
+        {
+            if (!eq.contains(enu)) {
+                result.add(enu);
+            }
+        }
+        return result.toArray(new InstructionEnum[0]);
     }
 }

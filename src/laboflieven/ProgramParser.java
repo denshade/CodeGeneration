@@ -40,8 +40,8 @@ public class ProgramParser {
         if (s.contains("Log")){
             i = new Log(parseRegister(parts[1]));
         }
-        if (s.contains("Mod")){
-            i = new Mod(parseRegister(parts[1]), parseRegister(parts[3]));
+        if (s.contains("%")){
+            i = new Mod(parseRegister(parts[4]), parseRegister(parts[0]));
         }
         if (s.contains("Move")){
             i = new Move(parseRegister(parts[1]), parseRegister(parts[3]));
@@ -64,6 +64,10 @@ public class ProgramParser {
         if (s.contains("One")) {
             i = new One(parseRegister(parts[1]));
         }
+        if (s.contains("PI")) {
+            i = new PI(parseRegister(parts[1]));
+        }
+
         if (i == null) throw new RuntimeException("Unknown instruction " + s);
         return i;
     }

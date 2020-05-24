@@ -22,6 +22,7 @@ Found a program: [R3 /= R1, Mod R2 -> R1, Mod R3 -> R2, Nand R2 -> R1]
 
      */
     public static void main(String[] args) throws IOException {
+
         int curMaxRegisters = 3;
         List<double[]> points = new ArrayList<>();
         for (int i = 1; i < 40; i++) {
@@ -29,13 +30,14 @@ Found a program: [R3 /= R1, Mod R2 -> R1, Mod R3 -> R2, Nand R2 -> R1]
         }
         List<InOutParameters> collection = TestCases.getTestCases(new P1(), points.toArray(new double[0][0]),curMaxRegisters);
         AccProgramFitnessExaminer evaluator = new AccProgramFitnessExaminer(collection);
-        AccBruteForceProgramIterator iter = new AccBruteForceProgramIterator(evaluator,  InstructionEnum.values());
+        AccRandomGeneticProgramIterator iter = new AccRandomGeneticProgramIterator(evaluator,  InstructionEnum.anyExcept(Set.of(InstructionEnum.Sqrt, InstructionEnum.JumpIfGteStart, InstructionEnum.JumpIfLteStart,
+                InstructionEnum.Log)), 1000,1.2,0.4);
         long start = System.currentTimeMillis();
-        iter.iterate(curMaxRegisters, 6);
+        System.out.println(iter.iterate(curMaxRegisters, 15));
         //evaluator.writeAndClose();
         System.out.println(System.currentTimeMillis() - start + "ms");
 
-        //mainT(21,3);
+        //mainT(15,3);
     }
 
     @Override
@@ -45,23 +47,5 @@ Found a program: [R3 /= R1, Mod R2 -> R1, Mod R3 -> R2, Nand R2 -> R1]
         return 0;
     }
 
-    public static void mainT(double R1, double R2) {
-        double left, right = 0;
-
-        left = R1;
-        left = left + right;
-        right = R2;
-        left = left % right;
-        left = nand(left, right);
-        R1 = left;
-        System.out.println(R1);
-    }
-
-    static double nand(double left, double right) {
-        boolean sourceB = left < 0.0000001 ? false: true;
-        boolean destinationB = right < 0.0000001 ? false: true;
-        boolean evaluation = !(sourceB && destinationB);
-        return evaluation?1.0:0.0;
-    }
 
 }

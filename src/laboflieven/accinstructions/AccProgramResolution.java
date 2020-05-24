@@ -13,6 +13,11 @@ public class AccProgramResolution  implements Comparable<AccProgramResolution> {
     public List<AccRegisterInstruction> instructions;
     public double weight;
 
+    public AccProgramResolution(List<AccRegisterInstruction> instructions, double weight) {
+        this.instructions = instructions;
+        this.weight = weight;
+    }
+
     List<AccRegisterInstruction> procreate(AccProgramResolution partner)
     {
         List<AccRegisterInstruction> childinstructions = new ArrayList<>();

@@ -4,9 +4,12 @@ import laboflieven.accinstructions.AccProgramResolution;
 import laboflieven.accinstructions.AccRegisterInstruction;
 import laboflieven.accinstructions.InstructionEnum;
 import laboflieven.accinstructions.InstructionFactory;
+import laboflieven.common.BestFitRegister;
+import laboflieven.common.PriorityQueueAlgos;
 import laboflieven.statements.Register;
 
 import java.util.*;
+import java.util.stream.IntStream;
 
 /**
  * Created by lveeckha on 31/05/2015.
@@ -41,11 +44,10 @@ public class AccRandomGeneticProgramIterator {
     }
 
     /**
-     *
      * @param evaluator
      * @param enums
-     * @param maxPopulation The maximum size of the population
-     * @param maxOverflow If the size of the population > maxPopulation * maxOverflow then we cut down the least popular solutions.
+     * @param maxPopulation  The maximum size of the population
+     * @param maxOverflow    If the size of the population > maxPopulation * maxOverflow then we cut down the least popular solutions.
      * @param popularParents Only popular parents can breed. This is the percent of parents that are taken into account. e.g. 0.8
      */
     public AccRandomGeneticProgramIterator(AccProgramFitnessExaminer evaluator, InstructionEnum[] enums, int maxPopulation, double maxOverflow, double popularParents) {
@@ -54,51 +56,39 @@ public class AccRandomGeneticProgramIterator {
         this.maxPopulation = maxPopulation;
         this.maxOverflow = maxOverflow;
         this.popularParents = popularParents;
+        if (popularParents < 0 || popularParents > 1) {
+            throw new IllegalArgumentException("PopularParents should be in [0,1]");
+        }
     }
 
     public AccProgramResolution iterate(int numberOfRegisters, int maximumInstructions) {
         chosenSolutions = new ArrayList<>();
         this.numberOfRegisters = numberOfRegisters;
         this.maximumInstructions = maximumInstructions;
-        registers = new Register[numberOfRegisters];
-        for (int i = 0; i < registers.length; i++) {
-            registers[i] = new Register("r" + i);
-        }
-        Set<Register> availableRegisters = new HashSet<>();
-        availableRegisters.add(registers[registers.length - 1]);// Add the result register.
-        for (int i = 0; i < initialPopSize; i++) {
-            recurse(new ArrayList<>());
-        }
-       // System.out.println(chosenSolutions);
+        registers = Register.createRegisters(numberOfRegisters, "R").toArray(new Register[0]);
+        IntStream.range(0,  initialPopSize).forEach(k -> recurse(new ArrayList<>()));
+        // System.out.println(chosenSolutions);
         PriorityQueue<AccProgramResolution> solutions = new PriorityQueue<>();
-        for (List<AccRegisterInstruction> instruction : chosenSolutions)
-        {
-            AccProgramResolution res = new AccProgramResolution();
-            res.weight = eval(instruction, Arrays.asList(registers));
-            res.instructions = instruction;
-            solutions.add(res);
+        for (List<AccRegisterInstruction> instruction : chosenSolutions) {
+            solutions.add(new AccProgramResolution(instruction, eval(instruction, Arrays.asList(registers))));
         }
-        double bestSolution = 446489;
+        double bestSolution = Double.MAX_VALUE;
         int bestSolutionCycle = BEST_SOLUTION_CYCLE;
         //Let the best 10 solutions procreate.
-
-        while (solutions.peek().weight > 0.10 && bestSolutionCycle > 0)
-        {
+        double overflowLimit = maxPopulation * maxOverflow;
+        BestFitRegister<AccProgramResolution> register = new BestFitRegister<>();
+        while (solutions.peek().weight > 0.10 && bestSolutionCycle > 0) {
             double weight = solutions.peek().weight;
-            if (weight < bestSolution)
-            {
+            if (weight < bestSolution) {
                 bestSolution = weight;
                 bestSolutionCycle = BEST_SOLUTION_CYCLE;
                 //System.out.println("Best solution " + weight);
-            } else if (Math.abs(weight - bestSolution) < 0.00005)
-            {
+            } else if (Math.abs(weight - bestSolution) < 0.00005) {
                 bestSolutionCycle--;
             }
             reproduce(solutions);
-            //System.out.println(child);
-            if (solutions.size() > POPULATION_MAX * maxOverflow)
-            {
-                solutions = cutPopulation(solutions);
+            if (solutions.size() > overflowLimit) {
+                solutions = PriorityQueueAlgos.cutPopulation(maxPopulation, solutions);
             }
         }
         //System.out.println("BestSolutionCycle:" + bestSolutionCycle);
@@ -110,100 +100,63 @@ public class AccRandomGeneticProgramIterator {
         AccProgramResolution mom = getNthVar(solutions);
         AccProgramResolution dad = getNthVar(solutions);
 
-        for (List<AccRegisterInstruction> childDNA : mom.procreate(dad, nrChildren))
-        {
-            AccProgramResolution child = new AccProgramResolution();
-            child.instructions = childDNA;
-            child.weight = eval(child.instructions, Arrays.asList(registers));
-            solutions.add(child);
+        for (List<AccRegisterInstruction> childDNA : mom.procreate(dad, nrChildren)) {
+            solutions.add(new AccProgramResolution(childDNA, eval(childDNA, Arrays.asList(registers))));
         }
-    }
-
-    private PriorityQueue<AccProgramResolution> cutPopulation(PriorityQueue<AccProgramResolution> solutions) {
-        List l = new ArrayList<>();
-
-        for (int i = 0; i < POPULATION_MAX; i++)
-        {
-            l.add(solutions.poll());
-        }
-        solutions = new PriorityQueue<>(l);
-        return solutions;
     }
 
     private AccProgramResolution getNthVar(PriorityQueue<AccProgramResolution> solutions) {
         Random r = new Random();
-        int p = r.nextInt((int)(solutions.size() * popularParents));
-        Iterator<AccProgramResolution> it = solutions.iterator();
-        AccProgramResolution val = null;
-        for (int k = 0; k <= p; k++)
-        {
-            val = it.next();
-        }
-        return val;
+        int p = r.nextInt((int) (solutions.size() * popularParents));
+        return (AccProgramResolution) PriorityQueueAlgos.getNthBestSolution(solutions, p);
     }
 
     public void recurse(List<AccRegisterInstruction> instructions) {
-        if (instructions.size() >= maximumInstructions)
-        {
+        if (instructions.size() >= maximumInstructions) {
             chosenSolutions.add(new ArrayList<>(instructions));
-            return;
-        }
-        int instructionsLeft = maximumInstructions - instructions.size();
-        if (instructionsLeft < 0) {
             return;
         }
 
         Random r = new Random();
         AccProgram program = new AccProgram(instructions, Arrays.asList(registers));
         boolean foundProgram = false;
-        while(!foundProgram)
-        {
-            int location = 0;
-            InstructionEnum instruction = null;
-            if (instructions.size() == 0)
-        {
-            if (r.nextBoolean())
-            {
-                instruction = InstructionEnum.AccLeftPush;
-            } else
-            {
-                instruction = InstructionEnum.AccRightPush;
+        while (!foundProgram) {
+            InstructionEnum instruction;
+            if (instructions.size() == 0) {
+                instruction = pickRandomPush(r);
+            } else {
+                instruction = pickRandomInstruction(r);
             }
-        } else {
-                location = r.nextInt(enums.length);
-                instruction = enums[location];
-        }
 
-        if (instruction.isSingleRegister()) {
-            Register register1 = registers[r.nextInt(registers.length)];
-
-            AccRegisterInstruction actualInstruction = InstructionFactory.createInstruction(instruction, register1);
-            if (!program.isUseless(actualInstruction, maximumInstructions))
-            {
+            AccRegisterInstruction actualInstruction;
+            if (instruction.isSingleRegister()) {
+                Register register1 = registers[r.nextInt(registers.length)];
+                actualInstruction = InstructionFactory.createInstruction(instruction, register1);
+            } else {
+                actualInstruction = InstructionFactory.createInstruction(instruction);
+            }
+            if (!program.isUseless(actualInstruction, maximumInstructions)) {
                 foundProgram = true;
-                instructions.add(actualInstruction);
-                //eval(instructions, Arrays.asList(registers));
+                instructions.add(0, actualInstruction);
                 recurse(instructions);
                 instructions.remove(0);
-            }
-        } else {
-                AccRegisterInstruction actualInstruction = InstructionFactory.createInstruction(instruction);
-                if (!program.isUseless(actualInstruction, maximumInstructions)) {
-                    foundProgram = true;
-                    instructions.add(0, actualInstruction);
-                    //eval(instructions, Arrays.asList(registers));
-                    /**
-                     * Available registers remains the same. No new registers are used.
-                     */
-                    recurse(instructions);
-                    instructions.remove(0);
-                }
             }
         }
     }
 
-    private boolean isUselessOp(InstructionEnum instruction, Register register1, Register register2) {
-        return false;
+    private InstructionEnum pickRandomPush(Random r) {
+        InstructionEnum instruction;
+        if (r.nextBoolean()) {
+            instruction = InstructionEnum.AccLeftPush;
+        } else {
+            instruction = InstructionEnum.AccRightPush;
+        }
+        return instruction;
+    }
+
+    private InstructionEnum pickRandomInstruction(Random r) {
+        int location = r.nextInt(enums.length);
+        return enums[location];
     }
 
     private double eval(List<AccRegisterInstruction> instructions, List<Register> registers) {
