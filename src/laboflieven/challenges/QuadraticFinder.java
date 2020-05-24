@@ -10,7 +10,7 @@ import java.util.*;
 /**
  * Created by Lieven on 8/07/2015.
  */
-public class QuadraticFinder implements InOutParameterSource
+public class QuadraticFinder implements InOutParameterSource, ProgramTemplate
 {
 
     /**
@@ -53,7 +53,8 @@ public class QuadraticFinder implements InOutParameterSource
     }
 
     public List<InOutParameters> getInOutParameters(int curMaxRegisters) {
-        InOutParameters io = new InOutParameters();
+        return TestCases.getTestCases(this, TestCases.getExampleInput4D(100,50),  4);
+        /*InOutParameters io = new InOutParameters();
         List<InOutParameters> collection = new ArrayList<>();
         collection.add(io.createParameter(io.fillDoubleArray(new double [] {2.0,-8.0,-24.0}, curMaxRegisters), calcQuad(new double [] {2.0,-8.0,-24.0}),1));
         collection.add(io.createParameter(io.fillDoubleArray(new double [] {1.0, 2.0, 1.0}, curMaxRegisters), calcQuad(new double [] {1.0, 2.0, 1.0}),1));// -1
@@ -70,7 +71,11 @@ public class QuadraticFinder implements InOutParameterSource
         collection.add(io.createParameter(io.fillDoubleArray(new double [] {100.0, 500, 0}, curMaxRegisters), calcQuad(new double [] {100.0, 500, 0}),1 ));
         collection.add(io.createParameter(io.fillDoubleArray(new double [] {1000.0, 50, 0}, curMaxRegisters), calcQuad(new double [] {1000.0, 50, 0}),1 ));
 
-        return collection;
+        return collection;*/
     }
 
+    @Override
+    public double run(double[] args) {
+        return calcQuad(args);
+    }
 }
