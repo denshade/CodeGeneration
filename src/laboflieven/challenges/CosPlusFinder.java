@@ -1,8 +1,8 @@
 package laboflieven.challenges;
 
-import laboflieven.InOutParameters;
-import laboflieven.LoggingProgramFitnessExaminer;
-import laboflieven.ReverseProgramIterator;
+import laboflieven.*;
+import laboflieven.recursionheuristics.AlwaysRecursionHeuristic;
+import laboflieven.recursionheuristics.NoInvertedHeuristic;
 import laboflieven.statements.InstructionEnum;
 
 import java.io.File;
@@ -11,26 +11,35 @@ import java.util.List;
 
 public class CosPlusFinder implements ProgramTemplate
 {
-    public static double distance(double lat1, double lat2, double lon1, double lon2) {
-        return Math.cos(lat1) + Math.sin(lat2) + Math.cos(lon1) + Math.sin(lon2);
+    public static double distance(double lat1, double lat2) {
+        return Math.cos(2 * lat1+lat2) ;
     }
 
 
     public static void main(String[] args) throws IOException {
-        int curMaxRegisters = 4;
-        List<InOutParameters> collection = TestCases.getTestCases(new CosPlusFinder(), TestCases.getExampleInput4D(50,10),4);
+        int curMaxRegisters = 2;
+        List<InOutParameters> collection = TestCases.getTestCases(new CosPlusFinder(), TestCases.getExampleInput2D(50,10),curMaxRegisters);
 
 
         File f = new File("c:\\temp\\test.csv");
-        LoggingProgramFitnessExaminer evaluator = new LoggingProgramFitnessExaminer(f, collection);
-        ReverseProgramIterator iter = new ReverseProgramIterator(evaluator, new InstructionEnum[]{InstructionEnum.Add, InstructionEnum.Sub, InstructionEnum.Mul, InstructionEnum.Div, InstructionEnum.Sqrt, InstructionEnum.Move, InstructionEnum.Sin, InstructionEnum.Cos});
+        ProgramFitnessExaminer evaluator = new ProgramFitnessExaminer(collection);
+        BruteForceProgramIterator iter = new BruteForceProgramIterator(evaluator, new NoInvertedHeuristic());
+        long start = System.currentTimeMillis();
+        iter.iterate(curMaxRegisters, 5);
+        //evaluator.writeAndClose();
+        System.out.println(System.currentTimeMillis() - start + "ms");
+
+        /*iter = new BruteForceProgramIterator(evaluator, new AlwaysRecursionHeuristic());
+        start = System.currentTimeMillis();
         iter.iterate(curMaxRegisters, 4);
-        evaluator.writeAndClose();
+        //evaluator.writeAndClose();
+        */
+        System.out.println( "19000ms");
 
     }
 
     @Override
     public double run(double[] args) {
-        return distance(args[0], args[1], args[2], args[3]);
+        return distance(args[0], args[1]);
     }
 }

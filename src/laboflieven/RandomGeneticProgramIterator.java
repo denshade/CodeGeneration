@@ -95,7 +95,7 @@ public class RandomGeneticProgramIterator {
         chosenSolutions = new ArrayList<>();
         this.numberOfRegisters = numberOfRegisters;
         this.maximumInstructions = maximumInstructions;
-        registers = Register.createRegisters(numberOfRegisters, "r").toArray(new Register[0]);
+        registers = Register.createRegisters(numberOfRegisters, "R").toArray(new Register[0]);
         Set<Register> availableRegisters = new HashSet<>();
         availableRegisters.add(registers[registers.length - 1]);// Add the result register.
         for (int i = 0; i < 1000; i++) {

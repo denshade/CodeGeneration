@@ -11,7 +11,7 @@ public class AccRightPull extends SingleRegisterInstruction
         this.register = register;
     }
 
-    public Integer execute(Register left, Register right)
+    public Integer execute(Register left, Register right, int ip)
     {
         register.value = right.value;
         return null;
@@ -19,7 +19,7 @@ public class AccRightPull extends SingleRegisterInstruction
 
     @Override
     public String toString() {
-        return " AccRight -> " + register.name;
+        return  register.name + " = right";
     }
 
 }

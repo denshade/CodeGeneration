@@ -43,7 +43,7 @@ public class StatementRunner {
             if (instructionsRun > MAXINSTRUCT)
                 break;
             Instruction instruction = instructions.get(ip);
-            Integer pointer = instruction.execute();
+            Integer pointer = instruction.execute(ip);
             if (pointer != null && pointer >= 0)
             {
                 ip = pointer;

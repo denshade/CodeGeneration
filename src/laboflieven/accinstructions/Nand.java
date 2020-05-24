@@ -4,7 +4,7 @@ import laboflieven.statements.Register;
 
 public class Nand extends AccRegisterInstruction {
 
-    public Integer execute(Register left, Register right)
+    public Integer execute(Register left, Register right, int ip)
     {
         boolean sourceB = left.value < 0.0000001 ? false: true;
         boolean destinationB = right.value < 0.0000001 ? false: true;

@@ -6,7 +6,7 @@ public class JumpIfLteStart extends SingleRegisterInstruction
 {
 
 
-    public Integer execute(Register left, Register right)
+    public Integer execute(Register left, Register right, int ip)
     {
         if (left.value <= right.value)
         {

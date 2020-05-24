@@ -55,7 +55,7 @@ public class ReverseProgramIterator
         if (r.nextInt(1000)==0){
             System.out.println(instructions);
         }*/
-        int unusedRegisters = numberOfRegisters - (availableRegisters.size() + 1); //not entirely correct, register1 can be part of available.
+        int unusedRegisters = numberOfRegisters - (availableRegisters.size()); //not entirely correct, register1 can be part of available.
         int instructionsLeft = maximumInstructions - instructions.size();
         if (unusedRegisters > instructionsLeft)
         {
@@ -67,7 +67,7 @@ public class ReverseProgramIterator
             if (instruction.isDualRegister()) {
                 for (Register register1 : registers) {
 
-                    for (Register register2 : availableRegisters) {
+                    for (Register register2 : registers) {
                         if (instruction == InstructionEnum.Move && register1.name.equals(register2.name)) {
                             continue;
                         }
@@ -87,7 +87,7 @@ public class ReverseProgramIterator
                     }
                 }
             } else {
-                for (Register register1 : availableRegisters) {
+                for (Register register1 : registers) {
                     Instruction actualInstruction = InstructionFactory.createInstruction(instruction, register1);
                     instructions.add(0, actualInstruction);
                     eval(instructions, Arrays.asList(registers));

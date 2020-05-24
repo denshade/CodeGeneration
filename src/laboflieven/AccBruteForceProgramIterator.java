@@ -35,11 +35,8 @@ public class AccBruteForceProgramIterator
     public void iterate(final int nrOfRegisters, int maximumInstructions)
     {
         this.maximumInstructions = maximumInstructions;
-        Register[] registers = new Register[nrOfRegisters];
-        for (int i = 0; i <  registers.length; i++){
-            registers[i] = new Register("r"+i);
-        }
-        recurse(new ArrayList<>(), registers);
+        List<Register> registers =  Register.createRegisters(nrOfRegisters, "R");
+        recurse(new ArrayList<>(), registers.toArray(new Register[0]));
     }
 
     private void recurse(List<AccRegisterInstruction> instructions, Register[] registers)
@@ -52,7 +49,8 @@ public class AccBruteForceProgramIterator
             if (instructions.size() == 0 && !(instruction.equals(InstructionEnum.AccLeftPush) ||instruction.equals(InstructionEnum.AccRightPush)))
                 continue;
             //Finish must be a push to a register.
-            if (instructions.size() == maximumInstructions - 1 && !(instruction.equals(InstructionEnum.AccLeftPull) ||instruction.equals(InstructionEnum.AccRightPull)))
+            boolean isAccPushPull = !(instruction.equals(InstructionEnum.AccLeftPull) || instruction.equals(InstructionEnum.AccRightPull));
+            if (instructions.size() == maximumInstructions - 1 && isAccPushPull)
                 continue;
             //Don't use pull from right/left before a push.
             if (instruction.equals(InstructionEnum.AccLeftPull))
@@ -77,7 +75,7 @@ public class AccBruteForceProgramIterator
                 }
                 if (!used)continue;
             }
-            if (instructions.size() == maximumInstructions - 1 && !(instruction.equals(InstructionEnum.AccLeftPull) ||instruction.equals(InstructionEnum.AccRightPull)))
+            if (instructions.size() == maximumInstructions - 1 && isAccPushPull)
                 continue;
             if (instruction.isSingleRegister()) {
                 for (Register register1 : registers) {

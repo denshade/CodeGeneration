@@ -1,5 +1,7 @@
 package laboflieven;
 
+import laboflieven.challenges.TestCases;
+import laboflieven.challenges.XorFinder;
 import laboflieven.statements.*;
 import org.junit.Test;
 
@@ -57,6 +59,21 @@ public class ProgramFitnessExaminerTest {
         instructions.remove(3);
         assertFalse(evaluator.isFit(instructions, registers));
 
+    }
+
+    @Test
+    public void testLog()
+    {
+        List<Instruction> instructions = ProgramParser.parse("[Log R2, Mul R2 -> R1, Nand R1 -> R1]");
+        List<double[]> points = new ArrayList<>();
+        points.add(new double[] { 0,0});
+        points.add(new double[] { 0,1});
+        points.add(new double[] { 1,0});
+        points.add(new double[] { 1,1});
+
+        List<InOutParameters> collection = TestCases.getTestCases(new XorFinder(), points.toArray(new double[0][0]),2);
+        ProgramFitnessExaminer evaluator = new ProgramFitnessExaminer(collection);
+        evaluator.calculateFitness(instructions, Register.createRegisters(2, "R"));
     }
 
     private static double[] fillDoubleArray(double[] original, int newSize)

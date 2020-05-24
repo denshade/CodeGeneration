@@ -8,7 +8,7 @@ public abstract class Instruction
 {
     public Instruction()
     {}
-    public abstract Integer execute();
+    public abstract Integer execute(int current);
 
     public abstract String toString();
 

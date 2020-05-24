@@ -59,6 +59,30 @@ public class InstructionFactory
             case Log:
                 instruction = new Log(register1);
                 break;
+            case PI:
+                instruction = new PI(register1);
+                break;
+            case Zero:
+                instruction = new Zero(register1);
+                break;
+            case One:
+                instruction = new One(register1);
+                break;
+            case JmpIfZeroBegin:
+                instruction = new JumpIfRegister1ZeroToBegin(register1);
+                break;
+            case JmpIfZeroEnd:
+                instruction = new JumpIfRegister1ZeroToEnd(register1);
+                break;
+            case JmpIfNotZeroBegin:
+                instruction = new JumpIfRegister1NotZeroToBegin(register1);
+                break;
+            case JmpIfNotZeroEnd:
+                instruction = new JumpIfRegister1NotZeroToEnd(register1);
+                break;
+            case JmpIfRegister2Steps:
+                instruction = new JumpIfRegister2Steps(register1);
+                break;
             default:
                 throw new IllegalArgumentException("invalid instruction " + instructionEnum.toString());
         }

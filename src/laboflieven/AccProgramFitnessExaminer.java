@@ -47,35 +47,32 @@ public class AccProgramFitnessExaminer
     {
         AccProgram program = new AccProgram(instructions, registers);
         double err = 0.0;
-        total:
         for(InOutParameters parameter : conditions)
         {
             runner.execute(program, parameter.input);
-            for (Register register : program.getRegisters())
+            for (String key : parameter.expectedOutput.keySet())
             {
-                Map<String, Double> expectedOutput = parameter.expectedOutput;
-                if (Double.isNaN(register.value) || Double.isInfinite(register.value))
+                double expectedValue = parameter.expectedOutput.get(key);
+                Register output = program.getRegisterByName(key);
+                if (Double.isNaN(output.value) || Double.isInfinite(output.value))
                 {
-                    err = NO_FIT_AT_ALL;
-                    break total;
-                } else
-                {
-                    if (expectedOutput.containsKey(register.name))
-                    {
-                        err += Math.abs(expectedOutput.get(register.name) - register.value);
-                        if (err >= NO_FIT_AT_ALL){
-                            return NO_FIT_AT_ALL;
-                        }
-                    }
+                    return NO_FIT_AT_ALL;
+                }
+                err += Math.abs(expectedValue - output.value);
+                if (err >= NO_FIT_AT_ALL){
+                    return NO_FIT_AT_ALL;
                 }
             }
-            //Should also check that expected values are actually compared. eg. R3 doesn't exist => OK.(wrong)
         }
         for(FitnessLogger logger : loggers)
         {
             //logger.addFitness(instructions, InstructionEnum.values().length, registers.size(), err);
         }
         return err;
+    }
+
+    private boolean programHasNANorInfiniteRegisterVals(Register register) {
+        return Double.isNaN(register.value) || Double.isInfinite(register.value);
     }
 
 

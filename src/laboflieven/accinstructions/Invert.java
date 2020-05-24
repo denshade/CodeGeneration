@@ -12,7 +12,7 @@ public class Invert extends AccRegisterInstruction
     public Invert() {
             }
 
-    public Integer execute(Register left, Register right)
+    public Integer execute(Register left, Register right, int ip)
     {
         left.value = left.value * -1;
         return null;

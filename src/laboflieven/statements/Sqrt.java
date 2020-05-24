@@ -10,7 +10,7 @@ public class Sqrt extends SingleRegisterInstruction {
         this.destination = destination;
     }
 
-    public Integer execute() {
+    public Integer execute(int current) {
         destination.value = Math.sqrt(destination.value);
         return null;
     }

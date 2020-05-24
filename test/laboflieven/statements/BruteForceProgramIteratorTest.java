@@ -23,7 +23,7 @@ public class BruteForceProgramIteratorTest extends TestCase {
     {
         Map<String, Double> startParameters  = getMap(a,b,c,d);
         Map<String, Double> endParameters = new HashMap<>(1);
-        endParameters.put("r3", result);
+        endParameters.put("R3", result);
         InOutParameters parameters = new InOutParameters();
         parameters.input = startParameters;
         parameters.expectedOutput = endParameters;
@@ -33,10 +33,10 @@ public class BruteForceProgramIteratorTest extends TestCase {
     private static Map<String, Double> getMap(double a,double b,double c,double d)
     {
         Map<String, Double> results = new HashMap<>();
-        results.put("r0", a);
-        results.put("r1", b);
-        results.put("r2", c);
-        results.put("r3", d);
+        results.put("R1", a);
+        results.put("R2", b);
+        results.put("R3", c);
+        results.put("R4", d);
         return results;
     }
 

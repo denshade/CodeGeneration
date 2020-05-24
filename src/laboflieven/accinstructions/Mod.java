@@ -8,7 +8,7 @@ import laboflieven.statements.Register;
 public class Mod extends AccRegisterInstruction
 {
 
-    public Integer execute(Register left, Register right)
+    public Integer execute(Register left, Register right, int ip)
     {
         left.value = left.value % right.value;
         return null;
@@ -16,6 +16,6 @@ public class Mod extends AccRegisterInstruction
 
     public String toString()
     {
-        return  "left = left mod right";
+        return  "left = left % right";
     }
 }

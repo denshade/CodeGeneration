@@ -13,7 +13,7 @@ public class JumpIfRegister1Zero extends DualRegisterInstruction {
      * If register1 is 0 then jump to jump address.
      * @return The address to change the instruction pointer to.
      */
-    public Integer execute() {
+    public Integer execute(int current) {
         if (source.value == 0) {
             return (int)destination.value;
         }

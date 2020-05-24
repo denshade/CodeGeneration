@@ -11,7 +11,7 @@ public class AccRightPush extends SingleRegisterInstruction
         this.register = register;
     }
 
-    public Integer execute(Register left, Register right)
+    public Integer execute(Register left, Register right, int ip)
     {
         right.value = register.value;
         return null;

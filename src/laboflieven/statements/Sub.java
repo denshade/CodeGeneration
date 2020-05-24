@@ -8,7 +8,7 @@ public class Sub extends DualRegisterInstruction {
         super(source, destination);
     }
 
-    public Integer execute()
+    public Integer execute(int current)
     {
         destination.value = destination.value - source.value;
         return null;

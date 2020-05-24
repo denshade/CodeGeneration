@@ -5,6 +5,7 @@ import laboflieven.statements.Instruction;
 import laboflieven.statements.Register;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -15,10 +16,14 @@ public class AccProgram
 {
     private List<AccRegisterInstruction> instructions = new ArrayList<>();
     private List<Register> registers = new ArrayList<Register>();
+    private Map<String, Register> registerMap = new HashMap<>();
 
     public AccProgram(List<AccRegisterInstruction> instructions, List<Register> registers) {
         this.instructions = instructions;
         this.registers = registers;
+        for(Register register : registers ) {
+            registerMap.put(register.name, register);
+        }
     }
 
     public List<Register> getRegisters() {
@@ -29,6 +34,10 @@ public class AccProgram
         return instructions;
     }
 
+    public Register getRegisterByName(String registerName)
+    {
+        return registerMap.get(registerName);
+    }
     /**
      *
      * @param registerValues
