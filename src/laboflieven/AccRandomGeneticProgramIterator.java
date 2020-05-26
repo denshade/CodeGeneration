@@ -15,7 +15,7 @@ import java.util.stream.IntStream;
  * Created by lveeckha on 31/05/2015.
  */
 public class AccRandomGeneticProgramIterator {
-    public static final int BEST_SOLUTION_CYCLE = 1000000;
+    public static final int BEST_SOLUTION_CYCLE = 10000000;
     public int POPULATION_MAX = 1000;
     private double popularParents;
     private double maxOverflow;
@@ -72,18 +72,16 @@ public class AccRandomGeneticProgramIterator {
         for (List<AccRegisterInstruction> instruction : chosenSolutions) {
             solutions.add(new AccProgramResolution(instruction, eval(instruction, Arrays.asList(registers))));
         }
-        double bestSolution = Double.MAX_VALUE;
         int bestSolutionCycle = BEST_SOLUTION_CYCLE;
         //Let the best 10 solutions procreate.
         double overflowLimit = maxPopulation * maxOverflow;
         BestFitRegister<AccProgramResolution> register = new BestFitRegister<>();
-        while (solutions.peek().weight > 0.10 && bestSolutionCycle > 0) {
-            double weight = solutions.peek().weight;
-            if (weight < bestSolution) {
-                bestSolution = weight;
+        while (solutions.peek() != null && solutions.peek().weight > 0.10 && bestSolutionCycle > 0) {
+            AccProgramResolution peekSolution = solutions.peek();
+            if (register.register(peekSolution.weight, peekSolution))
+            {
                 bestSolutionCycle = BEST_SOLUTION_CYCLE;
-                //System.out.println("Best solution " + weight);
-            } else if (Math.abs(weight - bestSolution) < 0.00005) {
+            } else {
                 bestSolutionCycle--;
             }
             reproduce(solutions);

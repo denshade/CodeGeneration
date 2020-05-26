@@ -6,12 +6,15 @@ public class BestFitRegister<T>
     private Double bestScore;
 
 
-    public void register(double bestScore, T bestObject)
+    public boolean register(double bestScore, T bestObject)
     {
+        boolean updated = false;
         if (this.bestScore == null || this.bestScore > bestScore) {
             this.bestScore = bestScore;
             best = bestObject;
+            updated = true;
         }
+        return updated;
     }
 
     public T getBest() {

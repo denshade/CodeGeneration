@@ -23,17 +23,17 @@ Found a program: [R3 /= R1, Mod R2 -> R1, Mod R3 -> R2, Nand R2 -> R1]
      */
     public static void main(String[] args) throws IOException {
 
-        int curMaxRegisters = 3;
+        int curMaxRegisters = 4;
         List<double[]> points = new ArrayList<>();
         for (int i = 1; i < 40; i++) {
-            points.add(new double[] { i,3,5});
+            points.add(new double[] { i,3,5, 0});
         }
         List<InOutParameters> collection = TestCases.getTestCases(new P1(), points.toArray(new double[0][0]),curMaxRegisters);
         AccProgramFitnessExaminer evaluator = new AccProgramFitnessExaminer(collection);
         AccRandomGeneticProgramIterator iter = new AccRandomGeneticProgramIterator(evaluator,  InstructionEnum.anyExcept(Set.of(InstructionEnum.Sqrt, InstructionEnum.JumpIfGteStart, InstructionEnum.JumpIfLteStart,
                 InstructionEnum.Log)), 1000,1.2,0.4);
         long start = System.currentTimeMillis();
-        System.out.println(iter.iterate(curMaxRegisters, 15));
+        System.out.println(iter.iterate(curMaxRegisters, 20));
         //evaluator.writeAndClose();
         System.out.println(System.currentTimeMillis() - start + "ms");
 
