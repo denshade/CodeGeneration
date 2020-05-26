@@ -7,14 +7,38 @@ import static org.junit.jupiter.api.Assertions.*;
 class P1Test {
 
     @Test
-    void mainT() {
-        double R1 = 0, R2 = 0;
+    void mainTest(){
+        assertEquals(1, mainT(15));
+        assertEquals(0, mainT(14));
+        assertEquals(1, mainT(10));
+        assertEquals(1, mainT(9));
+        assertEquals(0, mainT(11));
+
+    }
+
+    @Test
+    void testAll()
+    {
+        double sum = 0;
+        for (int i = 1; i < 1000; i++ ){
+            sum += mainT(i)*i;
+        }
+        System.out.println(sum);
+    }
+
+    double mainT(double R1) {
+        double  R2 = 3, R3 = 5;
+
         double left = 0, right = 0;
 
-        right = R2; left = left % right;  right = R2;  right = R2;  left = R1; left = left % right; left = nand(left, right); left = left % right; left = nand(left, right); R1 = left; left = nand(left, right);
-        R1 = left;
+        left = R1 % R2;
+        if (left != 0) {
+            right = R3;  left = R1;
+        }
+        left = left % right;
+        left = nand(left, right);
 
-        System.out.println(R1);
+        return left;
     }
 
     static double nand(double left, double right) {
