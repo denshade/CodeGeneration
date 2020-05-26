@@ -33,7 +33,7 @@ Found a program: [R3 /= R1, Mod R2 -> R1, Mod R3 -> R2, Nand R2 -> R1]
         AccRandomGeneticProgramIterator iter = new AccRandomGeneticProgramIterator(evaluator,  InstructionEnum.anyExcept(Set.of(InstructionEnum.Sqrt, InstructionEnum.JumpIfGteStart, InstructionEnum.JumpIfLteStart,
                 InstructionEnum.Log)), 1000,1.2,0.4);
         long start = System.currentTimeMillis();
-        System.out.println(iter.iterate(curMaxRegisters, 20));
+        System.out.println(iter.iterate(curMaxRegisters, 12));
         //evaluator.writeAndClose();
         System.out.println(System.currentTimeMillis() - start + "ms");
 
