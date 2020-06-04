@@ -69,6 +69,9 @@ public class InstructionFactory
             case Quit:
                 instruction = new Quit();
                 break;
+            case Pow:
+                instruction = new Pow();
+                break;
             default:
                 throw new IllegalArgumentException("invalid instruction " + instructionEnum.toString());
         }
