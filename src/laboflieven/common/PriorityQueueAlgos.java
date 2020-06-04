@@ -17,11 +17,11 @@ public class PriorityQueueAlgos {
     }
 
     public static Object getNthBestSolution(PriorityQueue solutions, int n) {
-        Iterator it = solutions.iterator();
-        Object val = null;
-        for (int k = 0; k <= n; k++) {
-            val = it.next();
+        PriorityQueue q2 = new PriorityQueue(solutions);
+
+        for (int k = 0; k < n; k++) {
+            q2.poll();
         }
-        return val;
+        return q2.poll();
     }
 }

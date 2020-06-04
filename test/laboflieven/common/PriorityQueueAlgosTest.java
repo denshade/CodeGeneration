@@ -19,4 +19,13 @@ class PriorityQueueAlgosTest {
             assertEquals(i, solutions.poll());
         }
     }
+    @Test
+    void getNth() {
+        PriorityQueue<Integer> solutions = new PriorityQueue<Integer>();
+        for (int i = 200000; i > -1; i--) {
+            solutions.add(i);
+        }
+        Object obj = PriorityQueueAlgos.getNthBestSolution(solutions,3);
+        assertEquals(obj, 3);
+    }
 }
