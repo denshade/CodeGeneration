@@ -18,22 +18,6 @@ public class AccProgramResolution  implements Comparable<AccProgramResolution> {
         this.weight = weight;
     }
 
-    List<AccRegisterInstruction> procreate(AccProgramResolution partner)
-    {
-        List<AccRegisterInstruction> childinstructions = new ArrayList<>();
-        Random r = new Random();
-        for (int i = 0; i < instructions.size(); i++)
-        {
-            if (r.nextBoolean())
-            {
-                childinstructions.add(instructions.get(i));
-            } else {
-                childinstructions.add(partner.instructions.get(i));
-            }
-        }
-        return childinstructions;
-    }
-
     public List<List<AccRegisterInstruction>> procreate(AccProgramResolution partner, int nrChildren)
     {
         List<AccRegisterInstruction> childinstructions = new ArrayList<>();
