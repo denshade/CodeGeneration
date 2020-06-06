@@ -1,5 +1,6 @@
 package laboflieven.challenges;
 
+import laboflieven.loggers.FileFitnessLogger;
 import laboflieven.statements.*;
 import org.junit.Test;
 

@@ -1,4 +1,4 @@
-package laboflieven.challenges;
+package laboflieven.loggers;
 
 import laboflieven.statements.Instruction;
 

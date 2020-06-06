@@ -1,6 +1,6 @@
 package laboflieven;
 
-import laboflieven.challenges.FitnessLogger;
+import laboflieven.loggers.FitnessLogger;
 import laboflieven.statements.Instruction;
 import laboflieven.statements.InstructionEnum;
 import laboflieven.statements.Register;

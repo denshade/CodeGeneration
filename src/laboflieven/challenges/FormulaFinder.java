@@ -1,6 +1,8 @@
 package laboflieven.challenges;
 
 import laboflieven.*;
+import laboflieven.loggers.BitmapFitnessLogger;
+import laboflieven.loggers.FitnessLogger;
 import laboflieven.statements.*;
 
 import java.io.File;
@@ -9,8 +11,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.io.IOException;
-import java.util.*;
 
 /**
  * Created by Lieven on 8/07/2015.

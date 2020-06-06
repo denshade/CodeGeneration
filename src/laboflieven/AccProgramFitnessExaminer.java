@@ -1,9 +1,9 @@
 package laboflieven;
 
 import laboflieven.accinstructions.AccRegisterInstruction;
-import laboflieven.challenges.FitnessLogger;
-import laboflieven.statements.Instruction;
-import laboflieven.statements.InstructionEnum;
+import laboflieven.accinstructions.InstructionEnum;
+import laboflieven.loggers.AccFitnessLogger;
+import laboflieven.loggers.FitnessLogger;
 import laboflieven.statements.Register;
 
 import java.util.ArrayList;
@@ -18,7 +18,7 @@ public class AccProgramFitnessExaminer
     public static final int NO_FIT_AT_ALL = 100000;
     private List<InOutParameters> conditions;
     private final double closeEnough = 0.00001;
-    private List<FitnessLogger> loggers = new ArrayList<>();
+    private List<AccFitnessLogger> loggers = new ArrayList<>();
     AccStatementRunner runner = new AccStatementRunner();
 
     /**
@@ -29,7 +29,7 @@ public class AccProgramFitnessExaminer
         this.conditions = conditions;
     }
 
-    public void addListener(FitnessLogger logger)
+    public void addListener(AccFitnessLogger logger)
     {
         loggers.add(logger);
     }
@@ -47,6 +47,8 @@ public class AccProgramFitnessExaminer
     {
         AccProgram program = new AccProgram(instructions, registers);
         double err = 0.0;
+
+        out:
         for(InOutParameters parameter : conditions)
         {
             runner.execute(program, parameter.input);
@@ -56,17 +58,20 @@ public class AccProgramFitnessExaminer
                 Register output = program.getRegisterByName(key);
                 if (Double.isNaN(output.value) || Double.isInfinite(output.value))
                 {
-                    return NO_FIT_AT_ALL;
+                    err =  NO_FIT_AT_ALL;
+                    break out;
                 }
                 err += Math.abs(expectedValue - output.value);
                 if (err >= NO_FIT_AT_ALL){
-                    return NO_FIT_AT_ALL;
+                    err =  NO_FIT_AT_ALL;
+                    break out;
                 }
             }
         }
-        for(FitnessLogger logger : loggers)
+
+        for(AccFitnessLogger logger : loggers)
         {
-            //logger.addFitness(instructions, InstructionEnum.values().length, registers.size(), err);
+            logger.addFitness(instructions, InstructionEnum.values().length, registers.size(), err);
         }
         return err;
     }

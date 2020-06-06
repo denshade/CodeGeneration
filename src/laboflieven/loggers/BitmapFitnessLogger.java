@@ -1,36 +1,65 @@
-package laboflieven.challenges;
+package laboflieven.loggers;
 
-import java.io.File;
 import laboflieven.statements.DualRegisterInstruction;
 import laboflieven.statements.Instruction;
 import laboflieven.statements.SingleRegisterInstruction;
 
-import java.io.FileWriter;
+import javax.imageio.ImageIO;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.math.BigInteger;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
-public class FileFitnessLogger implements FitnessLogger
+public class BitmapFitnessLogger implements FitnessLogger
 {
-    FileWriter writer;
-    FileFitnessLogger(File file) throws IOException {
-        writer = new FileWriter(file);
-
+    private final File file;
+    private final int nrInstruction;
+    private final int nrRegisters;
+    int maxX = 0;
+    int maxY = 0;
+    Map<Point, Double> elements = new HashMap<>();
+    public BitmapFitnessLogger(File file, int nrInstruction, int nrRegisters) {
+        this.file = file;
+        this.nrInstruction = nrInstruction;
+        this.nrRegisters = nrRegisters;
     }
 
     @Override
-    public void addFitness(List<Instruction> instructions, int nrInstruction, int nrRegisters, double error) {
+    public void addFitness(List<Instruction> instructions, int nrInstructionOld, int nrRegistersOld, double error) {
         BigInteger[] numbers = getXandY(instructions, nrInstruction, nrRegisters);
-        try{
-            writer.write(numbers[0].toString()+";"+numbers[1].toString() + ";"+error+"\n");
-        } catch (Exception e )
-        {
-            System.out.println(e.toString());
-        }
+        Point p = new Point();
+        p.x  = numbers[0].intValue();
+        p.y  = numbers[1].intValue();
+        if (p.x > maxX) maxX = p.x;
+        if (p.y > maxY) maxY = p.y;
+
+        elements.put(p, error);
+        if (error < 0.000001) System.out.println(instructions);
     }
 
     public void finish() throws IOException {
-        writer.close();
+
+        final BufferedImage res = new BufferedImage( maxX + 1, maxY + 1, BufferedImage.TYPE_INT_RGB );
+
+        for (Entry<Point, Double> el : elements.entrySet())
+        {
+            Point p = el.getKey();
+            if (el.getValue() < 1){
+                res.setRGB(p.x, p.y, Color.WHITE.getRGB());
+            }else {
+                float relative = (float)(Math.min(1.0, (el.getValue() / 5000)));
+                res.setRGB(p.x, p.y, new Color(1-relative, 0, 0).getRGB());
+                //res.setRGB(p.x, p.y, new Color(1-relative, 0, relative).getRGB());
+            }
+        }
+        ImageIO.write(res, "bmp", file);
+
+
     }
 
 
@@ -38,7 +67,7 @@ public class FileFitnessLogger implements FitnessLogger
     {
         BigInteger sumInstructX = BigInteger.ZERO;
         BigInteger instructionMultiplier = BigInteger.ONE;
-        BigInteger nrInstructionMult = BigInteger.valueOf(nrInstruction);
+        BigInteger nrInstructionMult = BigInteger.valueOf(nrInstruction + 1);
         for (Instruction instruction : instructions)
         {
             int instructNr;
@@ -92,11 +121,11 @@ public class FileFitnessLogger implements FitnessLogger
         int sourceNr;
         switch(source.toUpperCase())
         {
-            case "R0" : sourceNr = 1; break;
-            case "R1" : sourceNr = 2; break;
-            case "R2" : sourceNr = 3; break;
-            case "R3" : sourceNr = 4; break;
-            case "R4" : sourceNr = 5; break;
+            case "R0" : sourceNr = 0; break;
+            case "R1" : sourceNr = 1; break;
+            case "R2" : sourceNr = 2; break;
+            case "R3" : sourceNr = 3; break;
+            case "R4" : sourceNr = 4; break;
             default: throw new RuntimeException("Unknown register " + source);
         }
         return sourceNr;
