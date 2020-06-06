@@ -15,7 +15,7 @@ import java.util.Map;
  */
 public class AccProgramFitnessExaminer
 {
-    public static final int NO_FIT_AT_ALL = 100000;
+    public static final int NO_FIT_AT_ALL = Integer.MAX_VALUE;
     private List<InOutParameters> conditions;
     private final double closeEnough = 0.00001;
     private List<AccFitnessLogger> loggers = new ArrayList<>();

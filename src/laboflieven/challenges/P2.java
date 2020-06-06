@@ -30,10 +30,10 @@ Found a program: [R3 /= R1, Mod R2 -> R1, Mod R3 -> R2, Nand R2 -> R1]
         }
         List<InOutParameters> collection = TestCases.getTestCases(new P2(), points.toArray(new double[0][0]),curMaxRegisters);
         AccProgramFitnessExaminer evaluator = new AccProgramFitnessExaminer(collection);
-        evaluator.addListener(new SysOutAccFitnessLogger());
-        AccRandomGeneticProgramIterator iter = new AccRandomGeneticProgramIterator(evaluator,  InstructionEnum.values(), 1000,1.2,0.4);
+        evaluator.addListener(new SysOutAccFitnessLogger(10000));
+        AccRandomGeneticProgramIterator iter = new AccRandomGeneticProgramIterator(evaluator,  InstructionEnum.values(), 10000,1.2,0.4);
         long start = System.currentTimeMillis();
-        System.out.println(iter.iterate(curMaxRegisters, 20));
+        System.out.println(iter.iterate(curMaxRegisters, 25));
         //evaluator.writeAndClose();
         System.out.println(System.currentTimeMillis() - start + "ms");
 
