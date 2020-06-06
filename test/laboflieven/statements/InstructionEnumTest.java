@@ -13,6 +13,7 @@ class InstructionEnumTest {
     void anyExcept() {
         Assert.assertFalse(Set.of(InstructionEnum.anyExcept(Set.of(InstructionEnum.JmpIfNotZeroBegin))).contains(InstructionEnum.JmpIfNotZeroBegin));
         Assert.assertEquals(InstructionEnum.anyExcept(Set.of(InstructionEnum.JmpIfNotZeroBegin)).length, InstructionEnum.values().length - 1);
+        Assert.assertEquals(InstructionEnum.anyExcept(InstructionEnum.JmpIfNotZeroBegin).length, InstructionEnum.values().length - 1);
 
     }
 }

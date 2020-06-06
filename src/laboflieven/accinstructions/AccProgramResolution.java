@@ -1,8 +1,5 @@
 package laboflieven.accinstructions;
 
-import laboflieven.AccProgram;
-import laboflieven.ProgramResolution;
-import laboflieven.statements.Instruction;
 
 import java.util.ArrayList;
 import java.util.Collections;

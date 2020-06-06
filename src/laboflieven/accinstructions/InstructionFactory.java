@@ -3,6 +3,8 @@ package laboflieven.accinstructions;
 
 import laboflieven.statements.Register;
 
+import java.lang.reflect.InvocationTargetException;
+
 /**
  * Created by lveeckha on 4/06/2015.
  */

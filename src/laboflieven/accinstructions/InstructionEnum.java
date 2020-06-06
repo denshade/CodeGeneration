@@ -1,5 +1,7 @@
 package laboflieven.accinstructions;
 
+import laboflieven.common.ArrayOperations;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -19,22 +21,11 @@ public enum InstructionEnum
 
     public static InstructionEnum[] allInstructionsExcept(InstructionEnum except)
     {
-        laboflieven.accinstructions.InstructionEnum[] enums = new InstructionEnum[InstructionEnum.values().length - 1];
-        List enumList = new ArrayList<>(Arrays.asList(laboflieven.accinstructions.InstructionEnum.values()));
-        enumList.remove(except);
-        enumList.toArray(enums);
-        return enums;
+        return anyExcept(Set.of(except));
     }
 
     public static InstructionEnum[] anyExcept(Set<InstructionEnum> eq)
     {
-        List<InstructionEnum> result = new ArrayList<InstructionEnum>();
-        for (InstructionEnum enu : InstructionEnum.values())
-        {
-            if (!eq.contains(enu)) {
-                result.add(enu);
-            }
-        }
-        return result.toArray(new InstructionEnum[0]);
+        return (InstructionEnum[]) ArrayOperations.anyExcept(eq, InstructionEnum.values());
     }
 }

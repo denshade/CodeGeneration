@@ -55,45 +55,54 @@ public class AccBruteForceProgramIterator
             //Don't use pull from right/left before a push.
             if (instruction.equals(InstructionEnum.AccLeftPull))
             {
-                boolean used = false;
-                for ( AccRegisterInstruction instructionI: instructions)
-                {
-                    if (instructionI instanceof AccLeftPush) {
-                        used = true;
-                    }
-                }
-                if (!used)continue;
+                if (!hasAccLeftPush(instructions)) continue;
             }
             if (instruction.equals(InstructionEnum.AccRightPull))
             {
-                boolean used = false;
-                for ( AccRegisterInstruction instructionI: instructions)
-                {
-                    if (instructionI instanceof AccRightPush) {
-                        used = true;
-                    }
-                }
-                if (!used)continue;
+                if (!hasAccRightPush(instructions)) continue;
             }
             if (instructions.size() == maximumInstructions - 1 && isAccPushPull)
                 continue;
             if (instruction.isSingleRegister()) {
                 for (Register register1 : registers) {
-                        AccRegisterInstruction actualInstruction = InstructionFactory.createInstruction(instruction, register1);
-                        instructions.add(actualInstruction);
-                        eval(instructions, Arrays.asList(registers));
-                        recurse(instructions, registers);
-                        instructions.remove(instructions.size() - 1);
-                    }
+                    AccRegisterInstruction actualInstruction = InstructionFactory.createInstruction(instruction, register1);
+                    processInstruction(instructions, registers, actualInstruction);
+                }
                 } else {
                     AccRegisterInstruction actualInstruction = InstructionFactory.createInstruction(instruction);
-                    instructions.add(actualInstruction);
-                    eval(instructions, Arrays.asList(registers));
-                    recurse(instructions, registers);
-                    instructions.remove(instructions.size() - 1);
-                }
+                    processInstruction(instructions, registers, actualInstruction);
+            }
 
         }
+    }
+
+    private void processInstruction(List<AccRegisterInstruction> instructions, Register[] registers, AccRegisterInstruction actualInstruction) {
+        instructions.add(actualInstruction);
+        eval(instructions, Arrays.asList(registers));
+        recurse(instructions, registers);
+        instructions.remove(instructions.size() - 1);
+    }
+
+    private boolean hasAccLeftPush(List<AccRegisterInstruction> instructions) {
+        boolean used = false;
+        for ( AccRegisterInstruction instructionI: instructions)
+        {
+            if (instructionI instanceof AccLeftPush) {
+                used = true;
+            }
+        }
+        return used;
+    }
+
+    private boolean hasAccRightPush(List<AccRegisterInstruction> instructions) {
+        boolean used = false;
+        for ( AccRegisterInstruction instructionI: instructions)
+        {
+            if (instructionI instanceof AccRightPush) {
+                used = true;
+            }
+        }
+        return used;
     }
 
     private void eval(List<AccRegisterInstruction> instructions, List<Register> registers) {
