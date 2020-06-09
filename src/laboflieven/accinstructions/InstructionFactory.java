@@ -74,6 +74,9 @@ public class InstructionFactory
             case Pow:
                 instruction = new Pow();
                 break;
+            case Swap:
+                instruction = new Swap();
+                break;
             default:
                 throw new IllegalArgumentException("invalid instruction " + instructionEnum.toString());
         }

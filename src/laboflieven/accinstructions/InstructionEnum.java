@@ -2,9 +2,6 @@ package laboflieven.accinstructions;
 
 import laboflieven.common.ArrayOperations;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Set;
 
 /**
@@ -12,10 +9,13 @@ import java.util.Set;
  */
 public enum InstructionEnum
 {
-    Add, Div, Invert, Mul, Sqrt, Sub, Sin, Cos, Mod, Nand, Log, AccLeftPull, AccLeftPush, AccRightPush, AccRightPull, JumpIfLteStart, JumpIfGteStart/*JumpIfLte, JumpIfGte*/, Jump2IfGte, Jump2IfLte, Jump2IfEq, Jump2IfNeq, Jump2IfZero, Quit, Pow;
-
+    Add, Div, Invert, Mul, Sqrt, Sub, Sin, Cos, Mod, Nand, Log, AccLeftPull, AccLeftPush, AccRightPush, AccRightPull, JumpIfLteStart, JumpIfGteStart/*JumpIfLte, JumpIfGte*/, Jump2IfGte, Jump2IfLte, Jump2IfEq, Jump2IfNeq, Jump2IfZero, Quit, Pow, Swap;
     public boolean isSingleRegister() {
         return this.equals(AccLeftPull) || this.equals(AccLeftPush) || this.equals(AccRightPull) || this.equals(AccRightPush);
+    }
+
+    public static InstructionEnum[] getMinimal() {
+        return anyExcept(Set.of(AccRightPull, AccRightPush));
     }
 
 
@@ -26,6 +26,7 @@ public enum InstructionEnum
 
     public static InstructionEnum[] anyExcept(Set<InstructionEnum> eq)
     {
-        return (InstructionEnum[]) ArrayOperations.anyExcept(eq, InstructionEnum.values());
+        ArrayOperations<InstructionEnum> ops = new ArrayOperations();
+        return ops.anyExcept(eq, InstructionEnum.values()).toArray(new InstructionEnum[0]);
     }
 }

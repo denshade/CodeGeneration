@@ -6,17 +6,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-public class ArrayOperations
+public class ArrayOperations<T>
 {
-    public static Object[] anyExcept(Set eq, Object[] objects)
+    public List<T> anyExcept(Set<T> eq, T[] objects)
     {
-        List<Object> result = new ArrayList<>();
-        for (Object obj : objects)
+        List<T> result = new ArrayList<>();
+        for (T obj : objects)
         {
             if (!eq.contains(obj)) {
                 result.add(obj);
             }
         }
-        return result.toArray();
+        return result;
     }
 }
