@@ -15,7 +15,7 @@ public enum InstructionEnum
     }
 
     public static InstructionEnum[] getMinimal() {
-        return anyExcept(Set.of(AccRightPull, AccRightPush));
+        return anyExcept(Set.of(AccRightPull, AccRightPush, JumpIfLteStart, JumpIfGteStart));
     }
 
 

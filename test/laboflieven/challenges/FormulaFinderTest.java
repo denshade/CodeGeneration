@@ -14,17 +14,14 @@ import static org.junit.Assert.*;
 
 public class FormulaFinderTest {
 
-    @Test(expected = RuntimeException.class)
+    @Test
     public void mainBruteAccLog() {
         int curMaxRegisters = 2;
         double[][] doubles = TestCases.getExampleInput2D();
-        List<InOutParameters> collection = TestCases.getTestCases(new ProgramTemplate() {
-            @Override
-            public double run(double[] args) {
-                double a = args[0];
-                double b = args[1];
-                return Math.log(a)/Math.log(b);
-            }
+        List<InOutParameters> collection = TestCases.getTestCases(args -> {
+            double a = args[0];
+            double b = args[1];
+            return Math.log(a)/Math.log(b);
         }, doubles, curMaxRegisters);
         //laboflieven.accinstructions.InstructionEnum[] enums = laboflieven.accinstructions.InstructionEnum.values();
         InstructionEnum[] enums = new InstructionEnum[] {
@@ -38,7 +35,11 @@ public class FormulaFinderTest {
         //enums = new InstructionEnum[]{InstructionEnum.Add, InstructionEnum.Sub, InstructionEnum.Mul, InstructionEnum.Div, InstructionEnum.Log};
         AccProgramFitnessExaminer evaluator = new AccProgramFitnessExaminer(collection);
         AccBruteForceProgramIterator iter = new AccBruteForceProgramIterator(evaluator, enums);
-        iter.iterate(curMaxRegisters, 8);
+        long now = System.currentTimeMillis();
+
+        assertEquals(1,iter.iterate(curMaxRegisters, 8).size());
+        System.out.println("timing: " + (System.currentTimeMillis() - now));
+        //timing: 41248
     }
 
     @Test(expected = RuntimeException.class)

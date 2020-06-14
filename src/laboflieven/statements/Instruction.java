@@ -1,10 +1,12 @@
 package laboflieven.statements;
 
 
+import laboflieven.InstructionMark;
+
 /**
  * Created by lveeckha on 31/05/2015.
  */
-public abstract class Instruction
+public abstract class Instruction implements InstructionMark
 {
     public Instruction()
     {}

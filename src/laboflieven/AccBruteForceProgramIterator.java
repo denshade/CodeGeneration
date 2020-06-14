@@ -18,6 +18,8 @@ public class AccBruteForceProgramIterator
     public List<List<AccRegisterInstruction>> positiveSolutions = new ArrayList<>();
     private AccProgramFitnessExaminer evaluator;
     private InstructionEnum[] instructionEnums;
+    public boolean stopAtFirstSolution = true;
+    public boolean onlyEvaluateAtLastInstruction = true;
 
 
     public AccBruteForceProgramIterator(AccProgramFitnessExaminer evaluator)
@@ -32,11 +34,17 @@ public class AccBruteForceProgramIterator
         instructionEnums = instructions;
     }
 
-    public void iterate(final int nrOfRegisters, int maximumInstructions)
+    public List<List<AccRegisterInstruction>> iterate(final int nrOfRegisters, int maximumInstructions)
     {
         this.maximumInstructions = maximumInstructions;
         List<Register> registers =  Register.createRegisters(nrOfRegisters, "R");
-        recurse(new ArrayList<>(), registers.toArray(new Register[0]));
+        try {
+            recurse(new ArrayList<>(), registers.toArray(new Register[0]));
+        } catch (StopException ex)
+        {
+            //Allow quick termination.
+        }
+        return positiveSolutions;
     }
 
     private void recurse(List<AccRegisterInstruction> instructions, Register[] registers)
@@ -106,16 +114,28 @@ public class AccBruteForceProgramIterator
     }
 
     private void eval(List<AccRegisterInstruction> instructions, List<Register> registers) {
-        if (evaluator.isFit(instructions, registers)){
-            System.out.println("Found a program: " + instructions);
-            positiveSolutions.add(new ArrayList<>(instructions));
-            evaluator.calculateFitness(instructions, registers);
-            throw new RuntimeException("Found solution");
+        if (onlyEvaluateAtLastInstruction && instructions.size() != maximumInstructions)
+        {
+            //Not yet!
         } else {
-            double err = evaluator.calculateFitness(instructions, registers);
-            if (err < 100 && counter++ % 100000 == 0)
-                System.out.println("Current fitness " + err + " " + instructions);
+            if (evaluator.isFit(instructions, registers)){
+                System.out.println("Found a program: " + instructions);
+                positiveSolutions.add(new ArrayList<>(instructions));
+                evaluator.calculateFitness(instructions, registers);
+                if (stopAtFirstSolution) {
+                    throw new StopException();
+                }
+            } else {
+                double err = evaluator.calculateFitness(instructions, registers);
+                if (err < 100 && counter++ % 100000 == 0)
+                    System.out.println("Current fitness " + err + " " + instructions);
+            }
         }
+    }
+
+    class StopException extends RuntimeException
+    {
+
     }
 
 }
