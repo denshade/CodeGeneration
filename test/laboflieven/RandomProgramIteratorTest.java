@@ -17,7 +17,7 @@ public class RandomProgramIteratorTest
 {
     @Test
     public void testdifference() {
-        ArrayList<Instruction> instructions = new ArrayList<>();
+        ArrayList<InstructionMark> instructions = new ArrayList<>();
         instructions.add(new Move(new Register("r1"), new Register("r2")));
         instructions.add(new Move(new Register("r1"), new Register("r2")));
         instructions.add(new Cos(new Register("r1")));

@@ -12,12 +12,12 @@ import java.util.Random;
  */
 public class ProgramResolution implements Comparable<ProgramResolution>
 {
-    public List<Instruction> instructions;
+    public List<InstructionMark> instructions;
     public double weight;
 
-    List<Instruction> procreate(ProgramResolution partner)
+    List<InstructionMark> procreate(ProgramResolution partner)
     {
-        List<Instruction> childinstructions = new ArrayList<>();
+        List<InstructionMark> childinstructions = new ArrayList<>();
         Random r = new Random();
         for (int i = 0; i < instructions.size(); i++)
         {
@@ -31,9 +31,9 @@ public class ProgramResolution implements Comparable<ProgramResolution>
         return childinstructions;
     }
 
-    List<List<Instruction>> procreate(ProgramResolution partner, int nrChildren)
+    List<List<InstructionMark>> procreate(ProgramResolution partner, int nrChildren)
     {
-        List<Instruction> childinstructions = new ArrayList<>();
+        List<InstructionMark> childinstructions = new ArrayList<>();
         Random r = new Random();
         for (int i = 0; i < instructions.size(); i++)
         {
@@ -44,10 +44,10 @@ public class ProgramResolution implements Comparable<ProgramResolution>
                 childinstructions.add(partner.instructions.get(i));
             }
         }
-        List<List<Instruction>> results = new ArrayList<>();
+        List<List<InstructionMark>> results = new ArrayList<>();
         for (int i = 0; i < nrChildren; i++)
         {
-            List<Instruction> item = new ArrayList<>(childinstructions);
+            List<InstructionMark> item = new ArrayList<>(childinstructions);
             Collections.shuffle(item);
             results.add(item);
         }

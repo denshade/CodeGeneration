@@ -1,5 +1,6 @@
 package laboflieven.challenges;
 
+import laboflieven.InstructionMark;
 import laboflieven.loggers.FileFitnessLogger;
 import laboflieven.statements.*;
 import org.junit.Test;
@@ -17,7 +18,7 @@ public class FileFitnessLoggerTest {
         Register r0 = new Register("R0");
         Register r1 = new Register("R1");
 
-        List<Instruction> instructions = new ArrayList<>();
+        List<InstructionMark> instructions = new ArrayList<>();
         Instruction mov = new Move(r0, r1);
         instructions.add(mov);
         Instruction add = new Add(r0, r1);

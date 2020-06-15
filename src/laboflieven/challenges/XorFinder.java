@@ -31,7 +31,7 @@ public class XorFinder implements ProgramTemplate
             points.add(new double[] { 1,0});
             points.add(new double[] { 1,1});
 
-            List<Instruction> instr = ProgramParser.parse("[R2 += R1, One R1, R2 += R1, Mod R2 -> R1]");
+            List<InstructionMark> instr = ProgramParser.parse("[R2 += R1, One R1, R2 += R1, Mod R2 -> R1]");
             StatementRunner runner = new StatementRunner();
             Map<String, Double> m = new HashMap<>();
             m.put("R1", 0.0);

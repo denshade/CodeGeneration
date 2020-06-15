@@ -48,7 +48,7 @@ public class ProgramFitnessExaminerTest {
         registers.add(r1);
         registers.add(r2);
         registers.add(r3);
-        List<Instruction> instructions = new ArrayList<>();
+        List<InstructionMark> instructions = new ArrayList<>();
         instructions.add(new Add(r1,r1));
         instructions.add(new Sub(r3,r2));
         instructions.add(new Div(r1,r2));
@@ -64,7 +64,7 @@ public class ProgramFitnessExaminerTest {
     @Test
     public void testLog()
     {
-        List<Instruction> instructions = ProgramParser.parse("[Log R2, Mul R2 -> R1, Nand R1 -> R1]");
+        List<InstructionMark> instructions = ProgramParser.parse("[Log R2, Mul R2 -> R1, Nand R1 -> R1]");
         List<double[]> points = new ArrayList<>();
         points.add(new double[] { 0,0});
         points.add(new double[] { 0,1});

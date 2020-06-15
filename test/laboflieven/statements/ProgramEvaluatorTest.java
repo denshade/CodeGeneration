@@ -24,7 +24,7 @@ public class ProgramEvaluatorTest extends TestCase {
 
         Register register1 = new Register("R1");
 
-        List<Instruction> instructions = new ArrayList<>();
+        List<InstructionMark> instructions = new ArrayList<>();
         instructions.add(new Add(register1, register1));
         assertTrue(ev.isFit(instructions, Collections.singletonList(register1)));
 
@@ -39,7 +39,7 @@ public class ProgramEvaluatorTest extends TestCase {
 
         Register register1 = new Register("R1");
 
-        List<Instruction> instructions = new ArrayList<>();
+        List<InstructionMark> instructions = new ArrayList<>();
         instructions.add(new Add(register1, register1));
         assertFalse(ev.isFit(instructions, Collections.singletonList(register1)));
 

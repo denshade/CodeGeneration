@@ -14,12 +14,12 @@ public class RandomProgramIterator {
     public int maximumInstructions = 12;
     public long counter = 0;
 
-    public List<List<Instruction>> positiveSolutions = new ArrayList<>();
+    public List<List<InstructionMark>> positiveSolutions = new ArrayList<>();
     private ProgramFitnessExaminer evaluator;
     private InstructionEnum[] enums;
     private Register[] registers;
     private int numberOfRegisters;
-    private List<Instruction> bestSolution;
+    private List<InstructionMark> bestSolution;
     private double bestScore = 1000;
 
     public RandomProgramIterator(ProgramFitnessExaminer evaluator) {
@@ -47,7 +47,7 @@ public class RandomProgramIterator {
         }
     }
 
-    public void recurse(List<Instruction> instructions) {
+    public void recurse(List<InstructionMark> instructions) {
         if (instructions.size() >= maximumInstructions)
             return;
 
@@ -91,7 +91,7 @@ public class RandomProgramIterator {
         return instruction == InstructionEnum.Move && register1.name.equals(register2.name);
     }
 
-    private void eval(List<Instruction> instructions, List<Register> registers) {
+    private void eval(List<InstructionMark> instructions, List<Register> registers) {
         if (instructions.size() != maximumInstructions) return;
         double val =  evaluator.calculateFitness(instructions, registers);
         if (val < bestScore)
@@ -108,9 +108,9 @@ public class RandomProgramIterator {
 
     }
 
-    public static int difference(List<Instruction> instructions) {
+    public static int difference(List<InstructionMark> instructions) {
         Map<String, Integer> counter = new HashMap<>();
-        for (Instruction instruction : instructions)
+        for (InstructionMark instruction : instructions)
         {
             counter.putIfAbsent(instruction.getClass().toString(), 0);
             Integer count = counter.get(instruction.getClass().toString());

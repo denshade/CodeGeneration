@@ -1,5 +1,6 @@
 package laboflieven.loggers;
 
+import laboflieven.InstructionMark;
 import laboflieven.statements.DualRegisterInstruction;
 import laboflieven.statements.Instruction;
 import laboflieven.statements.SingleRegisterInstruction;
@@ -30,7 +31,7 @@ public class BitmapFitnessLogger implements FitnessLogger
     }
 
     @Override
-    public void addFitness(List<Instruction> instructions, int nrInstructionOld, int nrRegistersOld, double error) {
+    public void addFitness(List<InstructionMark> instructions, int nrInstructionOld, int nrRegistersOld, double error) {
         BigInteger[] numbers = getXandY(instructions, nrInstruction, nrRegisters);
         Point p = new Point();
         p.x  = numbers[0].intValue();
@@ -63,12 +64,12 @@ public class BitmapFitnessLogger implements FitnessLogger
     }
 
 
-    public BigInteger[] getXandY(List<Instruction> instructions, int nrInstruction, int nrRegisters)
+    public BigInteger[] getXandY(List<InstructionMark> instructions, int nrInstruction, int nrRegisters)
     {
         BigInteger sumInstructX = BigInteger.ZERO;
         BigInteger instructionMultiplier = BigInteger.ONE;
         BigInteger nrInstructionMult = BigInteger.valueOf(nrInstruction + 1);
-        for (Instruction instruction : instructions)
+        for (InstructionMark instruction : instructions)
         {
             int instructNr;
             switch(instruction.getClass().getSimpleName())
@@ -94,7 +95,7 @@ public class BitmapFitnessLogger implements FitnessLogger
         BigInteger sumRegister = BigInteger.ZERO;
         BigInteger registerMultiplier = BigInteger.ONE;
         BigInteger nrRegisterMult = BigInteger.valueOf(nrRegisters);
-        for (Instruction instruction : instructions)
+        for (InstructionMark instruction : instructions)
         {
             String source = "";
             String dest = "";

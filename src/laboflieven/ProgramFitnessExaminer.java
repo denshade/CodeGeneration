@@ -33,7 +33,7 @@ public class ProgramFitnessExaminer
         loggers.add(logger);
     }
 
-    public boolean isFit(List<Instruction> instructions, List<Register> registers)
+    public boolean isFit(List<InstructionMark> instructions, List<Register> registers)
     {
         return calculateFitness(instructions, registers) < closeEnough;
     }
@@ -42,7 +42,7 @@ public class ProgramFitnessExaminer
         return expectedOutput.containsKey(register.name) && Math.abs(expectedOutput.get(register.name) - register.value) > closeEnough;
     }
 
-    public double calculateFitness(List<Instruction> instructions, List<Register> registers)
+    public double calculateFitness(List<InstructionMark> instructions, List<Register> registers)
     {
         Program program = new Program(instructions, registers);
         double err = 0.0;

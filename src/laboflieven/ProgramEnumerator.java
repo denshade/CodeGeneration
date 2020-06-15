@@ -6,12 +6,12 @@ import java.util.List;
 
 public class ProgramEnumerator
 {
-    public long convert(final List<Instruction> instructions)
+    public long convert(final List<InstructionMark> instructions)
     {
         long sum = 0;
         long l = 13;
         long index = 0;
-        for (Instruction instruction : instructions) {
+        for (InstructionMark instruction : instructions) {
             if (instruction instanceof Add) {
                 index = 0;
             }

@@ -15,13 +15,13 @@ public class ReverseProgramIterator
     public int maximumInstructions = 12;
     public long counter = 0;
 
-    public List<List<Instruction>> positiveSolutions = new ArrayList<>();
+    public List<List<InstructionMark>> positiveSolutions = new ArrayList<>();
     private ProgramFitnessExaminer evaluator;
     private InstructionEnum[] enums;
     private Register[] registers;
     private int numberOfRegisters;
 
-    private List<Instruction> bestSolution;
+    private List<InstructionMark> bestSolution;
     private double bestScore = Double.MAX_VALUE;
 
 
@@ -46,7 +46,7 @@ public class ReverseProgramIterator
         recurse(new ArrayList<>(), availableRegisters);
     }
 
-    public void recurse(List<Instruction> instructions, Set<Register> availableRegisters)
+    public void recurse(List<InstructionMark> instructions, Set<Register> availableRegisters)
     {
         if (instructions.size() >= maximumInstructions)
             return;
@@ -102,7 +102,7 @@ public class ReverseProgramIterator
         }
     }
 
-    private void eval(List<Instruction> instructions, List<Register> registers) {
+    private void eval(List<InstructionMark> instructions, List<Register> registers) {
         /*if (instructions.size() != maximumInstructions)
             return;*/
         double val =  evaluator.calculateFitness(instructions, registers);

@@ -1,5 +1,6 @@
 package laboflieven.recursionheuristics;
 
+import laboflieven.InstructionMark;
 import laboflieven.ProgramParser;
 import laboflieven.statements.Instruction;
 import laboflieven.statements.Invert;
@@ -16,7 +17,7 @@ class NoInvertedHeuristicTest {
     @Test
     void shouldRecurse() {
         NoInvertedHeuristic n = new NoInvertedHeuristic();
-        List<Instruction> instructionList = new ArrayList<Instruction>();
+        List<InstructionMark> instructionList = new ArrayList<InstructionMark>();
         Register r1 = new Register("R1");
         Register r2 = new Register("R2");
 

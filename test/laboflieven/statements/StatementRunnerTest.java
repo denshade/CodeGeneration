@@ -1,5 +1,6 @@
 package laboflieven.statements;
 
+import laboflieven.InstructionMark;
 import laboflieven.Program;
 import laboflieven.StatementRunner;
 import laboflieven.statements.*;
@@ -18,7 +19,7 @@ public class StatementRunnerTest {
         List<Register> registers = Register.create4Registers();
         Map<String, Double> results = getMap(2.0, 3.0, 0.0, 0.0);
 
-        List<Instruction> instructions = new ArrayList<Instruction>();
+        List<InstructionMark> instructions = new ArrayList<InstructionMark>();
 
         StatementRunner runner = new StatementRunner();
         instructions.add(new Add(registers.get(0), registers.get(1)));
@@ -44,7 +45,7 @@ public class StatementRunnerTest {
 
         StatementRunner runner = new StatementRunner();
 
-        List<Instruction> instructions = getInstructionsQuadrant(
+        List<InstructionMark> instructions = getInstructionsQuadrant(
                 registers.get(0),
                 registers.get(1),
                 registers.get(2),
@@ -62,7 +63,7 @@ public class StatementRunnerTest {
     @org.junit.Test(expected=IllegalArgumentException.class)
     public void testExecuteRunnerThrows() {
         StatementRunner runner = new StatementRunner();
-        List<Instruction> instructions = new ArrayList<>();
+        List<InstructionMark> instructions = new ArrayList<>();
         Register register1 = new Register("R1");
         instructions.add(new Sqrt(register1));
         List<Register> registers = new ArrayList<>();
@@ -75,7 +76,7 @@ public class StatementRunnerTest {
     @org.junit.Test
     public void testExecuteRunnerJumps() {
         StatementRunner runner = new StatementRunner();
-        List<Instruction> instructions = new ArrayList<>();
+        List<InstructionMark> instructions = new ArrayList<>();
         Register register1 = new Register("R0");
         register1.value = 0;
         Register register2 = new Register("R1");
@@ -99,7 +100,7 @@ public class StatementRunnerTest {
 
         StatementRunner runner = new StatementRunner();
 
-        List<Instruction> instructions = getInstructionsQuadrant(
+        List<InstructionMark> instructions = getInstructionsQuadrant(
                 registers.get(0),
                 registers.get(1),
                 registers.get(2),
@@ -110,8 +111,8 @@ public class StatementRunnerTest {
         assertEquals(6, program.getRegisters().get(3).value, 0.0);
     }
 
-    private List<Instruction> getInstructionsQuadrant(Register r1, Register r2, Register r3, Register r4) {
-        List<Instruction> instructions = new ArrayList<Instruction>();
+    private List<InstructionMark> getInstructionsQuadrant(Register r1, Register r2, Register r3, Register r4) {
+        List<InstructionMark> instructions = new ArrayList<InstructionMark>();
 
         // -b + sqrt(b^2 + 4*a*c) / 2*a
         instructions.add(new Mul(r1, r3)); //r1 = a, r2 = b, a*c => r3

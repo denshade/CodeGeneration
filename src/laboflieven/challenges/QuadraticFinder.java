@@ -21,7 +21,7 @@ public class QuadraticFinder implements InOutParameterSource, ProgramTemplate
     public static void mainRandomized(String[] args)
     {
         InstructionEnum[] enums = {InstructionEnum.Add, InstructionEnum.Sub, InstructionEnum.Mul, InstructionEnum.Div, InstructionEnum.Sqrt, InstructionEnum.Move, InstructionEnum.Invert};
-        List<Instruction> s = RandomGeneticProgramIterator.trySolutions(new QuadraticFinder(), enums, 1.1, 50000,100000,0.8,0.9,4,5);
+        List<InstructionMark> s = RandomGeneticProgramIterator.trySolutions(new QuadraticFinder(), enums, 1.1, 50000,100000,0.8,0.9,4,5);
         System.out.println("Winner with " + s);
     }
 
@@ -34,7 +34,7 @@ public class QuadraticFinder implements InOutParameterSource, ProgramTemplate
     }
 
     public static void main(String[] args) {//[r1 /= r2, Move r1 -> r4, r4 -= r3, Mul r4 -> r4, Invert r1, Sqrt r4, Sqrt r2, Sqrt r4, r3 -= r4, r3 /= r1, r1 += r4]
-        List<Instruction> instructions = ProgramParser.parse("[r4 += r3, Mul r4 -> r1, Mul r3 -> r1, Mul r2 -> r3, r4 += r1, Sqrt r4, Invert r2, r2 += r1, Sqrt r4, r2 /= r4, r1 /= r2]"); //2.847396575786049
+        List<InstructionMark> instructions = ProgramParser.parse("[r4 += r3, Mul r4 -> r1, Mul r3 -> r1, Mul r2 -> r3, r4 += r1, Sqrt r4, Invert r2, r2 += r1, Sqrt r4, r2 /= r4, r1 /= r2]"); //2.847396575786049
         List<InOutParameters> collection =  new QuadraticFinder().getInOutParameters(4);
 
         Register[] registers = Register.createRegisters(4, "R").toArray(new Register[0]);

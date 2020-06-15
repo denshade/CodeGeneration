@@ -31,7 +31,7 @@ public class ReverseProgramGetter {
         return recurse(new ArrayList<>(), registers);
     }
 
-    public Program recurse(List<Instruction> instructions, Register[] registers)
+    public Program recurse(List<InstructionMark> instructions, Register[] registers)
     {
         if (instructions.size() >= maximumInstructions)
             return null;
@@ -91,7 +91,7 @@ public class ReverseProgramGetter {
         return null;
     }
 
-    private Program eval(List<Instruction> instructions, List<Register> registers) {
+    private Program eval(List<InstructionMark> instructions, List<Register> registers) {
         counter++;
         //StatementRunner runner = new StatementRunner();
 

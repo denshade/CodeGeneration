@@ -14,10 +14,10 @@ import java.util.Map;
  */
 public class Program
 {
-    private List<Instruction> instructions = new ArrayList<Instruction>();
+    private List<InstructionMark> instructions = new ArrayList<InstructionMark>();
     private List<Register> registers = new ArrayList<Register>();
 
-    public Program(List<Instruction> instructions, List<Register> registers) {
+    public Program(List<InstructionMark> instructions, List<Register> registers) {
         this.instructions = instructions;
         this.registers = registers;
     }
@@ -26,7 +26,7 @@ public class Program
         return registers;
     }
 
-    public List<Instruction> getInstructions() {
+    public List<InstructionMark> getInstructions() {
         return instructions;
     }
 
@@ -47,7 +47,7 @@ public class Program
     }
 
     public void bindRegisters() {
-        for (Instruction instr : instructions)
+        for (InstructionMark instr : instructions)
         {
             for (Register reg : registers)
             {

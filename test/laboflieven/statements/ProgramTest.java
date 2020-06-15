@@ -14,7 +14,7 @@ import java.util.List;
 public class ProgramTest extends TestCase {
 
     public void testToString() throws Exception {
-        List< Instruction> instructions = new ArrayList<>();
+        List<InstructionMark> instructions = new ArrayList<>();
         List<Register> registers = new ArrayList<>();
         Register eax = new Register("EAX");
         registers.add(eax);

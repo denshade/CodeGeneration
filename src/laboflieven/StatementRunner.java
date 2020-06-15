@@ -32,7 +32,7 @@ public class StatementRunner {
      */
     public void execute(Program program, Map<String, Double> registerValues)  {
         program.initializeRegisters(registerValues);
-        List<Instruction> instructions = program.getInstructions();
+        List<InstructionMark> instructions = program.getInstructions();
         if (false)checkIfBound(program, instructions);
         int ip = 0;
         int instructionsRun = 0;
@@ -42,7 +42,8 @@ public class StatementRunner {
             instructionsRun++;
             if (instructionsRun > MAXINSTRUCT)
                 break;
-            Instruction instruction = instructions.get(ip);
+            Instruction instruction = (Instruction)instructions.get(ip);
+
             Integer pointer = instruction.execute(ip);
             if (pointer != null && pointer >= 0)
             {
@@ -55,8 +56,8 @@ public class StatementRunner {
         }
     }
 
-    private void checkIfBound(Program program, List<Instruction> instructions) {
-        for (Instruction instr : instructions)
+    private void checkIfBound(Program program, List<InstructionMark> instructions) {
+        for (InstructionMark instr : instructions)
         {
             Register toFind = null;
             if (instr instanceof SingleRegisterInstruction){

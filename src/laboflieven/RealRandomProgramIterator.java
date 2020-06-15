@@ -14,7 +14,7 @@ public class RealRandomProgramIterator {
     public int maximumInstructions = 12;
     public long counter = 0;
 
-    public List<List<Instruction>> positiveSolutions = new ArrayList<>();
+    public List<List<InstructionMark>> positiveSolutions = new ArrayList<>();
     private InstructionEnum[] enums;
     private Register[] registers;
 
@@ -34,11 +34,11 @@ public class RealRandomProgramIterator {
         }
         Set<Register> availableRegisters = new HashSet<>();
         availableRegisters.add(registers[registers.length - 1]);// Add the result register.
-        List<Instruction> instructions = recurse(new ArrayList<>());
+        List<InstructionMark> instructions = recurse(new ArrayList<>());
         return new Program(instructions, Arrays.asList(registers));
     }
 
-    public List<Instruction> recurse(List<Instruction> instructions) {
+    public List<InstructionMark> recurse(List<InstructionMark> instructions) {
         if (instructions.size() >= maximumInstructions)
             return instructions;
 

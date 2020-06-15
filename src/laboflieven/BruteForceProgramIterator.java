@@ -17,7 +17,7 @@ public class BruteForceProgramIterator
     public int maximumInstructions;
     public long counter = 0;
 
-    public List<List<Instruction>> positiveSolutions = new ArrayList<>();
+    public List<List<InstructionMark>> positiveSolutions = new ArrayList<>();
     private ProgramFitnessExaminer evaluator;
     private InstructionEnum[] instructionEnums;
     private RecursionHeuristic recursionHeuristic;
@@ -60,7 +60,7 @@ public class BruteForceProgramIterator
         recurse(new ArrayList<>(), registers);
     }
 
-    private void recurse(List<Instruction> instructions, Register[] registers)
+    private void recurse(List<InstructionMark> instructions, Register[] registers)
     {
         if (instructions.size() >= maximumInstructions)
             return;
@@ -93,7 +93,7 @@ public class BruteForceProgramIterator
         }
     }
 
-    private void eval(List<Instruction> instructions, List<Register> registers) {
+    private void eval(List<InstructionMark> instructions, List<Register> registers) {
         counter++;
         if (evaluator.isFit(instructions, registers)){
             System.out.println("Found a program: " + instructions);

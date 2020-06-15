@@ -26,7 +26,7 @@ public class LoggingProgramFitnessExaminer extends ProgramFitnessExaminer
         writer = new FileWriter(valueFile);
     }
 
-    public double calculateFitness(List<Instruction> instructions, List<Register> registers)
+    public double calculateFitness(List<InstructionMark> instructions, List<Register> registers)
     {
         ProgramEnumerator enumerator = new ProgramEnumerator();
         double err = super.calculateFitness(instructions, registers);

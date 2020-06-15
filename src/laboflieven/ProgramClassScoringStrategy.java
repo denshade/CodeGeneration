@@ -14,7 +14,7 @@ public class ProgramClassScoringStrategy
     {
         Set<String> shortnames = new TreeSet<>();
         //programs with few instructions are unlikely.
-        for (Instruction instruction : program.getInstructions())
+        for (InstructionMark instruction : program.getInstructions())
         {
             shortnames.add(instruction.toString().substring(0,3));
         }

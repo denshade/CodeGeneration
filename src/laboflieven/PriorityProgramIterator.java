@@ -49,7 +49,7 @@ public class PriorityProgramIterator
 
     private void createNewProgramsFrom(ComparableProgram currentProgram) {
         List<Register> registerList = Arrays.asList(registers);
-        List<Instruction> instructionsSoFar = currentProgram.getProgram().getInstructions();
+        List<InstructionMark> instructionsSoFar = currentProgram.getProgram().getInstructions();
 
         for (InstructionEnum instruction : enums)
         {
@@ -61,7 +61,7 @@ public class PriorityProgramIterator
                             continue;
                         }
                         Instruction actualInstruction = InstructionFactory.createInstruction(instruction, register1, register2);
-                        List<Instruction> newInstructions = new ArrayList<>(instructionsSoFar);
+                        List<InstructionMark> newInstructions = new ArrayList<>(instructionsSoFar);
                         newInstructions.add(actualInstruction);
                         Program program = new Program(newInstructions, registerList);
 
@@ -73,7 +73,7 @@ public class PriorityProgramIterator
             else {
                 for (Register register1 : registers) {
                     Instruction actualInstruction = InstructionFactory.createInstruction(instruction, register1);
-                    List<Instruction> newInstructions = new ArrayList<>(instructionsSoFar);
+                    List<InstructionMark> newInstructions = new ArrayList<>(instructionsSoFar);
                     newInstructions.add(actualInstruction);
                     Program program = new Program(newInstructions, registerList);
                     ComparableProgram e = new ComparableProgram(program, evaluator);

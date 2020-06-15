@@ -17,14 +17,14 @@ public class RandomGeneticProgramIterator {
     public int maximumInstructions;
     public long counter = 0;
 
-    public List<List<Instruction>> positiveSolutions = new ArrayList<>();
+    public List<List<InstructionMark>> positiveSolutions = new ArrayList<>();
     private ProgramFitnessExaminer evaluator;
     private InstructionEnum[] enums;
     private int maxPopulation;
     private Register[] registers;
     private int numberOfRegisters;
-    private List<Instruction> bestSolution;
-    private List<List<Instruction>> chosenSolutions;
+    private List<InstructionMark> bestSolution;
+    private List<List<InstructionMark>> chosenSolutions;
 
 
     private double bestScore = 1000;
@@ -37,10 +37,10 @@ public class RandomGeneticProgramIterator {
     }
 
 
-    public static List<Instruction>  trySolutions(InOutParameterSource source, InstructionEnum[] enums, double maxPopulationOverflow, int startPopulation, int maxPopulation,
+    public static List<InstructionMark>  trySolutions(InOutParameterSource source, InstructionEnum[] enums, double maxPopulationOverflow, int startPopulation, int maxPopulation,
                                     double minPopularParents, double maxPopularParents, int minRegisters, int maxRegisters) {
         double winnerOfTheWorldWeight = Double.MAX_VALUE;
-        List<Instruction> bestProgram = null;
+        List<InstructionMark> bestProgram = null;
 
         for (int maxSizePopulation = startPopulation; maxSizePopulation < maxPopulation; maxSizePopulation += 10000) {
             for (double curpopularParents = minPopularParents; curpopularParents < maxPopularParents; curpopularParents += 0.2) {
@@ -103,7 +103,7 @@ public class RandomGeneticProgramIterator {
         }
        // System.out.println(chosenSolutions);
         PriorityQueue<ProgramResolution> solutions = new PriorityQueue<>();
-        for (List<Instruction> instruction : chosenSolutions)
+        for (List<InstructionMark> instruction : chosenSolutions)
         {
             ProgramResolution res = new ProgramResolution();
             res.weight = eval(instruction, Arrays.asList(registers));
@@ -142,7 +142,7 @@ public class RandomGeneticProgramIterator {
         ProgramResolution mom = getNthVar(solutions);
         ProgramResolution dad = getNthVar(solutions);
 
-        for (List<Instruction> childDNA : mom.procreate(dad, 3))
+        for (List<InstructionMark> childDNA : mom.procreate(dad, 3))
         {
             ProgramResolution child = new ProgramResolution();
             child.instructions = childDNA;
@@ -177,7 +177,7 @@ public class RandomGeneticProgramIterator {
         return val;
     }
 
-    public void recurse(List<Instruction> instructions) {
+    public void recurse(List<InstructionMark> instructions) {
         if (instructions.size() >= maximumInstructions)
         {
             chosenSolutions.add(new ArrayList<>(instructions));
@@ -223,7 +223,7 @@ public class RandomGeneticProgramIterator {
         return instruction == InstructionEnum.Move && register1.name.equals(register2.name);
     }
 
-    private double eval(List<Instruction> instructions, List<Register> registers) {
+    private double eval(List<InstructionMark> instructions, List<Register> registers) {
         return evaluator.calculateFitness(instructions, registers);
     }
 

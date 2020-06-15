@@ -7,9 +7,9 @@ import java.util.List;
 
 public class ProgramParser {
 
-    public static List<Instruction>  parse(String s)
+    public static List<InstructionMark>  parse(String s)
     {
-        List<Instruction> instructions = new ArrayList<>();
+        List<InstructionMark> instructions = new ArrayList<>();
         s = s.substring(1, s.length() - 1);
         String[] elements = s.split(",");
         for(String element : elements) {
