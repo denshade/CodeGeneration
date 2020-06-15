@@ -71,7 +71,7 @@ public class BruteForceProgramIterator
                     for (Register register2 : registers) {
                         Instruction actualInstruction = InstructionFactory.createInstruction(instruction, register1, register2);
                         instructions.add(actualInstruction);
-                        if (recursionHeuristic.shouldRecurse(instructions, nrRegisters))
+                        if (recursionHeuristic.shouldRecurse((List<InstructionMark>)(List<?>)instructions, nrRegisters))
                         {
                             eval(instructions, Arrays.asList(registers));
                             recurse(instructions, registers);
@@ -82,7 +82,7 @@ public class BruteForceProgramIterator
                 } else {
                     Instruction actualInstruction = InstructionFactory.createInstruction(instruction, register1);
                     instructions.add(actualInstruction);
-                    if (recursionHeuristic.shouldRecurse(instructions, nrRegisters)) {
+                    if (recursionHeuristic.shouldRecurse((List<InstructionMark>)(List<?>)instructions, nrRegisters)) {
                         eval(instructions, Arrays.asList(registers));
                         recurse(instructions, registers);
                     }
