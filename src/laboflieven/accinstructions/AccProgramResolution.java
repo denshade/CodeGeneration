@@ -1,27 +1,29 @@
 package laboflieven.accinstructions;
 
 
+import laboflieven.InstructionMark;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
 public class AccProgramResolution  implements Comparable<AccProgramResolution> {
-    public List<AccRegisterInstruction> instructions;
+    public List<InstructionMark> instructions;
     public double weight;
 
-    public AccProgramResolution(List<AccRegisterInstruction> instructions, double weight) {
+    public AccProgramResolution(List<InstructionMark> instructions, double weight) {
         this.instructions = instructions;
         this.weight = weight;
     }
 
-    public List<List<AccRegisterInstruction>> procreate(AccProgramResolution partner, int nrChildren)
+    public List<List<InstructionMark>> procreate(AccProgramResolution partner, int nrChildren)
     {
-        List<AccRegisterInstruction> childinstructions = new ArrayList<>();
+        List<InstructionMark> childinstructions = new ArrayList<>();
         Random r = new Random();
         for (int i = 0; i < instructions.size(); i++)
         {
-            AccRegisterInstruction e;
+            InstructionMark e;
             if (r.nextBoolean())
             {
                 e = instructions.get(i);
@@ -30,10 +32,10 @@ public class AccProgramResolution  implements Comparable<AccProgramResolution> {
             }
             childinstructions.add(e);
         }
-        List<List<AccRegisterInstruction>> results = new ArrayList<>();
+        List<List<InstructionMark>> results = new ArrayList<>();
         for (int i = 0; i < nrChildren; i++)
         {
-            List<AccRegisterInstruction> item = new ArrayList<>(childinstructions);
+            List<InstructionMark> item = new ArrayList<InstructionMark>(childinstructions);
             Collections.shuffle(item);
             results.add(item);
         }

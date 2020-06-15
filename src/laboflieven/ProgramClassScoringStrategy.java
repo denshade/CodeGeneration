@@ -1,7 +1,5 @@
 package laboflieven;
 
-import laboflieven.statements.Instruction;
-
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -10,7 +8,7 @@ import java.util.TreeSet;
  */
 public class ProgramClassScoringStrategy
 {
-    public static double evaluate(ProgramFitnessExaminer evaluator, Program program)
+    public static double evaluate(ProgramFitnessExaminerInterface evaluator, Program program)
     {
         Set<String> shortnames = new TreeSet<>();
         //programs with few instructions are unlikely.

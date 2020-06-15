@@ -26,7 +26,7 @@ public class DistanceFinder {
         collection.add(createParameter(fillDoubleArray(new double [] {100.0,50.0,50.0,100.0}, curMaxRegisters), Math.sqrt((100-50)*(100-50) + (50-100)*(50-100))));
 
 
-        ProgramFitnessExaminer evaluator = new ProgramFitnessExaminer(collection);
+        ProgramFitnessExaminerInterface evaluator = new ProgramFitnessExaminer(collection);
 
         BruteForceProgramIterator iterator = new BruteForceProgramIterator(evaluator);
        iterator.iterate(4, 6);
@@ -59,7 +59,7 @@ public class DistanceFinder {
             collection.add(createParameter(fillDoubleArray(new double [] {100.0,50.0,50.0,100.0}, curMaxRegisters), Math.sqrt((100-50)*(100-50) + (50-100)*(50-100))));
 
 
-            ProgramFitnessExaminer evaluator = new ProgramFitnessExaminer(collection);
+            ProgramFitnessExaminerInterface evaluator = new ProgramFitnessExaminer(collection);
 
             for (int curMaxInstructions = 5; curMaxInstructions < 7; curMaxInstructions++) {
 

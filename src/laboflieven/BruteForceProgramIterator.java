@@ -18,34 +18,34 @@ public class BruteForceProgramIterator
     public long counter = 0;
 
     public List<List<InstructionMark>> positiveSolutions = new ArrayList<>();
-    private ProgramFitnessExaminer evaluator;
+    private ProgramFitnessExaminerInterface evaluator;
     private InstructionEnum[] instructionEnums;
     private RecursionHeuristic recursionHeuristic;
     private int nrRegisters;
 
 
-    public BruteForceProgramIterator(ProgramFitnessExaminer evaluator)
+    public BruteForceProgramIterator(ProgramFitnessExaminerInterface evaluator)
     {
         this.evaluator = evaluator;
         instructionEnums = InstructionEnum.values();
         recursionHeuristic = new AlwaysRecursionHeuristic();
     }
 
-    public BruteForceProgramIterator(ProgramFitnessExaminer evaluator, RecursionHeuristic recursionHeuristic)
+    public BruteForceProgramIterator(ProgramFitnessExaminerInterface evaluator, RecursionHeuristic recursionHeuristic)
     {
         this.evaluator = evaluator;
         instructionEnums = InstructionEnum.values();
         this.recursionHeuristic = recursionHeuristic;
     }
 
-    public BruteForceProgramIterator(ProgramFitnessExaminer evaluator, RecursionHeuristic recursionHeuristic, InstructionEnum[] instructions)
+    public BruteForceProgramIterator(ProgramFitnessExaminerInterface evaluator, RecursionHeuristic recursionHeuristic, InstructionEnum[] instructions)
     {
         this.evaluator = evaluator;
         instructionEnums = instructions;
         this.recursionHeuristic = recursionHeuristic;
     }
 
-    public BruteForceProgramIterator(ProgramFitnessExaminer evaluator, InstructionEnum[] instructions)
+    public BruteForceProgramIterator(ProgramFitnessExaminerInterface evaluator, InstructionEnum[] instructions)
     {
         this.evaluator = evaluator;
         instructionEnums = instructions;

@@ -6,7 +6,7 @@ package laboflieven;
 public class ProgramDifferenceScoringStrategy
 {
 
-    public static double evaluate(ProgramFitnessExaminer evaluator, Program program)
+    public static double evaluate(ProgramFitnessExaminerInterface evaluator, Program program)
     {
         return  evaluator.evaluateDifference(program);
     }

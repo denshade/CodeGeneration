@@ -1,9 +1,6 @@
 package laboflieven.challenges;
 
-import laboflieven.InOutParameters;
-import laboflieven.ProgramFitnessExaminer;
-import laboflieven.RandomGeneticProgramIterator;
-import laboflieven.ReverseProgramIterator;
+import laboflieven.*;
 import laboflieven.statements.InstructionEnum;
 
 import java.util.ArrayList;
@@ -72,7 +69,7 @@ public class AtanFinder
         collection.add(createParameter(fillDoubleArray(new double [] {2.0, 1000, 0,0}, curMaxRegisters), distance(2.0, 1000, 0,0)));
 */
 
-        ProgramFitnessExaminer evaluator = new ProgramFitnessExaminer(collection);
+        ProgramFitnessExaminerInterface evaluator = new ProgramFitnessExaminer(collection);
 
         //ReverseProgramIterator iter = new ReverseProgramIterator(evaluator, new InstructionEnum[]{InstructionEnum.Add, InstructionEnum.Sub, InstructionEnum.Mul, InstructionEnum.Div, InstructionEnum.Sqrt, InstructionEnum.Move, InstructionEnum.Sin, InstructionEnum.Cos});
         RandomGeneticProgramIterator iter = new RandomGeneticProgramIterator(evaluator, InstructionEnum.values(),

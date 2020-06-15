@@ -13,12 +13,12 @@ import java.util.Map;
 /**
  * Created by Lieven on 14/06/2015.
  */
-public class AccProgramFitnessExaminer
+public class AccProgramFitnessExaminer implements ProgramFitnessExaminerInterface
 {
     public static final int NO_FIT_AT_ALL = Integer.MAX_VALUE;
     private List<InOutParameters> conditions;
     private final double closeEnough = 0.00001;
-    private List<AccFitnessLogger> loggers = new ArrayList<>();
+    private List<FitnessLogger> loggers = new ArrayList<>();
     AccStatementRunner runner = new AccStatementRunner();
 
     /**
@@ -29,12 +29,12 @@ public class AccProgramFitnessExaminer
         this.conditions = conditions;
     }
 
-    public void addListener(AccFitnessLogger logger)
+    public void addListener(FitnessLogger logger)
     {
         loggers.add(logger);
     }
 
-    public boolean isFit(List<AccRegisterInstruction> instructions, List<Register> registers)
+    public boolean isFit(List<InstructionMark> instructions, List<Register> registers)
     {
         return calculateFitness(instructions, registers) < closeEnough;
     }
@@ -43,7 +43,7 @@ public class AccProgramFitnessExaminer
         return expectedOutput.containsKey(register.name) && Math.abs(expectedOutput.get(register.name) - register.value) > closeEnough;
     }
 
-    public double calculateFitness(List<AccRegisterInstruction> instructions, List<Register> registers)
+    public double calculateFitness(List<InstructionMark> instructions, List<Register> registers)
     {
         AccProgram program = new AccProgram(instructions, registers);
         double err = 0.0;
@@ -69,15 +69,11 @@ public class AccProgramFitnessExaminer
             }
         }
 
-        for(AccFitnessLogger logger : loggers)
+        for(FitnessLogger logger : loggers)
         {
             logger.addFitness(instructions, InstructionEnum.values().length, registers.size(), err);
         }
         return err;
-    }
-
-    private boolean programHasNANorInfiniteRegisterVals(Register register) {
-        return Double.isNaN(register.value) || Double.isInfinite(register.value);
     }
 
 

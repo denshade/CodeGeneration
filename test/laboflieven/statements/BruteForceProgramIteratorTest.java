@@ -4,6 +4,7 @@ import junit.framework.TestCase;
 import laboflieven.BruteForceProgramIterator;
 import laboflieven.InOutParameters;
 import laboflieven.ProgramFitnessExaminer;
+import laboflieven.ProgramFitnessExaminerInterface;
 
 import java.util.*;
 
@@ -13,7 +14,7 @@ import java.util.*;
 public class BruteForceProgramIteratorTest extends TestCase {
 
     public void testIterate() throws Exception {
-        ProgramFitnessExaminer ev = new ProgramFitnessExaminer(Collections.EMPTY_LIST);
+        ProgramFitnessExaminerInterface ev = new ProgramFitnessExaminer(Collections.EMPTY_LIST);
         BruteForceProgramIterator iterator = new BruteForceProgramIterator(ev);
         iterator.iterate(4, 2);
 
@@ -47,7 +48,7 @@ public class BruteForceProgramIteratorTest extends TestCase {
         collection.add(createParameter(1.0, 2.0, 1.0, 0.0, -1.0));
         collection.add(createParameter(1.0, -1, -56, 0.0, 8));
         collection.add(createParameter(1.0, 2, -15, 0.0, 3));
-        ProgramFitnessExaminer evaluator = new ProgramFitnessExaminer(collection);
+        ProgramFitnessExaminerInterface evaluator = new ProgramFitnessExaminer(collection);
         BruteForceProgramIterator iterator = new BruteForceProgramIterator(evaluator);
         int maximumInstructions = 1;
         iterator.iterate(4, maximumInstructions);

@@ -1,9 +1,7 @@
 package laboflieven.challenges;
 
 import laboflieven.*;
-import laboflieven.recursionheuristics.AlwaysRecursionHeuristic;
 import laboflieven.recursionheuristics.NoInvertedHeuristic;
-import laboflieven.statements.InstructionEnum;
 
 import java.io.File;
 import java.io.IOException;
@@ -22,7 +20,7 @@ public class CosPlusFinder implements ProgramTemplate
 
 
         File f = new File("c:\\temp\\test.csv");
-        ProgramFitnessExaminer evaluator = new ProgramFitnessExaminer(collection);
+        ProgramFitnessExaminerInterface evaluator = new ProgramFitnessExaminer(collection);
         BruteForceProgramIterator iter = new BruteForceProgramIterator(evaluator, new NoInvertedHeuristic());
         long start = System.currentTimeMillis();
         iter.iterate(curMaxRegisters, 5);

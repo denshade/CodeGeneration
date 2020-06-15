@@ -14,11 +14,11 @@ import java.util.Map;
  */
 public class AccProgram
 {
-    private List<AccRegisterInstruction> instructions = new ArrayList<>();
+    private List<InstructionMark> instructions = new ArrayList<>();
     private List<Register> registers = new ArrayList<Register>();
     private Map<String, Register> registerMap = new HashMap<>();
 
-    public AccProgram(List<AccRegisterInstruction> instructions, List<Register> registers) {
+    public AccProgram(List<InstructionMark> instructions, List<Register> registers) {
         this.instructions = instructions;
         this.registers = registers;
         for(Register register : registers ) {
@@ -30,7 +30,7 @@ public class AccProgram
         return registers;
     }
 
-    public List<AccRegisterInstruction> getInstructions() {
+    public List<InstructionMark> getInstructions() {
         return instructions;
     }
 
@@ -65,7 +65,7 @@ public class AccProgram
         if (instruction instanceof AccLeftPull)
         {
             boolean used = false;
-            for ( AccRegisterInstruction instructionI: instructions)
+            for ( InstructionMark instructionI: instructions)
             {
                 if (instructionI instanceof AccLeftPush) {
                     used = true;
@@ -76,7 +76,7 @@ public class AccProgram
         if (instruction instanceof AccRightPull)
         {
             boolean used = false;
-            for ( AccRegisterInstruction instructionI: instructions)
+            for ( InstructionMark instructionI: instructions)
             {
                 if (instructionI instanceof AccRightPush) {
                     used = true;

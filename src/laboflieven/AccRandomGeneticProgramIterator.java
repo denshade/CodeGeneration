@@ -28,8 +28,8 @@ public class AccRandomGeneticProgramIterator {
     private int maxPopulation;
     private Register[] registers;
     private int numberOfRegisters;
-    private List<AccRegisterInstruction> bestSolution;
-    private List<List<AccRegisterInstruction>> chosenSolutions;
+    private List<InstructionMark> bestSolution;
+    private List<List<InstructionMark>> chosenSolutions;
 
 
     private double bestScore = 1000;
@@ -69,7 +69,7 @@ public class AccRandomGeneticProgramIterator {
         IntStream.range(0,  initialPopSize).forEach(k -> recurse(new ArrayList<>()));
         // System.out.println(chosenSolutions);
         PriorityQueue<AccProgramResolution> solutions = new PriorityQueue<>();
-        for (List<AccRegisterInstruction> instruction : chosenSolutions) {
+        for (List<InstructionMark> instruction : chosenSolutions) {
             solutions.add(new AccProgramResolution(instruction, eval(instruction, Arrays.asList(registers))));
         }
         int bestSolutionCycle = BEST_SOLUTION_CYCLE;
@@ -98,7 +98,7 @@ public class AccRandomGeneticProgramIterator {
         AccProgramResolution mom = getNthVar(solutions);
         AccProgramResolution dad = getNthVar(solutions);
 
-        for (List<AccRegisterInstruction> childDNA : mom.procreate(dad, nrChildren)) {
+        for (List<InstructionMark> childDNA : mom.procreate(dad, nrChildren)) {
             solutions.add(new AccProgramResolution(childDNA, eval(childDNA, Arrays.asList(registers))));
         }
     }
@@ -109,9 +109,9 @@ public class AccRandomGeneticProgramIterator {
         return (AccProgramResolution) PriorityQueueAlgos.getNthBestSolution(solutions, p);
     }
 
-    public void recurse(List<AccRegisterInstruction> instructions) {
+    public void recurse(List<InstructionMark> instructions) {
         if (instructions.size() >= maximumInstructions) {
-            chosenSolutions.add(new ArrayList<>(instructions));
+            chosenSolutions.add(new ArrayList<InstructionMark>(instructions));
             return;
         }
 
@@ -157,7 +157,7 @@ public class AccRandomGeneticProgramIterator {
         return enums[location];
     }
 
-    private double eval(List<AccRegisterInstruction> instructions, List<Register> registers) {
+    private double eval(List<InstructionMark> instructions, List<Register> registers) {
         return evaluator.calculateFitness(instructions, registers);
     }
 

@@ -40,7 +40,7 @@ public class ProgramFitnessExaminerTest {
             if (!Double.isNaN(calcQuad(doubleRow)))
                 collection.add(createParameter(fillDoubleArray(doubleRow, 3), calcQuad(doubleRow)));
         }
-        ProgramFitnessExaminer evaluator = new ProgramFitnessExaminer(collection);
+        ProgramFitnessExaminerInterface evaluator = new ProgramFitnessExaminer(collection);
         Register r1 = new Register("r0");
         Register r2 = new Register("r1");
         Register r3 = new Register("r2");
@@ -72,7 +72,7 @@ public class ProgramFitnessExaminerTest {
         points.add(new double[] { 1,1});
 
         List<InOutParameters> collection = TestCases.getTestCases(new XorFinder(), points.toArray(new double[0][0]),2);
-        ProgramFitnessExaminer evaluator = new ProgramFitnessExaminer(collection);
+        ProgramFitnessExaminerInterface evaluator = new ProgramFitnessExaminer(collection);
         evaluator.calculateFitness(instructions, Register.createRegisters(2, "R"));
     }
 

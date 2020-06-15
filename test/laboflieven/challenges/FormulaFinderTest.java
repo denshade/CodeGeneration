@@ -6,6 +6,7 @@ import laboflieven.AccRandomGeneticProgramIterator;
 import laboflieven.InOutParameters;
 import laboflieven.accinstructions.AccProgramResolution;
 import laboflieven.accinstructions.InstructionEnum;
+import laboflieven.recursionheuristics.AccHeuristic;
 import laboflieven.recursionheuristics.AlwaysRecursionHeuristic;
 import org.junit.Test;
 
@@ -35,7 +36,7 @@ public class FormulaFinderTest {
         };
         //enums = new InstructionEnum[]{InstructionEnum.Add, InstructionEnum.Sub, InstructionEnum.Mul, InstructionEnum.Div, InstructionEnum.Log};
         AccProgramFitnessExaminer evaluator = new AccProgramFitnessExaminer(collection);
-        AccBruteForceProgramIterator iter = new AccBruteForceProgramIterator(evaluator, enums, new AlwaysRecursionHeuristic());
+        AccBruteForceProgramIterator iter = new AccBruteForceProgramIterator(evaluator, enums, new AccHeuristic());
         long now = System.currentTimeMillis();
 
         assertEquals(1,iter.iterate(curMaxRegisters, 8).size());

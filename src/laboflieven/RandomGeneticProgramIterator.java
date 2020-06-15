@@ -18,7 +18,7 @@ public class RandomGeneticProgramIterator {
     public long counter = 0;
 
     public List<List<InstructionMark>> positiveSolutions = new ArrayList<>();
-    private ProgramFitnessExaminer evaluator;
+    private ProgramFitnessExaminerInterface evaluator;
     private InstructionEnum[] enums;
     private int maxPopulation;
     private Register[] registers;
@@ -29,7 +29,7 @@ public class RandomGeneticProgramIterator {
 
     private double bestScore = 1000;
 
-    public RandomGeneticProgramIterator(ProgramFitnessExaminer evaluator, int maxPopulation, double maxOverflow, double popularParents) {
+    public RandomGeneticProgramIterator(ProgramFitnessExaminerInterface evaluator, int maxPopulation, double maxOverflow, double popularParents) {
         this.evaluator = evaluator;
         POPULATION_MAX = maxPopulation;
         this.maxOverflow = maxOverflow;
@@ -47,7 +47,7 @@ public class RandomGeneticProgramIterator {
                 for (int curMaxRegisters = minRegisters; curMaxRegisters < maxRegisters; curMaxRegisters++) {
                     List<InOutParameters> collection = source.getInOutParameters(curMaxRegisters);
 
-                    ProgramFitnessExaminer evaluator = new ProgramFitnessExaminer(collection);
+                    ProgramFitnessExaminerInterface evaluator = new ProgramFitnessExaminer(collection);
 
                     for (int curMaxInstructions = 10; curMaxInstructions < 15; curMaxInstructions++) {
 
@@ -83,7 +83,7 @@ public class RandomGeneticProgramIterator {
         return bestProgram;
     }
 
-    public RandomGeneticProgramIterator(ProgramFitnessExaminer evaluator, InstructionEnum[] enums, int maxPopulation, double maxOverflow, double popularParents) {
+    public RandomGeneticProgramIterator(ProgramFitnessExaminerInterface evaluator, InstructionEnum[] enums, int maxPopulation, double maxOverflow, double popularParents) {
         this.evaluator = evaluator;
         this.enums = enums;
         this.maxPopulation = maxPopulation;

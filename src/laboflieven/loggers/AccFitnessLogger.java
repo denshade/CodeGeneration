@@ -1,10 +1,11 @@
 package laboflieven.loggers;
 
+import laboflieven.InstructionMark;
 import laboflieven.accinstructions.AccRegisterInstruction;
 
 import java.util.List;
 
-public interface AccFitnessLogger
+public interface AccFitnessLogger extends FitnessLogger
 {
-    public void addFitness(List<AccRegisterInstruction> instructions, int nrInstruction, int nrRegisters, double error);
+    public void addFitness(List<InstructionMark> instructions, int nrInstruction, int nrRegisters, double error);
 }

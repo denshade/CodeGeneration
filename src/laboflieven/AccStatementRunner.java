@@ -30,7 +30,7 @@ public class AccStatementRunner {
     public void execute(AccProgram program, Map<String, Double> registerValues)
     {
         program.initializeRegisters(registerValues);
-        List<AccRegisterInstruction> instructions = program.getInstructions();
+        List<InstructionMark> instructions = program.getInstructions();
         Register left = new Register("AL");
         Register right = new Register("AR");
         int ip = 0;
@@ -41,7 +41,7 @@ public class AccStatementRunner {
             instructionsRun++;
             if (instructionsRun > MAXINSTRUCT)
                 break;
-            AccRegisterInstruction instruction = instructions.get(ip);
+            AccRegisterInstruction instruction = (AccRegisterInstruction) instructions.get(ip);
             Integer pointer = instruction.execute(left, right, ip);
             if (pointer != null && pointer >= 0)
             {

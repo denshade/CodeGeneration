@@ -1,11 +1,12 @@
 package laboflieven.loggers;
 
+import laboflieven.InstructionMark;
 import laboflieven.accinstructions.AccRegisterInstruction;
 
 import java.util.List;
 import java.util.Random;
 
-public class SysOutAccFitnessLogger implements AccFitnessLogger
+public class SysOutAccFitnessLogger implements FitnessLogger
 {
     private final int bound;
     private double bestErr = Double.MAX_VALUE;
@@ -16,7 +17,7 @@ public class SysOutAccFitnessLogger implements AccFitnessLogger
         this.bound = bound;
     }
 
-    public void addFitness(List<AccRegisterInstruction> instructions, int nrInstruction, int nrRegisters, double error)
+    public void addFitness(List<InstructionMark> instructions, int nrInstruction, int nrRegisters, double error)
     {
         if (error < bestErr) {
             bestErr = error;

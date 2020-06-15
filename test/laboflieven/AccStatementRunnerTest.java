@@ -20,7 +20,7 @@ public class AccStatementRunnerTest {
         List<Register> registers = new ArrayList<>();
         Register r0 = new Register("r0");
         registers.add(r0);
-        List<AccRegisterInstruction> instructions = new ArrayList<>();
+        List<InstructionMark> instructions = new ArrayList<>();
         instructions.add(new Cos());
         instructions.add(new Add());
         instructions.add(new AccLeftPull(r0));

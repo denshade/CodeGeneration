@@ -1,7 +1,6 @@
 package laboflieven.challenges;
 
 import laboflieven.*;
-import laboflieven.statements.Instruction;
 import laboflieven.statements.InstructionEnum;
 import laboflieven.statements.Register;
 
@@ -38,7 +37,7 @@ public class QuadraticFinder implements InOutParameterSource, ProgramTemplate
         List<InOutParameters> collection =  new QuadraticFinder().getInOutParameters(4);
 
         Register[] registers = Register.createRegisters(4, "R").toArray(new Register[0]);
-        ProgramFitnessExaminer evaluator = new ProgramFitnessExaminer(collection);
+        ProgramFitnessExaminerInterface evaluator = new ProgramFitnessExaminer(collection);
         System.out.println(evaluator.calculateFitness(instructions, Arrays.asList(registers))); // 3.4334286175154967
 
         mainRandomized(args);
@@ -46,7 +45,7 @@ public class QuadraticFinder implements InOutParameterSource, ProgramTemplate
     public static void reverseIterator(){
         int curMaxRegisters = 4;
         List<InOutParameters> collection = new QuadraticFinder().getInOutParameters(curMaxRegisters);
-        ProgramFitnessExaminer evaluator = new ProgramFitnessExaminer(collection);
+        ProgramFitnessExaminerInterface evaluator = new ProgramFitnessExaminer(collection);
 
         ReverseProgramIterator iter = new ReverseProgramIterator(evaluator, new InstructionEnum[]{InstructionEnum.Add, InstructionEnum.Sub, InstructionEnum.Mul, InstructionEnum.Div, InstructionEnum.Sqrt, InstructionEnum.Move, InstructionEnum.Zero, InstructionEnum.One});
         iter.iterate(curMaxRegisters, 14);

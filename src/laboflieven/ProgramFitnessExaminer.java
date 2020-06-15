@@ -12,9 +12,7 @@ import java.util.Map;
 /**
  * Created by Lieven on 14/06/2015.
  */
-public class ProgramFitnessExaminer
-{
-    public static final int NO_FIT_AT_ALL = 100000;
+public class ProgramFitnessExaminer implements ProgramFitnessExaminerInterface {
     private List<InOutParameters> conditions;
     private final double closeEnough = 0.00001;
     private List<FitnessLogger> loggers = new ArrayList<>();
@@ -28,11 +26,13 @@ public class ProgramFitnessExaminer
         this.conditions = conditions;
     }
 
+    @Override
     public void addListener(FitnessLogger logger)
     {
         loggers.add(logger);
     }
 
+    @Override
     public boolean isFit(List<InstructionMark> instructions, List<Register> registers)
     {
         return calculateFitness(instructions, registers) < closeEnough;
@@ -42,6 +42,7 @@ public class ProgramFitnessExaminer
         return expectedOutput.containsKey(register.name) && Math.abs(expectedOutput.get(register.name) - register.value) > closeEnough;
     }
 
+    @Override
     public double calculateFitness(List<InstructionMark> instructions, List<Register> registers)
     {
         Program program = new Program(instructions, registers);
@@ -81,6 +82,7 @@ public class ProgramFitnessExaminer
     }
 
 
+    @Override
     public double evaluateDifference(Program program)
     {
         StatementRunner runner = new StatementRunner();

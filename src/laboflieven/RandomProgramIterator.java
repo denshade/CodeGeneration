@@ -15,19 +15,19 @@ public class RandomProgramIterator {
     public long counter = 0;
 
     public List<List<InstructionMark>> positiveSolutions = new ArrayList<>();
-    private ProgramFitnessExaminer evaluator;
+    private ProgramFitnessExaminerInterface evaluator;
     private InstructionEnum[] enums;
     private Register[] registers;
     private int numberOfRegisters;
     private List<InstructionMark> bestSolution;
     private double bestScore = 1000;
 
-    public RandomProgramIterator(ProgramFitnessExaminer evaluator) {
+    public RandomProgramIterator(ProgramFitnessExaminerInterface evaluator) {
         this.evaluator = evaluator;
         enums = InstructionEnum.values();
     }
 
-    public RandomProgramIterator(ProgramFitnessExaminer evaluator, InstructionEnum[] enums) {
+    public RandomProgramIterator(ProgramFitnessExaminerInterface evaluator, InstructionEnum[] enums) {
         this.evaluator = evaluator;
 
         this.enums = enums;

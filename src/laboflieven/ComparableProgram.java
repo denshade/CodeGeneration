@@ -17,7 +17,7 @@ public class ComparableProgram implements Comparable<ComparableProgram>
 
     private double score;
 
-    public ComparableProgram(Program program, ProgramFitnessExaminer evaluator) {
+    public ComparableProgram(Program program, ProgramFitnessExaminerInterface evaluator) {
         this.program = program;
         score = ProgramDifferenceScoringStrategy.evaluate(evaluator, program);
     }

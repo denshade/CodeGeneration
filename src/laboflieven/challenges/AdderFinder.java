@@ -30,7 +30,7 @@ public class AdderFinder {
         collection.add(createParameter(fillDoubleArray(new double [] {1.0, 1.0, 0.0}, 3), new double[] {1.0,0.0}));
         collection.add(createParameter(fillDoubleArray(new double [] {1.0, 1.0, 1.0}, 3), new double[] {1.0,1.0}));
 
-        ProgramFitnessExaminer evaluator = new ProgramFitnessExaminer(collection);
+        ProgramFitnessExaminerInterface evaluator = new ProgramFitnessExaminer(collection);
         BruteForceProgramIterator iterator = new BruteForceProgramIterator(evaluator, new InstructionEnum[] {InstructionEnum.Nand});
         iterator.iterate(3,10);
     }

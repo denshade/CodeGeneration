@@ -18,7 +18,7 @@ public class AccBruteForceProgramIterator
     public int maximumInstructions;
     public long counter = 0;
 
-    public List<List<AccRegisterInstruction>> positiveSolutions = new ArrayList<>();
+    public List<List<InstructionMark>> positiveSolutions = new ArrayList<>();
     private AccProgramFitnessExaminer evaluator;
     private InstructionEnum[] instructionEnums;
     private RecursionHeuristic heuristic = new AlwaysRecursionHeuristic();
@@ -44,7 +44,7 @@ public class AccBruteForceProgramIterator
         this.heuristic = heuristic;
     }
 
-    public List<List<AccRegisterInstruction>> iterate(final int nrOfRegisters, int maximumInstructions)
+    public List<List<InstructionMark>> iterate(final int nrOfRegisters, int maximumInstructions)
     {
         this.maximumInstructions = maximumInstructions;
         List<Register> registers =  Register.createRegisters(nrOfRegisters, "R");
@@ -57,7 +57,7 @@ public class AccBruteForceProgramIterator
         return positiveSolutions;
     }
 
-    private void recurse(List<AccRegisterInstruction> instructions, Register[] registers)
+    private void recurse(List<InstructionMark> instructions, Register[] registers)
     {
         if (instructions.size() >= maximumInstructions)
             return;
@@ -78,43 +78,21 @@ public class AccBruteForceProgramIterator
         }
     }
 
-    private void processInstruction(List<AccRegisterInstruction> instructions, Register[] registers, AccRegisterInstruction actualInstruction) {
+    private void processInstruction(List<InstructionMark> instructions, Register[] registers, AccRegisterInstruction actualInstruction) {
         instructions.add(actualInstruction);
         eval(instructions, Arrays.asList(registers));
         recurse(instructions, registers);
         instructions.remove(instructions.size() - 1);
     }
 
-    private boolean hasAccLeftPush(List<AccRegisterInstruction> instructions) {
-        boolean used = false;
-        for ( AccRegisterInstruction instructionI: instructions)
-        {
-            if (instructionI instanceof AccLeftPush) {
-                used = true;
-            }
-        }
-        return used;
-    }
-
-    private boolean hasAccRightPush(List<AccRegisterInstruction> instructions) {
-        boolean used = false;
-        for ( AccRegisterInstruction instructionI: instructions)
-        {
-            if (instructionI instanceof AccRightPush) {
-                used = true;
-            }
-        }
-        return used;
-    }
-
-    private void eval(List<AccRegisterInstruction> instructions, List<Register> registers) {
+    private void eval(List<InstructionMark> instructions, List<Register> registers) {
         if (onlyEvaluateAtLastInstruction && instructions.size() != maximumInstructions)
         {
             //Not yet!
         } else {
             if (evaluator.isFit(instructions, registers)){
                 System.out.println("Found a program: " + instructions);
-                positiveSolutions.add(new ArrayList<>(instructions));
+                positiveSolutions.add(new ArrayList<InstructionMark>(instructions));
                 evaluator.calculateFitness(instructions, registers);
                 if (stopAtFirstSolution) {
                     throw new StopException();

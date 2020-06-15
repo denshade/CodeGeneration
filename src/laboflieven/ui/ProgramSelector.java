@@ -67,7 +67,7 @@ public class ProgramSelector
             List<InstructionEnum> selectedValuesList = allowedInstructions.getSelectedValuesList();
             InstructionEnum[] enums = selectedValuesList.toArray(new InstructionEnum[0]);
 
-            ProgramFitnessExaminer evaluator = new ProgramFitnessExaminer(collection);
+            ProgramFitnessExaminerInterface evaluator = new ProgramFitnessExaminer(collection);
             System.out.println("Start");
             long start = System.currentTimeMillis();
             if (combo.getSelectedItem().equals(BRUTE_FORCE))

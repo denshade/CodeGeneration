@@ -16,7 +16,7 @@ public class ReverseProgramIterator
     public long counter = 0;
 
     public List<List<InstructionMark>> positiveSolutions = new ArrayList<>();
-    private ProgramFitnessExaminer evaluator;
+    private ProgramFitnessExaminerInterface evaluator;
     private InstructionEnum[] enums;
     private Register[] registers;
     private int numberOfRegisters;
@@ -25,13 +25,13 @@ public class ReverseProgramIterator
     private double bestScore = Double.MAX_VALUE;
 
 
-    public ReverseProgramIterator(ProgramFitnessExaminer evaluator)
+    public ReverseProgramIterator(ProgramFitnessExaminerInterface evaluator)
     {
         this.evaluator = evaluator;
         enums = InstructionEnum.values();
     }
 
-    public ReverseProgramIterator(ProgramFitnessExaminer evaluator, InstructionEnum[] enums)
+    public ReverseProgramIterator(ProgramFitnessExaminerInterface evaluator, InstructionEnum[] enums)
     {
         this.evaluator = evaluator;
         this.enums = enums;
