@@ -41,10 +41,10 @@ public class FormulaFinderTest {
 
         assertEquals(1,iter.iterate(curMaxRegisters, 8).size());
         System.out.println("timing: " + (System.currentTimeMillis() - now));
-        //timing: 127327 => 120440
+        //timing: 127327 => 115903 => 107699 => 99132
     }
 
-    @Test(expected = RuntimeException.class)
+    @Test
     public void mainBruteSinLog() {
         int curMaxRegisters = 1;
         double[][] doubles = TestCases.getExampleInput1D();
@@ -63,7 +63,7 @@ public class FormulaFinderTest {
         };
         //enums = new InstructionEnum[]{InstructionEnum.Add, InstructionEnum.Sub, InstructionEnum.Mul, InstructionEnum.Div, InstructionEnum.Log};
         AccProgramFitnessExaminer evaluator = new AccProgramFitnessExaminer(collection);
-        AccBruteForceProgramIterator iter = new AccBruteForceProgramIterator(evaluator, enums);
+        AccBruteForceProgramIterator iter = new AccBruteForceProgramIterator(evaluator, enums, new AccHeuristic());
         iter.iterate(curMaxRegisters, 10);
     }
 

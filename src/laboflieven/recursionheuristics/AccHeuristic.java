@@ -13,7 +13,7 @@ public class AccHeuristic implements RecursionHeuristic
     public boolean shouldRecurse(List<InstructionMark> instructionsMarks, int maximumInstructions) {
         List<AccRegisterInstruction> instructions = (List<AccRegisterInstruction>)(List<?>)instructionsMarks;
         if (instructions.size() == 0) return true;
-        AccRegisterInstruction lastInstruction = (AccRegisterInstruction) instructions.get(instructions.size() - 1);
+        AccRegisterInstruction lastInstruction = instructions.get(instructions.size() - 1);
         if (instructions.size() == 1 && !(lastInstruction instanceof AccLeftPush ||lastInstruction instanceof AccRightPush))
             return false;
         //Finish must be a push to a register.
@@ -28,17 +28,37 @@ public class AccHeuristic implements RecursionHeuristic
         {
             if (!hasAccRightPush(instructions)) return false;
         }
-        if (instructions.size() == maximumInstructions && (lastInstruction instanceof AccLeftPush || lastInstruction instanceof AccRightPull ))
+        if (instructions.size() == maximumInstructions && (lastInstruction instanceof AccLeftPush || lastInstruction instanceof AccRightPush ))
+            return false;
+        if (instructions.size() == maximumInstructions && !(lastInstruction instanceof AccLeftPull || lastInstruction instanceof AccRightPull ))
             return false;
         if (instructions.size() - 2 >= 0)
         {
             AccRegisterInstruction prevInstruction = instructions.get(instructions.size() - 2);
-            if (lastInstruction instanceof AccLeftPull && prevInstruction instanceof AccLeftPull && lastInstruction.toString().equals(prevInstruction.toString())) {
+            //Two pull lefts overwrite each other.
+            if (lastInstruction instanceof AccLeftPull && prevInstruction instanceof AccLeftPull) {
                return false;
             }
-            if (lastInstruction instanceof AccRightPull && prevInstruction instanceof AccRightPull && lastInstruction.toString().equals(prevInstruction.toString())) {
+            //Two pull rights overwrite each other.
+            if (lastInstruction instanceof AccRightPull && prevInstruction instanceof AccRightPull) {
                 return false;
             }
+            if (lastInstruction instanceof Add && prevInstruction instanceof Sub) {
+                return false;
+            }
+            if (lastInstruction instanceof Sub && prevInstruction instanceof Add) {
+                return false;
+            }
+            if (lastInstruction instanceof Div && prevInstruction instanceof Mul) {
+                return false;
+            }
+            if (lastInstruction instanceof Mul && prevInstruction instanceof Div) {
+                return false;
+            }
+            if (lastInstruction instanceof Swap && prevInstruction instanceof Swap) {
+                return false;
+            }
+
         }
 
         return true;

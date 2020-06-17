@@ -19,7 +19,7 @@ public class AccBruteForceProgramIterator
     public long counter = 0;
 
     public List<List<InstructionMark>> positiveSolutions = new ArrayList<>();
-    private AccProgramFitnessExaminer evaluator;
+    private ProgramFitnessExaminerInterface evaluator;
     private InstructionEnum[] instructionEnums;
     private RecursionHeuristic heuristic = new AlwaysRecursionHeuristic();
     public boolean stopAtFirstSolution = true;
@@ -28,14 +28,12 @@ public class AccBruteForceProgramIterator
 
     public AccBruteForceProgramIterator(AccProgramFitnessExaminer evaluator)
     {
-        this.evaluator = evaluator;
-        instructionEnums = InstructionEnum.values();
+        this(evaluator, InstructionEnum.values());
     }
 
     public AccBruteForceProgramIterator(AccProgramFitnessExaminer evaluator, InstructionEnum[] instructions)
     {
-        this.evaluator = evaluator;
-        instructionEnums = instructions;
+        this(evaluator, instructions, new AlwaysRecursionHeuristic());
     }
     public AccBruteForceProgramIterator(AccProgramFitnessExaminer evaluator, InstructionEnum[] instructions, RecursionHeuristic heuristic)
     {
