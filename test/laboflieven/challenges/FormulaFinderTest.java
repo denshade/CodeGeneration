@@ -28,7 +28,7 @@ public class FormulaFinderTest {
                 InstructionEnum.AccLeftPull,
                 InstructionEnum.AccRightPull,
                 InstructionEnum.AccLeftPush,
-                InstructionEnum.AccRightPush
+                InstructionEnum.AccRightPush,
                 InstructionEnum.Swap
         };
         //enums = new InstructionEnum[]{InstructionEnum.Add, InstructionEnum.Sub, InstructionEnum.Mul, InstructionEnum.Div, InstructionEnum.Log};
