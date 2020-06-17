@@ -1,7 +1,6 @@
 package laboflieven;
 
 import laboflieven.accinstructions.*;
-import laboflieven.recursionheuristics.AccHeuristic;
 import laboflieven.recursionheuristics.AlwaysRecursionHeuristic;
 import laboflieven.recursionheuristics.RecursionHeuristic;
 import laboflieven.statements.Register;
@@ -13,7 +12,7 @@ import java.util.List;
 /**
  * Created by lveeckha on 31/05/2015.
  */
-public class AccBruteForceProgramIterator
+public class GeneralBruteForceProgramIterator
 {
     public int maximumInstructions;
     public long counter = 0;
@@ -26,16 +25,16 @@ public class AccBruteForceProgramIterator
     public boolean onlyEvaluateAtLastInstruction = true;
 
 
-    public AccBruteForceProgramIterator(ProgramFitnessExaminerInterface evaluator)
+    public GeneralBruteForceProgramIterator(ProgramFitnessExaminerInterface evaluator)
     {
         this(evaluator, InstructionEnum.values());
     }
 
-    public AccBruteForceProgramIterator(ProgramFitnessExaminerInterface evaluator, InstructionEnum[] instructions)
+    public GeneralBruteForceProgramIterator(ProgramFitnessExaminerInterface evaluator, InstructionEnum[] instructions)
     {
         this(evaluator, instructions, new AlwaysRecursionHeuristic());
     }
-    public AccBruteForceProgramIterator(ProgramFitnessExaminerInterface evaluator, InstructionEnum[] instructions, RecursionHeuristic heuristic)
+    public GeneralBruteForceProgramIterator(ProgramFitnessExaminerInterface evaluator, InstructionEnum[] instructions, RecursionHeuristic heuristic)
     {
         this.evaluator = evaluator;
         instructionEnums = instructions;

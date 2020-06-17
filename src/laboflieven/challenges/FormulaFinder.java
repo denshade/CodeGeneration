@@ -271,7 +271,7 @@ public class FormulaFinder {
         };
         //enums = new InstructionEnum[]{InstructionEnum.Add, InstructionEnum.Sub, InstructionEnum.Mul, InstructionEnum.Div, InstructionEnum.Log};
         AccProgramFitnessExaminer evaluator = new AccProgramFitnessExaminer(collection);
-        AccBruteForceProgramIterator iter = new AccBruteForceProgramIterator(evaluator, enums);
+        GeneralBruteForceProgramIterator iter = new GeneralBruteForceProgramIterator(evaluator, enums);
         iter.iterate(curMaxRegisters, 10);
     }
 
