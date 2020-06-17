@@ -26,16 +26,16 @@ public class AccBruteForceProgramIterator
     public boolean onlyEvaluateAtLastInstruction = true;
 
 
-    public AccBruteForceProgramIterator(AccProgramFitnessExaminer evaluator)
+    public AccBruteForceProgramIterator(ProgramFitnessExaminerInterface evaluator)
     {
         this(evaluator, InstructionEnum.values());
     }
 
-    public AccBruteForceProgramIterator(AccProgramFitnessExaminer evaluator, InstructionEnum[] instructions)
+    public AccBruteForceProgramIterator(ProgramFitnessExaminerInterface evaluator, InstructionEnum[] instructions)
     {
         this(evaluator, instructions, new AlwaysRecursionHeuristic());
     }
-    public AccBruteForceProgramIterator(AccProgramFitnessExaminer evaluator, InstructionEnum[] instructions, RecursionHeuristic heuristic)
+    public AccBruteForceProgramIterator(ProgramFitnessExaminerInterface evaluator, InstructionEnum[] instructions, RecursionHeuristic heuristic)
     {
         this.evaluator = evaluator;
         instructionEnums = instructions;
