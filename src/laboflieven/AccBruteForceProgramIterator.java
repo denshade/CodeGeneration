@@ -63,7 +63,7 @@ public class AccBruteForceProgramIterator
             return;
         for (InstructionEnum instruction : instructionEnums)
         {
-            if (heuristic.shouldRecurse((List<InstructionMark>)(List<?>)instructions, maximumInstructions)) {
+            if (heuristic.shouldRecurse(instructions, maximumInstructions)) {
                 if (instruction.isSingleRegister()) {
                     for (Register register1 : registers) {
                         AccRegisterInstruction actualInstruction = InstructionFactory.createInstruction(instruction, register1);

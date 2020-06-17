@@ -41,7 +41,7 @@ public class FormulaFinderTest {
 
         assertEquals(1,iter.iterate(curMaxRegisters, 8).size());
         System.out.println("timing: " + (System.currentTimeMillis() - now));
-        //timing: 41248
+        //timing: 127327 => 120440
     }
 
     @Test(expected = RuntimeException.class)
