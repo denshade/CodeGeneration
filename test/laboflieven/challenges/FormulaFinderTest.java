@@ -29,13 +29,14 @@ public class FormulaFinderTest {
                 InstructionEnum.AccRightPull,
                 InstructionEnum.AccLeftPush,
                 InstructionEnum.AccRightPush
+                InstructionEnum.Swap
         };
         //enums = new InstructionEnum[]{InstructionEnum.Add, InstructionEnum.Sub, InstructionEnum.Mul, InstructionEnum.Div, InstructionEnum.Log};
         AccProgramFitnessExaminer evaluator = new AccProgramFitnessExaminer(collection);
         GeneralBruteForceProgramIterator iter = new GeneralBruteForceProgramIterator(evaluator, enums, new AccHeuristic());
         long now = System.currentTimeMillis();
 
-        assertEquals(1,iter.iterate(curMaxRegisters, 8).size());
+        assertEquals(1,iter.iterate(curMaxRegisters, 7).size());
         System.out.println("timing: " + (System.currentTimeMillis() - now));
         //timing: 127327 => 115903 => 107699 => 99132 => 67878(Desktop)
     }
@@ -44,12 +45,9 @@ public class FormulaFinderTest {
     public void mainBruteSinLog() {
         int curMaxRegisters = 1;
         double[][] doubles = TestCases.getExampleInput1D();
-        List<InOutParameters> collection = TestCases.getTestCases(new ProgramTemplate() {
-            @Override
-            public double run(double[] args) {
-                double a = args[0];
-                return Math.sin(a);
-            }
+        List<InOutParameters> collection = TestCases.getTestCases(args -> {
+            double a = args[0];
+            return Math.sin(a);
         }, doubles, curMaxRegisters);
         //laboflieven.accinstructions.InstructionEnum[] enums = laboflieven.accinstructions.InstructionEnum.values();
         InstructionEnum[] enums = new InstructionEnum[] {
