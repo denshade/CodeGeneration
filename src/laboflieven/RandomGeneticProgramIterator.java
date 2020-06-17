@@ -105,10 +105,7 @@ public class RandomGeneticProgramIterator {
         PriorityQueue<ProgramResolution> solutions = new PriorityQueue<>();
         for (List<InstructionMark> instruction : chosenSolutions)
         {
-            ProgramResolution res = new ProgramResolution();
-            res.weight = eval(instruction, Arrays.asList(registers));
-            res.instructions = instruction;
-            solutions.add(res);
+            solutions.add(new ProgramResolution(instruction, eval(instruction, Arrays.asList(registers))));
         }
         double bestSolution = Double.MAX_VALUE;
         int bestSolutionCycle = 10000;
@@ -144,10 +141,7 @@ public class RandomGeneticProgramIterator {
 
         for (List<InstructionMark> childDNA : mom.procreate(dad, 3))
         {
-            ProgramResolution child = new ProgramResolution();
-            child.instructions = childDNA;
-            child.weight = eval(child.instructions, Arrays.asList(registers));
-            solutions.add(child);
+            solutions.add(new ProgramResolution(childDNA, eval(childDNA, Arrays.asList(registers))));
         }
     }
 
