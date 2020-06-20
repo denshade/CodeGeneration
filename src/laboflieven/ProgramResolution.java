@@ -15,6 +15,11 @@ public class ProgramResolution implements Comparable<ProgramResolution>
     public List<InstructionMark> instructions;
     public double weight;
 
+    public ProgramResolution(List<InstructionMark> instructions, double weight) {
+        this.instructions = instructions;
+        this.weight = weight;
+    }
+
     List<InstructionMark> procreate(ProgramResolution partner)
     {
         List<InstructionMark> childinstructions = new ArrayList<>();

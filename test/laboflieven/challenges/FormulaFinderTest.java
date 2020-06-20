@@ -42,6 +42,36 @@ public class FormulaFinderTest {
     }
 
     @Test
+    public void mainGeneticAccLog() {
+        int curMaxRegisters = 2;
+        double[][] doubles = TestCases.getExampleInput2D();
+        List<InOutParameters> collection = TestCases.getTestCases(args -> {
+            double a = args[0];
+            double b = args[1];
+            return Math.log(a)/Math.log(b);
+        }, doubles, curMaxRegisters);
+        //laboflieven.accinstructions.InstructionEnum[] enums = laboflieven.accinstructions.InstructionEnum.values();
+        InstructionEnum[] enums = new InstructionEnum[] {
+                InstructionEnum.Log,
+                InstructionEnum.Div,
+                InstructionEnum.AccLeftPull,
+                InstructionEnum.AccRightPull,
+                InstructionEnum.AccLeftPush,
+                InstructionEnum.AccRightPush,
+                InstructionEnum.Swap
+        };
+        //enums = new InstructionEnum[]{InstructionEnum.Add, InstructionEnum.Sub, InstructionEnum.Mul, InstructionEnum.Div, InstructionEnum.Log};
+        AccProgramFitnessExaminer evaluator = new AccProgramFitnessExaminer(collection);
+        GeneralRandomGeneticProgramIterator iter = new GeneralRandomGeneticProgramIterator(evaluator, enums, 10000, 1.4, 0.4, new AccHeuristic());
+        long now = System.currentTimeMillis();
+
+        assertEquals(0,iter.iterate(curMaxRegisters, 7).weight);
+        System.out.println("timing: " + (System.currentTimeMillis() - now));
+        //timing: 127327 => 115903 => 107699 => 99132 => 67878(Desktop)
+    }
+
+
+    @Test
     public void mainBruteSinLog() {
         int curMaxRegisters = 1;
         double[][] doubles = TestCases.getExampleInput1D();
