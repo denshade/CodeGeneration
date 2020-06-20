@@ -38,7 +38,7 @@ public class FormulaFinderTest {
 
         assertEquals(1,iter.iterate(curMaxRegisters, 7).size());
         System.out.println("timing: " + (System.currentTimeMillis() - now));
-        //timing: 127327 => 115903 => 107699 => 99132 => 67878(Desktop)
+        //timing: 127327 => 115903 => 107699 => 99132 => 67878(Desktop) => 13949
     }
 
     @Test

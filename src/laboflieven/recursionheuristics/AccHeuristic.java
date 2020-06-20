@@ -58,6 +58,11 @@ public class AccHeuristic implements RecursionHeuristic
             if (lastInstruction instanceof Swap && prevInstruction instanceof Swap) {
                 return false;
             }
+            //if pullLeft overwrite the result of operations.
+            if (lastInstruction instanceof AccLeftPull && !(prevInstruction instanceof Swap || prevInstruction instanceof AccLeftPush)) {
+                return false;
+            }
+
 
         }
 
