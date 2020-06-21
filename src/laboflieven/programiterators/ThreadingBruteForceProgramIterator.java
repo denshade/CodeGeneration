@@ -1,6 +1,10 @@
-package laboflieven;
+package laboflieven.programiterators;
 
-import laboflieven.accinstructions.*;
+import laboflieven.InstructionMark;
+import laboflieven.ProgramFitnessExaminerInterface;
+import laboflieven.accinstructions.AccRegisterInstruction;
+import laboflieven.accinstructions.InstructionEnum;
+import laboflieven.accinstructions.InstructionFactory;
 import laboflieven.recursionheuristics.AlwaysRecursionHeuristic;
 import laboflieven.recursionheuristics.RecursionHeuristic;
 import laboflieven.statements.Register;
@@ -12,7 +16,7 @@ import java.util.List;
 /**
  * Created by lveeckha on 31/05/2015.
  */
-public class GeneralBruteForceProgramIterator
+public class ThreadingBruteForceProgramIterator
 {
     public int maximumInstructions;
     public long counter = 0;
@@ -25,16 +29,16 @@ public class GeneralBruteForceProgramIterator
     public boolean onlyEvaluateAtLastInstruction = true;
 
 
-    public GeneralBruteForceProgramIterator(ProgramFitnessExaminerInterface evaluator)
+    public ThreadingBruteForceProgramIterator(ProgramFitnessExaminerInterface evaluator)
     {
         this(evaluator, InstructionEnum.values());
     }
 
-    public GeneralBruteForceProgramIterator(ProgramFitnessExaminerInterface evaluator, InstructionEnum[] instructions)
+    public ThreadingBruteForceProgramIterator(ProgramFitnessExaminerInterface evaluator, InstructionEnum[] instructions)
     {
         this(evaluator, instructions, new AlwaysRecursionHeuristic());
     }
-    public GeneralBruteForceProgramIterator(ProgramFitnessExaminerInterface evaluator, InstructionEnum[] instructions, RecursionHeuristic heuristic)
+    public ThreadingBruteForceProgramIterator(ProgramFitnessExaminerInterface evaluator, InstructionEnum[] instructions, RecursionHeuristic heuristic)
     {
         this.evaluator = evaluator;
         instructionEnums = instructions;
@@ -58,7 +62,7 @@ public class GeneralBruteForceProgramIterator
     {
         if (instructions.size() >= maximumInstructions)
             return;
-        for (InstructionEnum instruction : instructionEnums)
+        Arrays.stream(instructionEnums).parallel().forEach(instruction ->
         {
             if (heuristic.shouldRecurse(instructions, maximumInstructions)) {
                 if (instruction.isSingleRegister()) {
@@ -71,15 +75,15 @@ public class GeneralBruteForceProgramIterator
                     processInstruction(instructions, registers, actualInstruction);
                 }
             }
-
-        }
+        });
     }
 
     private void processInstruction(List<InstructionMark> instructions, Register[] registers, AccRegisterInstruction actualInstruction) {
+        instructions = new ArrayList<>(instructions);
         instructions.add(actualInstruction);
         eval(instructions, Arrays.asList(registers));
         recurse(instructions, registers);
-        instructions.remove(instructions.size() - 1);
+//        instructions.remove(instructions.size() - 1);
     }
 
     private void eval(List<InstructionMark> instructions, List<Register> registers) {

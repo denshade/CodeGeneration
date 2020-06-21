@@ -1,7 +1,7 @@
 package laboflieven.challenges;
 
 import laboflieven.AccProgramFitnessExaminer;
-import laboflieven.AccRandomGeneticProgramIterator;
+import laboflieven.programiterators.AccRandomGeneticProgramIterator;
 import laboflieven.InOutParameters;
 import laboflieven.accinstructions.InstructionEnum;
 

@@ -1,10 +1,15 @@
 package laboflieven.statements;
 
 
+import laboflieven.InstructionMark;
+
+import java.util.List;
+import java.util.Random;
+
 /**
  * Created by lveeckha on 4/06/2015.
  */
-public class InstructionFactory
+public class InstructionFactory implements InstructionFactoryInterface
 {
     public static Instruction createInstruction(InstructionEnum instructionEnum, Register register1, Register register2)
     {
@@ -89,4 +94,20 @@ public class InstructionFactory
         return instruction;
     }
 
+    @Override
+    public InstructionMark generateRandomInstruction(List<Register> register) {
+        Random r = new Random();
+        int enumIndex = r.nextInt(InstructionEnum.values().length);
+        InstructionEnum selectedEnum = InstructionEnum.values()[enumIndex];
+        InstructionMark mark;
+        if (selectedEnum.isDualRegister()) {
+            int registerIndex1 = r.nextInt(register.size());
+            int registerIndex2 = r.nextInt(register.size());
+            mark = createInstruction(selectedEnum, register.get(registerIndex1), register.get(registerIndex2));
+        } else {
+            int registerIndex1 = r.nextInt(register.size());
+            mark = createInstruction(selectedEnum, register.get(registerIndex1));
+        }
+        return mark;
+    }
 }

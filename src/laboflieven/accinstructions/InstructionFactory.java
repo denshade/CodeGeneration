@@ -1,14 +1,18 @@
 package laboflieven.accinstructions;
 
 
+import laboflieven.InstructionMark;
+import laboflieven.statements.InstructionFactoryInterface;
 import laboflieven.statements.Register;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.List;
+import java.util.Random;
 
 /**
  * Created by lveeckha on 4/06/2015.
  */
-public class InstructionFactory
+public class InstructionFactory implements InstructionFactoryInterface
 {
     public static AccRegisterInstruction createInstruction(InstructionEnum instructionEnum)
     {
@@ -109,6 +113,21 @@ public class InstructionFactory
                 throw new IllegalArgumentException("invalid instruction " + instructionEnum.toString());
         }
         return instruction;
+    }
+
+    @Override
+    public InstructionMark generateRandomInstruction(List<Register> register) {
+        Random r = new Random();
+        int enumIndex = r.nextInt(InstructionEnum.values().length);
+        InstructionEnum selectedEnum = InstructionEnum.values()[enumIndex];
+        InstructionMark mark;
+        if (selectedEnum.isSingleRegister()) {
+            int registerIndex1 = r.nextInt(register.size());
+            mark = createInstruction(selectedEnum, register.get(registerIndex1));
+        } else {
+            mark = createInstruction(selectedEnum);
+        }
+        return mark;
     }
 
 }

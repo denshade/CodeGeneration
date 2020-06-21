@@ -1,5 +1,6 @@
-package laboflieven;
+package laboflieven.programiterators;
 
+import laboflieven.*;
 import laboflieven.statements.Instruction;
 import laboflieven.statements.InstructionEnum;
 import laboflieven.statements.InstructionFactory;
@@ -38,7 +39,7 @@ public class RandomGeneticProgramIterator {
 
 
     public static List<InstructionMark>  trySolutions(InOutParameterSource source, InstructionEnum[] enums, double maxPopulationOverflow, int startPopulation, int maxPopulation,
-                                    double minPopularParents, double maxPopularParents, int minRegisters, int maxRegisters) {
+                                                      double minPopularParents, double maxPopularParents, int minRegisters, int maxRegisters) {
         double winnerOfTheWorldWeight = Double.MAX_VALUE;
         List<InstructionMark> bestProgram = null;
 

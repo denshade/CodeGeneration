@@ -1,11 +1,16 @@
-package laboflieven;
+package laboflieven.programiterators;
 
+import laboflieven.InstructionMark;
+import laboflieven.ProgramFitnessExaminerInterface;
+import laboflieven.ProgramResolution;
 import laboflieven.accinstructions.AccProgramResolution;
 import laboflieven.accinstructions.AccRegisterInstruction;
 import laboflieven.accinstructions.InstructionEnum;
 import laboflieven.accinstructions.InstructionFactory;
 import laboflieven.common.BestFitRegister;
 import laboflieven.common.PriorityQueueAlgos;
+import laboflieven.recursionheuristics.AlwaysRecursionHeuristic;
+import laboflieven.recursionheuristics.RecursionHeuristic;
 import laboflieven.statements.Register;
 
 import java.util.*;
@@ -14,7 +19,7 @@ import java.util.stream.IntStream;
 /**
  * Created by lveeckha on 31/05/2015.
  */
-public class AccRandomGeneticProgramIterator {
+public class GeneralRandomGeneticProgramIterator {
     public static final int BEST_SOLUTION_CYCLE = 10000000;
     public int POPULATION_MAX = 1000;
     private double popularParents;
@@ -22,9 +27,10 @@ public class AccRandomGeneticProgramIterator {
     public int maximumInstructions;
     public long counter = 0;
 
-    public List<List<AccRegisterInstruction>> positiveSolutions = new ArrayList<>();
-    private AccProgramFitnessExaminer evaluator;
+    public List<List<InstructionMark>> positiveSolutions = new ArrayList<>();
+    private ProgramFitnessExaminerInterface evaluator;
     private InstructionEnum[] enums;
+    private RecursionHeuristic heuristic = new AlwaysRecursionHeuristic();
     private int maxPopulation;
     private Register[] registers;
     private int numberOfRegisters;
@@ -36,12 +42,8 @@ public class AccRandomGeneticProgramIterator {
     public int initialPopSize = 1000;
     public int nrChildren = 3;
 
-    public AccRandomGeneticProgramIterator(AccProgramFitnessExaminer evaluator, int maxPopulation, double maxOverflow, double popularParents) {
-        this.evaluator = evaluator;
-        POPULATION_MAX = maxPopulation;
-        this.maxOverflow = maxOverflow;
-        enums = InstructionEnum.values();
-    }
+    public GeneralRandomGeneticProgramIterator(ProgramFitnessExaminerInterface evaluator, int maxPopulation, double maxOverflow, double popularParents) {
+        this(evaluator, InstructionEnum.values(), maxPopulation, maxOverflow, popularParents ); }
 
     /**
      * @param evaluator
@@ -50,34 +52,40 @@ public class AccRandomGeneticProgramIterator {
      * @param maxOverflow    If the size of the population > maxPopulation * maxOverflow then we cut down the least popular solutions.
      * @param popularParents Only popular parents can breed. This is the percent of parents that are taken into account. e.g. 0.8
      */
-    public AccRandomGeneticProgramIterator(AccProgramFitnessExaminer evaluator, InstructionEnum[] enums, int maxPopulation, double maxOverflow, double popularParents) {
+    public GeneralRandomGeneticProgramIterator(ProgramFitnessExaminerInterface evaluator, InstructionEnum[] enums, int maxPopulation, double maxOverflow, double popularParents) {
+        this(evaluator, enums, maxPopulation, maxOverflow, popularParents, new AlwaysRecursionHeuristic());
+    }
+
+    public GeneralRandomGeneticProgramIterator(ProgramFitnessExaminerInterface evaluator, InstructionEnum[] enums, int maxPopulation, double maxOverflow, double popularParents, RecursionHeuristic heuristic) {
         this.evaluator = evaluator;
         this.enums = enums;
         this.maxPopulation = maxPopulation;
         this.maxOverflow = maxOverflow;
         this.popularParents = popularParents;
+        this.heuristic = heuristic;
         if (popularParents < 0 || popularParents > 1) {
             throw new IllegalArgumentException("PopularParents should be in [0,1]");
         }
     }
 
-    public AccProgramResolution iterate(int numberOfRegisters, int maximumInstructions) {
+
+    public ProgramResolution iterate(int numberOfRegisters, int maximumInstructions) {
         chosenSolutions = new ArrayList<>();
         this.numberOfRegisters = numberOfRegisters;
         this.maximumInstructions = maximumInstructions;
         registers = Register.createRegisters(numberOfRegisters, "R").toArray(new Register[0]);
         IntStream.range(0,  initialPopSize).forEach(k -> recurse(new ArrayList<>()));
         // System.out.println(chosenSolutions);
-        PriorityQueue<AccProgramResolution> solutions = new PriorityQueue<>();
+        PriorityQueue<ProgramResolution> solutions = new PriorityQueue<>();
         for (List<InstructionMark> instruction : chosenSolutions) {
-            solutions.add(new AccProgramResolution(instruction, eval(instruction, Arrays.asList(registers))));
+            solutions.add(new ProgramResolution(instruction, eval(instruction, Arrays.asList(registers))));
         }
         int bestSolutionCycle = BEST_SOLUTION_CYCLE;
         //Let the best 10 solutions procreate.
         double overflowLimit = maxPopulation * maxOverflow;
-        BestFitRegister<AccProgramResolution> register = new BestFitRegister<>();
+        BestFitRegister<ProgramResolution> register = new BestFitRegister<>();
         while (solutions.peek() != null && solutions.peek().weight > 0.10 && bestSolutionCycle > 0) {
-            AccProgramResolution peekSolution = solutions.peek();
+            ProgramResolution peekSolution = solutions.peek();
             if (register.register(peekSolution.weight, peekSolution))
             {
                 bestSolutionCycle = BEST_SOLUTION_CYCLE;
@@ -94,29 +102,28 @@ public class AccRandomGeneticProgramIterator {
         return solutions.peek();
     }
 
-    private void reproduce(PriorityQueue<AccProgramResolution> solutions) {
-        AccProgramResolution mom = getNthVar(solutions);
-        AccProgramResolution dad = getNthVar(solutions);
+    private void reproduce(PriorityQueue<ProgramResolution> solutions) {
+        ProgramResolution mom = getNthVar(solutions);
+        ProgramResolution dad = getNthVar(solutions);
 
         for (List<InstructionMark> childDNA : mom.procreate(dad, nrChildren)) {
-            solutions.add(new AccProgramResolution(childDNA, eval(childDNA, Arrays.asList(registers))));
+            solutions.add(new ProgramResolution(childDNA, eval(childDNA, Arrays.asList(registers))));
         }
     }
 
-    private AccProgramResolution getNthVar(PriorityQueue<AccProgramResolution> solutions) {
+    private ProgramResolution getNthVar(PriorityQueue<ProgramResolution> solutions) {
         Random r = new Random();
         int p = r.nextInt((int) (solutions.size() * popularParents));
-        return (AccProgramResolution) PriorityQueueAlgos.getNthBestSolution(solutions, p);
+        return (ProgramResolution) PriorityQueueAlgos.getNthBestSolution(solutions, p);
     }
 
     public void recurse(List<InstructionMark> instructions) {
         if (instructions.size() >= maximumInstructions) {
-            chosenSolutions.add(new ArrayList<InstructionMark>(instructions));
+            chosenSolutions.add(new ArrayList<>(instructions));
             return;
         }
 
         Random r = new Random();
-        AccProgram program = new AccProgram(instructions, Arrays.asList(registers));
         boolean foundProgram = false;
         while (!foundProgram) {
             InstructionEnum instruction;
@@ -133,7 +140,7 @@ public class AccRandomGeneticProgramIterator {
             } else {
                 actualInstruction = InstructionFactory.createInstruction(instruction);
             }
-            if (!program.isUseless(actualInstruction, maximumInstructions)) {
+            if (heuristic.shouldRecurse(instructions, maximumInstructions)) {
                 foundProgram = true;
                 instructions.add(0, actualInstruction);
                 recurse(instructions);

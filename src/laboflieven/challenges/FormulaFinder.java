@@ -3,6 +3,10 @@ package laboflieven.challenges;
 import laboflieven.*;
 import laboflieven.loggers.BitmapFitnessLogger;
 import laboflieven.loggers.FitnessLogger;
+import laboflieven.programiterators.GeneralBruteForceProgramIterator;
+import laboflieven.programiterators.RandomGeneticProgramIterator;
+import laboflieven.programiterators.RandomProgramIterator;
+import laboflieven.programiterators.ReverseProgramIterator;
 import laboflieven.statements.*;
 
 import java.io.File;

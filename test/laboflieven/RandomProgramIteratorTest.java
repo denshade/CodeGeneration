@@ -1,15 +1,12 @@
 package laboflieven;
 
+import laboflieven.programiterators.RandomProgramIterator;
 import laboflieven.statements.Cos;
-import laboflieven.statements.Instruction;
 import laboflieven.statements.Move;
 import laboflieven.statements.Register;
 import org.junit.Test;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 import static org.junit.Assert.*;
 

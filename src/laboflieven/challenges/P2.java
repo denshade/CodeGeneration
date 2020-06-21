@@ -1,7 +1,7 @@
 package laboflieven.challenges;
 
 import laboflieven.AccProgramFitnessExaminer;
-import laboflieven.AccRandomGeneticProgramIterator;
+import laboflieven.programiterators.AccRandomGeneticProgramIterator;
 import laboflieven.InOutParameters;
 import laboflieven.accinstructions.InstructionEnum;
 import laboflieven.loggers.SysOutAccFitnessLogger;
@@ -9,7 +9,6 @@ import laboflieven.loggers.SysOutAccFitnessLogger;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 public class P2 implements ProgramTemplate
 {

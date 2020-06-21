@@ -1,6 +1,7 @@
 package laboflieven;
 
 import junit.framework.TestCase;
+import laboflieven.programiterators.ReverseProgramIterator;
 
 import java.util.*;
 

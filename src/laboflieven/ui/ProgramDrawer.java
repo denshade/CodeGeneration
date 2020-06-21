@@ -1,14 +1,11 @@
 package laboflieven.ui;
 
 import laboflieven.*;
+import laboflieven.programiterators.RealRandomProgramIterator;
 import laboflieven.statements.InstructionEnum;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
 
 /**
  * Created by Lieven on 5-5-2016.

@@ -1,5 +1,8 @@
-package laboflieven;
+package laboflieven.programiterators;
 
+import laboflieven.InstructionMark;
+import laboflieven.ProgramFitnessExaminerInterface;
+import laboflieven.StoppedByUserException;
 import laboflieven.statements.Instruction;
 import laboflieven.statements.InstructionEnum;
 import laboflieven.statements.InstructionFactory;

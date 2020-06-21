@@ -2,8 +2,7 @@ package laboflieven.challenges;
 
 import laboflieven.InOutParameters;
 import laboflieven.LoggingProgramFitnessExaminer;
-import laboflieven.ProgramFitnessExaminer;
-import laboflieven.ReverseProgramIterator;
+import laboflieven.programiterators.ReverseProgramIterator;
 import laboflieven.statements.InstructionEnum;
 
 import java.io.File;

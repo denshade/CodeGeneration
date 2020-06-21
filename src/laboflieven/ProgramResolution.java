@@ -36,7 +36,7 @@ public class ProgramResolution implements Comparable<ProgramResolution>
         return childinstructions;
     }
 
-    List<List<InstructionMark>> procreate(ProgramResolution partner, int nrChildren)
+    public List<List<InstructionMark>> procreate(ProgramResolution partner, int nrChildren)
     {
         List<InstructionMark> childinstructions = new ArrayList<>();
         Random r = new Random();

@@ -1,13 +1,9 @@
 package laboflieven.challenges;
 
 import laboflieven.*;
-import laboflieven.recursionheuristics.AlwaysRecursionHeuristic;
-import laboflieven.recursionheuristics.NoInvertedHeuristic;
-import laboflieven.statements.Instruction;
+import laboflieven.programiterators.AccRandomGeneticProgramIterator;
 import laboflieven.accinstructions.InstructionEnum;
-import laboflieven.statements.Register;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.*;
 
