@@ -1,5 +1,7 @@
-package laboflieven;
+package laboflieven.programiterators;
 
+import laboflieven.InstructionMark;
+import laboflieven.ProgramFitnessExaminerInterface;
 import laboflieven.recursionheuristics.AlwaysRecursionHeuristic;
 import laboflieven.recursionheuristics.RecursionHeuristic;
 import laboflieven.statements.Instruction;

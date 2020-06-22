@@ -1,6 +1,7 @@
 package laboflieven.challenges;
 
 import laboflieven.*;
+import laboflieven.programiterators.BruteForceProgramIterator;
 import laboflieven.statements.InstructionEnum;
 
 import java.util.ArrayList;

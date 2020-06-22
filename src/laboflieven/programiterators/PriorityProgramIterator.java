@@ -1,5 +1,6 @@
-package laboflieven;
+package laboflieven.programiterators;
 
+import laboflieven.*;
 import laboflieven.statements.Instruction;
 import laboflieven.statements.InstructionEnum;
 import laboflieven.statements.InstructionFactory;

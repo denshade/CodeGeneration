@@ -1,6 +1,7 @@
 package laboflieven.challenges;
 
 import laboflieven.*;
+import laboflieven.programiterators.BruteForceProgramIterator;
 import laboflieven.recursionheuristics.NoInvertedHeuristic;
 
 import java.io.File;

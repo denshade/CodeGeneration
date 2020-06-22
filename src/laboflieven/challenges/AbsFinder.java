@@ -1,4 +1,9 @@
-package laboflieven;
+package laboflieven.challenges;
+
+import laboflieven.InOutParameters;
+import laboflieven.ProgramFitnessExaminer;
+import laboflieven.ProgramFitnessExaminerInterface;
+import laboflieven.programiterators.BruteForceProgramIterator;
 
 import java.util.ArrayList;
 import java.util.HashMap;

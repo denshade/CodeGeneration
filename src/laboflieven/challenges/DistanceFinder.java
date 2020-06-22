@@ -1,5 +1,7 @@
-package laboflieven;
+package laboflieven.challenges;
 
+import laboflieven.*;
+import laboflieven.programiterators.BruteForceProgramIterator;
 import laboflieven.programiterators.RandomGeneticProgramIterator;
 import laboflieven.statements.InstructionEnum;
 

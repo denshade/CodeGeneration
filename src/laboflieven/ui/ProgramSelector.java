@@ -1,6 +1,8 @@
 package laboflieven.ui;
 
 import laboflieven.*;
+import laboflieven.programiterators.BruteForceProgramIterator;
+import laboflieven.programiterators.PriorityProgramIterator;
 import laboflieven.programiterators.RandomProgramIterator;
 import laboflieven.programiterators.ReverseProgramIterator;
 import laboflieven.statements.InstructionEnum;
