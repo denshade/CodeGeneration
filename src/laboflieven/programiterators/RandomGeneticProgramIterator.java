@@ -1,6 +1,8 @@
 package laboflieven.programiterators;
 
 import laboflieven.*;
+import laboflieven.examiners.ProgramFitnessExaminer;
+import laboflieven.examiners.ProgramFitnessExaminerInterface;
 import laboflieven.statements.Instruction;
 import laboflieven.statements.InstructionEnum;
 import laboflieven.statements.InstructionFactory;

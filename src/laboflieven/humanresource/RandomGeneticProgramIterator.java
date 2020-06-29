@@ -1,15 +1,11 @@
 package laboflieven.humanresource;
 
-import laboflieven.ProgramFitnessExaminer;
-import laboflieven.ProgramResolution;
 import laboflieven.humanresource.instructions.Inbox;
 import laboflieven.humanresource.model.HumanInstruction;
 import laboflieven.humanresource.model.HumanInstructionEnum;
 import laboflieven.humanresource.model.HumanInstructionFactory;
 import laboflieven.humanresource.model.HumanRegister;
-import laboflieven.statements.Instruction;
 import laboflieven.statements.InstructionEnum;
-import laboflieven.statements.InstructionFactory;
 import laboflieven.statements.Register;
 
 import java.util.*;

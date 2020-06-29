@@ -1,6 +1,7 @@
 package laboflieven.challenges;
 
 import laboflieven.*;
+import laboflieven.examiners.AccProgramFitnessExaminer;
 import laboflieven.programiterators.AccRandomGeneticProgramIterator;
 import laboflieven.accinstructions.InstructionEnum;
 

@@ -1,7 +1,7 @@
 package laboflieven.programiterators;
 
 import laboflieven.InstructionMark;
-import laboflieven.ProgramFitnessExaminerInterface;
+import laboflieven.examiners.ProgramFitnessExaminerInterface;
 import laboflieven.ProgramResolution;
 import laboflieven.common.BestFitRegister;
 import laboflieven.statements.InstructionFactoryInterface;

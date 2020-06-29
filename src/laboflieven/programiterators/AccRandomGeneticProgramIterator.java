@@ -1,7 +1,7 @@
 package laboflieven.programiterators;
 
 import laboflieven.AccProgram;
-import laboflieven.AccProgramFitnessExaminer;
+import laboflieven.examiners.AccProgramFitnessExaminer;
 import laboflieven.InstructionMark;
 import laboflieven.accinstructions.AccProgramResolution;
 import laboflieven.accinstructions.AccRegisterInstruction;

@@ -1,6 +1,8 @@
-package laboflieven;
+package laboflieven.examiners;
 
-import laboflieven.statements.Instruction;
+import laboflieven.InOutParameters;
+import laboflieven.InstructionMark;
+import laboflieven.ProgramEnumerator;
 import laboflieven.statements.Register;
 
 import java.io.File;

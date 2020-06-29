@@ -3,6 +3,8 @@ package laboflieven.challenges;
 import laboflieven.*;
 import laboflieven.accinstructions.AccProgramResolution;
 import laboflieven.accinstructions.InstructionEnum;
+import laboflieven.examiners.AccProgramFitnessExaminer;
+import laboflieven.examiners.ProgramFitnessExaminerInterface;
 import laboflieven.programiterators.AccRandomGeneticProgramIterator;
 import laboflieven.programiterators.GeneralBruteForceProgramIterator;
 import laboflieven.programiterators.GeneralRandomGeneticProgramIterator;

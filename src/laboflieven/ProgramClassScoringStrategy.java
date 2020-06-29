@@ -1,5 +1,7 @@
 package laboflieven;
 
+import laboflieven.examiners.ProgramFitnessExaminerInterface;
+
 import java.util.Set;
 import java.util.TreeSet;
 

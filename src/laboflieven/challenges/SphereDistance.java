@@ -1,7 +1,7 @@
 package laboflieven.challenges;
 
 import laboflieven.InOutParameters;
-import laboflieven.LoggingProgramFitnessExaminer;
+import laboflieven.examiners.LoggingProgramFitnessExaminer;
 import laboflieven.programiterators.ReverseProgramIterator;
 import laboflieven.statements.InstructionEnum;
 

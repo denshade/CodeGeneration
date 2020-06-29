@@ -1,9 +1,8 @@
 package laboflieven.programiterators;
 
 import laboflieven.InstructionMark;
-import laboflieven.ProgramFitnessExaminerInterface;
+import laboflieven.examiners.ProgramFitnessExaminerInterface;
 import laboflieven.ProgramResolution;
-import laboflieven.accinstructions.AccProgramResolution;
 import laboflieven.accinstructions.AccRegisterInstruction;
 import laboflieven.accinstructions.InstructionEnum;
 import laboflieven.accinstructions.InstructionFactory;

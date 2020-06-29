@@ -2,6 +2,8 @@ package laboflieven;
 
 import laboflieven.challenges.TestCases;
 import laboflieven.challenges.XorFinder;
+import laboflieven.examiners.ProgramFitnessExaminer;
+import laboflieven.examiners.ProgramFitnessExaminerInterface;
 import laboflieven.statements.*;
 import org.junit.Test;
 

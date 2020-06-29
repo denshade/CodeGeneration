@@ -1,5 +1,7 @@
-package laboflieven;
+package laboflieven.examiners;
 
+import laboflieven.InstructionMark;
+import laboflieven.Program;
 import laboflieven.loggers.FitnessLogger;
 import laboflieven.statements.Register;
 

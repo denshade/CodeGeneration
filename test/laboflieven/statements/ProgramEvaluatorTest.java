@@ -1,6 +1,8 @@
 package laboflieven;
 
 import junit.framework.TestCase;
+import laboflieven.examiners.ProgramFitnessExaminer;
+import laboflieven.examiners.ProgramFitnessExaminerInterface;
 import laboflieven.statements.Add;
 import laboflieven.statements.Register;
 

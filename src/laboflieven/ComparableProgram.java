@@ -1,5 +1,7 @@
 package laboflieven;
 
+import laboflieven.examiners.ProgramFitnessExaminerInterface;
+
 /**
  * Created by Lieven on 12-6-2016.
  */

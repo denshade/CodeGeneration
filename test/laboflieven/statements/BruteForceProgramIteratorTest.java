@@ -3,8 +3,8 @@ package laboflieven.statements;
 import junit.framework.TestCase;
 import laboflieven.BruteForceProgramIterator;
 import laboflieven.InOutParameters;
-import laboflieven.ProgramFitnessExaminer;
-import laboflieven.ProgramFitnessExaminerInterface;
+import laboflieven.examiners.ProgramFitnessExaminer;
+import laboflieven.examiners.ProgramFitnessExaminerInterface;
 
 import java.util.*;
 

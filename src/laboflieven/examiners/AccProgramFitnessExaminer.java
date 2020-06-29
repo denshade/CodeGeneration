@@ -1,8 +1,7 @@
-package laboflieven;
+package laboflieven.examiners;
 
-import laboflieven.accinstructions.AccRegisterInstruction;
+import laboflieven.*;
 import laboflieven.accinstructions.InstructionEnum;
-import laboflieven.loggers.AccFitnessLogger;
 import laboflieven.loggers.FitnessLogger;
 import laboflieven.statements.Register;
 

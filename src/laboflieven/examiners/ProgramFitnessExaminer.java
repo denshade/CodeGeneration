@@ -1,7 +1,10 @@
-package laboflieven;
+package laboflieven.examiners;
 
+import laboflieven.InOutParameters;
+import laboflieven.InstructionMark;
+import laboflieven.Program;
+import laboflieven.StatementRunner;
 import laboflieven.loggers.FitnessLogger;
-import laboflieven.statements.Instruction;
 import laboflieven.statements.InstructionEnum;
 import laboflieven.statements.Register;
 

@@ -1,6 +1,6 @@
 package laboflieven.programiterators;
 
-import laboflieven.AccProgramFitnessExaminer;
+import laboflieven.examiners.AccProgramFitnessExaminer;
 import laboflieven.InOutParameters;
 import laboflieven.accinstructions.InstructionFactory;
 import laboflieven.challenges.P1;

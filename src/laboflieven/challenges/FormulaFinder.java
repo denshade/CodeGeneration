@@ -1,6 +1,10 @@
 package laboflieven.challenges;
 
 import laboflieven.*;
+import laboflieven.examiners.AccProgramFitnessExaminer;
+import laboflieven.examiners.LoggingProgramFitnessExaminer;
+import laboflieven.examiners.ProgramFitnessExaminer;
+import laboflieven.examiners.ProgramFitnessExaminerInterface;
 import laboflieven.loggers.BitmapFitnessLogger;
 import laboflieven.loggers.FitnessLogger;
 import laboflieven.programiterators.GeneralBruteForceProgramIterator;

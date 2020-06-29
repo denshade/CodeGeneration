@@ -1,5 +1,7 @@
 package laboflieven;
 
+import laboflieven.examiners.ProgramFitnessExaminer;
+import laboflieven.examiners.ProgramFitnessExaminerInterface;
 import laboflieven.statements.*;
 import laboflieven.statements.Instruction;
 import org.junit.Test;

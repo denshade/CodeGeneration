@@ -1,7 +1,7 @@
 package laboflieven.programiterators;
 
 import laboflieven.InstructionMark;
-import laboflieven.ProgramFitnessExaminerInterface;
+import laboflieven.examiners.ProgramFitnessExaminerInterface;
 import laboflieven.StoppedByUserException;
 import laboflieven.statements.Instruction;
 import laboflieven.statements.InstructionEnum;
