@@ -8,6 +8,7 @@ import laboflieven.examiners.ProgramFitnessExaminerInterface;
 import laboflieven.loggers.BitmapFitnessLogger;
 import laboflieven.loggers.FitnessLogger;
 import laboflieven.programiterators.*;
+import laboflieven.programiterators.ReverseProgramIterator;
 import laboflieven.statements.*;
 
 import java.io.File;

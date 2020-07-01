@@ -1,6 +1,7 @@
-package laboflieven;
+package laboflieven.statements;
 
 import junit.framework.TestCase;
+import laboflieven.InOutParameters;
 import laboflieven.examiners.ProgramFitnessExaminer;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
 import laboflieven.programiterators.ReverseProgramIterator;
@@ -65,5 +66,15 @@ public class ReverseProgramIteratorTest extends TestCase {
         parameters.input = startParameters;
         parameters.expectedOutput = endParameters;
         return parameters;
+    }
+
+    public void testIterate() throws Exception {
+        laboflieven.ReverseProgramIterator ev = new laboflieven.ReverseProgramIterator(213);
+        assertNotNull(ev.iterate(4,4));
+
+        ev = new laboflieven.ReverseProgramIterator(213000);
+        assertNull(ev.iterate(2, 2));
+
+
     }
 }
