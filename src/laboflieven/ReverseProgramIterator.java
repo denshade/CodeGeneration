@@ -10,13 +10,13 @@ import java.util.*;
 /**
  * Created by lveeckha on 31/05/2015.
  */
-public class ReverseProgramGetter {
+public class ReverseProgramIterator {
     private int maximumInstructions = 12;
     public long counter = 0;
     private int programCount;
 
 
-    public ReverseProgramGetter(int programCount)
+    public ReverseProgramIterator(int programCount)
     {
         this.programCount = programCount;
     }

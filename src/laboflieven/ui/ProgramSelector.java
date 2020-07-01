@@ -3,6 +3,8 @@ package laboflieven.ui;
 import laboflieven.*;
 import laboflieven.examiners.ProgramFitnessExaminer;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
+import laboflieven.programiterators.BruteForceProgramIterator;
+import laboflieven.programiterators.PriorityProgramIterator;
 import laboflieven.programiterators.RandomProgramIterator;
 import laboflieven.programiterators.ReverseProgramIterator;
 import laboflieven.statements.InstructionEnum;
