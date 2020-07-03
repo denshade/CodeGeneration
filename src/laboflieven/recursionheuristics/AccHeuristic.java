@@ -37,11 +37,11 @@ public class AccHeuristic implements RecursionHeuristic
         {
             AccRegisterInstruction prevInstruction = instructions.get(size - 2);
             //Two pull lefts overwrite each other.
-            if (lastInstruction instanceof AccLeftPull && prevInstruction instanceof AccLeftPull) {
+            if (lastInstruction instanceof AccLeftPush && prevInstruction instanceof AccLeftPush) {
                return false;
             }
             //Two pull rights overwrite each other.
-            if (lastInstruction instanceof AccRightPull && prevInstruction instanceof AccRightPull) {
+            if (lastInstruction instanceof AccRightPush && prevInstruction instanceof AccRightPush) {
                 return false;
             }
             if (lastInstruction instanceof Add && prevInstruction instanceof Sub) {

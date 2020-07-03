@@ -2,8 +2,11 @@ package laboflieven.challenges;
 
 import laboflieven.*;
 import laboflieven.examiners.AccProgramFitnessExaminer;
+import laboflieven.loggers.AccPctBruteForceFitnessLogger;
 import laboflieven.programiterators.AccRandomGeneticProgramIterator;
 import laboflieven.accinstructions.InstructionEnum;
+import laboflieven.programiterators.GeneralBruteForceProgramIterator;
+import laboflieven.recursionheuristics.AccHeuristic;
 
 import java.io.IOException;
 import java.util.*;
@@ -20,16 +23,22 @@ Found a program: [R3 /= R1, Mod R2 -> R1, Mod R3 -> R2, Nand R2 -> R1]
      */
     public static void main(String[] args) throws IOException {
 
-        int curMaxRegisters = 4;
+        int curMaxRegisters = 3;
         List<double[]> points = new ArrayList<>();
         for (int i = 1; i < 40; i++) {
-            points.add(new double[] { i,3,5, 0});
+            points.add(new double[] { i,3,5});
         }
         List<InOutParameters> collection = TestCases.getTestCases(new P1(), points.toArray(new double[0][0]),curMaxRegisters);
         AccProgramFitnessExaminer evaluator = new AccProgramFitnessExaminer(collection);
-        AccRandomGeneticProgramIterator iter = new AccRandomGeneticProgramIterator(evaluator,  InstructionEnum.getMinimal(), 1000,1.2,0.4);
+        InstructionEnum[] instructions = new laboflieven.accinstructions.InstructionEnum[] {
+                InstructionEnum.AccRightPush, InstructionEnum.AccRightPush,InstructionEnum.AccRightPull, InstructionEnum.AccLeftPull, InstructionEnum.Mod, InstructionEnum.Mod,
+                InstructionEnum.Nand
+        };
+        evaluator.addListener(new AccPctBruteForceFitnessLogger(instructions, 10000, curMaxRegisters));
+        GeneralBruteForceProgramIterator iter = new GeneralBruteForceProgramIterator(evaluator, instructions, new AccHeuristic());
+        //AccRandomGeneticProgramIterator iter = new AccRandomGeneticProgramIterator(evaluator,  InstructionEnum.getMinimal(), 1000,1.2,0.4);
         long start = System.currentTimeMillis();
-        System.out.println(iter.iterate(curMaxRegisters, 15));
+        System.out.println(iter.iterate(curMaxRegisters, 8));
         //evaluator.writeAndClose();
         System.out.println(System.currentTimeMillis() - start + "ms");
 
