@@ -2,6 +2,9 @@ package laboflieven.statements;
 
 
 import laboflieven.InstructionMark;
+import laboflieven.accinstructions.AccRegisterInstruction;
+import laboflieven.common.EnumWrapper;
+import laboflieven.common.RegularEnumWrapper;
 
 import java.util.List;
 import java.util.Random;
@@ -11,7 +14,7 @@ import java.util.Random;
  */
 public class InstructionFactory implements InstructionFactoryInterface
 {
-    public static Instruction createInstruction(InstructionEnum instructionEnum, Register register1, Register register2)
+    public Instruction createInstructionP(InstructionEnum instructionEnum, Register register1, Register register2)
     {
         Instruction instruction;
         switch(instructionEnum){
@@ -45,7 +48,7 @@ public class InstructionFactory implements InstructionFactoryInterface
         return instruction;
     }
 
-    public static Instruction createInstruction(InstructionEnum instructionEnum, Register register1)
+    public Instruction createInstructionP(InstructionEnum instructionEnum, Register register1)
     {
         Instruction instruction;
         switch(instructionEnum){
@@ -103,11 +106,22 @@ public class InstructionFactory implements InstructionFactoryInterface
         if (selectedEnum.isDualRegister()) {
             int registerIndex1 = r.nextInt(register.size());
             int registerIndex2 = r.nextInt(register.size());
-            mark = createInstruction(selectedEnum, register.get(registerIndex1), register.get(registerIndex2));
+            mark = createInstructionP(selectedEnum, register.get(registerIndex1), register.get(registerIndex2));
         } else {
             int registerIndex1 = r.nextInt(register.size());
-            mark = createInstruction(selectedEnum, register.get(registerIndex1));
+            mark = createInstructionP(selectedEnum, register.get(registerIndex1));
         }
         return mark;
+    }
+
+    @Override
+    public InstructionMark createInstruction(EnumWrapper instructionEnum, Register... registers) {
+        InstructionEnum en = ((RegularEnumWrapper)instructionEnum).getEnumer();
+        if (registers.length == 1)
+            return createInstructionP(en, registers[0]);
+        if (registers.length == 2)
+            return createInstructionP(en, registers[0], registers[1]);
+
+        return null;
     }
 }

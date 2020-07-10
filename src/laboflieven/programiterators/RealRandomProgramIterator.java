@@ -2,10 +2,8 @@ package laboflieven.programiterators;
 
 import laboflieven.InstructionMark;
 import laboflieven.Program;
-import laboflieven.statements.Instruction;
-import laboflieven.statements.InstructionEnum;
-import laboflieven.statements.InstructionFactory;
-import laboflieven.statements.Register;
+import laboflieven.common.RegularEnumWrapper;
+import laboflieven.statements.*;
 
 import java.util.*;
 
@@ -19,6 +17,7 @@ public class RealRandomProgramIterator {
     public List<List<InstructionMark>> positiveSolutions = new ArrayList<>();
     private InstructionEnum[] enums;
     private Register[] registers;
+    private InstructionFactoryInterface instructionFactory = new InstructionFactory();
 
     public RealRandomProgramIterator() {
         enums = InstructionEnum.values();
@@ -55,13 +54,13 @@ public class RealRandomProgramIterator {
         if (instruction.isDualRegister()) {
             Register register1 = registers[r.nextInt(registers.length)];
             Register register2 = registers[r.nextInt(registers.length)];
-            Instruction actualInstruction = InstructionFactory.createInstruction(instruction, register1, register2);
+            InstructionMark actualInstruction = instructionFactory.createInstruction(new RegularEnumWrapper(instruction), register1, register2);
             instructions.add(actualInstruction);
 
         } else {
 
             Register register1 = registers[r.nextInt(registers.length)];
-            Instruction actualInstruction = InstructionFactory.createInstruction(instruction, register1);
+            InstructionMark actualInstruction = instructionFactory.createInstruction(new RegularEnumWrapper(instruction), register1);
             instructions.add(0, actualInstruction);
             /**
              * Available registers remains the same. No new registers are used.

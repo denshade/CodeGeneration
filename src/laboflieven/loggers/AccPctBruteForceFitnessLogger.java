@@ -3,6 +3,8 @@ package laboflieven.loggers;
 import laboflieven.InstructionMark;
 import laboflieven.accinstructions.InstructionEnum;
 import laboflieven.accinstructions.InstructionFactory;
+import laboflieven.common.AccEnumWrapper;
+import laboflieven.statements.InstructionFactoryInterface;
 import laboflieven.statements.Register;
 
 import java.util.ArrayList;
@@ -14,6 +16,7 @@ public class AccPctBruteForceFitnessLogger implements FitnessLogger
     private final int refreshRateInMs;
     private final int nrRegisters;
     private List<InstructionMark> exampleInstructions;
+    private InstructionFactoryInterface instructionFactory = new InstructionFactory();
 
     private long lastPrint;
 
@@ -69,10 +72,10 @@ public class AccPctBruteForceFitnessLogger implements FitnessLogger
         for (InstructionEnum instructionEnum : this.availableInstructions) {
             if (instructionEnum.isSingleRegister()) {
                 for (int register = 0; register < nrRegisters; register++) {
-                    instructions.add(InstructionFactory.createInstruction(instructionEnum, new Register("r" + register)));
+                    instructions.add(instructionFactory.createInstruction(new AccEnumWrapper(instructionEnum), new Register("r" + register)));
                 }
             } else {
-                instructions.add(InstructionFactory.createInstruction(instructionEnum));
+                instructions.add(instructionFactory.createInstruction(new AccEnumWrapper(instructionEnum)));
             }
         }
         return instructions;

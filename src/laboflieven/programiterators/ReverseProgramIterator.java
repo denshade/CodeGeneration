@@ -1,11 +1,9 @@
 package laboflieven.programiterators;
 
 import laboflieven.InstructionMark;
+import laboflieven.common.RegularEnumWrapper;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
-import laboflieven.statements.Instruction;
-import laboflieven.statements.InstructionEnum;
-import laboflieven.statements.InstructionFactory;
-import laboflieven.statements.Register;
+import laboflieven.statements.*;
 
 import java.util.*;
 
@@ -25,6 +23,7 @@ public class ReverseProgramIterator
 
     private List<InstructionMark> bestSolution;
     private double bestScore = Double.MAX_VALUE;
+    private InstructionFactoryInterface instructionFactory = new InstructionFactory();
 
 
     public ReverseProgramIterator(ProgramFitnessExaminerInterface evaluator)
@@ -74,7 +73,7 @@ public class ReverseProgramIterator
                             continue;
                         }
 
-                        Instruction actualInstruction = InstructionFactory.createInstruction(instruction, register1, register2);
+                        InstructionMark actualInstruction = instructionFactory.createInstruction(new RegularEnumWrapper(instruction), register1, register2);
                         instructions.add(0, actualInstruction);
                         eval(instructions, registerList);
                         Set<Register> newlyAvailableRegisters = new HashSet<>(availableRegisters);
@@ -90,7 +89,7 @@ public class ReverseProgramIterator
                 }
             } else {
                 for (Register register1 : registers) {
-                    Instruction actualInstruction = InstructionFactory.createInstruction(instruction, register1);
+                    InstructionMark actualInstruction = instructionFactory.createInstruction(new RegularEnumWrapper(instruction), register1);
                     instructions.add(0, actualInstruction);
                     eval(instructions, Arrays.asList(registers));
                     /*

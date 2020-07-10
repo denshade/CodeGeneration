@@ -1,12 +1,10 @@
 package laboflieven.programiterators;
 
 import laboflieven.*;
+import laboflieven.common.RegularEnumWrapper;
 import laboflieven.examiners.ProgramFitnessExaminer;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
-import laboflieven.statements.Instruction;
-import laboflieven.statements.InstructionEnum;
-import laboflieven.statements.InstructionFactory;
-import laboflieven.statements.Register;
+import laboflieven.statements.*;
 
 import java.util.*;
 
@@ -31,6 +29,7 @@ public class RandomGeneticProgramIterator {
 
 
     private double bestScore = 1000;
+    private InstructionFactoryInterface instructionFactory = new InstructionFactory();
 
     public RandomGeneticProgramIterator(ProgramFitnessExaminerInterface evaluator, int maxPopulation, double maxOverflow, double popularParents) {
         this.evaluator = evaluator;
@@ -196,7 +195,7 @@ public class RandomGeneticProgramIterator {
                 return;
             }
 
-            Instruction actualInstruction = InstructionFactory.createInstruction(instruction, register1, register2);
+            InstructionMark actualInstruction = instructionFactory.createInstruction(new RegularEnumWrapper(instruction), register1, register2);
             instructions.add(actualInstruction);
             //eval(instructions, Arrays.asList(registers));
             recurse(instructions);
@@ -204,7 +203,7 @@ public class RandomGeneticProgramIterator {
         } else {
 
             Register register1 = registers[r.nextInt(registers.length)];
-            Instruction actualInstruction = InstructionFactory.createInstruction(instruction, register1);
+            InstructionMark actualInstruction = instructionFactory.createInstruction(new RegularEnumWrapper(instruction), register1);
             instructions.add(0, actualInstruction);
             //eval(instructions, Arrays.asList(registers));
             /**

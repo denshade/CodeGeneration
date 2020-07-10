@@ -1,11 +1,10 @@
 package laboflieven.programiterators;
 
+import laboflieven.common.AccEnumWrapper;
+import laboflieven.common.RegularEnumWrapper;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
 import laboflieven.*;
-import laboflieven.statements.Instruction;
-import laboflieven.statements.InstructionEnum;
-import laboflieven.statements.InstructionFactory;
-import laboflieven.statements.Register;
+import laboflieven.statements.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -23,6 +22,7 @@ public class PriorityProgramIterator
     private final InstructionEnum[] enums;
     PriorityQueue<ComparableProgram> priorityQueue = new PriorityQueue<>();
     private Register[] registers;
+    private InstructionFactoryInterface instructionFactory = new InstructionFactory();
 
     public PriorityProgramIterator(ProgramFitnessExaminerInterface evaluator, InstructionEnum[] enums) {
         this.evaluator = evaluator;
@@ -62,7 +62,7 @@ public class PriorityProgramIterator
                         if (instruction == InstructionEnum.Move && register1.name.equals(register2.name)) {
                             continue;
                         }
-                        Instruction actualInstruction = InstructionFactory.createInstruction(instruction, register1, register2);
+                        InstructionMark actualInstruction = instructionFactory.createInstruction(new RegularEnumWrapper(instruction), register1, register2);
                         List<InstructionMark> newInstructions = new ArrayList<>(instructionsSoFar);
                         newInstructions.add(actualInstruction);
                         Program program = new Program(newInstructions, registerList);
@@ -74,7 +74,7 @@ public class PriorityProgramIterator
             }
             else {
                 for (Register register1 : registers) {
-                    Instruction actualInstruction = InstructionFactory.createInstruction(instruction, register1);
+                    InstructionMark actualInstruction = instructionFactory.createInstruction(new RegularEnumWrapper(instruction), register1);
                     List<InstructionMark> newInstructions = new ArrayList<>(instructionsSoFar);
                     newInstructions.add(actualInstruction);
                     Program program = new Program(newInstructions, registerList);
@@ -107,7 +107,7 @@ public class PriorityProgramIterator
                         if (instruction == InstructionEnum.Move && register1.name.equals(register2.name)) {
                             continue;
                         }
-                        Instruction actualInstruction = InstructionFactory.createInstruction(instruction, register1, register2);
+                        InstructionMark actualInstruction = instructionFactory.createInstruction(new RegularEnumWrapper(instruction), register1, register2);
                         Program program = new Program(Arrays.asList(actualInstruction), registerList);
                         addifImportant(new ComparableProgram(program, evaluator));
                     }
@@ -115,7 +115,7 @@ public class PriorityProgramIterator
             }
             else {
                 for (Register register1 : registers) {
-                    Instruction actualInstruction = InstructionFactory.createInstruction(instruction, register1);
+                    InstructionMark actualInstruction = instructionFactory.createInstruction(new RegularEnumWrapper(instruction), register1);
                     Program program = new Program(Arrays.asList(actualInstruction), registerList);
                     addifImportant(new ComparableProgram(program, evaluator));
                 }

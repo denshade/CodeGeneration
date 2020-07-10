@@ -1,5 +1,7 @@
 package laboflieven.accinstructions;
 
+import laboflieven.common.AccEnumWrapper;
+import laboflieven.common.RegularEnumWrapper;
 import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.InvocationTargetException;
@@ -10,15 +12,17 @@ class InstructionFactoryTest {
 
     @Test
     void createInstruction() {
-        assertEquals("laboflieven.accinstructions.Pow", InstructionFactory.createInstruction(InstructionEnum.Pow).getClass().getCanonicalName());
+        InstructionFactory fact = new InstructionFactory();
+        assertEquals("laboflieven.accinstructions.Pow", fact.createInstruction(new AccEnumWrapper(InstructionEnum.Pow)).getClass().getCanonicalName());
     }
 
     @Test
     void timeInstruction() throws ClassNotFoundException, InvocationTargetException, InstantiationException, IllegalAccessException {
+        InstructionFactory fact = new InstructionFactory();
         long l = System.currentTimeMillis();
         for (int i = 0; i < 1000000;i++)
         {
-            InstructionFactory.createInstruction(InstructionEnum.Pow).getClass().getCanonicalName();
+            fact.createInstruction(new AccEnumWrapper(InstructionEnum.Pow)).getClass().getCanonicalName();
         }
         System.out.println(System.currentTimeMillis() - l);
     }

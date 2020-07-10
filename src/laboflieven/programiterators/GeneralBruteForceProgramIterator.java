@@ -1,10 +1,12 @@
 package laboflieven.programiterators;
 
 import laboflieven.InstructionMark;
+import laboflieven.common.AccEnumWrapper;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
 import laboflieven.accinstructions.*;
 import laboflieven.recursionheuristics.AlwaysRecursionHeuristic;
 import laboflieven.recursionheuristics.RecursionHeuristic;
+import laboflieven.statements.InstructionFactoryInterface;
 import laboflieven.statements.Register;
 
 import java.util.ArrayList;
@@ -25,6 +27,7 @@ public class GeneralBruteForceProgramIterator
     private RecursionHeuristic heuristic = new AlwaysRecursionHeuristic();
     public boolean stopAtFirstSolution = true;
     public boolean onlyEvaluateAtLastInstruction = true;
+    public InstructionFactoryInterface instructionFactory = new InstructionFactory();
 
 
     public GeneralBruteForceProgramIterator(ProgramFitnessExaminerInterface evaluator)
@@ -65,12 +68,12 @@ public class GeneralBruteForceProgramIterator
             if (heuristic.shouldRecurse(instructions, maximumInstructions)) {
                 if (instruction.isSingleRegister()) {
                     for (Register register1 : registers) {
-                        AccRegisterInstruction actualInstruction = InstructionFactory.createInstruction(instruction, register1);
-                        processInstruction(instructions, registers, actualInstruction);
+                        InstructionMark actualInstruction = instructionFactory.createInstruction(new AccEnumWrapper(instruction), register1);
+                        processInstruction(instructions, registers, (AccRegisterInstruction) actualInstruction);
                     }
                 } else {
-                    AccRegisterInstruction actualInstruction = InstructionFactory.createInstruction(instruction);
-                    processInstruction(instructions, registers, actualInstruction);
+                    InstructionMark actualInstruction = instructionFactory.createInstruction(new AccEnumWrapper(instruction));
+                    processInstruction(instructions, registers, (AccRegisterInstruction) actualInstruction);
                 }
             }
 

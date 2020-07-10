@@ -1,5 +1,7 @@
 package laboflieven.programiterators;
 
+import laboflieven.common.AccEnumWrapper;
+import laboflieven.common.RegularEnumWrapper;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
 import laboflieven.InstructionMark;
 import laboflieven.recursionheuristics.AlwaysRecursionHeuristic;
@@ -24,6 +26,7 @@ public class BruteForceProgramIterator
     private InstructionEnum[] instructionEnums;
     private RecursionHeuristic recursionHeuristic;
     private int nrRegisters;
+    InstructionFactory instructionFactory = new InstructionFactory();
 
 
     public BruteForceProgramIterator(ProgramFitnessExaminerInterface evaluator)
@@ -71,7 +74,7 @@ public class BruteForceProgramIterator
             for (Register register1 : registers) {
                 if (instruction.isDualRegister()) {
                     for (Register register2 : registers) {
-                        Instruction actualInstruction = InstructionFactory.createInstruction(instruction, register1, register2);
+                        InstructionMark actualInstruction = instructionFactory.createInstruction(new RegularEnumWrapper(instruction), register1, register2);
                         instructions.add(actualInstruction);
                         if (recursionHeuristic.shouldRecurse((List<InstructionMark>)(List<?>)instructions, nrRegisters))
                         {
@@ -82,7 +85,7 @@ public class BruteForceProgramIterator
                         instructions.remove(instructions.size() - 1);
                     }
                 } else {
-                    Instruction actualInstruction = InstructionFactory.createInstruction(instruction, register1);
+                    InstructionMark actualInstruction = instructionFactory.createInstruction(new RegularEnumWrapper(instruction), register1);
                     instructions.add(actualInstruction);
                     if (recursionHeuristic.shouldRecurse((List<InstructionMark>)(List<?>)instructions, nrRegisters)) {
                         eval(instructions, Arrays.asList(registers));

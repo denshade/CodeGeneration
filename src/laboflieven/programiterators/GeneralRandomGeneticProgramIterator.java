@@ -1,6 +1,7 @@
 package laboflieven.programiterators;
 
 import laboflieven.InstructionMark;
+import laboflieven.common.AccEnumWrapper;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
 import laboflieven.ProgramResolution;
 import laboflieven.accinstructions.AccRegisterInstruction;
@@ -10,6 +11,7 @@ import laboflieven.common.BestFitRegister;
 import laboflieven.common.PriorityQueueAlgos;
 import laboflieven.recursionheuristics.AlwaysRecursionHeuristic;
 import laboflieven.recursionheuristics.RecursionHeuristic;
+import laboflieven.statements.InstructionFactoryInterface;
 import laboflieven.statements.Register;
 
 import java.util.*;
@@ -35,6 +37,8 @@ public class GeneralRandomGeneticProgramIterator {
     private int numberOfRegisters;
     private List<InstructionMark> bestSolution;
     private List<List<InstructionMark>> chosenSolutions;
+    public InstructionFactoryInterface instructionFactory = new InstructionFactory();
+
 
 
     private double bestScore = 1000;
@@ -132,12 +136,12 @@ public class GeneralRandomGeneticProgramIterator {
                 instruction = pickRandomInstruction(r);
             }
 
-            AccRegisterInstruction actualInstruction;
+            InstructionMark actualInstruction;
             if (instruction.isSingleRegister()) {
                 Register register1 = registers[r.nextInt(registers.length)];
-                actualInstruction = InstructionFactory.createInstruction(instruction, register1);
+                actualInstruction = instructionFactory.createInstruction(new AccEnumWrapper(instruction), register1);
             } else {
-                actualInstruction = InstructionFactory.createInstruction(instruction);
+                actualInstruction = instructionFactory.createInstruction(new AccEnumWrapper(instruction));
             }
             if (heuristic.shouldRecurse(instructions, maximumInstructions)) {
                 foundProgram = true;

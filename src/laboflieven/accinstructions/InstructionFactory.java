@@ -2,6 +2,8 @@ package laboflieven.accinstructions;
 
 
 import laboflieven.InstructionMark;
+import laboflieven.common.AccEnumWrapper;
+import laboflieven.common.EnumWrapper;
 import laboflieven.statements.InstructionFactoryInterface;
 import laboflieven.statements.Register;
 
@@ -14,7 +16,19 @@ import java.util.Random;
  */
 public class InstructionFactory implements InstructionFactoryInterface
 {
-    public static AccRegisterInstruction createInstruction(InstructionEnum instructionEnum)
+    public AccRegisterInstruction createInstruction(EnumWrapper instructionEnum, Register... registers)
+    {
+        InstructionEnum instruct = ((AccEnumWrapper)instructionEnum).getEnumer();
+        if (registers.length == 0)
+        {
+            return createInstructionP(instruct);
+        } else if (registers.length == 1) {
+            return createInstructionP(instruct, registers[0]);
+        }
+        throw new RuntimeException("Too many registers");
+    }
+
+    public AccRegisterInstruction createInstructionP(InstructionEnum instructionEnum)
     {
         AccRegisterInstruction instruction;
         switch(instructionEnum){
@@ -87,7 +101,7 @@ public class InstructionFactory implements InstructionFactoryInterface
         return instruction;
     }
 
-    public static AccRegisterInstruction createInstruction(InstructionEnum instructionEnum, Register register1)
+    public AccRegisterInstruction createInstructionP(InstructionEnum instructionEnum, Register register1)
     {
         AccRegisterInstruction instruction;
         switch(instructionEnum){
@@ -123,9 +137,9 @@ public class InstructionFactory implements InstructionFactoryInterface
         InstructionMark mark;
         if (selectedEnum.isSingleRegister()) {
             int registerIndex1 = r.nextInt(register.size());
-            mark = createInstruction(selectedEnum, register.get(registerIndex1));
+            mark = createInstruction(new AccEnumWrapper(selectedEnum), register.get(registerIndex1));
         } else {
-            mark = createInstruction(selectedEnum);
+            mark = createInstruction(new AccEnumWrapper(selectedEnum));
         }
         return mark;
     }

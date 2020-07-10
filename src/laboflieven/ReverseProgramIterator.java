@@ -1,9 +1,7 @@
 package laboflieven;
 
-import laboflieven.statements.Instruction;
-import laboflieven.statements.InstructionEnum;
-import laboflieven.statements.InstructionFactory;
-import laboflieven.statements.Register;
+import laboflieven.common.RegularEnumWrapper;
+import laboflieven.statements.*;
 
 import java.util.*;
 
@@ -14,6 +12,7 @@ public class ReverseProgramIterator {
     private int maximumInstructions = 12;
     public long counter = 0;
     private int programCount;
+    private InstructionFactoryInterface instructionFactory = new InstructionFactory();
 
 
     public ReverseProgramIterator(int programCount)
@@ -54,7 +53,7 @@ public class ReverseProgramIterator {
                             continue;
                         }
                         Register register2 = registers[register2Index];
-                        Instruction actualInstruction = InstructionFactory.createInstruction(instruction, register1, register2);
+                        InstructionMark actualInstruction = instructionFactory.createInstruction(new RegularEnumWrapper(instruction), register1, register2);
                         instructions.add(actualInstruction);
                         Program sol = eval(instructions, registerList);
                         if (sol != null)
@@ -71,7 +70,7 @@ public class ReverseProgramIterator {
                 }
                 else
                 {
-                    Instruction actualInstruction = InstructionFactory.createInstruction(instruction, register1);
+                    InstructionMark actualInstruction = instructionFactory.createInstruction(new RegularEnumWrapper(instruction), register1);
                     instructions.add(actualInstruction);
                     Program sol = eval(instructions, registerList);
                     if (sol != null)
