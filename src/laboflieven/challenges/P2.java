@@ -13,11 +13,6 @@ import java.util.List;
 public class P2 implements ProgramTemplate
 {
     /*
-    Found a program: [R2 /= R1, Mod R3 -> R1, Mod R2 -> R3, Nand R3 -> R1]
-Found a program: [R3 /= R1, Mod R2 -> R1, Mod R3 -> R1, Nand R1 -> R1]
-Found a program: [R3 /= R1, Mod R2 -> R1, Mod R3 -> R1, Nand R2 -> R1]
-Found a program: [R3 /= R1, Mod R2 -> R1, Mod R3 -> R1, Nand R3 -> R1]
-Found a program: [R3 /= R1, Mod R2 -> R1, Mod R3 -> R2, Nand R2 -> R1]
 
      */
     public static void main(String[] args) throws IOException {
@@ -46,8 +41,8 @@ Found a program: [R3 /= R1, Mod R2 -> R1, Mod R3 -> R2, Nand R2 -> R1]
 
     public long F(int n)
     {
-        if (n  == 0) return 1;
-        if (n  == 1) return 2;
+        if (n  == 0) return 0;
+        if (n  == 1) return 1;
         return F(n - 1 ) + F(n - 2);
     }
 

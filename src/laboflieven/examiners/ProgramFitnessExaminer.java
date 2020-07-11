@@ -3,7 +3,8 @@ package laboflieven.examiners;
 import laboflieven.InOutParameters;
 import laboflieven.InstructionMark;
 import laboflieven.Program;
-import laboflieven.StatementRunner;
+import laboflieven.runners.RegularStatementRunner;
+import laboflieven.runners.StatementRunner;
 import laboflieven.loggers.FitnessLogger;
 import laboflieven.statements.InstructionEnum;
 import laboflieven.statements.Register;
@@ -19,7 +20,7 @@ public class ProgramFitnessExaminer implements ProgramFitnessExaminerInterface {
     private final List<InOutParameters> conditions;
     private final double closeEnough = 0.00001;
     private final List<FitnessLogger> loggers = new ArrayList<>();
-    StatementRunner runner = new StatementRunner();
+    StatementRunner runner = new RegularStatementRunner();
 
     /**
      * @param conditions Conditions that define the input parameters & the expected outcome.
@@ -88,7 +89,7 @@ public class ProgramFitnessExaminer implements ProgramFitnessExaminerInterface {
     @Override
     public double evaluateDifference(Program program)
     {
-        StatementRunner runner = new StatementRunner();
+        StatementRunner runner = new RegularStatementRunner();
         double result = 0.0;
         for(InOutParameters parameter : conditions)
         {

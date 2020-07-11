@@ -1,7 +1,8 @@
 package laboflieven.ui;
 
 import laboflieven.Program;
-import laboflieven.StatementRunner;
+import laboflieven.runners.RegularStatementRunner;
+import laboflieven.runners.StatementRunner;
 
 import javax.swing.*;
 import java.awt.*;
@@ -51,7 +52,7 @@ public class AugProgramRenderPanel extends JPanel {
     public boolean drawProgram(Program program)
     {
         System.out.println(program.getInstructions());
-        StatementRunner runner = new StatementRunner();
+        StatementRunner runner = new RegularStatementRunner();
         DefaultRenderStrategy strategy = new DefaultRenderStrategy(width, height, runner, program);
         int[][] grid = strategy.calculate();
         long sumR = 0;

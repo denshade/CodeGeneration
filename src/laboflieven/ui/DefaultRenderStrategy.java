@@ -1,7 +1,7 @@
 package laboflieven.ui;
 
 import laboflieven.Program;
-import laboflieven.StatementRunner;
+import laboflieven.runners.StatementRunner;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -5,6 +5,8 @@ import laboflieven.examiners.ProgramFitnessExaminer;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
 import laboflieven.programiterators.BruteForceProgramIterator;
 import laboflieven.recursionheuristics.AlwaysRecursionHeuristic;
+import laboflieven.runners.RegularStatementRunner;
+import laboflieven.runners.StatementRunner;
 import laboflieven.statements.InstructionEnum;
 import laboflieven.statements.Register;
 
@@ -33,7 +35,7 @@ public class XorFinder implements ProgramTemplate
             points.add(new double[] { 1,1});
 
             List<InstructionMark> instr = ProgramParser.parse("[R2 += R1, One R1, R2 += R1, Mod R2 -> R1]");
-            StatementRunner runner = new StatementRunner();
+            StatementRunner runner = new RegularStatementRunner();
             Map<String, Double> m = new HashMap<>();
             m.put("R1", 0.0);
             m.put("R2", 0.0);

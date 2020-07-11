@@ -1,13 +1,12 @@
 package laboflieven.ui;
 
 import laboflieven.Program;
-import laboflieven.StatementRunner;
+import laboflieven.runners.RegularStatementRunner;
+import laboflieven.runners.StatementRunner;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Created by Lieven on 12-11-2016.
@@ -53,7 +52,7 @@ public class ProgramRenderPanel extends JPanel {
     public boolean drawProgram(Program program)
     {
         System.out.println(program.getInstructions());
-        StatementRunner runner = new StatementRunner();
+        StatementRunner runner = new RegularStatementRunner();
         DefaultRenderStrategy strategy = new DefaultRenderStrategy(width, height, runner, program);
         int[][] grid = strategy.calculate();
         int sumR = 0;

@@ -2,6 +2,7 @@ package laboflieven;
 
 import laboflieven.accinstructions.*;
 import laboflieven.challenges.TestCases;
+import laboflieven.runners.AccStatementRunner;
 import laboflieven.statements.Register;
 import org.junit.Test;
 

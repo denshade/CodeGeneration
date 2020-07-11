@@ -1,5 +1,7 @@
-package laboflieven;
+package laboflieven.runners;
 
+import laboflieven.InstructionMark;
+import laboflieven.Program;
 import laboflieven.statements.DualRegisterInstruction;
 import laboflieven.statements.Instruction;
 import laboflieven.statements.Register;
@@ -11,16 +13,14 @@ import java.util.Map;
 /**
  * Created by lveeckha on 31/05/2015.
  */
-public class StatementRunner {
-
-    public StatementRunner()
-    {
-
-    }
+public class RegularStatementRunner implements StatementRunner {
 
     public int MAXINSTRUCT = 100;
+    public RegularStatementRunner()
+    {
+    }
 
-    public StatementRunner(int maxExec)
+    public RegularStatementRunner(int maxExec)
     {
          MAXINSTRUCT =  maxExec;
     }
@@ -30,6 +30,7 @@ public class StatementRunner {
      *
      * @param registerValues name => Value pairs.
      */
+    @Override
     public void execute(Program program, Map<String, Double> registerValues)  {
         program.initializeRegisters(registerValues);
         List<InstructionMark> instructions = program.getInstructions();

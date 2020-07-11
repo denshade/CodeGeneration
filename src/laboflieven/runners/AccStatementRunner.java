@@ -1,5 +1,7 @@
-package laboflieven;
+package laboflieven.runners;
 
+import laboflieven.InstructionMark;
+import laboflieven.Program;
 import laboflieven.accinstructions.AccRegisterInstruction;
 import laboflieven.statements.Register;
 
@@ -9,8 +11,7 @@ import java.util.Map;
 /**
  * Created by lveeckha on 31/05/2015.
  */
-public class AccStatementRunner {
-
+public class AccStatementRunner implements StatementRunner {
 
     public int MAXINSTRUCT;
 

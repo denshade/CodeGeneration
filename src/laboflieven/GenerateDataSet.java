@@ -1,6 +1,8 @@
 package laboflieven;
 
 import laboflieven.programiterators.RealRandomProgramIterator;
+import laboflieven.runners.RegularStatementRunner;
+import laboflieven.runners.StatementRunner;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -22,7 +24,7 @@ public class GenerateDataSet
         collection.add(createParameter(1.0, 2.0, 1.0, 0.0, -1.0));
         collection.add(createParameter(1.0, -1, -56, 0.0, 8));
         collection.add(createParameter(1.0, 2, -15, 0.0, 3));
-        StatementRunner runner = new StatementRunner();
+        StatementRunner runner = new RegularStatementRunner();
         Map<String, Double> map = getMap(2.0, -8.0, -24.0, 0.0);
         runner.execute(program, map);
         System.out.println(map);

@@ -2,8 +2,8 @@ package laboflieven.statements;
 
 import laboflieven.InstructionMark;
 import laboflieven.Program;
-import laboflieven.StatementRunner;
-import laboflieven.statements.*;
+import laboflieven.runners.RegularStatementRunner;
+import laboflieven.runners.StatementRunner;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -21,7 +21,7 @@ public class StatementRunnerTest {
 
         List<InstructionMark> instructions = new ArrayList<InstructionMark>();
 
-        StatementRunner runner = new StatementRunner();
+        StatementRunner runner = new RegularStatementRunner();
         instructions.add(new Add(registers.get(0), registers.get(1)));
         Program program = new Program(instructions, registers);
         runner.execute(program, results);
@@ -43,7 +43,7 @@ public class StatementRunnerTest {
         List<Register> registers = Register.create4Registers();
         Map<String, Double> results = getMap(1.0,2.0,-3.0,0.0);
 
-        StatementRunner runner = new StatementRunner();
+        StatementRunner runner = new RegularStatementRunner();
 
         List<InstructionMark> instructions = getInstructionsQuadrant(
                 registers.get(0),
@@ -62,7 +62,7 @@ public class StatementRunnerTest {
 
     @org.junit.Test(expected=IllegalArgumentException.class)
     public void testExecuteRunnerThrows() {
-        StatementRunner runner = new StatementRunner();
+        StatementRunner runner = new RegularStatementRunner();
         List<InstructionMark> instructions = new ArrayList<>();
         Register register1 = new Register("R1");
         instructions.add(new Sqrt(register1));
@@ -75,7 +75,7 @@ public class StatementRunnerTest {
 
     @org.junit.Test
     public void testExecuteRunnerJumps() {
-        StatementRunner runner = new StatementRunner();
+        StatementRunner runner = new RegularStatementRunner();
         List<InstructionMark> instructions = new ArrayList<>();
         Register register1 = new Register("R0");
         register1.value = 0;
@@ -98,7 +98,7 @@ public class StatementRunnerTest {
 
         Map<String, Double> results = getMap(2.0,-8.0,-24.0,0.0);
 
-        StatementRunner runner = new StatementRunner();
+        StatementRunner runner = new RegularStatementRunner();
 
         List<InstructionMark> instructions = getInstructionsQuadrant(
                 registers.get(0),

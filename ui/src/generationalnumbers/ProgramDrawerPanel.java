@@ -12,7 +12,8 @@ import java.util.HashMap;
 import java.util.Map;
 import laboflieven.Program;
 import laboflieven.ReverseProgramIterator;
-import laboflieven.StatementRunner;
+import laboflieven.runners.RegularStatementRunner;
+import laboflieven.runners.StatementRunner;
 
 /**
  *
@@ -65,7 +66,7 @@ public class ProgramDrawerPanel extends javax.swing.JPanel {
         //2550
         ReverseProgramIterator getter = new ReverseProgramIterator(programNumber);
         Program program = getter.iterate(3,3);
-        StatementRunner runner = new StatementRunner();
+        StatementRunner runner = new RegularStatementRunner();
         if (program == null)
         {
             return;

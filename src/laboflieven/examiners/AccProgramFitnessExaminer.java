@@ -3,6 +3,9 @@ package laboflieven.examiners;
 import laboflieven.*;
 import laboflieven.accinstructions.InstructionEnum;
 import laboflieven.loggers.FitnessLogger;
+import laboflieven.runners.AccStatementRunner;
+import laboflieven.runners.RegularStatementRunner;
+import laboflieven.runners.StatementRunner;
 import laboflieven.statements.Register;
 
 import java.util.ArrayList;
@@ -78,7 +81,7 @@ public class AccProgramFitnessExaminer implements ProgramFitnessExaminerInterfac
 
     public double evaluateDifference(Program program)
     {
-        StatementRunner runner = new StatementRunner();
+        StatementRunner runner = new RegularStatementRunner();
         double result = 0.0;
         for(InOutParameters parameter : conditions)
         {
