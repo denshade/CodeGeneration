@@ -26,7 +26,7 @@ public enum InstructionEnum
 
     public static InstructionEnum[] anyExcept(Set<InstructionEnum> eq)
     {
-        ArrayOperations<InstructionEnum> ops = new ArrayOperations();
+        ArrayOperations<InstructionEnum> ops = new ArrayOperations<>();
         return ops.anyExcept(eq, InstructionEnum.values()).toArray(new InstructionEnum[0]);
     }
 }

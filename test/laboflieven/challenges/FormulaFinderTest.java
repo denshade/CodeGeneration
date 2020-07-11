@@ -70,7 +70,7 @@ public class FormulaFinderTest {
         GeneralRandomGeneticProgramIterator iter = new GeneralRandomGeneticProgramIterator(evaluator, enums, 10000, 1.4, 0.4, new AccHeuristic());
         long now = System.currentTimeMillis();
 
-        assertEquals(0,iter.iterate(curMaxRegisters, 7).weight);
+        assertEquals(0,iter.iterate(curMaxRegisters, 7).weight, 0.001);
         System.out.println("timing: " + (System.currentTimeMillis() - now));
         //timing: 127327 => 115903 => 107699 => 99132 => 67878(Desktop)
     }

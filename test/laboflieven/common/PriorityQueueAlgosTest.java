@@ -10,7 +10,7 @@ class PriorityQueueAlgosTest {
 
     @Test
     void cutPopulation() {
-        PriorityQueue<Integer> solutions = new PriorityQueue<Integer>();
+        PriorityQueue solutions = new PriorityQueue<Integer>();
         for (int i = 200000; i > -1; i--) {
             solutions.add(i);
         }

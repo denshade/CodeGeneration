@@ -62,8 +62,8 @@ public class HumanStatementRunnerTest
         inbox.add(1);
         inbox.add(2);
         runner.execute(program, 0, inbox, outbox);
-        assertEquals(new Integer(4), outbox.poll());
-        assertEquals(new Integer(1), outbox.poll());
+        assertEquals(Integer.valueOf(4), outbox.poll());
+        assertEquals(Integer.valueOf(1), outbox.poll());
         assertTrue(outbox.size() == 0);
     }
 
@@ -84,9 +84,9 @@ public class HumanStatementRunnerTest
         inbox.add(1);
         inbox.add(2);
         runner.execute(program, 0, inbox, outbox);
-        assertEquals(new Integer(4), outbox.poll());
-        assertEquals(new Integer(1), outbox.poll());
-        assertEquals(new Integer(2), outbox.poll());
+        assertEquals(Integer.valueOf(4), outbox.poll());
+        assertEquals(Integer.valueOf(1), outbox.poll());
+        assertEquals(Integer.valueOf(2), outbox.poll());
     }
 
 
@@ -117,8 +117,8 @@ public class HumanStatementRunnerTest
         Queue<Integer> inbox = new ArrayBlockingQueue<Integer>(2);
 
         runner.execute(program, 0, inbox, outbox);
-        assertEquals(new Integer(1), outbox.poll());
-        assertEquals(new Integer(2), outbox.poll());
+        assertEquals(Integer.valueOf(1), outbox.poll());
+        assertEquals(Integer.valueOf(2), outbox.poll());
     }
 
 
@@ -156,10 +156,10 @@ public class HumanStatementRunnerTest
         inbox.add(1);
 
         runner.execute(program, 0, inbox, outbox);
-        assertEquals(new Integer(9), outbox.poll());
-        assertEquals(new Integer(3), outbox.poll());
-        assertEquals(new Integer(1), outbox.poll());
-        assertEquals(new Integer(2), outbox.poll());
+        assertEquals(Integer.valueOf(9), outbox.poll());
+        assertEquals(Integer.valueOf(3), outbox.poll());
+        assertEquals(Integer.valueOf(1), outbox.poll());
+        assertEquals(Integer.valueOf(2), outbox.poll());
     }
 
     @Test
@@ -195,8 +195,8 @@ public class HumanStatementRunnerTest
         inbox.add(1);
 
         runner.execute(program, 0, inbox, outbox);
-        assertEquals(new Integer(12), outbox.poll());
-        assertEquals(new Integer(3), outbox.poll());
+        assertEquals(Integer.valueOf(12), outbox.poll());
+        assertEquals(Integer.valueOf(3), outbox.poll());
     }
 
 
@@ -237,10 +237,10 @@ public class HumanStatementRunnerTest
         inbox.add(3);
 
         runner.execute(program, 0, inbox, outbox);
-        assertEquals(new Integer(6), outbox.poll());
-        assertEquals(new Integer(-6), outbox.poll());
-        assertEquals(new Integer(-3), outbox.poll());
-        assertEquals(new Integer(3), outbox.poll());
+        assertEquals(Integer.valueOf(6), outbox.poll());
+        assertEquals(Integer.valueOf(-6), outbox.poll());
+        assertEquals(Integer.valueOf(-3), outbox.poll());
+        assertEquals(Integer.valueOf(3), outbox.poll());
     }
     @Test
     public void testJumpIfZeroProgram() throws InvalidProgramException {
@@ -264,7 +264,7 @@ public class HumanStatementRunnerTest
         inbox.add(2);
 
         runner.execute(program, 0, inbox, outbox);
-        assertEquals(new Integer(3), outbox.poll());
-        assertEquals(new Integer(2), outbox.poll());
+        assertEquals(Integer.valueOf(3), outbox.poll());
+        assertEquals(Integer.valueOf(2), outbox.poll());
     }
 }
