@@ -1,10 +1,9 @@
 package laboflieven.programiterators;
 
 import laboflieven.InstructionMark;
-import laboflieven.common.AccEnumWrapper;
+import laboflieven.common.AccInstructionSet;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
 import laboflieven.ProgramResolution;
-import laboflieven.accinstructions.AccRegisterInstruction;
 import laboflieven.accinstructions.InstructionEnum;
 import laboflieven.accinstructions.InstructionFactory;
 import laboflieven.common.BestFitRegister;
@@ -139,9 +138,9 @@ public class GeneralRandomGeneticProgramIterator {
             InstructionMark actualInstruction;
             if (instruction.isSingleRegister()) {
                 Register register1 = registers[r.nextInt(registers.length)];
-                actualInstruction = instructionFactory.createInstruction(new AccEnumWrapper(instruction), register1);
+                actualInstruction = instructionFactory.createInstruction(new AccInstructionSet(instruction), register1);
             } else {
-                actualInstruction = instructionFactory.createInstruction(new AccEnumWrapper(instruction));
+                actualInstruction = instructionFactory.createInstruction(new AccInstructionSet(instruction));
             }
             if (heuristic.shouldRecurse(instructions, maximumInstructions)) {
                 foundProgram = true;

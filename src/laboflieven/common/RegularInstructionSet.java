@@ -1,12 +1,13 @@
 package laboflieven.common;
 
-import laboflieven.accinstructions.InstructionEnum;
 
-public class AccEnumWrapper implements EnumWrapper
+import laboflieven.statements.InstructionEnum;
+
+public class RegularInstructionSet implements InstructionSet
 {
     private final InstructionEnum enumer;
 
-    public AccEnumWrapper(InstructionEnum enumer) {
+    public RegularInstructionSet(InstructionEnum enumer) {
         this.enumer = enumer;
     }
 

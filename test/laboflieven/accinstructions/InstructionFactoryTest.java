@@ -1,7 +1,6 @@
 package laboflieven.accinstructions;
 
-import laboflieven.common.AccEnumWrapper;
-import laboflieven.common.RegularEnumWrapper;
+import laboflieven.common.AccInstructionSet;
 import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.InvocationTargetException;
@@ -13,7 +12,7 @@ class InstructionFactoryTest {
     @Test
     void createInstruction() {
         InstructionFactory fact = new InstructionFactory();
-        assertEquals("laboflieven.accinstructions.Pow", fact.createInstruction(new AccEnumWrapper(InstructionEnum.Pow)).getClass().getCanonicalName());
+        assertEquals("laboflieven.accinstructions.Pow", fact.createInstruction(new AccInstructionSet(InstructionEnum.Pow)).getClass().getCanonicalName());
     }
 
     @Test
@@ -22,7 +21,7 @@ class InstructionFactoryTest {
         long l = System.currentTimeMillis();
         for (int i = 0; i < 1000000;i++)
         {
-            fact.createInstruction(new AccEnumWrapper(InstructionEnum.Pow)).getClass().getCanonicalName();
+            fact.createInstruction(new AccInstructionSet(InstructionEnum.Pow)).getClass().getCanonicalName();
         }
         System.out.println(System.currentTimeMillis() - l);
     }

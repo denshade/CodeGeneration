@@ -1,5 +1,5 @@
 package laboflieven.common;
 
-public interface EnumWrapper
+public interface InstructionSet
 {
 }

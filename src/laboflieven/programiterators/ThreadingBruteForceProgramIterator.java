@@ -1,7 +1,7 @@
 package laboflieven.programiterators;
 
 import laboflieven.InstructionMark;
-import laboflieven.common.AccEnumWrapper;
+import laboflieven.common.AccInstructionSet;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
 import laboflieven.accinstructions.AccRegisterInstruction;
 import laboflieven.accinstructions.InstructionEnum;
@@ -71,11 +71,11 @@ public class ThreadingBruteForceProgramIterator
             if (heuristic.shouldRecurse(instructions, maximumInstructions)) {
                 if (instruction.isSingleRegister()) {
                     for (Register register1 : registers) {
-                        InstructionMark actualInstruction = instructionFactory.createInstruction(new AccEnumWrapper(instruction), register1);
+                        InstructionMark actualInstruction = instructionFactory.createInstruction(new AccInstructionSet(instruction), register1);
                         processInstruction(instructions, registers, (AccRegisterInstruction) actualInstruction);
                     }
                 } else {
-                    InstructionMark actualInstruction = instructionFactory.createInstruction(new AccEnumWrapper(instruction));
+                    InstructionMark actualInstruction = instructionFactory.createInstruction(new AccInstructionSet(instruction));
                     processInstruction(instructions, registers, (AccRegisterInstruction) actualInstruction);
                 }
             }

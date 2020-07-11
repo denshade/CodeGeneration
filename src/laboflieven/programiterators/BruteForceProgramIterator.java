@@ -1,12 +1,10 @@
 package laboflieven.programiterators;
 
-import laboflieven.common.AccEnumWrapper;
-import laboflieven.common.RegularEnumWrapper;
+import laboflieven.common.RegularInstructionSet;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
 import laboflieven.InstructionMark;
 import laboflieven.recursionheuristics.AlwaysRecursionHeuristic;
 import laboflieven.recursionheuristics.RecursionHeuristic;
-import laboflieven.statements.Instruction;
 import laboflieven.statements.InstructionEnum;
 import laboflieven.statements.InstructionFactory;
 import laboflieven.statements.Register;
@@ -74,7 +72,7 @@ public class BruteForceProgramIterator
             for (Register register1 : registers) {
                 if (instruction.isDualRegister()) {
                     for (Register register2 : registers) {
-                        InstructionMark actualInstruction = instructionFactory.createInstruction(new RegularEnumWrapper(instruction), register1, register2);
+                        InstructionMark actualInstruction = instructionFactory.createInstruction(new RegularInstructionSet(instruction), register1, register2);
                         instructions.add(actualInstruction);
                         if (recursionHeuristic.shouldRecurse((List<InstructionMark>)(List<?>)instructions, nrRegisters))
                         {
@@ -85,7 +83,7 @@ public class BruteForceProgramIterator
                         instructions.remove(instructions.size() - 1);
                     }
                 } else {
-                    InstructionMark actualInstruction = instructionFactory.createInstruction(new RegularEnumWrapper(instruction), register1);
+                    InstructionMark actualInstruction = instructionFactory.createInstruction(new RegularInstructionSet(instruction), register1);
                     instructions.add(actualInstruction);
                     if (recursionHeuristic.shouldRecurse((List<InstructionMark>)(List<?>)instructions, nrRegisters)) {
                         eval(instructions, Arrays.asList(registers));

@@ -1,7 +1,7 @@
 package laboflieven.programiterators;
 
 import laboflieven.AccProgram;
-import laboflieven.common.AccEnumWrapper;
+import laboflieven.common.AccInstructionSet;
 import laboflieven.examiners.AccProgramFitnessExaminer;
 import laboflieven.InstructionMark;
 import laboflieven.accinstructions.AccProgramResolution;
@@ -135,9 +135,9 @@ public class AccRandomGeneticProgramIterator {
             InstructionMark actualInstruction;
             if (instruction.isSingleRegister()) {
                 Register register1 = registers[r.nextInt(registers.length)];
-                actualInstruction = instructionFactory.createInstruction(new AccEnumWrapper(instruction), register1);
+                actualInstruction = instructionFactory.createInstruction(new AccInstructionSet(instruction), register1);
             } else {
-                actualInstruction = instructionFactory.createInstruction(new AccEnumWrapper(instruction));
+                actualInstruction = instructionFactory.createInstruction(new AccInstructionSet(instruction));
             }
             if (!program.isUseless((AccRegisterInstruction) actualInstruction, maximumInstructions)) {
                 foundProgram = true;

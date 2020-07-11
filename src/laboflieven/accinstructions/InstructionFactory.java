@@ -2,12 +2,11 @@ package laboflieven.accinstructions;
 
 
 import laboflieven.InstructionMark;
-import laboflieven.common.AccEnumWrapper;
-import laboflieven.common.EnumWrapper;
+import laboflieven.common.AccInstructionSet;
+import laboflieven.common.InstructionSet;
 import laboflieven.statements.InstructionFactoryInterface;
 import laboflieven.statements.Register;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.Random;
 
@@ -16,9 +15,9 @@ import java.util.Random;
  */
 public class InstructionFactory implements InstructionFactoryInterface
 {
-    public AccRegisterInstruction createInstruction(EnumWrapper instructionEnum, Register... registers)
+    public AccRegisterInstruction createInstruction(InstructionSet instructionEnum, Register... registers)
     {
-        InstructionEnum instruct = ((AccEnumWrapper)instructionEnum).getEnumer();
+        InstructionEnum instruct = ((AccInstructionSet)instructionEnum).getEnumer();
         if (registers.length == 0)
         {
             return createInstructionP(instruct);
@@ -137,9 +136,9 @@ public class InstructionFactory implements InstructionFactoryInterface
         InstructionMark mark;
         if (selectedEnum.isSingleRegister()) {
             int registerIndex1 = r.nextInt(register.size());
-            mark = createInstruction(new AccEnumWrapper(selectedEnum), register.get(registerIndex1));
+            mark = createInstruction(new AccInstructionSet(selectedEnum), register.get(registerIndex1));
         } else {
-            mark = createInstruction(new AccEnumWrapper(selectedEnum));
+            mark = createInstruction(new AccInstructionSet(selectedEnum));
         }
         return mark;
     }

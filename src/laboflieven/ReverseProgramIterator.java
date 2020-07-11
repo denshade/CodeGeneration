@@ -1,6 +1,6 @@
 package laboflieven;
 
-import laboflieven.common.RegularEnumWrapper;
+import laboflieven.common.RegularInstructionSet;
 import laboflieven.statements.*;
 
 import java.util.*;
@@ -53,7 +53,7 @@ public class ReverseProgramIterator {
                             continue;
                         }
                         Register register2 = registers[register2Index];
-                        InstructionMark actualInstruction = instructionFactory.createInstruction(new RegularEnumWrapper(instruction), register1, register2);
+                        InstructionMark actualInstruction = instructionFactory.createInstruction(new RegularInstructionSet(instruction), register1, register2);
                         instructions.add(actualInstruction);
                         Program sol = eval(instructions, registerList);
                         if (sol != null)
@@ -70,7 +70,7 @@ public class ReverseProgramIterator {
                 }
                 else
                 {
-                    InstructionMark actualInstruction = instructionFactory.createInstruction(new RegularEnumWrapper(instruction), register1);
+                    InstructionMark actualInstruction = instructionFactory.createInstruction(new RegularInstructionSet(instruction), register1);
                     instructions.add(actualInstruction);
                     Program sol = eval(instructions, registerList);
                     if (sol != null)
