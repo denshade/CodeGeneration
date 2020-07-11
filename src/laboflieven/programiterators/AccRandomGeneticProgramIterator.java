@@ -1,13 +1,10 @@
 package laboflieven.programiterators;
 
-import laboflieven.AccProgram;
+import laboflieven.Program;
+import laboflieven.accinstructions.*;
 import laboflieven.common.AccInstructionSet;
 import laboflieven.examiners.AccProgramFitnessExaminer;
 import laboflieven.InstructionMark;
-import laboflieven.accinstructions.AccProgramResolution;
-import laboflieven.accinstructions.AccRegisterInstruction;
-import laboflieven.accinstructions.InstructionEnum;
-import laboflieven.accinstructions.InstructionFactory;
 import laboflieven.common.BestFitRegister;
 import laboflieven.common.PriorityQueueAlgos;
 import laboflieven.statements.InstructionFactoryInterface;
@@ -122,7 +119,7 @@ public class AccRandomGeneticProgramIterator {
         }
 
         Random r = new Random();
-        AccProgram program = new AccProgram(instructions, Arrays.asList(registers));
+        Program program = new Program(instructions, Arrays.asList(registers));
         boolean foundProgram = false;
         while (!foundProgram) {
             InstructionEnum instruction;
@@ -139,7 +136,7 @@ public class AccRandomGeneticProgramIterator {
             } else {
                 actualInstruction = instructionFactory.createInstruction(new AccInstructionSet(instruction));
             }
-            if (!program.isUseless((AccRegisterInstruction) actualInstruction, maximumInstructions)) {
+            if (!isUseless(program,(AccRegisterInstruction) actualInstruction, maximumInstructions)) {
                 foundProgram = true;
                 instructions.add(0, actualInstruction);
                 recurse(instructions);
@@ -147,6 +144,42 @@ public class AccRandomGeneticProgramIterator {
             }
         }
     }
+
+    public boolean isUseless(Program program, AccRegisterInstruction instruction, int maximumInstructions)
+    {
+        List<InstructionMark> instructions = program.getInstructions();
+        //First instruction must be a push
+        if (instructions.size() == 0 && !(instruction instanceof AccLeftPush ||instruction instanceof AccRightPush))
+            return true;
+        //Finish must be a push to a register.
+        if (instructions.size() == maximumInstructions - 1 && !(instruction instanceof AccLeftPull ||instruction instanceof  AccRightPull))
+            return true;
+        //Don't use pull from right/left before a push.
+        if (instruction instanceof AccLeftPull)
+        {
+            boolean used = false;
+            for ( InstructionMark instructionI: instructions)
+            {
+                if (instructionI instanceof AccLeftPush) {
+                    used = true;
+                }
+            }
+            if (!used)return true;
+        }
+        if (instruction instanceof AccRightPull)
+        {
+            boolean used = false;
+            for ( InstructionMark instructionI: instructions)
+            {
+                if (instructionI instanceof AccRightPush) {
+                    used = true;
+                }
+            }
+            if (!used)return true;
+        }
+        return false;
+    }
+
 
     private InstructionEnum pickRandomPush(Random r) {
         InstructionEnum instruction;

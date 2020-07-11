@@ -28,7 +28,7 @@ public class AccStatementRunner {
      *
      * @param registerValues name => Value pairs.
      */
-    public void execute(AccProgram program, Map<String, Double> registerValues)
+    public void execute(Program program, Map<String, Double> registerValues)
     {
         program.initializeRegisters(registerValues);
         List<InstructionMark> instructions = program.getInstructions();

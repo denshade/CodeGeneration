@@ -34,7 +34,7 @@ Found a program: [left = R1,  right = R2,  Jump to start if L >= R , R1 = right]
         List<List<InstructionMark>> p = iter.iterate(curMaxRegisters, 4);
         AccStatementRunner runner = new AccStatementRunner();
         List<Register> regs = Register.createRegisters(2, "R");
-        runner.execute(new AccProgram(p.get(0), regs), collection.get(0).input);
+        runner.execute(new Program(p.get(0), regs), collection.get(0).input);
         //evaluator.writeAndClose();
         System.out.println(System.currentTimeMillis() - start + "ms");
         System.out.println(p);

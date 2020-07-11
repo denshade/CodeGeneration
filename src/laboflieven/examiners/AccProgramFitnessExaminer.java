@@ -44,7 +44,7 @@ public class AccProgramFitnessExaminer implements ProgramFitnessExaminerInterfac
 
     public double calculateFitness(List<InstructionMark> instructions, List<Register> registers)
     {
-        AccProgram program = new AccProgram(instructions, registers);
+        Program program = new Program(instructions, registers);
         double err = 0.0;
 
         out:

@@ -38,9 +38,9 @@ public class HumanStatementRunnerTest
         inbox.add(1);
         inbox.add(2);
         runner.execute(program, 0, inbox, outbox);
-        assertEquals(new Integer(4), outbox.poll());
-        assertEquals(new Integer(1), outbox.poll());
-        assertEquals(new Integer(2), outbox.poll());
+        assertEquals(Integer.valueOf(4), outbox.poll());
+        assertEquals(Integer.valueOf(1), outbox.poll());
+        assertEquals(Integer.valueOf(2), outbox.poll());
     }
 
     @Test

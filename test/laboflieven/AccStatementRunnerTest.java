@@ -31,7 +31,7 @@ public class AccStatementRunnerTest {
         instructions.add(new Add());
         instructions.add(new JumpIfLteStart());
 //        instructions.add(new AccLeftPull(r0));
-        AccProgram p = new AccProgram(instructions, registers);
+        Program p = new Program(instructions, registers);
         Map<String, Double> doubleMap = new HashMap<>();
         doubleMap.put("r0", 0.0);
         r.execute(p, doubleMap);

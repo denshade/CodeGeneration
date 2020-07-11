@@ -58,10 +58,10 @@ public class ReverseProgramIteratorTest extends TestCase {
     private static InOutParameters createParameterSimple(double a, double b, double result)
     {
         Map<String, Double> startParameters = new HashMap<>();
-        startParameters.put("r0", a);
-        startParameters.put("r1", b);
+        startParameters.put("R1", a);
+        startParameters.put("R2", b);
         Map<String, Double> endParameters = new HashMap<>(1);
-        endParameters.put("r1", result);
+        endParameters.put("R1", result);
         InOutParameters parameters = new InOutParameters();
         parameters.input = startParameters;
         parameters.expectedOutput = endParameters;
