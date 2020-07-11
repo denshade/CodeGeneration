@@ -184,7 +184,7 @@ public class FormulaFinder {
                 collection.add(createParameter(fillDoubleArray(doubleRow, curMaxRegisters), simulateFormula(doubleRow)));
         }
 
-        ProgramFitnessExaminerInterface evaluator = new LoggingProgramFitnessExaminer(new File("logs.csv"), collection);
+        ProgramFitnessExaminerInterface evaluator = new LoggingProgramFitnessExaminer(new File("logs.csv"), collection, new RegularStatementRunner());
 
         RandomProgramIterator iter = new RandomProgramIterator(evaluator, new InstructionEnum[]{InstructionEnum.Add, InstructionEnum.Sub, InstructionEnum.Mul, InstructionEnum.Div, InstructionEnum.Sqrt, InstructionEnum.Move, InstructionEnum.Log});
         iter.iterate(curMaxRegisters, 6);

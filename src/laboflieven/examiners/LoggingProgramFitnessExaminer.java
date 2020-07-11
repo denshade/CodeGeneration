@@ -4,6 +4,7 @@ import laboflieven.InOutParameters;
 import laboflieven.InstructionMark;
 import laboflieven.ProgramEnumerator;
 import laboflieven.runners.RegularStatementRunner;
+import laboflieven.runners.StatementRunner;
 import laboflieven.statements.Register;
 
 import java.io.File;
@@ -24,8 +25,8 @@ public class LoggingProgramFitnessExaminer extends ProgramFitnessExaminer
     /**
      * @param conditions Conditions that define the input parameters & the expected outcome.
      */
-    public LoggingProgramFitnessExaminer(File valueFile, List<InOutParameters> conditions) throws IOException {
-        super(conditions, new RegularStatementRunner());
+    public LoggingProgramFitnessExaminer(File valueFile, List<InOutParameters> conditions, StatementRunner runner) throws IOException {
+        super(conditions, runner);
         writer = new FileWriter(valueFile);
     }
 
