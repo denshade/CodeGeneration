@@ -15,9 +15,9 @@ import java.util.Map;
 public class AccProgramFitnessExaminer implements ProgramFitnessExaminerInterface
 {
     public static final int NO_FIT_AT_ALL = Integer.MAX_VALUE;
-    private List<InOutParameters> conditions;
+    private final List<InOutParameters> conditions;
     private final double closeEnough = 0.00001;
-    private List<FitnessLogger> loggers = new ArrayList<>();
+    private final List<FitnessLogger> loggers = new ArrayList<>();
     AccStatementRunner runner = new AccStatementRunner();
 
     /**

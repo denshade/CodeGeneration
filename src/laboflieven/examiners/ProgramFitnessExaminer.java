@@ -16,9 +16,9 @@ import java.util.Map;
  * Created by Lieven on 14/06/2015.
  */
 public class ProgramFitnessExaminer implements ProgramFitnessExaminerInterface {
-    private List<InOutParameters> conditions;
+    private final List<InOutParameters> conditions;
     private final double closeEnough = 0.00001;
-    private List<FitnessLogger> loggers = new ArrayList<>();
+    private final List<FitnessLogger> loggers = new ArrayList<>();
     StatementRunner runner = new StatementRunner();
 
     /**
