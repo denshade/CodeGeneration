@@ -20,14 +20,15 @@ public class ProgramFitnessExaminer implements ProgramFitnessExaminerInterface {
     private final List<InOutParameters> conditions;
     private final double closeEnough = 0.00001;
     private final List<FitnessLogger> loggers = new ArrayList<>();
-    StatementRunner runner = new RegularStatementRunner();
+    StatementRunner runner;
 
     /**
      * @param conditions Conditions that define the input parameters & the expected outcome.
      */
-    public ProgramFitnessExaminer(List<InOutParameters> conditions)
+    public ProgramFitnessExaminer(List<InOutParameters> conditions, StatementRunner runner)
     {
         this.conditions = conditions;
+        this.runner = runner;
     }
 
     @Override

@@ -7,6 +7,7 @@ import laboflieven.programiterators.BruteForceProgramIterator;
 import laboflieven.programiterators.PriorityProgramIterator;
 import laboflieven.programiterators.RandomProgramIterator;
 import laboflieven.programiterators.ReverseProgramIterator;
+import laboflieven.runners.RegularStatementRunner;
 import laboflieven.statements.InstructionEnum;
 
 import javax.swing.*;
@@ -73,7 +74,7 @@ public class ProgramSelector
             List<InstructionEnum> selectedValuesList = allowedInstructions.getSelectedValuesList();
             InstructionEnum[] enums = selectedValuesList.toArray(new InstructionEnum[0]);
 
-            ProgramFitnessExaminerInterface evaluator = new ProgramFitnessExaminer(collection);
+            ProgramFitnessExaminerInterface evaluator = new ProgramFitnessExaminer(collection, new RegularStatementRunner());
             System.out.println("Start");
             long start = System.currentTimeMillis();
             if (combo.getSelectedItem().equals(BRUTE_FORCE))

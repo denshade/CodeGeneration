@@ -3,6 +3,7 @@ package laboflieven.examiners;
 import laboflieven.InOutParameters;
 import laboflieven.InstructionMark;
 import laboflieven.ProgramEnumerator;
+import laboflieven.runners.RegularStatementRunner;
 import laboflieven.statements.Register;
 
 import java.io.File;
@@ -24,7 +25,7 @@ public class LoggingProgramFitnessExaminer extends ProgramFitnessExaminer
      * @param conditions Conditions that define the input parameters & the expected outcome.
      */
     public LoggingProgramFitnessExaminer(File valueFile, List<InOutParameters> conditions) throws IOException {
-        super(conditions);
+        super(conditions, new RegularStatementRunner());
         writer = new FileWriter(valueFile);
     }
 

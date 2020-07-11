@@ -4,6 +4,7 @@ import laboflieven.*;
 import laboflieven.common.RegularInstructionSet;
 import laboflieven.examiners.ProgramFitnessExaminer;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
+import laboflieven.runners.RegularStatementRunner;
 import laboflieven.statements.*;
 
 import java.util.*;
@@ -49,7 +50,7 @@ public class RandomGeneticProgramIterator {
                 for (int curMaxRegisters = minRegisters; curMaxRegisters < maxRegisters; curMaxRegisters++) {
                     List<InOutParameters> collection = source.getInOutParameters(curMaxRegisters);
 
-                    ProgramFitnessExaminerInterface evaluator = new ProgramFitnessExaminer(collection);
+                    ProgramFitnessExaminerInterface evaluator = new ProgramFitnessExaminer(collection, new RegularStatementRunner());
 
                     for (int curMaxInstructions = 10; curMaxInstructions < 15; curMaxInstructions++) {
 

@@ -5,6 +5,7 @@ import laboflieven.examiners.ProgramFitnessExaminer;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
 import laboflieven.programiterators.BruteForceProgramIterator;
 import laboflieven.programiterators.RandomGeneticProgramIterator;
+import laboflieven.runners.RegularStatementRunner;
 import laboflieven.statements.InstructionEnum;
 
 import java.util.ArrayList;
@@ -31,7 +32,7 @@ public class DistanceFinder {
         collection.add(createParameter(fillDoubleArray(new double [] {100.0,50.0,50.0,100.0}, curMaxRegisters), Math.sqrt((100-50)*(100-50) + (50-100)*(50-100))));
 
 
-        ProgramFitnessExaminerInterface evaluator = new ProgramFitnessExaminer(collection);
+        ProgramFitnessExaminerInterface evaluator = new ProgramFitnessExaminer(collection, new RegularStatementRunner());
 
         BruteForceProgramIterator iterator = new BruteForceProgramIterator(evaluator);
        iterator.iterate(4, 6);
@@ -64,7 +65,7 @@ public class DistanceFinder {
             collection.add(createParameter(fillDoubleArray(new double [] {100.0,50.0,50.0,100.0}, curMaxRegisters), Math.sqrt((100-50)*(100-50) + (50-100)*(50-100))));
 
 
-            ProgramFitnessExaminerInterface evaluator = new ProgramFitnessExaminer(collection);
+            ProgramFitnessExaminerInterface evaluator = new ProgramFitnessExaminer(collection, new RegularStatementRunner());
 
             for (int curMaxInstructions = 5; curMaxInstructions < 7; curMaxInstructions++) {
 

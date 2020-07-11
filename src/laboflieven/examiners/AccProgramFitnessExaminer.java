@@ -21,7 +21,7 @@ public class AccProgramFitnessExaminer implements ProgramFitnessExaminerInterfac
     private final List<InOutParameters> conditions;
     private final double closeEnough = 0.00001;
     private final List<FitnessLogger> loggers = new ArrayList<>();
-    AccStatementRunner runner = new AccStatementRunner();
+    StatementRunner runner = new AccStatementRunner();
 
     /**
      * @param conditions Conditions that define the input parameters & the expected outcome.

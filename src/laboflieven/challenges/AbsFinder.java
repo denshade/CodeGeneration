@@ -4,6 +4,7 @@ import laboflieven.InOutParameters;
 import laboflieven.examiners.ProgramFitnessExaminer;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
 import laboflieven.programiterators.BruteForceProgramIterator;
+import laboflieven.runners.RegularStatementRunner;
 
 
 import java.util.ArrayList;
@@ -33,7 +34,7 @@ public class AbsFinder {
         collection.add(createParameter(2.0, 2.0));
         collection.add(createParameter(-15.0, 15.0));
         collection.add(createParameter(0.0, 0.0));
-        ProgramFitnessExaminerInterface evaluator = new ProgramFitnessExaminer(collection);
+        ProgramFitnessExaminerInterface evaluator = new ProgramFitnessExaminer(collection, new RegularStatementRunner());
         BruteForceProgramIterator iterator = new BruteForceProgramIterator(evaluator);
         iterator.iterate(1, nrSolutions);
         //No solutions for 2 -> 5.

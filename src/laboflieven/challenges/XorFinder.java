@@ -44,7 +44,7 @@ public class XorFinder implements ProgramTemplate
 
             List<InOutParameters> collection = TestCases.getTestCases(new XorFinder(), points.toArray(new double[0][0]),curMaxRegisters);
             File f = new File("c:\\temp\\test.csv");
-            ProgramFitnessExaminerInterface evaluator = new ProgramFitnessExaminer(collection);
+            ProgramFitnessExaminerInterface evaluator = new ProgramFitnessExaminer(collection, new RegularStatementRunner());
             BruteForceProgramIterator iter = new BruteForceProgramIterator(evaluator, new AlwaysRecursionHeuristic(), new InstructionEnum[] {InstructionEnum.Add, InstructionEnum.Sub, InstructionEnum.Zero, InstructionEnum.One, InstructionEnum.Div, InstructionEnum.Mul, InstructionEnum.Invert, InstructionEnum.Mod});
             long start = System.currentTimeMillis();
             iter.iterate(curMaxRegisters, 3);

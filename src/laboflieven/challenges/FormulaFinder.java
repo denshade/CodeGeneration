@@ -9,6 +9,7 @@ import laboflieven.loggers.BitmapFitnessLogger;
 import laboflieven.loggers.FitnessLogger;
 import laboflieven.programiterators.*;
 import laboflieven.programiterators.ReverseProgramIterator;
+import laboflieven.runners.RegularStatementRunner;
 import laboflieven.statements.*;
 
 import java.io.File;
@@ -54,7 +55,7 @@ public class FormulaFinder {
             }
 
 
-            ProgramFitnessExaminerInterface evaluator = new ProgramFitnessExaminer(collection);
+            ProgramFitnessExaminerInterface evaluator = new ProgramFitnessExaminer(collection, new RegularStatementRunner());
 
             for (int curMaxInstructions = 4; curMaxInstructions < 7; curMaxInstructions++) {
 
@@ -153,7 +154,7 @@ public class FormulaFinder {
                 collection.add(createParameter(fillDoubleArray(doubleRow, curMaxRegisters), simulateFormula(doubleRow)));
         }
 
-        ProgramFitnessExaminerInterface evaluator = new ProgramFitnessExaminer(collection);
+        ProgramFitnessExaminerInterface evaluator = new ProgramFitnessExaminer(collection, new RegularStatementRunner());
 
         ReverseProgramIterator iter = new ReverseProgramIterator(evaluator, new InstructionEnum[]{InstructionEnum.Add, InstructionEnum.Sub, InstructionEnum.Mul, InstructionEnum.Div, InstructionEnum.Sqrt, InstructionEnum.Move, InstructionEnum.Log});
         iter.iterate(curMaxRegisters, 3);
@@ -206,7 +207,7 @@ public class FormulaFinder {
                 collection.add(createParameter(fillDoubleArray(doubleRow, curMaxRegisters), simulateFormula(doubleRow)));
         }
 
-        ProgramFitnessExaminerInterface evaluator = new ProgramFitnessExaminer(collection);
+        ProgramFitnessExaminerInterface evaluator = new ProgramFitnessExaminer(collection, new RegularStatementRunner());
         BruteForceProgramIterator iter = new BruteForceProgramIterator(evaluator, new InstructionEnum[]{InstructionEnum.Add, InstructionEnum.Sub, InstructionEnum.Mul, InstructionEnum.Div, InstructionEnum.Sqrt, InstructionEnum.Move, InstructionEnum.Log});
         iter.iterate(curMaxRegisters, 5);
     }
@@ -237,7 +238,7 @@ public class FormulaFinder {
         //InstructionEnum[] enums = new InstructionEnum[]{InstructionEnum.Add, InstructionEnum.Sub, InstructionEnum.Mul, InstructionEnum.Div, InstructionEnum.Sqrt, InstructionEnum.Move, InstructionEnum.Log};
         //enums = new InstructionEnum[]{InstructionEnum.Add, InstructionEnum.Sub, InstructionEnum.Mul, InstructionEnum.Div, InstructionEnum.Log};
         FitnessLogger logger = new BitmapFitnessLogger(new java.io.File("hello.bmp"), enums.length, curMaxRegisters );
-        ProgramFitnessExaminerInterface evaluator = new ProgramFitnessExaminer(collection);
+        ProgramFitnessExaminerInterface evaluator = new ProgramFitnessExaminer(collection, new RegularStatementRunner());
         evaluator.addListener(logger);
         BruteForceProgramIterator iter = new BruteForceProgramIterator(evaluator, enums);
         iter.iterate(curMaxRegisters, 3);

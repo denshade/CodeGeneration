@@ -5,6 +5,7 @@ import laboflieven.examiners.ProgramFitnessExaminer;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
 import laboflieven.programiterators.BruteForceProgramIterator;
 import laboflieven.recursionheuristics.NoInvertedHeuristic;
+import laboflieven.runners.RegularStatementRunner;
 
 import java.io.File;
 import java.io.IOException;
@@ -23,7 +24,7 @@ public class CosPlusFinder implements ProgramTemplate
 
 
         File f = new File("c:\\temp\\test.csv");
-        ProgramFitnessExaminerInterface evaluator = new ProgramFitnessExaminer(collection);
+        ProgramFitnessExaminerInterface evaluator = new ProgramFitnessExaminer(collection, new RegularStatementRunner());
         BruteForceProgramIterator iter = new BruteForceProgramIterator(evaluator, new NoInvertedHeuristic());
         long start = System.currentTimeMillis();
         iter.iterate(curMaxRegisters, 5);
