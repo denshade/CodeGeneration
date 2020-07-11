@@ -3,12 +3,13 @@ package laboflieven.challenges;
 import laboflieven.*;
 import laboflieven.accinstructions.AccProgramResolution;
 import laboflieven.accinstructions.InstructionEnum;
-import laboflieven.examiners.AccProgramFitnessExaminer;
+import laboflieven.examiners.ProgramFitnessExaminer;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
 import laboflieven.programiterators.AccRandomGeneticProgramIterator;
 import laboflieven.programiterators.GeneralBruteForceProgramIterator;
 import laboflieven.programiterators.GeneralRandomGeneticProgramIterator;
 import laboflieven.recursionheuristics.AccHeuristic;
+import laboflieven.runners.AccStatementRunner;
 import org.junit.Test;
 
 import java.util.*;
@@ -37,7 +38,7 @@ public class FormulaFinderTest {
                 InstructionEnum.Swap
         };
         //enums = new InstructionEnum[]{InstructionEnum.Add, InstructionEnum.Sub, InstructionEnum.Mul, InstructionEnum.Div, InstructionEnum.Log};
-        AccProgramFitnessExaminer evaluator = new AccProgramFitnessExaminer(collection);
+        ProgramFitnessExaminer evaluator = new ProgramFitnessExaminer(collection,new AccStatementRunner());
         GeneralBruteForceProgramIterator iter = new GeneralBruteForceProgramIterator(evaluator, enums, new AccHeuristic());
         long now = System.currentTimeMillis();
 
@@ -66,7 +67,7 @@ public class FormulaFinderTest {
                 InstructionEnum.Swap
         };
         //enums = new InstructionEnum[]{InstructionEnum.Add, InstructionEnum.Sub, InstructionEnum.Mul, InstructionEnum.Div, InstructionEnum.Log};
-        AccProgramFitnessExaminer evaluator = new AccProgramFitnessExaminer(collection);
+        ProgramFitnessExaminer evaluator = new ProgramFitnessExaminer(collection,new AccStatementRunner());
         GeneralRandomGeneticProgramIterator iter = new GeneralRandomGeneticProgramIterator(evaluator, enums, 10000, 1.4, 0.4, new AccHeuristic());
         long now = System.currentTimeMillis();
 
@@ -91,7 +92,7 @@ public class FormulaFinderTest {
                 InstructionEnum.AccLeftPush, InstructionEnum.AccRightPush, InstructionEnum.AccRightPull, InstructionEnum.JumpIfLteStart, InstructionEnum.JumpIfGteStart
         };
         //enums = new InstructionEnum[]{InstructionEnum.Add, InstructionEnum.Sub, InstructionEnum.Mul, InstructionEnum.Div, InstructionEnum.Log};
-        ProgramFitnessExaminerInterface evaluator = new AccProgramFitnessExaminer(collection);
+        ProgramFitnessExaminerInterface evaluator = new ProgramFitnessExaminer(collection,new AccStatementRunner());
         GeneralBruteForceProgramIterator iter = new GeneralBruteForceProgramIterator(evaluator, enums, new AccHeuristic());
         iter.iterate(curMaxRegisters, 10);
     }
@@ -126,7 +127,7 @@ public class FormulaFinderTest {
                 InstructionEnum.AccRightPush
         };
         //enums = new InstructionEnum[]{InstructionEnum.Add, InstructionEnum.Sub, InstructionEnum.Mul, InstructionEnum.Div, InstructionEnum.Log};
-        AccProgramFitnessExaminer evaluator = new AccProgramFitnessExaminer(collection);
+        ProgramFitnessExaminer evaluator = new ProgramFitnessExaminer(collection,new AccStatementRunner());
         GeneralBruteForceProgramIterator iter = new GeneralBruteForceProgramIterator(evaluator, enums);
         iter.iterate(curMaxRegisters, 9);
     }
@@ -156,7 +157,7 @@ public class FormulaFinderTest {
                 InstructionEnum.AccRightPush
         };
         //enums = new InstructionEnum[]{InstructionEnum.Add, InstructionEnum.Sub, InstructionEnum.Mul, InstructionEnum.Div, InstructionEnum.Log};
-        AccProgramFitnessExaminer evaluator = new AccProgramFitnessExaminer(collection);
+        ProgramFitnessExaminer evaluator = new ProgramFitnessExaminer(collection,new AccStatementRunner());
         GeneralBruteForceProgramIterator iter = new GeneralBruteForceProgramIterator(evaluator, enums);
         iter.iterate(curMaxRegisters, 10);
     }
@@ -186,7 +187,7 @@ public class FormulaFinderTest {
                 InstructionEnum.AccRightPush
         };*/
         //enums = new InstructionEnum[]{InstructionEnum.Add, InstructionEnum.Sub, InstructionEnum.Mul, InstructionEnum.Div, InstructionEnum.Log};
-        AccProgramFitnessExaminer evaluator = new AccProgramFitnessExaminer(collection);
+        ProgramFitnessExaminer evaluator = new ProgramFitnessExaminer(collection,new AccStatementRunner());
         AccRandomGeneticProgramIterator iter = new AccRandomGeneticProgramIterator(evaluator, enums, 1000000, 1.2, 0.6);
         iter.nrChildren = 5;
         iter.initialPopSize = 100000;
@@ -203,7 +204,7 @@ public class FormulaFinderTest {
         }, doubles, curMaxRegisters);
 
         //enums = new InstructionEnum[]{InstructionEnum.Add, InstructionEnum.Sub, InstructionEnum.Mul, InstructionEnum.Div, InstructionEnum.Log};
-        AccProgramFitnessExaminer evaluator = new AccProgramFitnessExaminer(collection);
+        ProgramFitnessExaminer evaluator = new ProgramFitnessExaminer(collection, new AccStatementRunner());
         AccRandomGeneticProgramIterator iter = new AccRandomGeneticProgramIterator(evaluator, InstructionEnum.allInstructionsExcept(InstructionEnum.Sqrt), 1000000, 1.2, 0.6);
         for (int i = 0; i< 7; i++) {
             iter.nrChildren = 10;
@@ -222,7 +223,7 @@ public class FormulaFinderTest {
         }, doubles, curMaxRegisters);
 
         //enums = new InstructionEnum[]{InstructionEnum.Add, InstructionEnum.Sub, InstructionEnum.Mul, InstructionEnum.Div, InstructionEnum.Log};
-        AccProgramFitnessExaminer evaluator = new AccProgramFitnessExaminer(collection);
+        ProgramFitnessExaminer evaluator = new ProgramFitnessExaminer(collection, new AccStatementRunner());
         AccRandomGeneticProgramIterator iter = new AccRandomGeneticProgramIterator(evaluator, InstructionEnum.values(), 1000000, 1.2, 0.6);
         for (int i = 0; i< 7; i++) {
             iter.nrChildren = 10;
@@ -243,7 +244,7 @@ public class FormulaFinderTest {
         }, doubles, curMaxRegisters);
         laboflieven.accinstructions.InstructionEnum[] enums = InstructionEnum.values();
         for (int i = 0; i< 7; i++) {
-            AccProgramFitnessExaminer evaluator = new AccProgramFitnessExaminer(collection);
+            ProgramFitnessExaminer evaluator = new ProgramFitnessExaminer(collection, new AccStatementRunner());
             AccRandomGeneticProgramIterator iter = new AccRandomGeneticProgramIterator(evaluator, enums, 1000000, 1.2, 0.6);
             iter.nrChildren = 5;
             iter.initialPopSize = 100000;

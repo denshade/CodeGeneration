@@ -1,13 +1,11 @@
 package laboflieven.challenges;
 
 import laboflieven.*;
-import laboflieven.accinstructions.AccLeftPull;
 import laboflieven.accinstructions.InstructionEnum;
-import laboflieven.examiners.AccProgramFitnessExaminer;
+import laboflieven.examiners.ProgramFitnessExaminer;
 import laboflieven.loggers.SysOutAccFitnessLogger;
-import laboflieven.programiterators.AccRandomGeneticProgramIterator;
 import laboflieven.programiterators.GeneralBruteForceProgramIterator;
-import laboflieven.statements.Register;
+import laboflieven.runners.AccStatementRunner;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -26,7 +24,7 @@ Found a program: [left = R1,  right = R2,  Jump to start if L >= R , R1 = right]
         points.add(new double[] { 10, 10});
         points.add(new double[] { 100, 10});
         List<InOutParameters> collection = TestCases.getTestCases(new Max(), points.toArray(new double[0][0]),curMaxRegisters);
-        AccProgramFitnessExaminer evaluator = new AccProgramFitnessExaminer(collection);
+        ProgramFitnessExaminer evaluator = new ProgramFitnessExaminer(collection,new AccStatementRunner());
         evaluator.addListener(new SysOutAccFitnessLogger(10000));
         GeneralBruteForceProgramIterator iter = new GeneralBruteForceProgramIterator(evaluator,  InstructionEnum.values());
         long start = System.currentTimeMillis();

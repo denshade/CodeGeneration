@@ -3,10 +3,11 @@ package laboflieven.programiterators;
 import laboflieven.Program;
 import laboflieven.accinstructions.*;
 import laboflieven.common.AccInstructionSet;
-import laboflieven.examiners.AccProgramFitnessExaminer;
 import laboflieven.InstructionMark;
 import laboflieven.common.BestFitRegister;
 import laboflieven.common.PriorityQueueAlgos;
+import laboflieven.examiners.ProgramFitnessExaminer;
+import laboflieven.examiners.ProgramFitnessExaminerInterface;
 import laboflieven.statements.InstructionFactoryInterface;
 import laboflieven.statements.Register;
 
@@ -25,7 +26,7 @@ public class AccRandomGeneticProgramIterator {
     public long counter = 0;
 
     public List<List<AccRegisterInstruction>> positiveSolutions = new ArrayList<>();
-    private AccProgramFitnessExaminer evaluator;
+    private ProgramFitnessExaminer evaluator;
     private InstructionEnum[] enums;
     private int maxPopulation;
     private Register[] registers;
@@ -39,7 +40,7 @@ public class AccRandomGeneticProgramIterator {
     public int initialPopSize = 1000;
     public int nrChildren = 3;
 
-    public AccRandomGeneticProgramIterator(AccProgramFitnessExaminer evaluator, int maxPopulation, double maxOverflow, double popularParents) {
+    public AccRandomGeneticProgramIterator(ProgramFitnessExaminer evaluator, int maxPopulation, double maxOverflow, double popularParents) {
         this.evaluator = evaluator;
         POPULATION_MAX = maxPopulation;
         this.maxOverflow = maxOverflow;
@@ -53,7 +54,7 @@ public class AccRandomGeneticProgramIterator {
      * @param maxOverflow    If the size of the population > maxPopulation * maxOverflow then we cut down the least popular solutions.
      * @param popularParents Only popular parents can breed. This is the percent of parents that are taken into account. e.g. 0.8
      */
-    public AccRandomGeneticProgramIterator(AccProgramFitnessExaminer evaluator, InstructionEnum[] enums, int maxPopulation, double maxOverflow, double popularParents) {
+    public AccRandomGeneticProgramIterator(ProgramFitnessExaminerInterface evaluator, InstructionEnum[] enums, int maxPopulation, double maxOverflow, double popularParents) {
         this.evaluator = evaluator;
         this.enums = enums;
         this.maxPopulation = maxPopulation;

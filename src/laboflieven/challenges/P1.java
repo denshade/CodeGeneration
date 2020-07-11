@@ -1,12 +1,12 @@
 package laboflieven.challenges;
 
 import laboflieven.*;
-import laboflieven.examiners.AccProgramFitnessExaminer;
+import laboflieven.examiners.ProgramFitnessExaminer;
 import laboflieven.loggers.AccPctBruteForceFitnessLogger;
-import laboflieven.programiterators.AccRandomGeneticProgramIterator;
 import laboflieven.accinstructions.InstructionEnum;
 import laboflieven.programiterators.GeneralBruteForceProgramIterator;
 import laboflieven.recursionheuristics.AccHeuristic;
+import laboflieven.runners.AccStatementRunner;
 
 import java.io.IOException;
 import java.util.*;
@@ -29,7 +29,7 @@ Found a program: [R3 /= R1, Mod R2 -> R1, Mod R3 -> R2, Nand R2 -> R1]
             points.add(new double[] { i,3,5});
         }
         List<InOutParameters> collection = TestCases.getTestCases(new P1(), points.toArray(new double[0][0]),curMaxRegisters);
-        AccProgramFitnessExaminer evaluator = new AccProgramFitnessExaminer(collection);
+        ProgramFitnessExaminer evaluator = new ProgramFitnessExaminer(collection,new AccStatementRunner());
         InstructionEnum[] instructions = new laboflieven.accinstructions.InstructionEnum[] {
                 InstructionEnum.AccRightPush, InstructionEnum.AccRightPush,InstructionEnum.AccRightPull, InstructionEnum.AccLeftPull, InstructionEnum.Mod, InstructionEnum.Mod,
                 InstructionEnum.Nand

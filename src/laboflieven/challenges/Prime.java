@@ -1,9 +1,11 @@
 package laboflieven.challenges;
 
-import laboflieven.examiners.AccProgramFitnessExaminer;
+import laboflieven.examiners.ProgramFitnessExaminer;
+import laboflieven.examiners.ProgramFitnessExaminerInterface;
 import laboflieven.programiterators.AccRandomGeneticProgramIterator;
 import laboflieven.InOutParameters;
 import laboflieven.accinstructions.InstructionEnum;
+import laboflieven.runners.AccStatementRunner;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -29,7 +31,7 @@ Found a program: [R3 /= R1, Mod R2 -> R1, Mod R3 -> R2, Nand R2 -> R1]
             points.add(new double[] { i, isPrime(i)});
         }
         List<InOutParameters> collection = TestCases.getTestCases(new Prime(), points.toArray(new double[0][0]),curMaxRegisters);
-        AccProgramFitnessExaminer evaluator = new AccProgramFitnessExaminer(collection);
+        ProgramFitnessExaminerInterface evaluator = new ProgramFitnessExaminer(collection,new AccStatementRunner());
         AccRandomGeneticProgramIterator iter = new AccRandomGeneticProgramIterator(evaluator,  InstructionEnum.anyExcept(Set.of(InstructionEnum.Sqrt, InstructionEnum.JumpIfGteStart, InstructionEnum.JumpIfLteStart,
                 InstructionEnum.Log)), 1000,1.2,0.4);
         long start = System.currentTimeMillis();

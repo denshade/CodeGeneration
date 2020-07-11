@@ -1,10 +1,12 @@
 package laboflieven.programiterators;
 
-import laboflieven.examiners.AccProgramFitnessExaminer;
 import laboflieven.InOutParameters;
 import laboflieven.accinstructions.InstructionFactory;
 import laboflieven.challenges.P1;
 import laboflieven.challenges.TestCases;
+import laboflieven.examiners.ProgramFitnessExaminer;
+import laboflieven.examiners.ProgramFitnessExaminerInterface;
+import laboflieven.runners.AccStatementRunner;
 import laboflieven.statements.Register;
 import org.junit.jupiter.api.Test;
 
@@ -23,7 +25,7 @@ class SimulatedAnnealingIteratorTest {
             points.add(new double[] { i,3,5, 0});
         }
         List<InOutParameters> collection = TestCases.getTestCases(new P1(), points.toArray(new double[0][0]),curMaxRegisters);
-        AccProgramFitnessExaminer evaluator = new AccProgramFitnessExaminer(collection);
+        ProgramFitnessExaminerInterface evaluator = new ProgramFitnessExaminer(collection,new AccStatementRunner());
         SimulatedAnnealingIterator it = new SimulatedAnnealingIterator(new InstructionFactory(), 10000, 1);
         it.iterate(100000, 10, Register.createRegisters(2, "R"), evaluator);
 

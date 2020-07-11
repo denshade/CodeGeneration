@@ -1,7 +1,6 @@
 package laboflieven.challenges;
 
 import laboflieven.*;
-import laboflieven.examiners.AccProgramFitnessExaminer;
 import laboflieven.examiners.LoggingProgramFitnessExaminer;
 import laboflieven.examiners.ProgramFitnessExaminer;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
@@ -9,6 +8,7 @@ import laboflieven.loggers.BitmapFitnessLogger;
 import laboflieven.loggers.FitnessLogger;
 import laboflieven.programiterators.*;
 import laboflieven.programiterators.ReverseProgramIterator;
+import laboflieven.runners.AccStatementRunner;
 import laboflieven.runners.RegularStatementRunner;
 import laboflieven.statements.*;
 
@@ -120,7 +120,7 @@ public class FormulaFinder {
     {
         Map<String, Double> startParameters  = getMap(doubles);
         Map<String, Double> endParameters = new HashMap<>(1);
-        endParameters.put("r0", result);
+        endParameters.put("R1", result);
         InOutParameters parameters = new InOutParameters();
         parameters.input = startParameters;
         parameters.expectedOutput = endParameters;
@@ -131,9 +131,9 @@ public class FormulaFinder {
     private static Map<String, Double> getMap(double[] doubles)
     {
         Map<String, Double> results = new HashMap<>();
-        for (int l = 0; l < doubles.length; l++)
+        for (int l = 1; l <= doubles.length; l++)
         {
-            results.put("r"+l, doubles[l]);
+            results.put("R"+l, doubles[l - 1]);
         }
         return results;
     }
@@ -277,7 +277,7 @@ public class FormulaFinder {
                 laboflieven.accinstructions.InstructionEnum.AccRightPush
         };
         //enums = new InstructionEnum[]{InstructionEnum.Add, InstructionEnum.Sub, InstructionEnum.Mul, InstructionEnum.Div, InstructionEnum.Log};
-        AccProgramFitnessExaminer evaluator = new AccProgramFitnessExaminer(collection);
+        ProgramFitnessExaminer evaluator = new ProgramFitnessExaminer(collection, new AccStatementRunner());
         GeneralBruteForceProgramIterator iter = new GeneralBruteForceProgramIterator(evaluator, enums);
         iter.iterate(curMaxRegisters, 10);
     }
