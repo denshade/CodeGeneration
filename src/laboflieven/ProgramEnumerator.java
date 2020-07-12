@@ -57,7 +57,7 @@ public class ProgramEnumerator
                 int index1 = getRegisterIndex(((SingleRegisterInstruction) currentOption).destination.name);
                 k += index1;
             } else if (currentOption instanceof laboflieven.accinstructions.SingleRegisterInstruction){
-                int index1 = getRegisterIndex(((laboflieven.accinstructions.SingleRegisterInstruction) currentOption)..name);
+                int index1 = getRegisterIndex(((laboflieven.accinstructions.SingleRegisterInstruction) currentOption).getRegister().name);
                 k += index1;
             } else
             if (currentOption instanceof AccRegisterInstruction){
