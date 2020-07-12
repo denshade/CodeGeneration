@@ -2,7 +2,7 @@ package laboflieven.accinstructions;
 
 import laboflieven.statements.Register;
 
-public class JumpIfLteStart extends SingleRegisterInstruction
+public class JumpIfLteStart  extends AccRegisterInstruction
 {
 
 

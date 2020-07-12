@@ -2,7 +2,7 @@ package laboflieven.accinstructions;
 
 import laboflieven.statements.Register;
 
-public class JumpIfGte extends SingleRegisterInstruction
+public class JumpIfGte  extends AccRegisterInstruction
 {
 
     private final Register register;

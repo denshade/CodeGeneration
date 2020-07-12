@@ -1,5 +1,6 @@
 package laboflieven;
 
+import laboflieven.accinstructions.AccRegisterInstruction;
 import laboflieven.statements.*;
 
 import java.util.List;
@@ -17,12 +18,14 @@ public class ProgramEnumerator
         this.nrRegisters = nrRegisters;
         for (InstructionMark mark : options)
         {
-
-            if (mark instanceof SingleRegisterInstruction) {
+            if (mark instanceof SingleRegisterInstruction || mark instanceof laboflieven.accinstructions.SingleRegisterInstruction) {
                 actualMarks += nrRegisters;
             }
             if (mark instanceof DualRegisterInstruction) {
                 actualMarks += nrRegisters * nrRegisters;
+            }
+            if (mark instanceof AccRegisterInstruction && !(mark instanceof laboflieven.accinstructions.SingleRegisterInstruction)){
+                actualMarks ++;
             }
         }
     }
@@ -49,11 +52,18 @@ public class ProgramEnumerator
                 int index1 = getRegisterIndex(((DualRegisterInstruction) currentOption).destination.name);
                 int index2 = getRegisterIndex(((DualRegisterInstruction) currentOption).source.name);
                 k += index1 + nrRegisters * index2;
-            }
-            if (currentOption instanceof SingleRegisterInstruction) {
+            } else
+            if (currentOption instanceof SingleRegisterInstruction ) {
                 int index1 = getRegisterIndex(((SingleRegisterInstruction) currentOption).destination.name);
                 k += index1;
+            } else if (currentOption instanceof laboflieven.accinstructions.SingleRegisterInstruction){
+                int index1 = getRegisterIndex(((laboflieven.accinstructions.SingleRegisterInstruction) currentOption)..name);
+                k += index1;
+            } else
+            if (currentOption instanceof AccRegisterInstruction){
+                k ++;
             }
+
             if (currentOption.getClass().toGenericString().equals(currentInstruction.getClass().toGenericString()))
             {
                 return k;

@@ -2,7 +2,7 @@ package laboflieven.accinstructions;
 
 import laboflieven.statements.Register;
 
-public class Jump2IfLte extends SingleRegisterInstruction
+public class Jump2IfLte  extends AccRegisterInstruction
 {
     public Integer execute(Register left, Register right, int ip)
     {

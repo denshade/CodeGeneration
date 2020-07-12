@@ -4,7 +4,6 @@ import laboflieven.statements.Register;
 
 public class AccRightPull extends SingleRegisterInstruction
 {
-    private Register register;
 
     AccRightPull(Register register)
     {
