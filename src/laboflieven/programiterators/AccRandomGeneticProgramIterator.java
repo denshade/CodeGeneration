@@ -26,7 +26,7 @@ public class AccRandomGeneticProgramIterator {
     public long counter = 0;
 
     public List<List<AccRegisterInstruction>> positiveSolutions = new ArrayList<>();
-    private ProgramFitnessExaminer evaluator;
+    private ProgramFitnessExaminerInterface evaluator;
     private InstructionEnum[] enums;
     private int maxPopulation;
     private Register[] registers;
