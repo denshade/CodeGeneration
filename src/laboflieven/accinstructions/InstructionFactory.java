@@ -17,7 +17,7 @@ public class InstructionFactory implements InstructionFactoryInterface
 {
     public AccRegisterInstruction createInstruction(InstructionOpcode instructionEnum, Register... registers)
     {
-        InstructionEnum instruct = ((AccInstructionOpcode)instructionEnum).getEnumer();
+        AccInstructionSet instruct = ((AccInstructionOpcode)instructionEnum).getEnumer();
         if (registers.length == 0)
         {
             return createInstructionP(instruct);
@@ -27,10 +27,10 @@ public class InstructionFactory implements InstructionFactoryInterface
         throw new RuntimeException("Too many registers");
     }
 
-    public AccRegisterInstruction createInstructionP(InstructionEnum instructionEnum)
+    public AccRegisterInstruction createInstructionP(AccInstructionSet accInstructionSet)
     {
         AccRegisterInstruction instruction;
-        switch(instructionEnum){
+        switch(accInstructionSet){
             case Add:
                 instruction = new Add();
                 break;
@@ -95,15 +95,15 @@ public class InstructionFactory implements InstructionFactoryInterface
                 instruction = new Swap();
                 break;
             default:
-                throw new IllegalArgumentException("invalid instruction " + instructionEnum.toString());
+                throw new IllegalArgumentException("invalid instruction " + accInstructionSet.toString());
         }
         return instruction;
     }
 
-    public AccRegisterInstruction createInstructionP(InstructionEnum instructionEnum, Register register1)
+    public AccRegisterInstruction createInstructionP(AccInstructionSet accInstructionSet, Register register1)
     {
         AccRegisterInstruction instruction;
-        switch(instructionEnum){
+        switch(accInstructionSet){
             case AccLeftPull:
                 instruction = new AccLeftPull(register1);
                 break;
@@ -123,7 +123,7 @@ public class InstructionFactory implements InstructionFactoryInterface
                 instruction = new JumpIfLte(register1);
                 break;*/
             default:
-                throw new IllegalArgumentException("invalid instruction " + instructionEnum.toString());
+                throw new IllegalArgumentException("invalid instruction " + accInstructionSet.toString());
         }
         return instruction;
     }
@@ -131,8 +131,8 @@ public class InstructionFactory implements InstructionFactoryInterface
     @Override
     public InstructionMark generateRandomInstruction(List<Register> register) {
         Random r = new Random();
-        int enumIndex = r.nextInt(InstructionEnum.values().length);
-        InstructionEnum selectedEnum = InstructionEnum.values()[enumIndex];
+        int enumIndex = r.nextInt(AccInstructionSet.values().length);
+        AccInstructionSet selectedEnum = AccInstructionSet.values()[enumIndex];
         InstructionMark mark;
         if (selectedEnum.isSingleRegister()) {
             int registerIndex1 = r.nextInt(register.size());

@@ -3,7 +3,7 @@ package laboflieven.challenges;
 import laboflieven.*;
 import laboflieven.examiners.ProgramFitnessExaminer;
 import laboflieven.loggers.AccPctBruteForceFitnessLogger;
-import laboflieven.accinstructions.InstructionEnum;
+import laboflieven.accinstructions.AccInstructionSet;
 import laboflieven.programiterators.GeneralBruteForceProgramIterator;
 import laboflieven.recursionheuristics.AccHeuristic;
 import laboflieven.runners.AccStatementRunner;
@@ -30,9 +30,9 @@ Found a program: [R3 /= R1, Mod R2 -> R1, Mod R3 -> R2, Nand R2 -> R1]
         }
         List<InOutParameters> collection = TestCases.getTestCases(new P1(), points.toArray(new double[0][0]),curMaxRegisters);
         ProgramFitnessExaminer evaluator = new ProgramFitnessExaminer(collection,new AccStatementRunner());
-        InstructionEnum[] instructions = new laboflieven.accinstructions.InstructionEnum[] {
-                InstructionEnum.AccRightPush, InstructionEnum.AccRightPush,InstructionEnum.AccRightPull, InstructionEnum.AccLeftPull, InstructionEnum.Mod, InstructionEnum.Mod,
-                InstructionEnum.Nand
+        AccInstructionSet[] instructions = new AccInstructionSet[] {
+                AccInstructionSet.AccRightPush, AccInstructionSet.AccRightPush, AccInstructionSet.AccRightPull, AccInstructionSet.AccLeftPull, AccInstructionSet.Mod, AccInstructionSet.Mod,
+                AccInstructionSet.Nand
         };
         evaluator.addListener(new AccPctBruteForceFitnessLogger(instructions, 10000, curMaxRegisters));
         GeneralBruteForceProgramIterator iter = new GeneralBruteForceProgramIterator(evaluator, instructions, new AccHeuristic());

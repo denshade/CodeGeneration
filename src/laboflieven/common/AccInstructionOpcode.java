@@ -1,16 +1,16 @@
 package laboflieven.common;
 
-import laboflieven.accinstructions.InstructionEnum;
+import laboflieven.accinstructions.AccInstructionSet;
 
 public class AccInstructionOpcode implements InstructionOpcode
 {
-    private final InstructionEnum enumer;
+    private final AccInstructionSet enumer;
 
-    public AccInstructionOpcode(InstructionEnum enumer) {
+    public AccInstructionOpcode(AccInstructionSet enumer) {
         this.enumer = enumer;
     }
 
-    public InstructionEnum getEnumer() {
+    public AccInstructionSet getEnumer() {
         return enumer;
     }
 }

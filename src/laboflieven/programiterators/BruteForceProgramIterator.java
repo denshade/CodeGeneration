@@ -5,7 +5,7 @@ import laboflieven.examiners.ProgramFitnessExaminerInterface;
 import laboflieven.InstructionMark;
 import laboflieven.recursionheuristics.AlwaysRecursionHeuristic;
 import laboflieven.recursionheuristics.RecursionHeuristic;
-import laboflieven.statements.InstructionEnum;
+import laboflieven.statements.InstructionSet;
 import laboflieven.statements.InstructionFactory;
 import laboflieven.statements.Register;
 
@@ -21,7 +21,7 @@ public class BruteForceProgramIterator
 
     public List<List<InstructionMark>> positiveSolutions = new ArrayList<>();
     private ProgramFitnessExaminerInterface evaluator;
-    private InstructionEnum[] instructionEnums;
+    private InstructionSet[] instructionSets;
     private RecursionHeuristic recursionHeuristic;
     private int nrRegisters;
     InstructionFactory instructionFactory = new InstructionFactory();
@@ -30,28 +30,28 @@ public class BruteForceProgramIterator
     public BruteForceProgramIterator(ProgramFitnessExaminerInterface evaluator)
     {
         this.evaluator = evaluator;
-        instructionEnums = InstructionEnum.values();
+        instructionSets = InstructionSet.values();
         recursionHeuristic = new AlwaysRecursionHeuristic();
     }
 
     public BruteForceProgramIterator(ProgramFitnessExaminerInterface evaluator, RecursionHeuristic recursionHeuristic)
     {
         this.evaluator = evaluator;
-        instructionEnums = InstructionEnum.values();
+        instructionSets = InstructionSet.values();
         this.recursionHeuristic = recursionHeuristic;
     }
 
-    public BruteForceProgramIterator(ProgramFitnessExaminerInterface evaluator, RecursionHeuristic recursionHeuristic, InstructionEnum[] instructions)
+    public BruteForceProgramIterator(ProgramFitnessExaminerInterface evaluator, RecursionHeuristic recursionHeuristic, InstructionSet[] instructions)
     {
         this.evaluator = evaluator;
-        instructionEnums = instructions;
+        instructionSets = instructions;
         this.recursionHeuristic = recursionHeuristic;
     }
 
-    public BruteForceProgramIterator(ProgramFitnessExaminerInterface evaluator, InstructionEnum[] instructions)
+    public BruteForceProgramIterator(ProgramFitnessExaminerInterface evaluator, InstructionSet[] instructions)
     {
         this.evaluator = evaluator;
-        instructionEnums = instructions;
+        instructionSets = instructions;
         recursionHeuristic = new AlwaysRecursionHeuristic();
     }
 
@@ -67,7 +67,7 @@ public class BruteForceProgramIterator
     {
         if (instructions.size() >= maximumInstructions)
             return;
-        for (InstructionEnum instruction : instructionEnums)
+        for (InstructionSet instruction : instructionSets)
         {
             for (Register register1 : registers) {
                 if (instruction.isDualRegister()) {

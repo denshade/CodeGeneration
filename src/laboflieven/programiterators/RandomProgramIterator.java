@@ -17,7 +17,7 @@ public class RandomProgramIterator {
 
     public List<List<InstructionMark>> positiveSolutions = new ArrayList<>();
     private ProgramFitnessExaminerInterface evaluator;
-    private InstructionEnum[] enums;
+    private InstructionSet[] enums;
     private Register[] registers;
     private int numberOfRegisters;
     private List<InstructionMark> bestSolution;
@@ -26,10 +26,10 @@ public class RandomProgramIterator {
 
     public RandomProgramIterator(ProgramFitnessExaminerInterface evaluator) {
         this.evaluator = evaluator;
-        enums = InstructionEnum.values();
+        enums = InstructionSet.values();
     }
 
-    public RandomProgramIterator(ProgramFitnessExaminerInterface evaluator, InstructionEnum[] enums) {
+    public RandomProgramIterator(ProgramFitnessExaminerInterface evaluator, InstructionSet[] enums) {
         this.evaluator = evaluator;
 
         this.enums = enums;
@@ -60,7 +60,7 @@ public class RandomProgramIterator {
 
         Random r = new Random();
         int location = r.nextInt(enums.length);
-        InstructionEnum instruction = enums[location];
+        InstructionSet instruction = enums[location];
         if (instruction.isDualRegister()) {
             Register register1 = registers[r.nextInt(registers.length)];
             Register register2 = registers[r.nextInt(registers.length)];
@@ -89,8 +89,8 @@ public class RandomProgramIterator {
         }
     }
 
-    private boolean isUselessOp(InstructionEnum instruction, Register register1, Register register2) {
-        return instruction == InstructionEnum.Move && register1.name.equals(register2.name);
+    private boolean isUselessOp(InstructionSet instruction, Register register1, Register register2) {
+        return instruction == InstructionSet.Move && register1.name.equals(register2.name);
     }
 
     private void eval(List<InstructionMark> instructions, List<Register> registers) {

@@ -17,7 +17,7 @@ public class ReverseProgramIterator
 
     public List<List<InstructionMark>> positiveSolutions = new ArrayList<>();
     private ProgramFitnessExaminerInterface evaluator;
-    private InstructionEnum[] enums;
+    private InstructionSet[] enums;
     private Register[] registers;
     private int numberOfRegisters;
 
@@ -29,10 +29,10 @@ public class ReverseProgramIterator
     public ReverseProgramIterator(ProgramFitnessExaminerInterface evaluator)
     {
         this.evaluator = evaluator;
-        enums = InstructionEnum.values();
+        enums = InstructionSet.values();
     }
 
-    public ReverseProgramIterator(ProgramFitnessExaminerInterface evaluator, InstructionEnum[] enums)
+    public ReverseProgramIterator(ProgramFitnessExaminerInterface evaluator, InstructionSet[] enums)
     {
         this.evaluator = evaluator;
         this.enums = enums;
@@ -63,13 +63,13 @@ public class ReverseProgramIterator
             return;
         }
         List<Register> registerList = Arrays.asList(registers);
-        for (InstructionEnum instruction : enums)
+        for (InstructionSet instruction : enums)
         {
             if (instruction.isDualRegister()) {
                 for (Register register1 : registers) {
 
                     for (Register register2 : registers) {
-                        if (instruction == InstructionEnum.Move && register1.name.equals(register2.name)) {
+                        if (instruction == InstructionSet.Move && register1.name.equals(register2.name)) {
                             continue;
                         }
 

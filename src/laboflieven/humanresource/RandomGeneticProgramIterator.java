@@ -5,7 +5,7 @@ import laboflieven.humanresource.model.HumanInstruction;
 import laboflieven.humanresource.model.HumanInstructionEnum;
 import laboflieven.humanresource.model.HumanInstructionFactory;
 import laboflieven.humanresource.model.HumanRegister;
-import laboflieven.statements.InstructionEnum;
+import laboflieven.statements.InstructionSet;
 import laboflieven.statements.Register;
 
 import java.util.*;
@@ -171,8 +171,8 @@ public class RandomGeneticProgramIterator {
         instructions.remove(instructions.size() - 1);
     }
 
-    private boolean isUselessOp(InstructionEnum instruction, Register register1, Register register2) {
-        return instruction == InstructionEnum.Move && register1.name.equals(register2.name);
+    private boolean isUselessOp(InstructionSet instruction, Register register1, Register register2) {
+        return instruction == InstructionSet.Move && register1.name.equals(register2.name);
     }
 
     private double eval(List<HumanInstruction> instructions, List<HumanRegister> registers) {

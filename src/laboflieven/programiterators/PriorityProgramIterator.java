@@ -18,12 +18,12 @@ public class PriorityProgramIterator
 
     public static final int MAXBADPROGRAM = 300;
     private final ProgramFitnessExaminerInterface evaluator;
-    private final InstructionEnum[] enums;
+    private final InstructionSet[] enums;
     PriorityQueue<ComparableProgram> priorityQueue = new PriorityQueue<>();
     private Register[] registers;
     private InstructionFactoryInterface instructionFactory = new InstructionFactory();
 
-    public PriorityProgramIterator(ProgramFitnessExaminerInterface evaluator, InstructionEnum[] enums) {
+    public PriorityProgramIterator(ProgramFitnessExaminerInterface evaluator, InstructionSet[] enums) {
         this.evaluator = evaluator;
         this.enums = enums;
     }
@@ -52,13 +52,13 @@ public class PriorityProgramIterator
         List<Register> registerList = Arrays.asList(registers);
         List<InstructionMark> instructionsSoFar = currentProgram.getProgram().getInstructions();
 
-        for (InstructionEnum instruction : enums)
+        for (InstructionSet instruction : enums)
         {
             if (instruction.isDualRegister()) {
                 for (Register register1 : registers) {
 
                     for (Register register2 : registers) {
-                        if (instruction == InstructionEnum.Move && register1.name.equals(register2.name)) {
+                        if (instruction == InstructionSet.Move && register1.name.equals(register2.name)) {
                             continue;
                         }
                         InstructionMark actualInstruction = instructionFactory.createInstruction(new RegularInstructionOpcode(instruction), register1, register2);
@@ -97,13 +97,13 @@ public class PriorityProgramIterator
     }
 
     private void fillFirstPrograms(List<Register> registerList) {
-        for (InstructionEnum instruction : enums)
+        for (InstructionSet instruction : enums)
         {
             if (instruction.isDualRegister()) {
                 for (Register register1 : registers) {
 
                     for (Register register2 : registers) {
-                        if (instruction == InstructionEnum.Move && register1.name.equals(register2.name)) {
+                        if (instruction == InstructionSet.Move && register1.name.equals(register2.name)) {
                             continue;
                         }
                         InstructionMark actualInstruction = instructionFactory.createInstruction(new RegularInstructionOpcode(instruction), register1, register2);
