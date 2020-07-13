@@ -16,6 +16,10 @@ public class ProgramEnumerator
         this.options = options;
         actualMarks = 0;
         this.nrRegisters = nrRegisters;
+        countInstructions(options, nrRegisters);
+    }
+
+    private void countInstructions(List<InstructionMark> options, int nrRegisters) {
         for (InstructionMark mark : options)
         {
             if (mark instanceof SingleRegisterInstruction || mark instanceof laboflieven.accinstructions.SingleRegisterInstruction) {
@@ -29,6 +33,7 @@ public class ProgramEnumerator
             }
         }
     }
+
     public long convert(final List<InstructionMark> instructions)
     {
         long sum = 0;
@@ -37,39 +42,55 @@ public class ProgramEnumerator
         {
             InstructionMark currentInstruction = instructions.get(currentInstruct);
 
-            sum = getIndexForInstruction(instructions, currentInstruction) * l;
+            sum += getIndexForInstruction(currentInstruction) * l;
             l *= actualMarks;
         }
         return sum;
     }
 
-    private long getIndexForInstruction(List<InstructionMark> instructions, InstructionMark currentInstruction) {
+    private long getIndexForInstruction(InstructionMark currentInstruction) {
         int k = 0;
-        for (int index = 0; index < instructions.size(); index++)
+        for (int index = 0; index < options.size(); index++)
         {
-            InstructionMark currentOption = instructions.get(index);
+            InstructionMark currentOption = options.get(index);
+            boolean match = false;
+            if (currentOption.getClass().toGenericString().equals(currentInstruction.getClass().toGenericString()))
+            {
+                match = true;
+            }
+
             if (currentOption instanceof DualRegisterInstruction) {
-                int index1 = getRegisterIndex(((DualRegisterInstruction) currentOption).destination.name);
-                int index2 = getRegisterIndex(((DualRegisterInstruction) currentOption).source.name);
-                k += index1 + nrRegisters * index2;
-            } else
-            if (currentOption instanceof SingleRegisterInstruction ) {
-                int index1 = getRegisterIndex(((SingleRegisterInstruction) currentOption).destination.name);
-                k += index1;
+                if (match) {
+                    int index1 = getRegisterIndex(((DualRegisterInstruction) currentInstruction).destination.name);
+                    int index2 = getRegisterIndex(((DualRegisterInstruction) currentInstruction).source.name);
+                    k += index1 + nrRegisters * index2;
+                    return k;
+                }
+                k += nrRegisters * nrRegisters;
+            } else if (currentOption instanceof SingleRegisterInstruction ) {
+                if (match) {
+
+                    int index1 = getRegisterIndex(((SingleRegisterInstruction) currentOption).destination.name);
+                    k += index1;
+                    return k;
+                }
+                k += nrRegisters;
             } else if (currentOption instanceof laboflieven.accinstructions.SingleRegisterInstruction){
-                int index1 = getRegisterIndex(((laboflieven.accinstructions.SingleRegisterInstruction) currentOption).getRegister().name);
-                k += index1;
+                if (match) {
+                    int index1 = getRegisterIndex(((laboflieven.accinstructions.SingleRegisterInstruction) currentOption).getRegister().name);
+                    k += index1;
+                    return k;
+                }
+                k+= nrRegisters;
             } else
             if (currentOption instanceof AccRegisterInstruction){
                 k ++;
+                if (match)
+                    return k;
             }
 
-            if (currentOption.getClass().toGenericString().equals(currentInstruction.getClass().toGenericString()))
-            {
-                return k;
-            }
         }
-        return k;
+        throw new RuntimeException("Option not found.");
     }
 
     private int getRegisterIndex(String name) {
