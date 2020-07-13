@@ -15,7 +15,7 @@ import java.util.List;
 public class P2 implements ProgramTemplate
 {
     /*
-
+[ Jump if left >= right goto this + 2, left = nand(left, right),  left = R1,  Jump if left <= right goto this + 2, left = log(left), R1 = left, R1 = left, left = log(left),  left = R1,  right = R1,  right = R1,  right = R1, left = left * right, left = left ^ right, R1 = left]
      */
     public static void main(String[] args) throws IOException {
 
