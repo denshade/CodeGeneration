@@ -14,4 +14,9 @@ public class Sqrt extends SingleRegisterInstruction {
         destination.value = Math.sqrt(destination.value);
         return null;
     }
+    @Override
+    public Object getInstructionOpcode() {
+        return InstructionSet.Sqrt;
+    }
+
 }

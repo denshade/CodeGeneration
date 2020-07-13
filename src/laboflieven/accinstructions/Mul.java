@@ -17,4 +17,8 @@ public class Mul extends AccRegisterInstruction
     {
         return  "left = left * right";
     }
+    @Override
+    public Object getInstructionOpcode() {
+        return AccInstructionSet.Mul;
+    }
 }

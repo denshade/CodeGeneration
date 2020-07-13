@@ -15,4 +15,9 @@ public class Invert extends SingleRegisterInstruction
         destination.value = destination.value * -1;
         return null;
     }
+    @Override
+    public Object getInstructionOpcode() {
+        return InstructionSet.Invert;
+    }
+
 }

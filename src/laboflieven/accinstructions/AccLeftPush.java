@@ -19,5 +19,8 @@ public class AccLeftPush extends SingleRegisterInstruction
     public String toString() {
         return " left = " +  register.name;
     }
-
+    @Override
+    public Object getInstructionOpcode() {
+        return AccInstructionSet.AccLeftPush;
+    }
 }

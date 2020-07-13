@@ -20,4 +20,9 @@ public class AccRightPush extends SingleRegisterInstruction
         return " right = " + register.name;
     }
 
+
+    @Override
+    public Object getInstructionOpcode() {
+        return AccInstructionSet.AccRightPush;
+    }
 }

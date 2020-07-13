@@ -19,5 +19,8 @@ public class JumpIfLteStart  extends AccRegisterInstruction
     public String toString() {
         return " if left <=  R then goto 0 ";
     }
-
+    @Override
+    public Object getInstructionOpcode() {
+        return AccInstructionSet.JumpIfLteStart;
+    }
 }

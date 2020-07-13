@@ -16,4 +16,8 @@ public class Sin extends AccRegisterInstruction {
     public String toString()
     {
         return  "left = sin(left)";    }
+    @Override
+    public Object getInstructionOpcode() {
+        return AccInstructionSet.Sin;
+    }
 }

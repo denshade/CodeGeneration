@@ -22,4 +22,8 @@ public class Invert extends AccRegisterInstruction
     {
         return  "left = -left";
     }
+    @Override
+    public Object getInstructionOpcode() {
+        return AccInstructionSet.Invert;
+    }
 }

@@ -21,4 +21,8 @@ public class AccLeftPull extends SingleRegisterInstruction
         return register.name +" = left" ;
     }
 
+    @Override
+    public Object getInstructionOpcode() {
+        return AccInstructionSet.AccLeftPull;
+    }
 }

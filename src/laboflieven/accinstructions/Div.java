@@ -18,4 +18,8 @@ public class Div extends AccRegisterInstruction
     {
         return  "left = left / right";
     }
+    @Override
+    public Object getInstructionOpcode() {
+        return AccInstructionSet.Div;
+    }
 }

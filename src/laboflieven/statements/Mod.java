@@ -18,4 +18,9 @@ public class Mod extends DualRegisterInstruction
     {
         return destination.name + " = " + destination.name + " % " + source.name;
     }
+    @Override
+    public Object getInstructionOpcode() {
+        return InstructionSet.Mod;
+    }
+
 }

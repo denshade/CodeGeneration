@@ -18,4 +18,8 @@ public class Jump2IfNeq  extends AccRegisterInstruction
         return " Jump if left >= right goto this + 2";
     }
 
+    @Override
+    public Object getInstructionOpcode() {
+        return AccInstructionSet.Jump2IfNeq;
+    }
 }

@@ -20,4 +20,10 @@ public class JumpIfRegister1NotZeroToBegin extends SingleRegisterInstruction {
         return null;
     }
 
+    @Override
+    public Object getInstructionOpcode() {
+        return InstructionSet.JmpIfNotZeroBegin;
+    }
+
+
 }

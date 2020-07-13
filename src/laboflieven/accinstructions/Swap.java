@@ -18,5 +18,11 @@ public class Swap extends AccRegisterInstruction
 
     public String toString()
     {
-        return  "swap = left, left = right, right = swap";    }
+        return  "swap = left, left = right, right = swap";
+    }
+
+    @Override
+    public Object getInstructionOpcode() {
+        return AccInstructionSet.Swap;
+    }
 }

@@ -11,4 +11,9 @@ public class One extends SingleRegisterInstruction {
         destination.value = 1.0;
         return null;
     }
+    @Override
+    public Object getInstructionOpcode() {
+        return InstructionSet.One;
+    }
+
 }

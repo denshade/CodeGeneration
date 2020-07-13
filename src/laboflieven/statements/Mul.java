@@ -14,4 +14,9 @@ public class Mul extends DualRegisterInstruction
         destination.value = source.value * destination.value;
         return null;
     }
+    @Override
+    public Object getInstructionOpcode() {
+        return InstructionSet.Mul;
+    }
+
 }

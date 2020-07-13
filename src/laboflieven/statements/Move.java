@@ -15,4 +15,10 @@ public class Move extends DualRegisterInstruction
         destination.value = source.value;
         return null;
     }
+
+    @Override
+    public Object getInstructionOpcode() {
+        return InstructionSet.Move;
+    }
+
 }

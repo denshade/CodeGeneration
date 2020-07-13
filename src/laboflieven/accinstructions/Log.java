@@ -21,4 +21,8 @@ public class Log extends AccRegisterInstruction {
     {
         return  "left = log(left)";
     }
+    @Override
+    public Object getInstructionOpcode() {
+        return AccInstructionSet.Log;
+    }
 }

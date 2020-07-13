@@ -20,5 +20,8 @@ public class AccRightPull extends SingleRegisterInstruction
     public String toString() {
         return  register.name + " = right";
     }
-
+    @Override
+    public Object getInstructionOpcode() {
+        return AccInstructionSet.AccRightPull;
+    }
 }

@@ -16,4 +16,8 @@ public class Sqrt extends AccRegisterInstruction {
     public String toString()
     {
         return  "left = sqrt(left)";    }
+    @Override
+    public Object getInstructionOpcode() {
+        return AccInstructionSet.Sqrt;
+    }
 }

@@ -14,4 +14,10 @@ public class Nand extends DualRegisterInstruction {
         destination.value = evaluation?1.0:0.0;
         return null;
     }
+
+    @Override
+    public Object getInstructionOpcode() {
+        return InstructionSet.Nand;
+    }
+
 }

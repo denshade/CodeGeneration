@@ -11,4 +11,9 @@ public class PI extends SingleRegisterInstruction {
         destination.value = Math.PI;
         return null;
     }
+    @Override
+    public Object getInstructionOpcode() {
+        return InstructionSet.PI;
+    }
+
 }

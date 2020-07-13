@@ -19,5 +19,9 @@ public class JumpIfGteStart  extends AccRegisterInstruction
     public String toString() {
         return " Jump to start if L >= R ";
     }
+    @Override
+    public Object getInstructionOpcode() {
+        return AccInstructionSet.JumpIfGteStart;
+    }
 
 }

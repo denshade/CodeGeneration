@@ -11,4 +11,9 @@ public class Log extends SingleRegisterInstruction {
         destination.value = Math.log(destination.value);
         return null;
     }
+    @Override
+    public Object getInstructionOpcode() {
+        return InstructionSet.Log;
+    }
+
 }

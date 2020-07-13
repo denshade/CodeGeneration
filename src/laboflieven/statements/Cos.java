@@ -14,4 +14,9 @@ public class Cos extends SingleRegisterInstruction{
         destination.value = Math.cos(destination.value);
         return null;
     }
+    @Override
+    public Object getInstructionOpcode() {
+        return InstructionSet.Cos;
+    }
+
 }

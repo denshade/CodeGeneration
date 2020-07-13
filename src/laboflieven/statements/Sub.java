@@ -18,4 +18,9 @@ public class Sub extends DualRegisterInstruction {
     {
         return destination.name + " -= " + source.name;
     }
+    @Override
+    public Object getInstructionOpcode() {
+        return InstructionSet.Sub;
+    }
+
 }

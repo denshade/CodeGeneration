@@ -14,4 +14,9 @@ public class Sin extends SingleRegisterInstruction{
         destination.value = Math.sin(destination.value);
         return null;
     }
+    @Override
+    public Object getInstructionOpcode() {
+        return InstructionSet.Sin;
+    }
+
 }

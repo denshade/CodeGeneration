@@ -18,4 +18,8 @@ public class Mod extends AccRegisterInstruction
     {
         return  "left = left % right";
     }
+    @Override
+    public Object getInstructionOpcode() {
+        return AccInstructionSet.Mod;
+    }
 }

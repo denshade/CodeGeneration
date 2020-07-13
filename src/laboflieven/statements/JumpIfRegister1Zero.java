@@ -20,4 +20,10 @@ public class JumpIfRegister1Zero extends DualRegisterInstruction {
         return null;
     }
 
+    @Override
+    public Object getInstructionOpcode() {
+        return InstructionSet.JmpIfZero;
+    }
+
+
 }

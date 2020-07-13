@@ -16,4 +16,8 @@ public class Pow extends AccRegisterInstruction
     public String toString()
     {
         return  "left = left ^ right";    }
+    @Override
+    public Object getInstructionOpcode() {
+        return AccInstructionSet.Pow;
+    }
 }

@@ -16,5 +16,10 @@ public class Add extends AccRegisterInstruction
 
     public String toString()
     {
-        return  "left = left + right";    }
+        return  "left = left + right";
+    }
+    @Override
+    public Object getInstructionOpcode() {
+        return AccInstructionSet.Add;
+    }
 }
