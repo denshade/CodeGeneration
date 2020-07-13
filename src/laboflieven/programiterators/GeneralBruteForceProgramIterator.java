@@ -23,7 +23,7 @@ public class GeneralBruteForceProgramIterator
 
     public List<List<InstructionMark>> positiveSolutions = new ArrayList<>();
     private ProgramFitnessExaminerInterface evaluator;
-    private InstructionEnum[] instructionEnums;
+    private AccInstructionSet[] accInstructionSets;
     private RecursionHeuristic heuristic = new AlwaysRecursionHeuristic();
     public boolean stopAtFirstSolution = true;
     public boolean onlyEvaluateAtLastInstruction = true;
@@ -32,17 +32,17 @@ public class GeneralBruteForceProgramIterator
 
     public GeneralBruteForceProgramIterator(ProgramFitnessExaminerInterface evaluator)
     {
-        this(evaluator, InstructionEnum.values());
+        this(evaluator, AccInstructionSet.values());
     }
 
-    public GeneralBruteForceProgramIterator(ProgramFitnessExaminerInterface evaluator, InstructionEnum[] instructions)
+    public GeneralBruteForceProgramIterator(ProgramFitnessExaminerInterface evaluator, AccInstructionSet[] instructions)
     {
         this(evaluator, instructions, new AlwaysRecursionHeuristic());
     }
-    public GeneralBruteForceProgramIterator(ProgramFitnessExaminerInterface evaluator, InstructionEnum[] instructions, RecursionHeuristic heuristic)
+    public GeneralBruteForceProgramIterator(ProgramFitnessExaminerInterface evaluator, AccInstructionSet[] instructions, RecursionHeuristic heuristic)
     {
         this.evaluator = evaluator;
-        instructionEnums = instructions;
+        accInstructionSets = instructions;
         this.heuristic = heuristic;
     }
 
@@ -63,7 +63,7 @@ public class GeneralBruteForceProgramIterator
     {
         if (instructions.size() >= maximumInstructions)
             return;
-        for (InstructionEnum instruction : instructionEnums)
+        for (AccInstructionSet instruction : accInstructionSets)
         {
             if (heuristic.shouldRecurse(instructions, maximumInstructions)) {
                 if (instruction.isSingleRegister()) {

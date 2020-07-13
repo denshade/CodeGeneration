@@ -21,7 +21,7 @@ public class RandomGeneticProgramIterator {
 
     public List<List<InstructionMark>> positiveSolutions = new ArrayList<>();
     private ProgramFitnessExaminerInterface evaluator;
-    private InstructionEnum[] enums;
+    private InstructionSet[] enums;
     private int maxPopulation;
     private Register[] registers;
     private int numberOfRegisters;
@@ -36,11 +36,11 @@ public class RandomGeneticProgramIterator {
         this.evaluator = evaluator;
         POPULATION_MAX = maxPopulation;
         this.maxOverflow = maxOverflow;
-        enums = InstructionEnum.values();
+        enums = InstructionSet.values();
     }
 
 
-    public static List<InstructionMark>  trySolutions(InOutParameterSource source, InstructionEnum[] enums, double maxPopulationOverflow, int startPopulation, int maxPopulation,
+    public static List<InstructionMark>  trySolutions(InOutParameterSource source, InstructionSet[] enums, double maxPopulationOverflow, int startPopulation, int maxPopulation,
                                                       double minPopularParents, double maxPopularParents, int minRegisters, int maxRegisters) {
         double winnerOfTheWorldWeight = Double.MAX_VALUE;
         List<InstructionMark> bestProgram = null;
@@ -86,7 +86,7 @@ public class RandomGeneticProgramIterator {
         return bestProgram;
     }
 
-    public RandomGeneticProgramIterator(ProgramFitnessExaminerInterface evaluator, InstructionEnum[] enums, int maxPopulation, double maxOverflow, double popularParents) {
+    public RandomGeneticProgramIterator(ProgramFitnessExaminerInterface evaluator, InstructionSet[] enums, int maxPopulation, double maxOverflow, double popularParents) {
         this.evaluator = evaluator;
         this.enums = enums;
         this.maxPopulation = maxPopulation;
@@ -187,7 +187,7 @@ public class RandomGeneticProgramIterator {
 
         Random r = new Random();
         int location = r.nextInt(enums.length);
-        InstructionEnum instruction = enums[location];
+        InstructionSet instruction = enums[location];
         if (instruction.isDualRegister()) {
             Register register1 = registers[r.nextInt(registers.length)];
             Register register2 = registers[r.nextInt(registers.length)];
@@ -216,8 +216,8 @@ public class RandomGeneticProgramIterator {
         }
     }
 
-    private boolean isUselessOp(InstructionEnum instruction, Register register1, Register register2) {
-        return instruction == InstructionEnum.Move && register1.name.equals(register2.name);
+    private boolean isUselessOp(InstructionSet instruction, Register register1, Register register2) {
+        return instruction == InstructionSet.Move && register1.name.equals(register2.name);
     }
 
     private double eval(List<InstructionMark> instructions, List<Register> registers) {

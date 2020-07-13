@@ -6,7 +6,7 @@ import laboflieven.Program;
 import laboflieven.runners.RegularStatementRunner;
 import laboflieven.runners.StatementRunner;
 import laboflieven.loggers.FitnessLogger;
-import laboflieven.statements.InstructionEnum;
+import laboflieven.statements.InstructionSet;
 import laboflieven.statements.Register;
 
 import java.util.ArrayList;
@@ -81,7 +81,7 @@ public class ProgramFitnessExaminer implements ProgramFitnessExaminerInterface {
         }
         for(FitnessLogger logger : loggers)
         {
-            logger.addFitness(instructions, InstructionEnum.values().length, registers.size(), err);
+            logger.addFitness(instructions, InstructionSet.values().length, registers.size(), err);
         }
         return err;
     }

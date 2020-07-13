@@ -4,7 +4,7 @@ import laboflieven.InOutParameters;
 import laboflieven.examiners.LoggingProgramFitnessExaminer;
 import laboflieven.programiterators.ReverseProgramIterator;
 import laboflieven.runners.RegularStatementRunner;
-import laboflieven.statements.InstructionEnum;
+import laboflieven.statements.InstructionSet;
 
 import java.io.File;
 import java.io.IOException;
@@ -32,7 +32,7 @@ public class SphereDistance implements ProgramTemplate
 
         File f = new File("c:\\temp\\test.csv");
         LoggingProgramFitnessExaminer evaluator = new LoggingProgramFitnessExaminer(f, collection, new RegularStatementRunner());
-        ReverseProgramIterator iter = new ReverseProgramIterator(evaluator, new InstructionEnum[]{InstructionEnum.Add, InstructionEnum.Sub, InstructionEnum.Mul, InstructionEnum.Div, InstructionEnum.Sqrt, InstructionEnum.Move, InstructionEnum.Sin, InstructionEnum.Cos});
+        ReverseProgramIterator iter = new ReverseProgramIterator(evaluator, new InstructionSet[]{InstructionSet.Add, InstructionSet.Sub, InstructionSet.Mul, InstructionSet.Div, InstructionSet.Sqrt, InstructionSet.Move, InstructionSet.Sin, InstructionSet.Cos});
         iter.iterate(curMaxRegisters, 4);
         evaluator.writeAndClose();
 

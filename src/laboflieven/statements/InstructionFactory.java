@@ -13,10 +13,10 @@ import java.util.Random;
  */
 public class InstructionFactory implements InstructionFactoryInterface
 {
-    public Instruction createInstructionP(InstructionEnum instructionEnum, Register register1, Register register2)
+    public Instruction createInstructionP(InstructionSet instructionSet, Register register1, Register register2)
     {
         Instruction instruction;
-        switch(instructionEnum){
+        switch(instructionSet){
             case Add:
                 instruction = new  Add(register1, register2);
                 break;
@@ -42,15 +42,15 @@ public class InstructionFactory implements InstructionFactoryInterface
                 instruction = new JumpIfRegister1Zero(register1, register2);
                 break;
             default:
-                throw new IllegalArgumentException("invalid instruction " + instructionEnum.toString());
+                throw new IllegalArgumentException("invalid instruction " + instructionSet.toString());
         }
         return instruction;
     }
 
-    public Instruction createInstructionP(InstructionEnum instructionEnum, Register register1)
+    public Instruction createInstructionP(InstructionSet instructionSet, Register register1)
     {
         Instruction instruction;
-        switch(instructionEnum){
+        switch(instructionSet){
             case Invert:
                 instruction = new Invert(register1);
                 break;
@@ -91,7 +91,7 @@ public class InstructionFactory implements InstructionFactoryInterface
                 instruction = new JumpIfRegister2Steps(register1);
                 break;
             default:
-                throw new IllegalArgumentException("invalid instruction " + instructionEnum.toString());
+                throw new IllegalArgumentException("invalid instruction " + instructionSet.toString());
         }
         return instruction;
     }
@@ -99,8 +99,8 @@ public class InstructionFactory implements InstructionFactoryInterface
     @Override
     public InstructionMark generateRandomInstruction(List<Register> register) {
         Random r = new Random();
-        int enumIndex = r.nextInt(InstructionEnum.values().length);
-        InstructionEnum selectedEnum = InstructionEnum.values()[enumIndex];
+        int enumIndex = r.nextInt(InstructionSet.values().length);
+        InstructionSet selectedEnum = InstructionSet.values()[enumIndex];
         InstructionMark mark;
         if (selectedEnum.isDualRegister()) {
             int registerIndex1 = r.nextInt(register.size());
@@ -115,7 +115,7 @@ public class InstructionFactory implements InstructionFactoryInterface
 
     @Override
     public InstructionMark createInstruction(InstructionOpcode instructionEnum, Register... registers) {
-        InstructionEnum en = ((RegularInstructionOpcode)instructionEnum).getEnumer();
+        InstructionSet en = ((RegularInstructionOpcode)instructionEnum).getEnumer();
         if (registers.length == 1)
             return createInstructionP(en, registers[0]);
         if (registers.length == 2)
