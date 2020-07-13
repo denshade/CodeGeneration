@@ -1,6 +1,8 @@
 package laboflieven.programprinters;
 
+import laboflieven.Program;
+
 public interface ProgramPrinter
 {
-    String toProgram();
+    String toProgram(Program program);
 }
