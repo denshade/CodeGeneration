@@ -3,7 +3,7 @@ package laboflieven.loggers;
 import laboflieven.InstructionMark;
 import laboflieven.accinstructions.InstructionEnum;
 import laboflieven.accinstructions.InstructionFactory;
-import laboflieven.common.AccInstructionSet;
+import laboflieven.common.AccInstructionOpcode;
 import laboflieven.statements.InstructionFactoryInterface;
 import laboflieven.statements.Register;
 
@@ -72,10 +72,10 @@ public class AccPctBruteForceFitnessLogger implements FitnessLogger
         for (InstructionEnum instructionEnum : this.availableInstructions) {
             if (instructionEnum.isSingleRegister()) {
                 for (int register = 0; register < nrRegisters; register++) {
-                    instructions.add(instructionFactory.createInstruction(new AccInstructionSet(instructionEnum), new Register("r" + register)));
+                    instructions.add(instructionFactory.createInstruction(new AccInstructionOpcode(instructionEnum), new Register("r" + register)));
                 }
             } else {
-                instructions.add(instructionFactory.createInstruction(new AccInstructionSet(instructionEnum)));
+                instructions.add(instructionFactory.createInstruction(new AccInstructionOpcode(instructionEnum)));
             }
         }
         return instructions;

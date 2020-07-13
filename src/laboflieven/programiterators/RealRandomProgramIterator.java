@@ -2,7 +2,7 @@ package laboflieven.programiterators;
 
 import laboflieven.InstructionMark;
 import laboflieven.Program;
-import laboflieven.common.RegularInstructionSet;
+import laboflieven.common.RegularInstructionOpcode;
 import laboflieven.statements.*;
 
 import java.util.*;
@@ -54,13 +54,13 @@ public class RealRandomProgramIterator {
         if (instruction.isDualRegister()) {
             Register register1 = registers[r.nextInt(registers.length)];
             Register register2 = registers[r.nextInt(registers.length)];
-            InstructionMark actualInstruction = instructionFactory.createInstruction(new RegularInstructionSet(instruction), register1, register2);
+            InstructionMark actualInstruction = instructionFactory.createInstruction(new RegularInstructionOpcode(instruction), register1, register2);
             instructions.add(actualInstruction);
 
         } else {
 
             Register register1 = registers[r.nextInt(registers.length)];
-            InstructionMark actualInstruction = instructionFactory.createInstruction(new RegularInstructionSet(instruction), register1);
+            InstructionMark actualInstruction = instructionFactory.createInstruction(new RegularInstructionOpcode(instruction), register1);
             instructions.add(0, actualInstruction);
             /**
              * Available registers remains the same. No new registers are used.

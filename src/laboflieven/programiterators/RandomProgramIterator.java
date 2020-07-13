@@ -1,7 +1,7 @@
 package laboflieven.programiterators;
 
 import laboflieven.InstructionMark;
-import laboflieven.common.RegularInstructionSet;
+import laboflieven.common.RegularInstructionOpcode;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
 import laboflieven.StoppedByUserException;
 import laboflieven.statements.*;
@@ -69,7 +69,7 @@ public class RandomProgramIterator {
                 return;
             }
 
-            InstructionMark actualInstruction = instructionFactory.createInstruction(new RegularInstructionSet(instruction), register1, register2);
+            InstructionMark actualInstruction = instructionFactory.createInstruction(new RegularInstructionOpcode(instruction), register1, register2);
             instructions.add(actualInstruction);
             eval(instructions, Arrays.asList(registers));
             recurse(instructions);
@@ -77,7 +77,7 @@ public class RandomProgramIterator {
         } else {
 
             Register register1 = registers[r.nextInt(registers.length)];
-            InstructionMark actualInstruction = instructionFactory.createInstruction(new RegularInstructionSet(instruction), register1);
+            InstructionMark actualInstruction = instructionFactory.createInstruction(new RegularInstructionOpcode(instruction), register1);
             instructions.add(0, actualInstruction);
             eval(instructions, Arrays.asList(registers));
             /**

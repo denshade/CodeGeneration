@@ -1,6 +1,6 @@
 package laboflieven.programiterators;
 
-import laboflieven.common.RegularInstructionSet;
+import laboflieven.common.RegularInstructionOpcode;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
 import laboflieven.*;
 import laboflieven.statements.*;
@@ -61,7 +61,7 @@ public class PriorityProgramIterator
                         if (instruction == InstructionEnum.Move && register1.name.equals(register2.name)) {
                             continue;
                         }
-                        InstructionMark actualInstruction = instructionFactory.createInstruction(new RegularInstructionSet(instruction), register1, register2);
+                        InstructionMark actualInstruction = instructionFactory.createInstruction(new RegularInstructionOpcode(instruction), register1, register2);
                         List<InstructionMark> newInstructions = new ArrayList<>(instructionsSoFar);
                         newInstructions.add(actualInstruction);
                         Program program = new Program(newInstructions, registerList);
@@ -73,7 +73,7 @@ public class PriorityProgramIterator
             }
             else {
                 for (Register register1 : registers) {
-                    InstructionMark actualInstruction = instructionFactory.createInstruction(new RegularInstructionSet(instruction), register1);
+                    InstructionMark actualInstruction = instructionFactory.createInstruction(new RegularInstructionOpcode(instruction), register1);
                     List<InstructionMark> newInstructions = new ArrayList<>(instructionsSoFar);
                     newInstructions.add(actualInstruction);
                     Program program = new Program(newInstructions, registerList);
@@ -106,7 +106,7 @@ public class PriorityProgramIterator
                         if (instruction == InstructionEnum.Move && register1.name.equals(register2.name)) {
                             continue;
                         }
-                        InstructionMark actualInstruction = instructionFactory.createInstruction(new RegularInstructionSet(instruction), register1, register2);
+                        InstructionMark actualInstruction = instructionFactory.createInstruction(new RegularInstructionOpcode(instruction), register1, register2);
                         Program program = new Program(Arrays.asList(actualInstruction), registerList);
                         addifImportant(new ComparableProgram(program, evaluator));
                     }
@@ -114,7 +114,7 @@ public class PriorityProgramIterator
             }
             else {
                 for (Register register1 : registers) {
-                    InstructionMark actualInstruction = instructionFactory.createInstruction(new RegularInstructionSet(instruction), register1);
+                    InstructionMark actualInstruction = instructionFactory.createInstruction(new RegularInstructionOpcode(instruction), register1);
                     Program program = new Program(Arrays.asList(actualInstruction), registerList);
                     addifImportant(new ComparableProgram(program, evaluator));
                 }

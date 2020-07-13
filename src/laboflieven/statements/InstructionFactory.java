@@ -2,8 +2,8 @@ package laboflieven.statements;
 
 
 import laboflieven.InstructionMark;
-import laboflieven.common.InstructionSet;
-import laboflieven.common.RegularInstructionSet;
+import laboflieven.common.InstructionOpcode;
+import laboflieven.common.RegularInstructionOpcode;
 
 import java.util.List;
 import java.util.Random;
@@ -114,8 +114,8 @@ public class InstructionFactory implements InstructionFactoryInterface
     }
 
     @Override
-    public InstructionMark createInstruction(InstructionSet instructionEnum, Register... registers) {
-        InstructionEnum en = ((RegularInstructionSet)instructionEnum).getEnumer();
+    public InstructionMark createInstruction(InstructionOpcode instructionEnum, Register... registers) {
+        InstructionEnum en = ((RegularInstructionOpcode)instructionEnum).getEnumer();
         if (registers.length == 1)
             return createInstructionP(en, registers[0]);
         if (registers.length == 2)

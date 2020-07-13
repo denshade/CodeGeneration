@@ -3,7 +3,6 @@ package laboflieven.programprinters;
 import laboflieven.InstructionMark;
 import laboflieven.Program;
 import laboflieven.accinstructions.AccLeftPull;
-import laboflieven.common.AccInstructionSet;
 import laboflieven.statements.Register;
 import org.junit.jupiter.api.Test;
 

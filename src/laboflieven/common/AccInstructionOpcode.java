@@ -1,13 +1,12 @@
 package laboflieven.common;
 
+import laboflieven.accinstructions.InstructionEnum;
 
-import laboflieven.statements.InstructionEnum;
-
-public class RegularInstructionSet implements InstructionSet
+public class AccInstructionOpcode implements InstructionOpcode
 {
     private final InstructionEnum enumer;
 
-    public RegularInstructionSet(InstructionEnum enumer) {
+    public AccInstructionOpcode(InstructionEnum enumer) {
         this.enumer = enumer;
     }
 
