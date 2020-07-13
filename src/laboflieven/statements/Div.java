@@ -22,7 +22,7 @@ public class Div extends DualRegisterInstruction
 
     @Override
     public Object getInstructionOpcode() {
-        return InstructionSet.Div;
+        return RegularInstructionOpcode.Div;
     }
 
 }

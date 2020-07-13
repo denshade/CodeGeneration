@@ -22,7 +22,7 @@ public class JumpIfRegister1Zero extends DualRegisterInstruction {
 
     @Override
     public Object getInstructionOpcode() {
-        return InstructionSet.JmpIfZero;
+        return RegularInstructionOpcode.JmpIfZero;
     }
 
 

@@ -20,6 +20,6 @@ public class Div extends AccRegisterInstruction
     }
     @Override
     public Object getInstructionOpcode() {
-        return AccInstructionSet.Div;
+        return AccInstructionOpcode.Div;
     }
 }

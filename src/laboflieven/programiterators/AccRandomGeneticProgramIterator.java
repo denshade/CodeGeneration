@@ -2,7 +2,6 @@ package laboflieven.programiterators;
 
 import laboflieven.Program;
 import laboflieven.accinstructions.*;
-import laboflieven.common.AccInstructionOpcode;
 import laboflieven.InstructionMark;
 import laboflieven.common.BestFitRegister;
 import laboflieven.common.PriorityQueueAlgos;
@@ -27,7 +26,7 @@ public class AccRandomGeneticProgramIterator {
 
     public List<List<AccRegisterInstruction>> positiveSolutions = new ArrayList<>();
     private ProgramFitnessExaminerInterface evaluator;
-    private AccInstructionSet[] enums;
+    private AccInstructionOpcode[] enums;
     private int maxPopulation;
     private Register[] registers;
     private int numberOfRegisters;
@@ -44,7 +43,7 @@ public class AccRandomGeneticProgramIterator {
         this.evaluator = evaluator;
         POPULATION_MAX = maxPopulation;
         this.maxOverflow = maxOverflow;
-        enums = AccInstructionSet.values();
+        enums = AccInstructionOpcode.values();
     }
 
     /**
@@ -54,7 +53,7 @@ public class AccRandomGeneticProgramIterator {
      * @param maxOverflow    If the size of the population > maxPopulation * maxOverflow then we cut down the least popular solutions.
      * @param popularParents Only popular parents can breed. This is the percent of parents that are taken into account. e.g. 0.8
      */
-    public AccRandomGeneticProgramIterator(ProgramFitnessExaminerInterface evaluator, AccInstructionSet[] enums, int maxPopulation, double maxOverflow, double popularParents) {
+    public AccRandomGeneticProgramIterator(ProgramFitnessExaminerInterface evaluator, AccInstructionOpcode[] enums, int maxPopulation, double maxOverflow, double popularParents) {
         this.evaluator = evaluator;
         this.enums = enums;
         this.maxPopulation = maxPopulation;
@@ -123,7 +122,7 @@ public class AccRandomGeneticProgramIterator {
         Program program = new Program(instructions, Arrays.asList(registers));
         boolean foundProgram = false;
         while (!foundProgram) {
-            AccInstructionSet instruction;
+            AccInstructionOpcode instruction;
             if (instructions.size() == 0) {
                 instruction = pickRandomPush(r);
             } else {
@@ -133,9 +132,9 @@ public class AccRandomGeneticProgramIterator {
             InstructionMark actualInstruction;
             if (instruction.isSingleRegister()) {
                 Register register1 = registers[r.nextInt(registers.length)];
-                actualInstruction = instructionFactory.createInstruction(new AccInstructionOpcode(instruction), register1);
+                actualInstruction = instructionFactory.createInstruction(new laboflieven.common.AccInstructionOpcode(instruction), register1);
             } else {
-                actualInstruction = instructionFactory.createInstruction(new AccInstructionOpcode(instruction));
+                actualInstruction = instructionFactory.createInstruction(new laboflieven.common.AccInstructionOpcode(instruction));
             }
             if (!isUseless(program,(AccRegisterInstruction) actualInstruction, maximumInstructions)) {
                 foundProgram = true;
@@ -182,17 +181,17 @@ public class AccRandomGeneticProgramIterator {
     }
 
 
-    private AccInstructionSet pickRandomPush(Random r) {
-        AccInstructionSet instruction;
+    private AccInstructionOpcode pickRandomPush(Random r) {
+        AccInstructionOpcode instruction;
         if (r.nextBoolean()) {
-            instruction = AccInstructionSet.AccLeftPush;
+            instruction = AccInstructionOpcode.AccLeftPush;
         } else {
-            instruction = AccInstructionSet.AccRightPush;
+            instruction = AccInstructionOpcode.AccRightPush;
         }
         return instruction;
     }
 
-    private AccInstructionSet pickRandomInstruction(Random r) {
+    private AccInstructionOpcode pickRandomInstruction(Random r) {
         int location = r.nextInt(enums.length);
         return enums[location];
     }

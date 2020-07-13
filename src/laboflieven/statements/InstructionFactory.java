@@ -3,7 +3,6 @@ package laboflieven.statements;
 
 import laboflieven.InstructionMark;
 import laboflieven.common.InstructionOpcode;
-import laboflieven.common.RegularInstructionOpcode;
 
 import java.util.List;
 import java.util.Random;
@@ -13,10 +12,10 @@ import java.util.Random;
  */
 public class InstructionFactory implements InstructionFactoryInterface
 {
-    public Instruction createInstructionP(InstructionSet instructionSet, Register register1, Register register2)
+    public Instruction createInstructionP(RegularInstructionOpcode regularInstructionOpcode, Register register1, Register register2)
     {
         Instruction instruction;
-        switch(instructionSet){
+        switch(regularInstructionOpcode){
             case Add:
                 instruction = new  Add(register1, register2);
                 break;
@@ -42,15 +41,15 @@ public class InstructionFactory implements InstructionFactoryInterface
                 instruction = new JumpIfRegister1Zero(register1, register2);
                 break;
             default:
-                throw new IllegalArgumentException("invalid instruction " + instructionSet.toString());
+                throw new IllegalArgumentException("invalid instruction " + regularInstructionOpcode.toString());
         }
         return instruction;
     }
 
-    public Instruction createInstructionP(InstructionSet instructionSet, Register register1)
+    public Instruction createInstructionP(RegularInstructionOpcode regularInstructionOpcode, Register register1)
     {
         Instruction instruction;
-        switch(instructionSet){
+        switch(regularInstructionOpcode){
             case Invert:
                 instruction = new Invert(register1);
                 break;
@@ -91,7 +90,7 @@ public class InstructionFactory implements InstructionFactoryInterface
                 instruction = new JumpIfRegister2Steps(register1);
                 break;
             default:
-                throw new IllegalArgumentException("invalid instruction " + instructionSet.toString());
+                throw new IllegalArgumentException("invalid instruction " + regularInstructionOpcode.toString());
         }
         return instruction;
     }
@@ -99,8 +98,8 @@ public class InstructionFactory implements InstructionFactoryInterface
     @Override
     public InstructionMark generateRandomInstruction(List<Register> register) {
         Random r = new Random();
-        int enumIndex = r.nextInt(InstructionSet.values().length);
-        InstructionSet selectedEnum = InstructionSet.values()[enumIndex];
+        int enumIndex = r.nextInt(RegularInstructionOpcode.values().length);
+        RegularInstructionOpcode selectedEnum = RegularInstructionOpcode.values()[enumIndex];
         InstructionMark mark;
         if (selectedEnum.isDualRegister()) {
             int registerIndex1 = r.nextInt(register.size());
@@ -115,7 +114,7 @@ public class InstructionFactory implements InstructionFactoryInterface
 
     @Override
     public InstructionMark createInstruction(InstructionOpcode instructionEnum, Register... registers) {
-        InstructionSet en = ((RegularInstructionOpcode)instructionEnum).getEnumer();
+        RegularInstructionOpcode en = ((laboflieven.common.RegularInstructionOpcode)instructionEnum).getEnumer();
         if (registers.length == 1)
             return createInstructionP(en, registers[0]);
         if (registers.length == 2)

@@ -19,6 +19,6 @@ public class Cos extends AccRegisterInstruction {
     }
     @Override
     public Object getInstructionOpcode() {
-        return AccInstructionSet.Cos;
+        return AccInstructionOpcode.Cos;
     }
 }

@@ -18,7 +18,7 @@ public class Move extends DualRegisterInstruction
 
     @Override
     public Object getInstructionOpcode() {
-        return InstructionSet.Move;
+        return RegularInstructionOpcode.Move;
     }
 
 }

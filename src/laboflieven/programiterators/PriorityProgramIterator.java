@@ -1,6 +1,5 @@
 package laboflieven.programiterators;
 
-import laboflieven.common.RegularInstructionOpcode;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
 import laboflieven.*;
 import laboflieven.statements.*;
@@ -18,12 +17,12 @@ public class PriorityProgramIterator
 
     public static final int MAXBADPROGRAM = 300;
     private final ProgramFitnessExaminerInterface evaluator;
-    private final InstructionSet[] enums;
+    private final RegularInstructionOpcode[] enums;
     PriorityQueue<ComparableProgram> priorityQueue = new PriorityQueue<>();
     private Register[] registers;
     private InstructionFactoryInterface instructionFactory = new InstructionFactory();
 
-    public PriorityProgramIterator(ProgramFitnessExaminerInterface evaluator, InstructionSet[] enums) {
+    public PriorityProgramIterator(ProgramFitnessExaminerInterface evaluator, RegularInstructionOpcode[] enums) {
         this.evaluator = evaluator;
         this.enums = enums;
     }
@@ -52,16 +51,16 @@ public class PriorityProgramIterator
         List<Register> registerList = Arrays.asList(registers);
         List<InstructionMark> instructionsSoFar = currentProgram.getProgram().getInstructions();
 
-        for (InstructionSet instruction : enums)
+        for (RegularInstructionOpcode instruction : enums)
         {
             if (instruction.isDualRegister()) {
                 for (Register register1 : registers) {
 
                     for (Register register2 : registers) {
-                        if (instruction == InstructionSet.Move && register1.name.equals(register2.name)) {
+                        if (instruction == RegularInstructionOpcode.Move && register1.name.equals(register2.name)) {
                             continue;
                         }
-                        InstructionMark actualInstruction = instructionFactory.createInstruction(new RegularInstructionOpcode(instruction), register1, register2);
+                        InstructionMark actualInstruction = instructionFactory.createInstruction(new laboflieven.common.RegularInstructionOpcode(instruction), register1, register2);
                         List<InstructionMark> newInstructions = new ArrayList<>(instructionsSoFar);
                         newInstructions.add(actualInstruction);
                         Program program = new Program(newInstructions, registerList);
@@ -73,7 +72,7 @@ public class PriorityProgramIterator
             }
             else {
                 for (Register register1 : registers) {
-                    InstructionMark actualInstruction = instructionFactory.createInstruction(new RegularInstructionOpcode(instruction), register1);
+                    InstructionMark actualInstruction = instructionFactory.createInstruction(new laboflieven.common.RegularInstructionOpcode(instruction), register1);
                     List<InstructionMark> newInstructions = new ArrayList<>(instructionsSoFar);
                     newInstructions.add(actualInstruction);
                     Program program = new Program(newInstructions, registerList);
@@ -97,16 +96,16 @@ public class PriorityProgramIterator
     }
 
     private void fillFirstPrograms(List<Register> registerList) {
-        for (InstructionSet instruction : enums)
+        for (RegularInstructionOpcode instruction : enums)
         {
             if (instruction.isDualRegister()) {
                 for (Register register1 : registers) {
 
                     for (Register register2 : registers) {
-                        if (instruction == InstructionSet.Move && register1.name.equals(register2.name)) {
+                        if (instruction == RegularInstructionOpcode.Move && register1.name.equals(register2.name)) {
                             continue;
                         }
-                        InstructionMark actualInstruction = instructionFactory.createInstruction(new RegularInstructionOpcode(instruction), register1, register2);
+                        InstructionMark actualInstruction = instructionFactory.createInstruction(new laboflieven.common.RegularInstructionOpcode(instruction), register1, register2);
                         Program program = new Program(Arrays.asList(actualInstruction), registerList);
                         addifImportant(new ComparableProgram(program, evaluator));
                     }
@@ -114,7 +113,7 @@ public class PriorityProgramIterator
             }
             else {
                 for (Register register1 : registers) {
-                    InstructionMark actualInstruction = instructionFactory.createInstruction(new RegularInstructionOpcode(instruction), register1);
+                    InstructionMark actualInstruction = instructionFactory.createInstruction(new laboflieven.common.RegularInstructionOpcode(instruction), register1);
                     Program program = new Program(Arrays.asList(actualInstruction), registerList);
                     addifImportant(new ComparableProgram(program, evaluator));
                 }

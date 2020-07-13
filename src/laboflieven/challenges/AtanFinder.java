@@ -5,7 +5,7 @@ import laboflieven.examiners.ProgramFitnessExaminer;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
 import laboflieven.programiterators.RandomGeneticProgramIterator;
 import laboflieven.runners.RegularStatementRunner;
-import laboflieven.statements.InstructionSet;
+import laboflieven.statements.RegularInstructionOpcode;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -76,7 +76,7 @@ public class AtanFinder
         ProgramFitnessExaminerInterface evaluator = new ProgramFitnessExaminer(collection, new RegularStatementRunner());
 
         //ReverseProgramIterator iter = new ReverseProgramIterator(evaluator, new InstructionEnum[]{InstructionEnum.Add, InstructionEnum.Sub, InstructionEnum.Mul, InstructionEnum.Div, InstructionEnum.Sqrt, InstructionEnum.Move, InstructionEnum.Sin, InstructionEnum.Cos});
-        RandomGeneticProgramIterator iter = new RandomGeneticProgramIterator(evaluator, InstructionSet.values(),
+        RandomGeneticProgramIterator iter = new RandomGeneticProgramIterator(evaluator, RegularInstructionOpcode.values(),
                 10000, 1.3, 0.4);
 
         iter.iterate(curMaxRegisters, 15);

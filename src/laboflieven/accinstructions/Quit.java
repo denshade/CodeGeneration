@@ -19,6 +19,6 @@ public class Quit extends AccRegisterInstruction
     }
     @Override
     public Object getInstructionOpcode() {
-        return AccInstructionSet.Quit;
+        return AccInstructionOpcode.Quit;
     }
 }

@@ -21,7 +21,7 @@ public class JumpIfRegister2Steps extends SingleRegisterInstruction {
     }
     @Override
     public Object getInstructionOpcode() {
-        return InstructionSet.JmpIfRegister2Steps;
+        return RegularInstructionOpcode.JmpIfRegister2Steps;
     }
 
 

@@ -24,6 +24,6 @@ public class Invert extends AccRegisterInstruction
     }
     @Override
     public Object getInstructionOpcode() {
-        return AccInstructionSet.Invert;
+        return AccInstructionOpcode.Invert;
     }
 }

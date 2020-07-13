@@ -13,7 +13,7 @@ public class One extends SingleRegisterInstruction {
     }
     @Override
     public Object getInstructionOpcode() {
-        return InstructionSet.One;
+        return RegularInstructionOpcode.One;
     }
 
 }

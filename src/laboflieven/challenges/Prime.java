@@ -4,7 +4,7 @@ import laboflieven.examiners.ProgramFitnessExaminer;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
 import laboflieven.programiterators.AccRandomGeneticProgramIterator;
 import laboflieven.InOutParameters;
-import laboflieven.accinstructions.AccInstructionSet;
+import laboflieven.accinstructions.AccInstructionOpcode;
 import laboflieven.runners.AccStatementRunner;
 
 import java.io.IOException;
@@ -32,8 +32,8 @@ Found a program: [R3 /= R1, Mod R2 -> R1, Mod R3 -> R2, Nand R2 -> R1]
         }
         List<InOutParameters> collection = TestCases.getTestCases(new Prime(), points.toArray(new double[0][0]),curMaxRegisters);
         ProgramFitnessExaminerInterface evaluator = new ProgramFitnessExaminer(collection,new AccStatementRunner());
-        AccRandomGeneticProgramIterator iter = new AccRandomGeneticProgramIterator(evaluator,  AccInstructionSet.anyExcept(Set.of(AccInstructionSet.Sqrt, AccInstructionSet.JumpIfGteStart, AccInstructionSet.JumpIfLteStart,
-                AccInstructionSet.Log)), 1000,1.2,0.4);
+        AccRandomGeneticProgramIterator iter = new AccRandomGeneticProgramIterator(evaluator,  AccInstructionOpcode.anyExcept(Set.of(AccInstructionOpcode.Sqrt, AccInstructionOpcode.JumpIfGteStart, AccInstructionOpcode.JumpIfLteStart,
+                AccInstructionOpcode.Log)), 1000,1.2,0.4);
         long start = System.currentTimeMillis();
         System.out.println(iter.iterate(curMaxRegisters, 20));
         //evaluator.writeAndClose();

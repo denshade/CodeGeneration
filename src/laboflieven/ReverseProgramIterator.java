@@ -1,6 +1,5 @@
 package laboflieven;
 
-import laboflieven.common.RegularInstructionOpcode;
 import laboflieven.statements.*;
 
 import java.util.*;
@@ -39,7 +38,7 @@ public class ReverseProgramIterator {
         {
             registerList.add(r);
         }
-        for (InstructionSet instruction : InstructionSet.values())
+        for (RegularInstructionOpcode instruction : RegularInstructionOpcode.values())
         {
             for (int register1Index = 0; register1Index < registers.length; register1Index++)
             {
@@ -48,12 +47,12 @@ public class ReverseProgramIterator {
                 {
                     for (int register2Index = 0; register2Index < registers.length; register2Index++)
                     {
-                        if (instruction == InstructionSet.Move && register1Index == register2Index)
+                        if (instruction == RegularInstructionOpcode.Move && register1Index == register2Index)
                         {
                             continue;
                         }
                         Register register2 = registers[register2Index];
-                        InstructionMark actualInstruction = instructionFactory.createInstruction(new RegularInstructionOpcode(instruction), register1, register2);
+                        InstructionMark actualInstruction = instructionFactory.createInstruction(new laboflieven.common.RegularInstructionOpcode(instruction), register1, register2);
                         instructions.add(actualInstruction);
                         Program sol = eval(instructions, registerList);
                         if (sol != null)
@@ -70,7 +69,7 @@ public class ReverseProgramIterator {
                 }
                 else
                 {
-                    InstructionMark actualInstruction = instructionFactory.createInstruction(new RegularInstructionOpcode(instruction), register1);
+                    InstructionMark actualInstruction = instructionFactory.createInstruction(new laboflieven.common.RegularInstructionOpcode(instruction), register1);
                     instructions.add(actualInstruction);
                     Program sol = eval(instructions, registerList);
                     if (sol != null)

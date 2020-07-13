@@ -20,6 +20,6 @@ public class Mod extends AccRegisterInstruction
     }
     @Override
     public Object getInstructionOpcode() {
-        return AccInstructionSet.Mod;
+        return AccInstructionOpcode.Mod;
     }
 }

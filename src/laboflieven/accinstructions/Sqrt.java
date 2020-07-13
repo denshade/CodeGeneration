@@ -18,6 +18,6 @@ public class Sqrt extends AccRegisterInstruction {
         return  "left = sqrt(left)";    }
     @Override
     public Object getInstructionOpcode() {
-        return AccInstructionSet.Sqrt;
+        return AccInstructionOpcode.Sqrt;
     }
 }

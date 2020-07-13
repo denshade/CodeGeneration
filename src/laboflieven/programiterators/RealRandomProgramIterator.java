@@ -2,7 +2,6 @@ package laboflieven.programiterators;
 
 import laboflieven.InstructionMark;
 import laboflieven.Program;
-import laboflieven.common.RegularInstructionOpcode;
 import laboflieven.statements.*;
 
 import java.util.*;
@@ -15,15 +14,15 @@ public class RealRandomProgramIterator {
     public long counter = 0;
 
     public List<List<InstructionMark>> positiveSolutions = new ArrayList<>();
-    private InstructionSet[] enums;
+    private RegularInstructionOpcode[] enums;
     private Register[] registers;
     private InstructionFactoryInterface instructionFactory = new InstructionFactory();
 
     public RealRandomProgramIterator() {
-        enums = InstructionSet.values();
+        enums = RegularInstructionOpcode.values();
     }
 
-    public RealRandomProgramIterator(InstructionSet[] enums) {
+    public RealRandomProgramIterator(RegularInstructionOpcode[] enums) {
         this.enums = enums;
     }
 
@@ -50,17 +49,17 @@ public class RealRandomProgramIterator {
 
         Random r = new Random();
         int location = r.nextInt(enums.length);
-        InstructionSet instruction = enums[location];
+        RegularInstructionOpcode instruction = enums[location];
         if (instruction.isDualRegister()) {
             Register register1 = registers[r.nextInt(registers.length)];
             Register register2 = registers[r.nextInt(registers.length)];
-            InstructionMark actualInstruction = instructionFactory.createInstruction(new RegularInstructionOpcode(instruction), register1, register2);
+            InstructionMark actualInstruction = instructionFactory.createInstruction(new laboflieven.common.RegularInstructionOpcode(instruction), register1, register2);
             instructions.add(actualInstruction);
 
         } else {
 
             Register register1 = registers[r.nextInt(registers.length)];
-            InstructionMark actualInstruction = instructionFactory.createInstruction(new RegularInstructionOpcode(instruction), register1);
+            InstructionMark actualInstruction = instructionFactory.createInstruction(new laboflieven.common.RegularInstructionOpcode(instruction), register1);
             instructions.add(0, actualInstruction);
             /**
              * Available registers remains the same. No new registers are used.
@@ -70,8 +69,8 @@ public class RealRandomProgramIterator {
         return recurse(instructions);
     }
 
-    private boolean isUselessOp(InstructionSet instruction, Register register1, Register register2) {
-        return instruction == InstructionSet.Move && register1.name.equals(register2.name);
+    private boolean isUselessOp(RegularInstructionOpcode instruction, Register register1, Register register2) {
+        return instruction == RegularInstructionOpcode.Move && register1.name.equals(register2.name);
     }
 
 

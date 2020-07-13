@@ -20,7 +20,7 @@ public class Mod extends DualRegisterInstruction
     }
     @Override
     public Object getInstructionOpcode() {
-        return InstructionSet.Mod;
+        return RegularInstructionOpcode.Mod;
     }
 
 }

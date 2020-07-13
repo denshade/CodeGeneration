@@ -21,6 +21,6 @@ public class JumpIfLteStart  extends AccRegisterInstruction
     }
     @Override
     public Object getInstructionOpcode() {
-        return AccInstructionSet.JumpIfLteStart;
+        return AccInstructionOpcode.JumpIfLteStart;
     }
 }

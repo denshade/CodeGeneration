@@ -7,7 +7,7 @@ import java.util.Set;
 /**
  * Created by lveeckha on 4/06/2015.
  */
-public enum InstructionSet
+public enum RegularInstructionOpcode
 {
     Add, Div, Invert, Move, Mul, Sqrt, Sub, Sin, Cos, Mod, Nand, Log, JmpIfZero, JmpIfZeroBegin, JmpIfZeroEnd, PI, Zero, One, JmpIfNotZeroBegin, JmpIfNotZeroEnd, JmpIfRegister2Steps;
 
@@ -17,28 +17,28 @@ public enum InstructionSet
                 && !this.equals(JmpIfNotZeroBegin) && !this.equals(JmpIfNotZeroEnd) && !this.equals(JmpIfRegister2Steps);
     }
 
-    public static InstructionSet[] anyExcept(InstructionSet eq)
+    public static RegularInstructionOpcode[] anyExcept(RegularInstructionOpcode eq)
     {
-        List<InstructionSet> result = new ArrayList<InstructionSet>();
-        for (InstructionSet enu : InstructionSet.values())
+        List<RegularInstructionOpcode> result = new ArrayList<RegularInstructionOpcode>();
+        for (RegularInstructionOpcode enu : RegularInstructionOpcode.values())
         {
             if (!enu.equals(eq)) {
                 result.add(enu);
             }
         }
-        return result.toArray(new InstructionSet[0]);
+        return result.toArray(new RegularInstructionOpcode[0]);
     }
 
-    public static InstructionSet[] anyExcept(Set<InstructionSet> eq)
+    public static RegularInstructionOpcode[] anyExcept(Set<RegularInstructionOpcode> eq)
     {
-        List<InstructionSet> result = new ArrayList<InstructionSet>();
-        for (InstructionSet enu : InstructionSet.values())
+        List<RegularInstructionOpcode> result = new ArrayList<RegularInstructionOpcode>();
+        for (RegularInstructionOpcode enu : RegularInstructionOpcode.values())
         {
             if (!eq.contains(enu)) {
                 result.add(enu);
             }
         }
-        return result.toArray(new InstructionSet[0]);
+        return result.toArray(new RegularInstructionOpcode[0]);
     }
 
 }

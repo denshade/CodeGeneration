@@ -17,7 +17,7 @@ public class Nand extends DualRegisterInstruction {
 
     @Override
     public Object getInstructionOpcode() {
-        return InstructionSet.Nand;
+        return RegularInstructionOpcode.Nand;
     }
 
 }

@@ -20,6 +20,6 @@ public class Add extends AccRegisterInstruction
     }
     @Override
     public Object getInstructionOpcode() {
-        return AccInstructionSet.Add;
+        return AccInstructionOpcode.Add;
     }
 }

@@ -19,6 +19,6 @@ public class Jump2IfGte extends AccRegisterInstruction
     }
     @Override
     public Object getInstructionOpcode() {
-        return AccInstructionSet.Jump2IfGte;
+        return AccInstructionOpcode.Jump2IfGte;
     }
 }

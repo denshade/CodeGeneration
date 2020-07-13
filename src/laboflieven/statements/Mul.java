@@ -16,7 +16,7 @@ public class Mul extends DualRegisterInstruction
     }
     @Override
     public Object getInstructionOpcode() {
-        return InstructionSet.Mul;
+        return RegularInstructionOpcode.Mul;
     }
 
 }

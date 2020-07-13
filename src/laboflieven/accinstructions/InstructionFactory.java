@@ -2,7 +2,6 @@ package laboflieven.accinstructions;
 
 
 import laboflieven.InstructionMark;
-import laboflieven.common.AccInstructionOpcode;
 import laboflieven.common.InstructionOpcode;
 import laboflieven.statements.InstructionFactoryInterface;
 import laboflieven.statements.Register;
@@ -17,7 +16,7 @@ public class InstructionFactory implements InstructionFactoryInterface
 {
     public AccRegisterInstruction createInstruction(InstructionOpcode instructionEnum, Register... registers)
     {
-        AccInstructionSet instruct = ((AccInstructionOpcode)instructionEnum).getEnumer();
+        AccInstructionOpcode instruct = ((laboflieven.common.AccInstructionOpcode)instructionEnum).getEnumer();
         if (registers.length == 0)
         {
             return createInstructionP(instruct);
@@ -27,10 +26,10 @@ public class InstructionFactory implements InstructionFactoryInterface
         throw new RuntimeException("Too many registers");
     }
 
-    public AccRegisterInstruction createInstructionP(AccInstructionSet accInstructionSet)
+    public AccRegisterInstruction createInstructionP(AccInstructionOpcode accInstructionOpcode)
     {
         AccRegisterInstruction instruction;
-        switch(accInstructionSet){
+        switch(accInstructionOpcode){
             case Add:
                 instruction = new Add();
                 break;
@@ -95,15 +94,15 @@ public class InstructionFactory implements InstructionFactoryInterface
                 instruction = new Swap();
                 break;
             default:
-                throw new IllegalArgumentException("invalid instruction " + accInstructionSet.toString());
+                throw new IllegalArgumentException("invalid instruction " + accInstructionOpcode.toString());
         }
         return instruction;
     }
 
-    public AccRegisterInstruction createInstructionP(AccInstructionSet accInstructionSet, Register register1)
+    public AccRegisterInstruction createInstructionP(AccInstructionOpcode accInstructionOpcode, Register register1)
     {
         AccRegisterInstruction instruction;
-        switch(accInstructionSet){
+        switch(accInstructionOpcode){
             case AccLeftPull:
                 instruction = new AccLeftPull(register1);
                 break;
@@ -123,7 +122,7 @@ public class InstructionFactory implements InstructionFactoryInterface
                 instruction = new JumpIfLte(register1);
                 break;*/
             default:
-                throw new IllegalArgumentException("invalid instruction " + accInstructionSet.toString());
+                throw new IllegalArgumentException("invalid instruction " + accInstructionOpcode.toString());
         }
         return instruction;
     }
@@ -131,14 +130,14 @@ public class InstructionFactory implements InstructionFactoryInterface
     @Override
     public InstructionMark generateRandomInstruction(List<Register> register) {
         Random r = new Random();
-        int enumIndex = r.nextInt(AccInstructionSet.values().length);
-        AccInstructionSet selectedEnum = AccInstructionSet.values()[enumIndex];
+        int enumIndex = r.nextInt(AccInstructionOpcode.values().length);
+        AccInstructionOpcode selectedEnum = AccInstructionOpcode.values()[enumIndex];
         InstructionMark mark;
         if (selectedEnum.isSingleRegister()) {
             int registerIndex1 = r.nextInt(register.size());
-            mark = createInstruction(new AccInstructionOpcode(selectedEnum), register.get(registerIndex1));
+            mark = createInstruction(new laboflieven.common.AccInstructionOpcode(selectedEnum), register.get(registerIndex1));
         } else {
-            mark = createInstruction(new AccInstructionOpcode(selectedEnum));
+            mark = createInstruction(new laboflieven.common.AccInstructionOpcode(selectedEnum));
         }
         return mark;
     }

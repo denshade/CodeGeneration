@@ -13,7 +13,7 @@ public class PI extends SingleRegisterInstruction {
     }
     @Override
     public Object getInstructionOpcode() {
-        return InstructionSet.PI;
+        return RegularInstructionOpcode.PI;
     }
 
 }

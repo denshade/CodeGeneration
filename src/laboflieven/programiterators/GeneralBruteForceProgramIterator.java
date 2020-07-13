@@ -1,7 +1,6 @@
 package laboflieven.programiterators;
 
 import laboflieven.InstructionMark;
-import laboflieven.common.AccInstructionOpcode;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
 import laboflieven.accinstructions.*;
 import laboflieven.recursionheuristics.AlwaysRecursionHeuristic;
@@ -23,7 +22,7 @@ public class GeneralBruteForceProgramIterator
 
     public List<List<InstructionMark>> positiveSolutions = new ArrayList<>();
     private ProgramFitnessExaminerInterface evaluator;
-    private AccInstructionSet[] accInstructionSets;
+    private AccInstructionOpcode[] accInstructionOpcodes;
     private RecursionHeuristic heuristic = new AlwaysRecursionHeuristic();
     public boolean stopAtFirstSolution = true;
     public boolean onlyEvaluateAtLastInstruction = true;
@@ -32,17 +31,17 @@ public class GeneralBruteForceProgramIterator
 
     public GeneralBruteForceProgramIterator(ProgramFitnessExaminerInterface evaluator)
     {
-        this(evaluator, AccInstructionSet.values());
+        this(evaluator, AccInstructionOpcode.values());
     }
 
-    public GeneralBruteForceProgramIterator(ProgramFitnessExaminerInterface evaluator, AccInstructionSet[] instructions)
+    public GeneralBruteForceProgramIterator(ProgramFitnessExaminerInterface evaluator, AccInstructionOpcode[] instructions)
     {
         this(evaluator, instructions, new AlwaysRecursionHeuristic());
     }
-    public GeneralBruteForceProgramIterator(ProgramFitnessExaminerInterface evaluator, AccInstructionSet[] instructions, RecursionHeuristic heuristic)
+    public GeneralBruteForceProgramIterator(ProgramFitnessExaminerInterface evaluator, AccInstructionOpcode[] instructions, RecursionHeuristic heuristic)
     {
         this.evaluator = evaluator;
-        accInstructionSets = instructions;
+        accInstructionOpcodes = instructions;
         this.heuristic = heuristic;
     }
 
@@ -63,16 +62,16 @@ public class GeneralBruteForceProgramIterator
     {
         if (instructions.size() >= maximumInstructions)
             return;
-        for (AccInstructionSet instruction : accInstructionSets)
+        for (AccInstructionOpcode instruction : accInstructionOpcodes)
         {
             if (heuristic.shouldRecurse(instructions, maximumInstructions)) {
                 if (instruction.isSingleRegister()) {
                     for (Register register1 : registers) {
-                        InstructionMark actualInstruction = instructionFactory.createInstruction(new AccInstructionOpcode(instruction), register1);
+                        InstructionMark actualInstruction = instructionFactory.createInstruction(new laboflieven.common.AccInstructionOpcode(instruction), register1);
                         processInstruction(instructions, registers, (AccRegisterInstruction) actualInstruction);
                     }
                 } else {
-                    InstructionMark actualInstruction = instructionFactory.createInstruction(new AccInstructionOpcode(instruction));
+                    InstructionMark actualInstruction = instructionFactory.createInstruction(new laboflieven.common.AccInstructionOpcode(instruction));
                     processInstruction(instructions, registers, (AccRegisterInstruction) actualInstruction);
                 }
             }

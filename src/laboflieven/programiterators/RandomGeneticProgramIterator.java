@@ -1,7 +1,6 @@
 package laboflieven.programiterators;
 
 import laboflieven.*;
-import laboflieven.common.RegularInstructionOpcode;
 import laboflieven.examiners.ProgramFitnessExaminer;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
 import laboflieven.runners.RegularStatementRunner;
@@ -21,7 +20,7 @@ public class RandomGeneticProgramIterator {
 
     public List<List<InstructionMark>> positiveSolutions = new ArrayList<>();
     private ProgramFitnessExaminerInterface evaluator;
-    private InstructionSet[] enums;
+    private RegularInstructionOpcode[] enums;
     private int maxPopulation;
     private Register[] registers;
     private int numberOfRegisters;
@@ -36,11 +35,11 @@ public class RandomGeneticProgramIterator {
         this.evaluator = evaluator;
         POPULATION_MAX = maxPopulation;
         this.maxOverflow = maxOverflow;
-        enums = InstructionSet.values();
+        enums = RegularInstructionOpcode.values();
     }
 
 
-    public static List<InstructionMark>  trySolutions(InOutParameterSource source, InstructionSet[] enums, double maxPopulationOverflow, int startPopulation, int maxPopulation,
+    public static List<InstructionMark>  trySolutions(InOutParameterSource source, RegularInstructionOpcode[] enums, double maxPopulationOverflow, int startPopulation, int maxPopulation,
                                                       double minPopularParents, double maxPopularParents, int minRegisters, int maxRegisters) {
         double winnerOfTheWorldWeight = Double.MAX_VALUE;
         List<InstructionMark> bestProgram = null;
@@ -86,7 +85,7 @@ public class RandomGeneticProgramIterator {
         return bestProgram;
     }
 
-    public RandomGeneticProgramIterator(ProgramFitnessExaminerInterface evaluator, InstructionSet[] enums, int maxPopulation, double maxOverflow, double popularParents) {
+    public RandomGeneticProgramIterator(ProgramFitnessExaminerInterface evaluator, RegularInstructionOpcode[] enums, int maxPopulation, double maxOverflow, double popularParents) {
         this.evaluator = evaluator;
         this.enums = enums;
         this.maxPopulation = maxPopulation;
@@ -187,7 +186,7 @@ public class RandomGeneticProgramIterator {
 
         Random r = new Random();
         int location = r.nextInt(enums.length);
-        InstructionSet instruction = enums[location];
+        RegularInstructionOpcode instruction = enums[location];
         if (instruction.isDualRegister()) {
             Register register1 = registers[r.nextInt(registers.length)];
             Register register2 = registers[r.nextInt(registers.length)];
@@ -196,7 +195,7 @@ public class RandomGeneticProgramIterator {
                 return;
             }
 
-            InstructionMark actualInstruction = instructionFactory.createInstruction(new RegularInstructionOpcode(instruction), register1, register2);
+            InstructionMark actualInstruction = instructionFactory.createInstruction(new laboflieven.common.RegularInstructionOpcode(instruction), register1, register2);
             instructions.add(actualInstruction);
             //eval(instructions, Arrays.asList(registers));
             recurse(instructions);
@@ -204,7 +203,7 @@ public class RandomGeneticProgramIterator {
         } else {
 
             Register register1 = registers[r.nextInt(registers.length)];
-            InstructionMark actualInstruction = instructionFactory.createInstruction(new RegularInstructionOpcode(instruction), register1);
+            InstructionMark actualInstruction = instructionFactory.createInstruction(new laboflieven.common.RegularInstructionOpcode(instruction), register1);
             instructions.add(0, actualInstruction);
             //eval(instructions, Arrays.asList(registers));
             /**
@@ -216,8 +215,8 @@ public class RandomGeneticProgramIterator {
         }
     }
 
-    private boolean isUselessOp(InstructionSet instruction, Register register1, Register register2) {
-        return instruction == InstructionSet.Move && register1.name.equals(register2.name);
+    private boolean isUselessOp(RegularInstructionOpcode instruction, Register register1, Register register2) {
+        return instruction == RegularInstructionOpcode.Move && register1.name.equals(register2.name);
     }
 
     private double eval(List<InstructionMark> instructions, List<Register> registers) {

@@ -21,7 +21,7 @@ public class JumpIfGteStart  extends AccRegisterInstruction
     }
     @Override
     public Object getInstructionOpcode() {
-        return AccInstructionSet.JumpIfGteStart;
+        return AccInstructionOpcode.JumpIfGteStart;
     }
 
 }

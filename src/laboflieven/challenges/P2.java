@@ -4,7 +4,7 @@ import laboflieven.examiners.ProgramFitnessExaminer;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
 import laboflieven.programiterators.AccRandomGeneticProgramIterator;
 import laboflieven.InOutParameters;
-import laboflieven.accinstructions.AccInstructionSet;
+import laboflieven.accinstructions.AccInstructionOpcode;
 import laboflieven.loggers.SysOutAccFitnessLogger;
 import laboflieven.runners.AccStatementRunner;
 
@@ -27,7 +27,7 @@ public class P2 implements ProgramTemplate
         List<InOutParameters> collection = TestCases.getTestCases(new P2(), points.toArray(new double[0][0]),curMaxRegisters);
         ProgramFitnessExaminerInterface evaluator = new ProgramFitnessExaminer(collection, new AccStatementRunner());
         evaluator.addListener(new SysOutAccFitnessLogger(10000));
-        AccRandomGeneticProgramIterator iter = new AccRandomGeneticProgramIterator(evaluator,  AccInstructionSet.values(), 10000,1.2,0.4);
+        AccRandomGeneticProgramIterator iter = new AccRandomGeneticProgramIterator(evaluator,  AccInstructionOpcode.values(), 10000,1.2,0.4);
         long start = System.currentTimeMillis();
         System.out.println(iter.iterate(curMaxRegisters, 15));
         //evaluator.writeAndClose();

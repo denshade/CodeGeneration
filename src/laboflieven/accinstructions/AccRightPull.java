@@ -22,6 +22,6 @@ public class AccRightPull extends SingleRegisterInstruction
     }
     @Override
     public Object getInstructionOpcode() {
-        return AccInstructionSet.AccRightPull;
+        return AccInstructionOpcode.AccRightPull;
     }
 }

@@ -19,6 +19,6 @@ public class Jump2IfZero  extends AccRegisterInstruction
     }
     @Override
     public Object getInstructionOpcode() {
-        return AccInstructionSet.Jump2IfZero;
+        return AccInstructionOpcode.Jump2IfZero;
     }
 }

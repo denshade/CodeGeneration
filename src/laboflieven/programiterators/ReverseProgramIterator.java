@@ -1,7 +1,6 @@
 package laboflieven.programiterators;
 
 import laboflieven.InstructionMark;
-import laboflieven.common.RegularInstructionOpcode;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
 import laboflieven.statements.*;
 
@@ -17,7 +16,7 @@ public class ReverseProgramIterator
 
     public List<List<InstructionMark>> positiveSolutions = new ArrayList<>();
     private ProgramFitnessExaminerInterface evaluator;
-    private InstructionSet[] enums;
+    private RegularInstructionOpcode[] enums;
     private Register[] registers;
     private int numberOfRegisters;
 
@@ -29,10 +28,10 @@ public class ReverseProgramIterator
     public ReverseProgramIterator(ProgramFitnessExaminerInterface evaluator)
     {
         this.evaluator = evaluator;
-        enums = InstructionSet.values();
+        enums = RegularInstructionOpcode.values();
     }
 
-    public ReverseProgramIterator(ProgramFitnessExaminerInterface evaluator, InstructionSet[] enums)
+    public ReverseProgramIterator(ProgramFitnessExaminerInterface evaluator, RegularInstructionOpcode[] enums)
     {
         this.evaluator = evaluator;
         this.enums = enums;
@@ -63,17 +62,17 @@ public class ReverseProgramIterator
             return;
         }
         List<Register> registerList = Arrays.asList(registers);
-        for (InstructionSet instruction : enums)
+        for (RegularInstructionOpcode instruction : enums)
         {
             if (instruction.isDualRegister()) {
                 for (Register register1 : registers) {
 
                     for (Register register2 : registers) {
-                        if (instruction == InstructionSet.Move && register1.name.equals(register2.name)) {
+                        if (instruction == RegularInstructionOpcode.Move && register1.name.equals(register2.name)) {
                             continue;
                         }
 
-                        InstructionMark actualInstruction = instructionFactory.createInstruction(new RegularInstructionOpcode(instruction), register1, register2);
+                        InstructionMark actualInstruction = instructionFactory.createInstruction(new laboflieven.common.RegularInstructionOpcode(instruction), register1, register2);
                         instructions.add(0, actualInstruction);
                         eval(instructions, registerList);
                         Set<Register> newlyAvailableRegisters = new HashSet<>(availableRegisters);
@@ -89,7 +88,7 @@ public class ReverseProgramIterator
                 }
             } else {
                 for (Register register1 : registers) {
-                    InstructionMark actualInstruction = instructionFactory.createInstruction(new RegularInstructionOpcode(instruction), register1);
+                    InstructionMark actualInstruction = instructionFactory.createInstruction(new laboflieven.common.RegularInstructionOpcode(instruction), register1);
                     instructions.add(0, actualInstruction);
                     eval(instructions, Arrays.asList(registers));
                     /*

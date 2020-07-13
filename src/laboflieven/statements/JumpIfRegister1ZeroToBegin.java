@@ -21,7 +21,7 @@ public class JumpIfRegister1ZeroToBegin extends SingleRegisterInstruction {
     }
     @Override
     public Object getInstructionOpcode() {
-        return InstructionSet.JmpIfZeroBegin;
+        return RegularInstructionOpcode.JmpIfZeroBegin;
     }
 
 }

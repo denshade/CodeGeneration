@@ -1,10 +1,9 @@
 package laboflieven.programiterators;
 
 import laboflieven.InstructionMark;
-import laboflieven.common.AccInstructionOpcode;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
 import laboflieven.accinstructions.AccRegisterInstruction;
-import laboflieven.accinstructions.AccInstructionSet;
+import laboflieven.accinstructions.AccInstructionOpcode;
 import laboflieven.accinstructions.InstructionFactory;
 import laboflieven.recursionheuristics.AlwaysRecursionHeuristic;
 import laboflieven.recursionheuristics.RecursionHeuristic;
@@ -25,7 +24,7 @@ public class ThreadingBruteForceProgramIterator
 
     public List<List<InstructionMark>> positiveSolutions = new ArrayList<>();
     private ProgramFitnessExaminerInterface evaluator;
-    private AccInstructionSet[] accInstructionSets;
+    private AccInstructionOpcode[] accInstructionOpcodes;
     private RecursionHeuristic heuristic = new AlwaysRecursionHeuristic();
     public boolean stopAtFirstSolution = true;
     public boolean onlyEvaluateAtLastInstruction = true;
@@ -35,17 +34,17 @@ public class ThreadingBruteForceProgramIterator
 
     public ThreadingBruteForceProgramIterator(ProgramFitnessExaminerInterface evaluator)
     {
-        this(evaluator, AccInstructionSet.values());
+        this(evaluator, AccInstructionOpcode.values());
     }
 
-    public ThreadingBruteForceProgramIterator(ProgramFitnessExaminerInterface evaluator, AccInstructionSet[] instructions)
+    public ThreadingBruteForceProgramIterator(ProgramFitnessExaminerInterface evaluator, AccInstructionOpcode[] instructions)
     {
         this(evaluator, instructions, new AlwaysRecursionHeuristic());
     }
-    public ThreadingBruteForceProgramIterator(ProgramFitnessExaminerInterface evaluator, AccInstructionSet[] instructions, RecursionHeuristic heuristic)
+    public ThreadingBruteForceProgramIterator(ProgramFitnessExaminerInterface evaluator, AccInstructionOpcode[] instructions, RecursionHeuristic heuristic)
     {
         this.evaluator = evaluator;
-        accInstructionSets = instructions;
+        accInstructionOpcodes = instructions;
         this.heuristic = heuristic;
     }
 
@@ -66,16 +65,16 @@ public class ThreadingBruteForceProgramIterator
     {
         if (instructions.size() >= maximumInstructions)
             return;
-        Arrays.stream(accInstructionSets).parallel().forEach(instruction ->
+        Arrays.stream(accInstructionOpcodes).parallel().forEach(instruction ->
         {
             if (heuristic.shouldRecurse(instructions, maximumInstructions)) {
                 if (instruction.isSingleRegister()) {
                     for (Register register1 : registers) {
-                        InstructionMark actualInstruction = instructionFactory.createInstruction(new AccInstructionOpcode(instruction), register1);
+                        InstructionMark actualInstruction = instructionFactory.createInstruction(new laboflieven.common.AccInstructionOpcode(instruction), register1);
                         processInstruction(instructions, registers, (AccRegisterInstruction) actualInstruction);
                     }
                 } else {
-                    InstructionMark actualInstruction = instructionFactory.createInstruction(new AccInstructionOpcode(instruction));
+                    InstructionMark actualInstruction = instructionFactory.createInstruction(new laboflieven.common.AccInstructionOpcode(instruction));
                     processInstruction(instructions, registers, (AccRegisterInstruction) actualInstruction);
                 }
             }

@@ -23,6 +23,6 @@ public class Log extends AccRegisterInstruction {
     }
     @Override
     public Object getInstructionOpcode() {
-        return AccInstructionSet.Log;
+        return AccInstructionOpcode.Log;
     }
 }

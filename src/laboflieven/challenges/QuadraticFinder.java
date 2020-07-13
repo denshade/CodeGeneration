@@ -6,7 +6,7 @@ import laboflieven.examiners.ProgramFitnessExaminerInterface;
 import laboflieven.programiterators.RandomGeneticProgramIterator;
 import laboflieven.programiterators.ReverseProgramIterator;
 import laboflieven.runners.RegularStatementRunner;
-import laboflieven.statements.InstructionSet;
+import laboflieven.statements.RegularInstructionOpcode;
 import laboflieven.statements.Register;
 
 import java.util.*;
@@ -24,7 +24,7 @@ public class QuadraticFinder implements InOutParameterSource, ProgramTemplate
      */
     public static void mainRandomized(String[] args)
     {
-        InstructionSet[] enums = {InstructionSet.Add, InstructionSet.Sub, InstructionSet.Mul, InstructionSet.Div, InstructionSet.Sqrt, InstructionSet.Move, InstructionSet.Invert};
+        RegularInstructionOpcode[] enums = {RegularInstructionOpcode.Add, RegularInstructionOpcode.Sub, RegularInstructionOpcode.Mul, RegularInstructionOpcode.Div, RegularInstructionOpcode.Sqrt, RegularInstructionOpcode.Move, RegularInstructionOpcode.Invert};
         List<InstructionMark> s = RandomGeneticProgramIterator.trySolutions(new QuadraticFinder(), enums, 1.1, 50000,100000,0.8,0.9,4,5);
         System.out.println("Winner with " + s);
     }
@@ -52,7 +52,7 @@ public class QuadraticFinder implements InOutParameterSource, ProgramTemplate
         List<InOutParameters> collection = new QuadraticFinder().getInOutParameters(curMaxRegisters);
         ProgramFitnessExaminerInterface evaluator = new ProgramFitnessExaminer(collection, new RegularStatementRunner());
 
-        ReverseProgramIterator iter = new ReverseProgramIterator(evaluator, new InstructionSet[]{InstructionSet.Add, InstructionSet.Sub, InstructionSet.Mul, InstructionSet.Div, InstructionSet.Sqrt, InstructionSet.Move, InstructionSet.Zero, InstructionSet.One});
+        ReverseProgramIterator iter = new ReverseProgramIterator(evaluator, new RegularInstructionOpcode[]{RegularInstructionOpcode.Add, RegularInstructionOpcode.Sub, RegularInstructionOpcode.Mul, RegularInstructionOpcode.Div, RegularInstructionOpcode.Sqrt, RegularInstructionOpcode.Move, RegularInstructionOpcode.Zero, RegularInstructionOpcode.One});
         iter.iterate(curMaxRegisters, 14);
     }
 

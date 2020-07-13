@@ -22,7 +22,7 @@ public class JumpIfRegister1ZeroToEnd extends SingleRegisterInstruction {
 
     @Override
     public Object getInstructionOpcode() {
-        return InstructionSet.JmpIfZeroEnd;
+        return RegularInstructionOpcode.JmpIfZeroEnd;
     }
 
 }

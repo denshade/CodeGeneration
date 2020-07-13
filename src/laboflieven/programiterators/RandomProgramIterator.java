@@ -1,7 +1,6 @@
 package laboflieven.programiterators;
 
 import laboflieven.InstructionMark;
-import laboflieven.common.RegularInstructionOpcode;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
 import laboflieven.StoppedByUserException;
 import laboflieven.statements.*;
@@ -17,7 +16,7 @@ public class RandomProgramIterator {
 
     public List<List<InstructionMark>> positiveSolutions = new ArrayList<>();
     private ProgramFitnessExaminerInterface evaluator;
-    private InstructionSet[] enums;
+    private RegularInstructionOpcode[] enums;
     private Register[] registers;
     private int numberOfRegisters;
     private List<InstructionMark> bestSolution;
@@ -26,10 +25,10 @@ public class RandomProgramIterator {
 
     public RandomProgramIterator(ProgramFitnessExaminerInterface evaluator) {
         this.evaluator = evaluator;
-        enums = InstructionSet.values();
+        enums = RegularInstructionOpcode.values();
     }
 
-    public RandomProgramIterator(ProgramFitnessExaminerInterface evaluator, InstructionSet[] enums) {
+    public RandomProgramIterator(ProgramFitnessExaminerInterface evaluator, RegularInstructionOpcode[] enums) {
         this.evaluator = evaluator;
 
         this.enums = enums;
@@ -60,7 +59,7 @@ public class RandomProgramIterator {
 
         Random r = new Random();
         int location = r.nextInt(enums.length);
-        InstructionSet instruction = enums[location];
+        RegularInstructionOpcode instruction = enums[location];
         if (instruction.isDualRegister()) {
             Register register1 = registers[r.nextInt(registers.length)];
             Register register2 = registers[r.nextInt(registers.length)];
@@ -69,7 +68,7 @@ public class RandomProgramIterator {
                 return;
             }
 
-            InstructionMark actualInstruction = instructionFactory.createInstruction(new RegularInstructionOpcode(instruction), register1, register2);
+            InstructionMark actualInstruction = instructionFactory.createInstruction(new laboflieven.common.RegularInstructionOpcode(instruction), register1, register2);
             instructions.add(actualInstruction);
             eval(instructions, Arrays.asList(registers));
             recurse(instructions);
@@ -77,7 +76,7 @@ public class RandomProgramIterator {
         } else {
 
             Register register1 = registers[r.nextInt(registers.length)];
-            InstructionMark actualInstruction = instructionFactory.createInstruction(new RegularInstructionOpcode(instruction), register1);
+            InstructionMark actualInstruction = instructionFactory.createInstruction(new laboflieven.common.RegularInstructionOpcode(instruction), register1);
             instructions.add(0, actualInstruction);
             eval(instructions, Arrays.asList(registers));
             /**
@@ -89,8 +88,8 @@ public class RandomProgramIterator {
         }
     }
 
-    private boolean isUselessOp(InstructionSet instruction, Register register1, Register register2) {
-        return instruction == InstructionSet.Move && register1.name.equals(register2.name);
+    private boolean isUselessOp(RegularInstructionOpcode instruction, Register register1, Register register2) {
+        return instruction == RegularInstructionOpcode.Move && register1.name.equals(register2.name);
     }
 
     private void eval(List<InstructionMark> instructions, List<Register> registers) {

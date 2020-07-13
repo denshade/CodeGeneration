@@ -13,7 +13,7 @@ public class Log extends SingleRegisterInstruction {
     }
     @Override
     public Object getInstructionOpcode() {
-        return InstructionSet.Log;
+        return RegularInstructionOpcode.Log;
     }
 
 }

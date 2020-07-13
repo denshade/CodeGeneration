@@ -20,7 +20,7 @@ public class Sub extends DualRegisterInstruction {
     }
     @Override
     public Object getInstructionOpcode() {
-        return InstructionSet.Sub;
+        return RegularInstructionOpcode.Sub;
     }
 
 }

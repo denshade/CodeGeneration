@@ -19,6 +19,6 @@ public class Nand extends AccRegisterInstruction {
     }
     @Override
     public Object getInstructionOpcode() {
-        return AccInstructionSet.Nand;
+        return AccInstructionOpcode.Nand;
     }
 }

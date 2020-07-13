@@ -16,7 +16,7 @@ public class Cos extends SingleRegisterInstruction{
     }
     @Override
     public Object getInstructionOpcode() {
-        return InstructionSet.Cos;
+        return RegularInstructionOpcode.Cos;
     }
 
 }

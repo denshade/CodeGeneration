@@ -19,7 +19,7 @@ public class Sub extends AccRegisterInstruction {
     }
     @Override
     public Object getInstructionOpcode() {
-        return AccInstructionSet.Sub;
+        return AccInstructionOpcode.Sub;
     }
 
 }

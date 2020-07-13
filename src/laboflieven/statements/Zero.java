@@ -13,7 +13,7 @@ public class Zero extends SingleRegisterInstruction {
     }
     @Override
     public Object getInstructionOpcode() {
-        return InstructionSet.Zero;
+        return RegularInstructionOpcode.Zero;
     }
 
 }

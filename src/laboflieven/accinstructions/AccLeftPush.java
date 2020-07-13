@@ -21,6 +21,6 @@ public class AccLeftPush extends SingleRegisterInstruction
     }
     @Override
     public Object getInstructionOpcode() {
-        return AccInstructionSet.AccLeftPush;
+        return AccInstructionOpcode.AccLeftPush;
     }
 }

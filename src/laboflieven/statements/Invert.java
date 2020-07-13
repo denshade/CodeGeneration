@@ -17,7 +17,7 @@ public class Invert extends SingleRegisterInstruction
     }
     @Override
     public Object getInstructionOpcode() {
-        return InstructionSet.Invert;
+        return RegularInstructionOpcode.Invert;
     }
 
 }

@@ -19,6 +19,6 @@ public class Mul extends AccRegisterInstruction
     }
     @Override
     public Object getInstructionOpcode() {
-        return AccInstructionSet.Mul;
+        return AccInstructionOpcode.Mul;
     }
 }

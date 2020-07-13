@@ -23,6 +23,6 @@ public class Swap extends AccRegisterInstruction
 
     @Override
     public Object getInstructionOpcode() {
-        return AccInstructionSet.Swap;
+        return AccInstructionOpcode.Swap;
     }
 }

@@ -1,9 +1,8 @@
 package laboflieven.loggers;
 
 import laboflieven.InstructionMark;
-import laboflieven.accinstructions.AccInstructionSet;
+import laboflieven.accinstructions.AccInstructionOpcode;
 import laboflieven.accinstructions.InstructionFactory;
-import laboflieven.common.AccInstructionOpcode;
 import laboflieven.statements.InstructionFactoryInterface;
 import laboflieven.statements.Register;
 
@@ -12,7 +11,7 @@ import java.util.List;
 
 public class AccPctBruteForceFitnessLogger implements FitnessLogger
 {
-    private final AccInstructionSet[] availableInstructions;
+    private final AccInstructionOpcode[] availableInstructions;
     private final int refreshRateInMs;
     private final int nrRegisters;
     private List<InstructionMark> exampleInstructions;
@@ -20,7 +19,7 @@ public class AccPctBruteForceFitnessLogger implements FitnessLogger
 
     private long lastPrint;
 
-    public AccPctBruteForceFitnessLogger(AccInstructionSet[] instructions, int refreshRateInMs, int nrRegisters)
+    public AccPctBruteForceFitnessLogger(AccInstructionOpcode[] instructions, int refreshRateInMs, int nrRegisters)
     {
         this.availableInstructions = instructions;
         this.refreshRateInMs = refreshRateInMs;
@@ -69,13 +68,13 @@ public class AccPctBruteForceFitnessLogger implements FitnessLogger
 
     private List<InstructionMark> getExampleInstructions(int nrRegisters) {
         List<InstructionMark> instructions = new ArrayList<>();
-        for (AccInstructionSet accInstructionSet : this.availableInstructions) {
-            if (accInstructionSet.isSingleRegister()) {
+        for (AccInstructionOpcode accInstructionOpcode : this.availableInstructions) {
+            if (accInstructionOpcode.isSingleRegister()) {
                 for (int register = 0; register < nrRegisters; register++) {
-                    instructions.add(instructionFactory.createInstruction(new AccInstructionOpcode(accInstructionSet), new Register("r" + register)));
+                    instructions.add(instructionFactory.createInstruction(new laboflieven.common.AccInstructionOpcode(accInstructionOpcode), new Register("r" + register)));
                 }
             } else {
-                instructions.add(instructionFactory.createInstruction(new AccInstructionOpcode(accInstructionSet)));
+                instructions.add(instructionFactory.createInstruction(new laboflieven.common.AccInstructionOpcode(accInstructionOpcode)));
             }
         }
         return instructions;

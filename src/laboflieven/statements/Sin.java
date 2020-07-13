@@ -16,7 +16,7 @@ public class Sin extends SingleRegisterInstruction{
     }
     @Override
     public Object getInstructionOpcode() {
-        return InstructionSet.Sin;
+        return RegularInstructionOpcode.Sin;
     }
 
 }

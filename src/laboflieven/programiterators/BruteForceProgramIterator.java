@@ -1,11 +1,10 @@
 package laboflieven.programiterators;
 
-import laboflieven.common.RegularInstructionOpcode;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
 import laboflieven.InstructionMark;
 import laboflieven.recursionheuristics.AlwaysRecursionHeuristic;
 import laboflieven.recursionheuristics.RecursionHeuristic;
-import laboflieven.statements.InstructionSet;
+import laboflieven.statements.RegularInstructionOpcode;
 import laboflieven.statements.InstructionFactory;
 import laboflieven.statements.Register;
 
@@ -21,7 +20,7 @@ public class BruteForceProgramIterator
 
     public List<List<InstructionMark>> positiveSolutions = new ArrayList<>();
     private ProgramFitnessExaminerInterface evaluator;
-    private InstructionSet[] instructionSets;
+    private RegularInstructionOpcode[] regularInstructionOpcodes;
     private RecursionHeuristic recursionHeuristic;
     private int nrRegisters;
     InstructionFactory instructionFactory = new InstructionFactory();
@@ -30,28 +29,28 @@ public class BruteForceProgramIterator
     public BruteForceProgramIterator(ProgramFitnessExaminerInterface evaluator)
     {
         this.evaluator = evaluator;
-        instructionSets = InstructionSet.values();
+        regularInstructionOpcodes = RegularInstructionOpcode.values();
         recursionHeuristic = new AlwaysRecursionHeuristic();
     }
 
     public BruteForceProgramIterator(ProgramFitnessExaminerInterface evaluator, RecursionHeuristic recursionHeuristic)
     {
         this.evaluator = evaluator;
-        instructionSets = InstructionSet.values();
+        regularInstructionOpcodes = RegularInstructionOpcode.values();
         this.recursionHeuristic = recursionHeuristic;
     }
 
-    public BruteForceProgramIterator(ProgramFitnessExaminerInterface evaluator, RecursionHeuristic recursionHeuristic, InstructionSet[] instructions)
+    public BruteForceProgramIterator(ProgramFitnessExaminerInterface evaluator, RecursionHeuristic recursionHeuristic, RegularInstructionOpcode[] instructions)
     {
         this.evaluator = evaluator;
-        instructionSets = instructions;
+        regularInstructionOpcodes = instructions;
         this.recursionHeuristic = recursionHeuristic;
     }
 
-    public BruteForceProgramIterator(ProgramFitnessExaminerInterface evaluator, InstructionSet[] instructions)
+    public BruteForceProgramIterator(ProgramFitnessExaminerInterface evaluator, RegularInstructionOpcode[] instructions)
     {
         this.evaluator = evaluator;
-        instructionSets = instructions;
+        regularInstructionOpcodes = instructions;
         recursionHeuristic = new AlwaysRecursionHeuristic();
     }
 
@@ -67,12 +66,12 @@ public class BruteForceProgramIterator
     {
         if (instructions.size() >= maximumInstructions)
             return;
-        for (InstructionSet instruction : instructionSets)
+        for (RegularInstructionOpcode instruction : regularInstructionOpcodes)
         {
             for (Register register1 : registers) {
                 if (instruction.isDualRegister()) {
                     for (Register register2 : registers) {
-                        InstructionMark actualInstruction = instructionFactory.createInstruction(new RegularInstructionOpcode(instruction), register1, register2);
+                        InstructionMark actualInstruction = instructionFactory.createInstruction(new laboflieven.common.RegularInstructionOpcode(instruction), register1, register2);
                         instructions.add(actualInstruction);
                         if (recursionHeuristic.shouldRecurse((List<InstructionMark>)(List<?>)instructions, nrRegisters))
                         {
@@ -83,7 +82,7 @@ public class BruteForceProgramIterator
                         instructions.remove(instructions.size() - 1);
                     }
                 } else {
-                    InstructionMark actualInstruction = instructionFactory.createInstruction(new RegularInstructionOpcode(instruction), register1);
+                    InstructionMark actualInstruction = instructionFactory.createInstruction(new laboflieven.common.RegularInstructionOpcode(instruction), register1);
                     instructions.add(actualInstruction);
                     if (recursionHeuristic.shouldRecurse((List<InstructionMark>)(List<?>)instructions, nrRegisters)) {
                         eval(instructions, Arrays.asList(registers));

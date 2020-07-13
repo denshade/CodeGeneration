@@ -23,6 +23,6 @@ public class AccLeftPull extends SingleRegisterInstruction
 
     @Override
     public Object getInstructionOpcode() {
-        return AccInstructionSet.AccLeftPull;
+        return AccInstructionOpcode.AccLeftPull;
     }
 }

@@ -16,7 +16,7 @@ public class Sqrt extends SingleRegisterInstruction {
     }
     @Override
     public Object getInstructionOpcode() {
-        return InstructionSet.Sqrt;
+        return RegularInstructionOpcode.Sqrt;
     }
 
 }
