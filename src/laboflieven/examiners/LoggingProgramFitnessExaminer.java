@@ -10,6 +10,7 @@ import laboflieven.statements.Register;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.math.BigInteger;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -20,7 +21,7 @@ import java.util.Map;
  */
 public class LoggingProgramFitnessExaminer extends ProgramFitnessExaminer
 {
-    Map<Long, Double> errors = new HashMap<>();
+    Map<BigInteger, Double> errors = new HashMap<>();
 
     private final FileWriter writer;
     /**
@@ -35,7 +36,7 @@ public class LoggingProgramFitnessExaminer extends ProgramFitnessExaminer
     {
         ProgramEnumerator enumerator = new ProgramEnumerator(Collections.EMPTY_LIST, registers.size());
         double err = super.calculateFitness(instructions, registers);
-        Long key = enumerator.convert(instructions);
+        var key = enumerator.convert(instructions);
         if (errors.containsKey(key) && errors.get(key) > err) {
             errors.put(key, err);
         }
@@ -46,7 +47,7 @@ public class LoggingProgramFitnessExaminer extends ProgramFitnessExaminer
     }
 
     public void writeAndClose() throws IOException {
-        for (Long key : errors.keySet())
+        for (var key : errors.keySet())
         {
             Double err = errors.get(key);
             writer.write( key + "," + err + "\n");
