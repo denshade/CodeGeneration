@@ -1,6 +1,8 @@
 package laboflieven;
 
+import laboflieven.common.InstructionOpcode;
+
 public interface InstructionMark
 {
-    Object getInstructionOpcode();
+    InstructionOpcode getInstructionOpcode();
 }

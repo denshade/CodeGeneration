@@ -1,5 +1,7 @@
 package laboflieven.statements;
 
+import laboflieven.common.InstructionOpcode;
+
 /**
  * Created by Lieven on 1-5-2016.
  */
@@ -20,8 +22,8 @@ public class JumpIfRegister2Steps extends SingleRegisterInstruction {
         return null;
     }
     @Override
-    public Object getInstructionOpcode() {
-        return RegularInstructionOpcode.JmpIfRegister2Steps;
+    public InstructionOpcode getInstructionOpcode() {
+        return new laboflieven.common.RegularInstructionOpcode(RegularInstructionOpcode.JmpIfRegister2Steps);
     }
 
 

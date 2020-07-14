@@ -1,5 +1,6 @@
 package laboflieven.accinstructions;
 
+import laboflieven.common.InstructionOpcode;
 import laboflieven.statements.Register;
 
 public class Jump2IfGte extends AccRegisterInstruction
@@ -18,7 +19,7 @@ public class Jump2IfGte extends AccRegisterInstruction
         return " Jump if left >= right goto this + 2";
     }
     @Override
-    public Object getInstructionOpcode() {
-        return AccInstructionOpcode.Jump2IfGte;
+    public InstructionOpcode getInstructionOpcode() {
+        return new laboflieven.common.AccInstructionOpcode(AccInstructionOpcode.Jump2IfGte);
     }
 }

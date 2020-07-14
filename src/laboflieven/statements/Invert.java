@@ -1,5 +1,7 @@
 package laboflieven.statements;
 
+import laboflieven.common.InstructionOpcode;
+
 /**
  * Invert the signum.
  */
@@ -16,8 +18,8 @@ public class Invert extends SingleRegisterInstruction
         return null;
     }
     @Override
-    public Object getInstructionOpcode() {
-        return RegularInstructionOpcode.Invert;
+    public InstructionOpcode getInstructionOpcode() {
+        return new laboflieven.common.RegularInstructionOpcode(RegularInstructionOpcode.Invert);
     }
 
 }

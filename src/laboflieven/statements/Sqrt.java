@@ -1,5 +1,7 @@
 package laboflieven.statements;
 
+import laboflieven.common.InstructionOpcode;
+
 /**
  * Created by lveeckha on 31/05/2015.
  */
@@ -15,8 +17,8 @@ public class Sqrt extends SingleRegisterInstruction {
         return null;
     }
     @Override
-    public Object getInstructionOpcode() {
-        return RegularInstructionOpcode.Sqrt;
+    public InstructionOpcode getInstructionOpcode() {
+        return new laboflieven.common.RegularInstructionOpcode(RegularInstructionOpcode.Sqrt);
     }
 
 }

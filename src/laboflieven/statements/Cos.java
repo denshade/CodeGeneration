@@ -1,5 +1,7 @@
 package laboflieven.statements;
 
+import laboflieven.common.InstructionOpcode;
+
 /**
  * Created by Lieven on 23-4-2016.
  */
@@ -15,8 +17,8 @@ public class Cos extends SingleRegisterInstruction{
         return null;
     }
     @Override
-    public Object getInstructionOpcode() {
-        return RegularInstructionOpcode.Cos;
+    public InstructionOpcode getInstructionOpcode() {
+        return new laboflieven.common.RegularInstructionOpcode(RegularInstructionOpcode.Cos);
     }
 
 }

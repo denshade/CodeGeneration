@@ -1,5 +1,6 @@
 package laboflieven.accinstructions;
 
+import laboflieven.common.InstructionOpcode;
 import laboflieven.statements.Register;
 
 /**
@@ -23,7 +24,7 @@ public class Invert extends AccRegisterInstruction
         return  "left = -left";
     }
     @Override
-    public Object getInstructionOpcode() {
-        return AccInstructionOpcode.Invert;
+    public InstructionOpcode getInstructionOpcode() {
+        return new laboflieven.common.AccInstructionOpcode(AccInstructionOpcode.Invert);
     }
 }

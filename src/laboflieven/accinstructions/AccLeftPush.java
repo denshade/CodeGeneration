@@ -1,5 +1,6 @@
 package laboflieven.accinstructions;
 
+import laboflieven.common.InstructionOpcode;
 import laboflieven.statements.Register;
 
 public class AccLeftPush extends SingleRegisterInstruction
@@ -20,7 +21,7 @@ public class AccLeftPush extends SingleRegisterInstruction
         return " left = " +  register.name;
     }
     @Override
-    public Object getInstructionOpcode() {
-        return AccInstructionOpcode.AccLeftPush;
+    public InstructionOpcode getInstructionOpcode() {
+        return new laboflieven.common.AccInstructionOpcode(AccInstructionOpcode.AccLeftPush);
     }
 }

@@ -1,5 +1,7 @@
 package laboflieven.statements;
 
+import laboflieven.common.InstructionOpcode;
+
 /**
  * Created by Lieven on 1-5-2016.
  */
@@ -21,8 +23,8 @@ public class JumpIfRegister1ZeroToEnd extends SingleRegisterInstruction {
     }
 
     @Override
-    public Object getInstructionOpcode() {
-        return RegularInstructionOpcode.JmpIfZeroEnd;
+    public InstructionOpcode getInstructionOpcode() {
+        return new laboflieven.common.RegularInstructionOpcode(RegularInstructionOpcode.JmpIfZeroEnd);
     }
 
 }

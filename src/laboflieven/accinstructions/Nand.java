@@ -1,5 +1,6 @@
 package laboflieven.accinstructions;
 
+import laboflieven.common.InstructionOpcode;
 import laboflieven.statements.Register;
 
 public class Nand extends AccRegisterInstruction {
@@ -18,7 +19,7 @@ public class Nand extends AccRegisterInstruction {
         return  "left = nand(left, right)";
     }
     @Override
-    public Object getInstructionOpcode() {
-        return AccInstructionOpcode.Nand;
+    public InstructionOpcode getInstructionOpcode() {
+        return new laboflieven.common.AccInstructionOpcode(AccInstructionOpcode.Nand);
     }
 }

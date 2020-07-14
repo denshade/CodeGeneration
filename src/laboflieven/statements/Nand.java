@@ -1,5 +1,7 @@
 package laboflieven.statements;
 
+import laboflieven.common.InstructionOpcode;
+
 public class Nand extends DualRegisterInstruction {
 
     public Nand(Register source, Register destination) {
@@ -16,8 +18,8 @@ public class Nand extends DualRegisterInstruction {
     }
 
     @Override
-    public Object getInstructionOpcode() {
-        return RegularInstructionOpcode.Nand;
+    public InstructionOpcode getInstructionOpcode() {
+        return new laboflieven.common.RegularInstructionOpcode(RegularInstructionOpcode.Nand);
     }
 
 }

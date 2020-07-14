@@ -1,5 +1,7 @@
 package laboflieven.statements;
 
+import laboflieven.common.InstructionOpcode;
+
 public class Log extends SingleRegisterInstruction {
 
 
@@ -12,8 +14,8 @@ public class Log extends SingleRegisterInstruction {
         return null;
     }
     @Override
-    public Object getInstructionOpcode() {
-        return RegularInstructionOpcode.Log;
+    public InstructionOpcode getInstructionOpcode() {
+        return new laboflieven.common.RegularInstructionOpcode(RegularInstructionOpcode.Log);
     }
 
 }

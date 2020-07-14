@@ -1,5 +1,6 @@
 package laboflieven.accinstructions;
 
+import laboflieven.common.InstructionOpcode;
 import laboflieven.statements.Register;
 
 /**
@@ -17,7 +18,7 @@ public class Sqrt extends AccRegisterInstruction {
     {
         return  "left = sqrt(left)";    }
     @Override
-    public Object getInstructionOpcode() {
-        return AccInstructionOpcode.Sqrt;
+    public InstructionOpcode getInstructionOpcode() {
+        return new laboflieven.common.AccInstructionOpcode(AccInstructionOpcode.Sqrt);
     }
 }

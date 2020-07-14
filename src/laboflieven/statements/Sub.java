@@ -1,5 +1,7 @@
 package laboflieven.statements;
 
+import laboflieven.common.InstructionOpcode;
+
 /**
  * Created by lveeckha on 31/05/2015.
  */
@@ -19,8 +21,8 @@ public class Sub extends DualRegisterInstruction {
         return destination.name + " -= " + source.name;
     }
     @Override
-    public Object getInstructionOpcode() {
-        return RegularInstructionOpcode.Sub;
+    public InstructionOpcode getInstructionOpcode() {
+        return new laboflieven.common.RegularInstructionOpcode(RegularInstructionOpcode.Sub);
     }
 
 }

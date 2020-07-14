@@ -1,5 +1,6 @@
 package laboflieven.accinstructions;
 
+import laboflieven.common.InstructionOpcode;
 import laboflieven.statements.Register;
 
 /**
@@ -18,7 +19,7 @@ public class Cos extends AccRegisterInstruction {
         return  "left = cos(left)";
     }
     @Override
-    public Object getInstructionOpcode() {
-        return AccInstructionOpcode.Cos;
+    public InstructionOpcode getInstructionOpcode() {
+        return new laboflieven.common.AccInstructionOpcode(AccInstructionOpcode.Cos);
     }
 }

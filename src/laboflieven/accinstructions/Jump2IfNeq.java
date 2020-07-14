@@ -1,5 +1,6 @@
 package laboflieven.accinstructions;
 
+import laboflieven.common.InstructionOpcode;
 import laboflieven.statements.Register;
 
 public class Jump2IfNeq  extends AccRegisterInstruction
@@ -19,7 +20,7 @@ public class Jump2IfNeq  extends AccRegisterInstruction
     }
 
     @Override
-    public Object getInstructionOpcode() {
-        return AccInstructionOpcode.Jump2IfNeq;
+    public InstructionOpcode getInstructionOpcode() {
+        return new laboflieven.common.AccInstructionOpcode(AccInstructionOpcode.Jump2IfNeq);
     }
 }

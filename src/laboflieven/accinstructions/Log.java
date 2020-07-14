@@ -1,5 +1,6 @@
 package laboflieven.accinstructions;
 
+import laboflieven.common.InstructionOpcode;
 import laboflieven.statements.Register;
 
 public class Log extends AccRegisterInstruction {
@@ -22,7 +23,7 @@ public class Log extends AccRegisterInstruction {
         return  "left = log(left)";
     }
     @Override
-    public Object getInstructionOpcode() {
-        return AccInstructionOpcode.Log;
+    public InstructionOpcode getInstructionOpcode() {
+        return new laboflieven.common.AccInstructionOpcode(AccInstructionOpcode.Log);
     }
 }

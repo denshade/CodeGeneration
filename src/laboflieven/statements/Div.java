@@ -1,5 +1,7 @@
 package laboflieven.statements;
 
+import laboflieven.common.InstructionOpcode;
+
 /**
  * Created by lveeckha on 31/05/2015.
  */
@@ -21,8 +23,8 @@ public class Div extends DualRegisterInstruction
     }
 
     @Override
-    public Object getInstructionOpcode() {
-        return RegularInstructionOpcode.Div;
+    public InstructionOpcode getInstructionOpcode() {
+        return new laboflieven.common.RegularInstructionOpcode(RegularInstructionOpcode.Div);
     }
 
 }

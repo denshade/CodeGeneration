@@ -1,9 +1,11 @@
 package laboflieven;
 
 import laboflieven.accinstructions.AccRegisterInstruction;
+import laboflieven.common.InstructionOpcode;
 import laboflieven.statements.*;
 
 import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ProgramEnumerator
@@ -16,10 +18,10 @@ public class ProgramEnumerator
     {
         this.options = options;
         this.nrRegisters = nrRegisters;
-        actualNrOptionsWithRegs = countInstructions(options, nrRegisters);
+        actualNrOptionsWithRegs = countInstructionsForOneLevel(options, nrRegisters);
     }
 
-    private long countInstructions(List<InstructionMark> options, int nrRegisters) {
+    private long countInstructionsForOneLevel(List<InstructionMark> options, int nrRegisters) {
         var count = 0;
         for (InstructionMark mark : options)
         {
@@ -46,6 +48,55 @@ public class ProgramEnumerator
             multiplier = multiplier.multiply(actualNrBigInt);
         }
         return sum;
+    }
+
+    public List<InstructionMark> convertToInstructions(final BigInteger instructionNr, InstructionFactoryInterface factoryInterface)
+    {
+        var instructions = new ArrayList<InstructionMark>();
+        BigInteger workingNumber = instructionNr;
+        BigInteger actualNrBigInt = BigInteger.valueOf(actualNrOptionsWithRegs);
+        while(!workingNumber.equals(BigInteger.ZERO))
+        {
+            instructions.add(getIndexForOptions(workingNumber.mod(actualNrBigInt).longValue(),factoryInterface));
+            workingNumber = workingNumber.divide(actualNrBigInt);
+        }
+        return instructions;
+    }
+
+    private InstructionMark getIndexForOptions(long instructionCounter, InstructionFactoryInterface factoryInterface) {
+        long k = instructionCounter;
+        for (InstructionMark currentOption : options) {
+
+            if (currentOption instanceof DualRegisterInstruction) {
+                if (k > nrRegisters * nrRegisters)
+                {
+                    k -= nrRegisters* nrRegisters;
+                } else {
+                    long index1 = k % nrRegisters;
+                    long index2 = k / nrRegisters;
+                    return factoryInterface.createInstruction((InstructionOpcode) currentOption.getInstructionOpcode(),
+                            new Register("R" + (index1+1)),
+                            new Register("R" + (index2+1)));
+                }
+
+            } else if (currentOption instanceof SingleRegisterInstruction || currentOption instanceof laboflieven.accinstructions.SingleRegisterInstruction) {
+                if (k > nrRegisters * nrRegisters)
+                {
+                    k -= nrRegisters;
+                } else {
+                    long index1 = k % nrRegisters;
+                    return factoryInterface.createInstruction((InstructionOpcode) currentOption.getInstructionOpcode(),
+                            new Register("R" + (index1+1)));
+                }
+            } else if (currentOption instanceof AccRegisterInstruction) {
+                k--;
+                if (k == 0) {
+                    return factoryInterface.createInstruction((InstructionOpcode) currentOption.getInstructionOpcode());
+                }
+            }
+
+        }
+        throw new RuntimeException("Option not found.");
     }
 
     private long getIndexForInstruction(InstructionMark currentInstruction) {

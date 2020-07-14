@@ -1,5 +1,6 @@
 package laboflieven.accinstructions;
 
+import laboflieven.common.InstructionOpcode;
 import laboflieven.statements.Register;
 
 public class JumpIfGteStart  extends AccRegisterInstruction
@@ -20,8 +21,8 @@ public class JumpIfGteStart  extends AccRegisterInstruction
         return " Jump to start if L >= R ";
     }
     @Override
-    public Object getInstructionOpcode() {
-        return AccInstructionOpcode.JumpIfGteStart;
+    public InstructionOpcode getInstructionOpcode() {
+        return new laboflieven.common.AccInstructionOpcode(AccInstructionOpcode.JumpIfGteStart);
     }
 
 }

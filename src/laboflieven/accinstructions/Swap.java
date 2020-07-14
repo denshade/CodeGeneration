@@ -1,5 +1,6 @@
 package laboflieven.accinstructions;
 
+import laboflieven.common.InstructionOpcode;
 import laboflieven.statements.Register;
 
 /**
@@ -22,7 +23,7 @@ public class Swap extends AccRegisterInstruction
     }
 
     @Override
-    public Object getInstructionOpcode() {
-        return AccInstructionOpcode.Swap;
+    public InstructionOpcode getInstructionOpcode() {
+        return new laboflieven.common.AccInstructionOpcode(AccInstructionOpcode.Swap);
     }
 }
