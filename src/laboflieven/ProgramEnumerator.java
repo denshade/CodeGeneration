@@ -133,10 +133,7 @@ public class ProgramEnumerator
     }
 
     private int getRegisterIndex(String name) {
-        if (name.toLowerCase().equals("r1")) return 0;
-        if (name.toLowerCase().equals("r2")) return 1;
-        if (name.toLowerCase().equals("r3")) return 2;
-        if (name.toLowerCase().equals("r4")) return 3;
-        throw new RuntimeException("Unknown register " + name);
+        String number = name.toLowerCase().replace("r","");
+        return Integer.parseInt(number) - 1;
     }
 }
