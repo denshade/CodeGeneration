@@ -9,9 +9,24 @@ import java.util.Set;
  */
 public enum AccInstructionOpcodeEnum
 {
-    Add, Div, Invert, Mul, Sqrt, Sub, Sin, Cos, Mod, Nand, Log, AccLeftPull, AccLeftPush, AccRightPush, AccRightPull, JumpIfLteStart, JumpIfGteStart/*JumpIfLte, JumpIfGte*/, Jump2IfGte, Jump2IfLte, Jump2IfEq, Jump2IfNeq, Jump2IfZero, Quit, Pow, Swap;
+
+    Add(0), Div(0), Invert(0), Mul(0), Sqrt(0), Sub(0), Sin(0), Cos(0), Mod(0), Nand(0), Log(0), AccLeftPull(1), AccLeftPush(1), AccRightPush(1), AccRightPull(1),
+    JumpIfLteStart(0), JumpIfGteStart(0)/*JumpIfLte, JumpIfGte*/, Jump2IfGte(0), Jump2IfLte(0), Jump2IfEq(0), Jump2IfNeq(0),
+    Jump2IfZero(0), Quit(0), Pow(0), Swap(0);
+
+    private final int nrRegisters;
+
+    private AccInstructionOpcodeEnum(int nrRegisters)
+    {
+        this.nrRegisters = nrRegisters;
+    }
+
+    public int getNrRegisters() {
+        return nrRegisters;
+    }
+
     public boolean isSingleRegister() {
-        return this.equals(AccLeftPull) || this.equals(AccLeftPush) || this.equals(AccRightPull) || this.equals(AccRightPush);
+        return this.nrRegisters == 1;
     }
 
     public static AccInstructionOpcodeEnum[] getMinimal() {

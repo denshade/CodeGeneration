@@ -9,12 +9,24 @@ import java.util.Set;
  */
 public enum RegularInstructionOpcodeEnum
 {
-    Add, Div, Invert, Move, Mul, Sqrt, Sub, Sin, Cos, Mod, Nand, Log, JmpIfZero, JmpIfZeroBegin, JmpIfZeroEnd, PI, Zero, One, JmpIfNotZeroBegin, JmpIfNotZeroEnd, JmpIfRegister2Steps;
+    Add(2), Div(2), Invert(1), Move(2), Mul(2), Sqrt(1), Sub(2),
+    Sin(1), Cos(1), Mod(2), Nand(2), Log(1), JmpIfZero(1),
+    JmpIfZeroBegin(1), JmpIfZeroEnd(1), PI(0), Zero(0), One(0),
+    JmpIfNotZeroBegin(1), JmpIfNotZeroEnd(1), JmpIfRegister2Steps(1);
+
+    private final int nrRegisters;
+
+    private RegularInstructionOpcodeEnum(int nrRegisters)
+    {
+        this.nrRegisters = nrRegisters;
+    }
 
     public boolean isDualRegister() {
-        return !(this.equals(Invert) || this.equals(Sin) || this.equals(Cos)) && !this.equals(Sqrt) && !this.equals(Log) &&!this.equals(PI) &&!this.equals(Zero) && !this.equals(One)
-                && !this.equals(JmpIfZeroBegin) && !this.equals(JmpIfZeroEnd)
-                && !this.equals(JmpIfNotZeroBegin) && !this.equals(JmpIfNotZeroEnd) && !this.equals(JmpIfRegister2Steps);
+        return this.nrRegisters == 2;
+    }
+
+    public int getNrRegisters() {
+        return nrRegisters;
     }
 
     public static RegularInstructionOpcodeEnum[] anyExcept(RegularInstructionOpcodeEnum eq)

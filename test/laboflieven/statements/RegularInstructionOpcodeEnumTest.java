@@ -14,4 +14,11 @@ class RegularInstructionOpcodeEnumTest {
         Assert.assertEquals(RegularInstructionOpcodeEnum.anyExcept(RegularInstructionOpcodeEnum.JmpIfNotZeroBegin).length, RegularInstructionOpcodeEnum.values().length - 1);
 
     }
+
+    @Test
+    void nrRegisters()
+    {
+        Assert.assertTrue(RegularInstructionOpcodeEnum.Move.isDualRegister());
+        Assert.assertFalse(RegularInstructionOpcodeEnum.Sqrt.isDualRegister());
+    }
 }

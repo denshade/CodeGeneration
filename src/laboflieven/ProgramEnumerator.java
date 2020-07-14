@@ -25,15 +25,8 @@ public class ProgramEnumerator
         var count = 0;
         for (InstructionMark mark : options)
         {
-            if (mark instanceof SingleRegisterInstruction || mark instanceof laboflieven.accinstructions.SingleRegisterInstruction) {
-                count += nrRegisters;
-            }
-            if (mark instanceof DualRegisterInstruction) {
-                count += nrRegisters * nrRegisters;
-            }
-            if (mark instanceof AccRegisterInstruction && !(mark instanceof laboflieven.accinstructions.SingleRegisterInstruction)){
-                count++;
-            }
+            int nrRegistersForOpcode = mark.getInstructionOpcode().getNrRegisters();
+            count += Math.pow(nrRegisters, nrRegistersForOpcode);
         }
         return count;
     }
@@ -85,13 +78,13 @@ public class ProgramEnumerator
                     k -= nrRegisters;
                 } else {
                     long index1 = k % nrRegisters;
-                    return factoryInterface.createInstruction((InstructionOpcode) currentOption.getInstructionOpcode(),
+                    return factoryInterface.createInstruction(currentOption.getInstructionOpcode(),
                             new Register("R" + (index1+1)));
                 }
             } else if (currentOption instanceof AccRegisterInstruction) {
                 k--;
                 if (k == 0) {
-                    return factoryInterface.createInstruction((InstructionOpcode) currentOption.getInstructionOpcode());
+                    return factoryInterface.createInstruction(currentOption.getInstructionOpcode());
                 }
             }
 
@@ -103,7 +96,7 @@ public class ProgramEnumerator
         int k = 0;
         for (InstructionMark currentOption : options) {
             boolean match = false;
-            if (currentOption.getClass().toGenericString().equals(currentInstruction.getClass().toGenericString())) {
+            if (currentOption.getInstructionOpcode().equals(currentInstruction.getInstructionOpcode())) {
                 match = true;
             }
 

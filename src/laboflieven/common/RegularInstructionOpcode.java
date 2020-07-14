@@ -3,6 +3,8 @@ package laboflieven.common;
 
 import laboflieven.statements.RegularInstructionOpcodeEnum;
 
+import java.util.Objects;
+
 public class RegularInstructionOpcode implements InstructionOpcode
 {
     private final RegularInstructionOpcodeEnum enumer;
@@ -17,6 +19,19 @@ public class RegularInstructionOpcode implements InstructionOpcode
 
     @Override
     public int getNrRegisters() {
-        return 0;
+        return getEnumer().getNrRegisters();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        RegularInstructionOpcode that = (RegularInstructionOpcode) o;
+        return enumer == that.enumer;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(enumer);
     }
 }
