@@ -19,6 +19,6 @@ public class Pow extends AccRegisterInstruction
         return  "left = left ^ right";    }
     @Override
     public InstructionOpcode getInstructionOpcode() {
-        return new laboflieven.common.AccInstructionOpcode(AccInstructionOpcode.Pow);
+        return new laboflieven.common.AccInstructionOpcode(AccInstructionOpcodeEnum.Pow);
     }
 }

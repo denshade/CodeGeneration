@@ -20,7 +20,7 @@ public class Sub extends AccRegisterInstruction {
     }
     @Override
     public InstructionOpcode getInstructionOpcode() {
-        return new laboflieven.common.AccInstructionOpcode(AccInstructionOpcode.Sub);
+        return new laboflieven.common.AccInstructionOpcode(AccInstructionOpcodeEnum.Sub);
     }
 
 }

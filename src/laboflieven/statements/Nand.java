@@ -19,7 +19,7 @@ public class Nand extends DualRegisterInstruction {
 
     @Override
     public InstructionOpcode getInstructionOpcode() {
-        return new laboflieven.common.RegularInstructionOpcode(RegularInstructionOpcode.Nand);
+        return new laboflieven.common.RegularInstructionOpcode(RegularInstructionOpcodeEnum.Nand);
     }
 
 }

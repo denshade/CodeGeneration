@@ -18,7 +18,7 @@ public class Sqrt extends SingleRegisterInstruction {
     }
     @Override
     public InstructionOpcode getInstructionOpcode() {
-        return new laboflieven.common.RegularInstructionOpcode(RegularInstructionOpcode.Sqrt);
+        return new laboflieven.common.RegularInstructionOpcode(RegularInstructionOpcodeEnum.Sqrt);
     }
 
 }

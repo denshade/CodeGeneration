@@ -2,9 +2,8 @@ package laboflieven.challenges;
 
 import laboflieven.examiners.ProgramFitnessExaminer;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
-import laboflieven.programiterators.AccRandomGeneticProgramIterator;
 import laboflieven.InOutParameters;
-import laboflieven.accinstructions.AccInstructionOpcode;
+import laboflieven.accinstructions.AccInstructionOpcodeEnum;
 import laboflieven.loggers.SysOutAccFitnessLogger;
 import laboflieven.programiterators.GeneralBruteForceProgramIterator;
 import laboflieven.runners.AccStatementRunner;
@@ -28,7 +27,7 @@ public class P2 implements ProgramTemplate
         List<InOutParameters> collection = TestCases.getTestCases(new P2(), points.toArray(new double[0][0]),curMaxRegisters);
         ProgramFitnessExaminerInterface evaluator = new ProgramFitnessExaminer(collection, new AccStatementRunner());
         evaluator.addListener(new SysOutAccFitnessLogger(10000));
-        GeneralBruteForceProgramIterator iter = new GeneralBruteForceProgramIterator(evaluator,  AccInstructionOpcode.values());
+        GeneralBruteForceProgramIterator iter = new GeneralBruteForceProgramIterator(evaluator,  AccInstructionOpcodeEnum.values());
         long start = System.currentTimeMillis();
         System.out.println(iter.iterate(curMaxRegisters, 10));
         //evaluator.writeAndClose();

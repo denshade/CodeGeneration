@@ -25,6 +25,6 @@ public class Add extends DualRegisterInstruction
 
     @Override
     public InstructionOpcode getInstructionOpcode() {
-        return new laboflieven.common.RegularInstructionOpcode(RegularInstructionOpcode.Add);
+        return new laboflieven.common.RegularInstructionOpcode(RegularInstructionOpcodeEnum.Add);
     }
 }

@@ -24,6 +24,6 @@ public class AccRightPush extends SingleRegisterInstruction
 
     @Override
     public InstructionOpcode getInstructionOpcode() {
-        return new laboflieven.common.AccInstructionOpcode(AccInstructionOpcode.AccRightPush);
+        return new laboflieven.common.AccInstructionOpcode(AccInstructionOpcodeEnum.AccRightPush);
     }
 }

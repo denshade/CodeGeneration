@@ -26,7 +26,7 @@ public class AccRandomGeneticProgramIterator {
 
     public List<List<AccRegisterInstruction>> positiveSolutions = new ArrayList<>();
     private ProgramFitnessExaminerInterface evaluator;
-    private AccInstructionOpcode[] enums;
+    private AccInstructionOpcodeEnum[] enums;
     private int maxPopulation;
     private Register[] registers;
     private int numberOfRegisters;
@@ -43,7 +43,7 @@ public class AccRandomGeneticProgramIterator {
         this.evaluator = evaluator;
         POPULATION_MAX = maxPopulation;
         this.maxOverflow = maxOverflow;
-        enums = AccInstructionOpcode.values();
+        enums = AccInstructionOpcodeEnum.values();
     }
 
     /**
@@ -53,7 +53,7 @@ public class AccRandomGeneticProgramIterator {
      * @param maxOverflow    If the size of the population > maxPopulation * maxOverflow then we cut down the least popular solutions.
      * @param popularParents Only popular parents can breed. This is the percent of parents that are taken into account. e.g. 0.8
      */
-    public AccRandomGeneticProgramIterator(ProgramFitnessExaminerInterface evaluator, AccInstructionOpcode[] enums, int maxPopulation, double maxOverflow, double popularParents) {
+    public AccRandomGeneticProgramIterator(ProgramFitnessExaminerInterface evaluator, AccInstructionOpcodeEnum[] enums, int maxPopulation, double maxOverflow, double popularParents) {
         this.evaluator = evaluator;
         this.enums = enums;
         this.maxPopulation = maxPopulation;
@@ -122,7 +122,7 @@ public class AccRandomGeneticProgramIterator {
         Program program = new Program(instructions, Arrays.asList(registers));
         boolean foundProgram = false;
         while (!foundProgram) {
-            AccInstructionOpcode instruction;
+            AccInstructionOpcodeEnum instruction;
             if (instructions.size() == 0) {
                 instruction = pickRandomPush(r);
             } else {
@@ -181,17 +181,17 @@ public class AccRandomGeneticProgramIterator {
     }
 
 
-    private AccInstructionOpcode pickRandomPush(Random r) {
-        AccInstructionOpcode instruction;
+    private AccInstructionOpcodeEnum pickRandomPush(Random r) {
+        AccInstructionOpcodeEnum instruction;
         if (r.nextBoolean()) {
-            instruction = AccInstructionOpcode.AccLeftPush;
+            instruction = AccInstructionOpcodeEnum.AccLeftPush;
         } else {
-            instruction = AccInstructionOpcode.AccRightPush;
+            instruction = AccInstructionOpcodeEnum.AccRightPush;
         }
         return instruction;
     }
 
-    private AccInstructionOpcode pickRandomInstruction(Random r) {
+    private AccInstructionOpcodeEnum pickRandomInstruction(Random r) {
         int location = r.nextInt(enums.length);
         return enums[location];
     }

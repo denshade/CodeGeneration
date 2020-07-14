@@ -5,7 +5,7 @@ import laboflieven.examiners.ProgramFitnessExaminer;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
 import laboflieven.programiterators.BruteForceProgramIterator;
 import laboflieven.runners.RegularStatementRunner;
-import laboflieven.statements.RegularInstructionOpcode;
+import laboflieven.statements.RegularInstructionOpcodeEnum;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -35,7 +35,7 @@ public class AdderFinder {
         collection.add(createParameter(fillDoubleArray(new double [] {1.0, 1.0, 1.0}, 3), new double[] {1.0,1.0}));
 
         ProgramFitnessExaminerInterface evaluator = new ProgramFitnessExaminer(collection, new RegularStatementRunner());
-        BruteForceProgramIterator iterator = new BruteForceProgramIterator(evaluator, new RegularInstructionOpcode[] {RegularInstructionOpcode.Nand});
+        BruteForceProgramIterator iterator = new BruteForceProgramIterator(evaluator, new RegularInstructionOpcodeEnum[] {RegularInstructionOpcodeEnum.Nand});
         iterator.iterate(3,10);
     }
 

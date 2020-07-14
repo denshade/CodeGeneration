@@ -25,6 +25,6 @@ public class Invert extends AccRegisterInstruction
     }
     @Override
     public InstructionOpcode getInstructionOpcode() {
-        return new laboflieven.common.AccInstructionOpcode(AccInstructionOpcode.Invert);
+        return new laboflieven.common.AccInstructionOpcode(AccInstructionOpcodeEnum.Invert);
     }
 }

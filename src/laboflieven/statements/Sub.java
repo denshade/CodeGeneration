@@ -22,7 +22,7 @@ public class Sub extends DualRegisterInstruction {
     }
     @Override
     public InstructionOpcode getInstructionOpcode() {
-        return new laboflieven.common.RegularInstructionOpcode(RegularInstructionOpcode.Sub);
+        return new laboflieven.common.RegularInstructionOpcode(RegularInstructionOpcodeEnum.Sub);
     }
 
 }

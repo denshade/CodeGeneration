@@ -20,6 +20,6 @@ public class Jump2IfGte extends AccRegisterInstruction
     }
     @Override
     public InstructionOpcode getInstructionOpcode() {
-        return new laboflieven.common.AccInstructionOpcode(AccInstructionOpcode.Jump2IfGte);
+        return new laboflieven.common.AccInstructionOpcode(AccInstructionOpcodeEnum.Jump2IfGte);
     }
 }

@@ -20,6 +20,6 @@ public class Nand extends AccRegisterInstruction {
     }
     @Override
     public InstructionOpcode getInstructionOpcode() {
-        return new laboflieven.common.AccInstructionOpcode(AccInstructionOpcode.Nand);
+        return new laboflieven.common.AccInstructionOpcode(AccInstructionOpcodeEnum.Nand);
     }
 }

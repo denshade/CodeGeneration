@@ -23,7 +23,7 @@ public class JumpIfRegister1ZeroToBegin extends SingleRegisterInstruction {
     }
     @Override
     public InstructionOpcode getInstructionOpcode() {
-        return new laboflieven.common.RegularInstructionOpcode(RegularInstructionOpcode.JmpIfZeroBegin);
+        return new laboflieven.common.RegularInstructionOpcode(RegularInstructionOpcodeEnum.JmpIfZeroBegin);
     }
 
 }

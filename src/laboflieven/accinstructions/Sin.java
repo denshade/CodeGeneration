@@ -19,6 +19,6 @@ public class Sin extends AccRegisterInstruction {
         return  "left = sin(left)";    }
     @Override
     public InstructionOpcode getInstructionOpcode() {
-        return new laboflieven.common.AccInstructionOpcode(AccInstructionOpcode.Sin);
+        return new laboflieven.common.AccInstructionOpcode(AccInstructionOpcodeEnum.Sin);
     }
 }

@@ -38,7 +38,7 @@ public class ReverseProgramIterator {
         {
             registerList.add(r);
         }
-        for (RegularInstructionOpcode instruction : RegularInstructionOpcode.values())
+        for (RegularInstructionOpcodeEnum instruction : RegularInstructionOpcodeEnum.values())
         {
             for (int register1Index = 0; register1Index < registers.length; register1Index++)
             {
@@ -47,7 +47,7 @@ public class ReverseProgramIterator {
                 {
                     for (int register2Index = 0; register2Index < registers.length; register2Index++)
                     {
-                        if (instruction == RegularInstructionOpcode.Move && register1Index == register2Index)
+                        if (instruction == RegularInstructionOpcodeEnum.Move && register1Index == register2Index)
                         {
                             continue;
                         }

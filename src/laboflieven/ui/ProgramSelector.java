@@ -8,7 +8,7 @@ import laboflieven.programiterators.PriorityProgramIterator;
 import laboflieven.programiterators.RandomProgramIterator;
 import laboflieven.programiterators.ReverseProgramIterator;
 import laboflieven.runners.RegularStatementRunner;
-import laboflieven.statements.RegularInstructionOpcode;
+import laboflieven.statements.RegularInstructionOpcodeEnum;
 
 import javax.swing.*;
 import java.awt.*;
@@ -36,7 +36,7 @@ public class ProgramSelector
 
         JLabel instructions = new JLabel("Allowed instructions");
 
-        JList allowedInstructions = new JList(RegularInstructionOpcode.values());
+        JList allowedInstructions = new JList(RegularInstructionOpcodeEnum.values());
 
 
         JLabel instructionCount = new JLabel("instructionCount");
@@ -71,8 +71,8 @@ public class ProgramSelector
                 JOptionPane.showMessageDialog(null, e1.getMessage());
                 return;
             }
-            List<RegularInstructionOpcode> selectedValuesList = allowedInstructions.getSelectedValuesList();
-            RegularInstructionOpcode[] enums = selectedValuesList.toArray(new RegularInstructionOpcode[0]);
+            List<RegularInstructionOpcodeEnum> selectedValuesList = allowedInstructions.getSelectedValuesList();
+            RegularInstructionOpcodeEnum[] enums = selectedValuesList.toArray(new RegularInstructionOpcodeEnum[0]);
 
             ProgramFitnessExaminerInterface evaluator = new ProgramFitnessExaminer(collection, new RegularStatementRunner());
             System.out.println("Start");

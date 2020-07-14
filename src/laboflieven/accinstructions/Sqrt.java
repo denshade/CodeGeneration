@@ -19,6 +19,6 @@ public class Sqrt extends AccRegisterInstruction {
         return  "left = sqrt(left)";    }
     @Override
     public InstructionOpcode getInstructionOpcode() {
-        return new laboflieven.common.AccInstructionOpcode(AccInstructionOpcode.Sqrt);
+        return new laboflieven.common.AccInstructionOpcode(AccInstructionOpcodeEnum.Sqrt);
     }
 }

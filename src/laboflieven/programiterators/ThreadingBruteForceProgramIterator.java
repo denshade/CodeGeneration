@@ -3,7 +3,7 @@ package laboflieven.programiterators;
 import laboflieven.InstructionMark;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
 import laboflieven.accinstructions.AccRegisterInstruction;
-import laboflieven.accinstructions.AccInstructionOpcode;
+import laboflieven.accinstructions.AccInstructionOpcodeEnum;
 import laboflieven.accinstructions.InstructionFactory;
 import laboflieven.recursionheuristics.AlwaysRecursionHeuristic;
 import laboflieven.recursionheuristics.RecursionHeuristic;
@@ -24,7 +24,7 @@ public class ThreadingBruteForceProgramIterator
 
     public List<List<InstructionMark>> positiveSolutions = new ArrayList<>();
     private ProgramFitnessExaminerInterface evaluator;
-    private AccInstructionOpcode[] accInstructionOpcodes;
+    private AccInstructionOpcodeEnum[] accInstructionOpcodeEnums;
     private RecursionHeuristic heuristic = new AlwaysRecursionHeuristic();
     public boolean stopAtFirstSolution = true;
     public boolean onlyEvaluateAtLastInstruction = true;
@@ -34,17 +34,17 @@ public class ThreadingBruteForceProgramIterator
 
     public ThreadingBruteForceProgramIterator(ProgramFitnessExaminerInterface evaluator)
     {
-        this(evaluator, AccInstructionOpcode.values());
+        this(evaluator, AccInstructionOpcodeEnum.values());
     }
 
-    public ThreadingBruteForceProgramIterator(ProgramFitnessExaminerInterface evaluator, AccInstructionOpcode[] instructions)
+    public ThreadingBruteForceProgramIterator(ProgramFitnessExaminerInterface evaluator, AccInstructionOpcodeEnum[] instructions)
     {
         this(evaluator, instructions, new AlwaysRecursionHeuristic());
     }
-    public ThreadingBruteForceProgramIterator(ProgramFitnessExaminerInterface evaluator, AccInstructionOpcode[] instructions, RecursionHeuristic heuristic)
+    public ThreadingBruteForceProgramIterator(ProgramFitnessExaminerInterface evaluator, AccInstructionOpcodeEnum[] instructions, RecursionHeuristic heuristic)
     {
         this.evaluator = evaluator;
-        accInstructionOpcodes = instructions;
+        accInstructionOpcodeEnums = instructions;
         this.heuristic = heuristic;
     }
 
@@ -65,7 +65,7 @@ public class ThreadingBruteForceProgramIterator
     {
         if (instructions.size() >= maximumInstructions)
             return;
-        Arrays.stream(accInstructionOpcodes).parallel().forEach(instruction ->
+        Arrays.stream(accInstructionOpcodeEnums).parallel().forEach(instruction ->
         {
             if (heuristic.shouldRecurse(instructions, maximumInstructions)) {
                 if (instruction.isSingleRegister()) {

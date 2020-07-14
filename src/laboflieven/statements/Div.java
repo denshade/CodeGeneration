@@ -24,7 +24,7 @@ public class Div extends DualRegisterInstruction
 
     @Override
     public InstructionOpcode getInstructionOpcode() {
-        return new laboflieven.common.RegularInstructionOpcode(RegularInstructionOpcode.Div);
+        return new laboflieven.common.RegularInstructionOpcode(RegularInstructionOpcodeEnum.Div);
     }
 
 }

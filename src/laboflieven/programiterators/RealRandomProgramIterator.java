@@ -14,15 +14,15 @@ public class RealRandomProgramIterator {
     public long counter = 0;
 
     public List<List<InstructionMark>> positiveSolutions = new ArrayList<>();
-    private RegularInstructionOpcode[] enums;
+    private RegularInstructionOpcodeEnum[] enums;
     private Register[] registers;
     private InstructionFactoryInterface instructionFactory = new InstructionFactory();
 
     public RealRandomProgramIterator() {
-        enums = RegularInstructionOpcode.values();
+        enums = RegularInstructionOpcodeEnum.values();
     }
 
-    public RealRandomProgramIterator(RegularInstructionOpcode[] enums) {
+    public RealRandomProgramIterator(RegularInstructionOpcodeEnum[] enums) {
         this.enums = enums;
     }
 
@@ -49,7 +49,7 @@ public class RealRandomProgramIterator {
 
         Random r = new Random();
         int location = r.nextInt(enums.length);
-        RegularInstructionOpcode instruction = enums[location];
+        RegularInstructionOpcodeEnum instruction = enums[location];
         if (instruction.isDualRegister()) {
             Register register1 = registers[r.nextInt(registers.length)];
             Register register2 = registers[r.nextInt(registers.length)];
@@ -69,8 +69,8 @@ public class RealRandomProgramIterator {
         return recurse(instructions);
     }
 
-    private boolean isUselessOp(RegularInstructionOpcode instruction, Register register1, Register register2) {
-        return instruction == RegularInstructionOpcode.Move && register1.name.equals(register2.name);
+    private boolean isUselessOp(RegularInstructionOpcodeEnum instruction, Register register1, Register register2) {
+        return instruction == RegularInstructionOpcodeEnum.Move && register1.name.equals(register2.name);
     }
 
 

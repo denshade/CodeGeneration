@@ -24,6 +24,6 @@ public class AccLeftPull extends SingleRegisterInstruction
 
     @Override
     public InstructionOpcode getInstructionOpcode() {
-        return new laboflieven.common.AccInstructionOpcode(AccInstructionOpcode.AccLeftPull);
+        return new laboflieven.common.AccInstructionOpcode(AccInstructionOpcodeEnum.AccLeftPull);
     }
 }

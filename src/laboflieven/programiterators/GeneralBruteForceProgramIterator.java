@@ -22,7 +22,7 @@ public class GeneralBruteForceProgramIterator
 
     public List<List<InstructionMark>> positiveSolutions = new ArrayList<>();
     private ProgramFitnessExaminerInterface evaluator;
-    private AccInstructionOpcode[] accInstructionOpcodes;
+    private AccInstructionOpcodeEnum[] accInstructionOpcodeEnums;
     private RecursionHeuristic heuristic = new AlwaysRecursionHeuristic();
     public boolean stopAtFirstSolution = true;
     public boolean onlyEvaluateAtLastInstruction = true;
@@ -31,17 +31,17 @@ public class GeneralBruteForceProgramIterator
 
     public GeneralBruteForceProgramIterator(ProgramFitnessExaminerInterface evaluator)
     {
-        this(evaluator, AccInstructionOpcode.values());
+        this(evaluator, AccInstructionOpcodeEnum.values());
     }
 
-    public GeneralBruteForceProgramIterator(ProgramFitnessExaminerInterface evaluator, AccInstructionOpcode[] instructions)
+    public GeneralBruteForceProgramIterator(ProgramFitnessExaminerInterface evaluator, AccInstructionOpcodeEnum[] instructions)
     {
         this(evaluator, instructions, new AlwaysRecursionHeuristic());
     }
-    public GeneralBruteForceProgramIterator(ProgramFitnessExaminerInterface evaluator, AccInstructionOpcode[] instructions, RecursionHeuristic heuristic)
+    public GeneralBruteForceProgramIterator(ProgramFitnessExaminerInterface evaluator, AccInstructionOpcodeEnum[] instructions, RecursionHeuristic heuristic)
     {
         this.evaluator = evaluator;
-        accInstructionOpcodes = instructions;
+        accInstructionOpcodeEnums = instructions;
         this.heuristic = heuristic;
     }
 
@@ -62,7 +62,7 @@ public class GeneralBruteForceProgramIterator
     {
         if (instructions.size() >= maximumInstructions)
             return;
-        for (AccInstructionOpcode instruction : accInstructionOpcodes)
+        for (AccInstructionOpcodeEnum instruction : accInstructionOpcodeEnums)
         {
             if (heuristic.shouldRecurse(instructions, maximumInstructions)) {
                 if (instruction.isSingleRegister()) {

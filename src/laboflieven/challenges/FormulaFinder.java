@@ -1,7 +1,7 @@
 package laboflieven.challenges;
 
 import laboflieven.*;
-import laboflieven.accinstructions.AccInstructionOpcode;
+import laboflieven.accinstructions.AccInstructionOpcodeEnum;
 import laboflieven.examiners.LoggingProgramFitnessExaminer;
 import laboflieven.examiners.ProgramFitnessExaminer;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
@@ -60,7 +60,7 @@ public class FormulaFinder {
 
             for (int curMaxInstructions = 4; curMaxInstructions < 7; curMaxInstructions++) {
 
-                RandomGeneticProgramIterator iterator = new RandomGeneticProgramIterator(evaluator, new RegularInstructionOpcode[]{RegularInstructionOpcode.Add, RegularInstructionOpcode.Sub, RegularInstructionOpcode.Mul, RegularInstructionOpcode.Div, RegularInstructionOpcode.Sqrt},
+                RandomGeneticProgramIterator iterator = new RandomGeneticProgramIterator(evaluator, new RegularInstructionOpcodeEnum[]{RegularInstructionOpcodeEnum.Add, RegularInstructionOpcodeEnum.Sub, RegularInstructionOpcodeEnum.Mul, RegularInstructionOpcodeEnum.Div, RegularInstructionOpcodeEnum.Sqrt},
                         maxSizePopulation,
                         maxPopulationOverflow,
                         curpopularParents);
@@ -157,7 +157,7 @@ public class FormulaFinder {
 
         ProgramFitnessExaminerInterface evaluator = new ProgramFitnessExaminer(collection, new RegularStatementRunner());
 
-        ReverseProgramIterator iter = new ReverseProgramIterator(evaluator, new RegularInstructionOpcode[]{RegularInstructionOpcode.Add, RegularInstructionOpcode.Sub, RegularInstructionOpcode.Mul, RegularInstructionOpcode.Div, RegularInstructionOpcode.Sqrt, RegularInstructionOpcode.Move, RegularInstructionOpcode.Log});
+        ReverseProgramIterator iter = new ReverseProgramIterator(evaluator, new RegularInstructionOpcodeEnum[]{RegularInstructionOpcodeEnum.Add, RegularInstructionOpcodeEnum.Sub, RegularInstructionOpcodeEnum.Mul, RegularInstructionOpcodeEnum.Div, RegularInstructionOpcodeEnum.Sqrt, RegularInstructionOpcodeEnum.Move, RegularInstructionOpcodeEnum.Log});
         iter.iterate(curMaxRegisters, 3);
 
     }
@@ -187,7 +187,7 @@ public class FormulaFinder {
 
         ProgramFitnessExaminerInterface evaluator = new LoggingProgramFitnessExaminer(new File("logs.csv"), collection, new RegularStatementRunner());
 
-        RandomProgramIterator iter = new RandomProgramIterator(evaluator, new RegularInstructionOpcode[]{RegularInstructionOpcode.Add, RegularInstructionOpcode.Sub, RegularInstructionOpcode.Mul, RegularInstructionOpcode.Div, RegularInstructionOpcode.Sqrt, RegularInstructionOpcode.Move, RegularInstructionOpcode.Log});
+        RandomProgramIterator iter = new RandomProgramIterator(evaluator, new RegularInstructionOpcodeEnum[]{RegularInstructionOpcodeEnum.Add, RegularInstructionOpcodeEnum.Sub, RegularInstructionOpcodeEnum.Mul, RegularInstructionOpcodeEnum.Div, RegularInstructionOpcodeEnum.Sqrt, RegularInstructionOpcodeEnum.Move, RegularInstructionOpcodeEnum.Log});
         iter.iterate(curMaxRegisters, 6);
 
     }
@@ -209,7 +209,7 @@ public class FormulaFinder {
         }
 
         ProgramFitnessExaminerInterface evaluator = new ProgramFitnessExaminer(collection, new RegularStatementRunner());
-        BruteForceProgramIterator iter = new BruteForceProgramIterator(evaluator, new RegularInstructionOpcode[]{RegularInstructionOpcode.Add, RegularInstructionOpcode.Sub, RegularInstructionOpcode.Mul, RegularInstructionOpcode.Div, RegularInstructionOpcode.Sqrt, RegularInstructionOpcode.Move, RegularInstructionOpcode.Log});
+        BruteForceProgramIterator iter = new BruteForceProgramIterator(evaluator, new RegularInstructionOpcodeEnum[]{RegularInstructionOpcodeEnum.Add, RegularInstructionOpcodeEnum.Sub, RegularInstructionOpcodeEnum.Mul, RegularInstructionOpcodeEnum.Div, RegularInstructionOpcodeEnum.Sqrt, RegularInstructionOpcodeEnum.Move, RegularInstructionOpcodeEnum.Log});
         iter.iterate(curMaxRegisters, 5);
     }
 
@@ -235,7 +235,7 @@ public class FormulaFinder {
             if (!Double.isNaN(simulateFormula(doubleRow)) && !Double.isInfinite(simulateFormula(doubleRow)))
                 collection.add(createParameter(fillDoubleArray(doubleRow, curMaxRegisters), simulateFormula(doubleRow)));
         }
-        RegularInstructionOpcode[] enums = RegularInstructionOpcode.values();
+        RegularInstructionOpcodeEnum[] enums = RegularInstructionOpcodeEnum.values();
         //InstructionEnum[] enums = new InstructionEnum[]{InstructionEnum.Add, InstructionEnum.Sub, InstructionEnum.Mul, InstructionEnum.Div, InstructionEnum.Sqrt, InstructionEnum.Move, InstructionEnum.Log};
         //enums = new InstructionEnum[]{InstructionEnum.Add, InstructionEnum.Sub, InstructionEnum.Mul, InstructionEnum.Div, InstructionEnum.Log};
         FitnessLogger logger = new BitmapFitnessLogger(new java.io.File("hello.bmp"), enums.length, curMaxRegisters );
@@ -269,13 +269,13 @@ public class FormulaFinder {
                 collection.add(createParameter(fillDoubleArray(doubleRow, curMaxRegisters), simulateFormula(doubleRow)));
         }
         //laboflieven.accinstructions.InstructionEnum[] enums = laboflieven.accinstructions.InstructionEnum.values();
-        AccInstructionOpcode[] enums = new AccInstructionOpcode[] {
-                AccInstructionOpcode.Log,
-                AccInstructionOpcode.Div,
-                AccInstructionOpcode.AccLeftPull,
-                AccInstructionOpcode.AccRightPull,
-                AccInstructionOpcode.AccLeftPush,
-                AccInstructionOpcode.AccRightPush
+        AccInstructionOpcodeEnum[] enums = new AccInstructionOpcodeEnum[] {
+                AccInstructionOpcodeEnum.Log,
+                AccInstructionOpcodeEnum.Div,
+                AccInstructionOpcodeEnum.AccLeftPull,
+                AccInstructionOpcodeEnum.AccRightPull,
+                AccInstructionOpcodeEnum.AccLeftPush,
+                AccInstructionOpcodeEnum.AccRightPush
         };
         //enums = new InstructionEnum[]{InstructionEnum.Add, InstructionEnum.Sub, InstructionEnum.Mul, InstructionEnum.Div, InstructionEnum.Log};
         ProgramFitnessExaminer evaluator = new ProgramFitnessExaminer(collection, new AccStatementRunner());

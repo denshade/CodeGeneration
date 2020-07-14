@@ -16,7 +16,7 @@ public class RandomProgramIterator {
 
     public List<List<InstructionMark>> positiveSolutions = new ArrayList<>();
     private ProgramFitnessExaminerInterface evaluator;
-    private RegularInstructionOpcode[] enums;
+    private RegularInstructionOpcodeEnum[] enums;
     private Register[] registers;
     private int numberOfRegisters;
     private List<InstructionMark> bestSolution;
@@ -25,10 +25,10 @@ public class RandomProgramIterator {
 
     public RandomProgramIterator(ProgramFitnessExaminerInterface evaluator) {
         this.evaluator = evaluator;
-        enums = RegularInstructionOpcode.values();
+        enums = RegularInstructionOpcodeEnum.values();
     }
 
-    public RandomProgramIterator(ProgramFitnessExaminerInterface evaluator, RegularInstructionOpcode[] enums) {
+    public RandomProgramIterator(ProgramFitnessExaminerInterface evaluator, RegularInstructionOpcodeEnum[] enums) {
         this.evaluator = evaluator;
 
         this.enums = enums;
@@ -59,7 +59,7 @@ public class RandomProgramIterator {
 
         Random r = new Random();
         int location = r.nextInt(enums.length);
-        RegularInstructionOpcode instruction = enums[location];
+        RegularInstructionOpcodeEnum instruction = enums[location];
         if (instruction.isDualRegister()) {
             Register register1 = registers[r.nextInt(registers.length)];
             Register register2 = registers[r.nextInt(registers.length)];
@@ -88,8 +88,8 @@ public class RandomProgramIterator {
         }
     }
 
-    private boolean isUselessOp(RegularInstructionOpcode instruction, Register register1, Register register2) {
-        return instruction == RegularInstructionOpcode.Move && register1.name.equals(register2.name);
+    private boolean isUselessOp(RegularInstructionOpcodeEnum instruction, Register register1, Register register2) {
+        return instruction == RegularInstructionOpcodeEnum.Move && register1.name.equals(register2.name);
     }
 
     private void eval(List<InstructionMark> instructions, List<Register> registers) {

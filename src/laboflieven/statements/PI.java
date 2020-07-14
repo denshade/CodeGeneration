@@ -15,7 +15,7 @@ public class PI extends SingleRegisterInstruction {
     }
     @Override
     public InstructionOpcode getInstructionOpcode() {
-        return new laboflieven.common.RegularInstructionOpcode(RegularInstructionOpcode.PI);
+        return new laboflieven.common.RegularInstructionOpcode(RegularInstructionOpcodeEnum.PI);
     }
 
 }

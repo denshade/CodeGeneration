@@ -22,7 +22,7 @@ public class Mod extends DualRegisterInstruction
     }
     @Override
     public InstructionOpcode getInstructionOpcode() {
-        return new laboflieven.common.RegularInstructionOpcode(RegularInstructionOpcode.Mod);
+        return new laboflieven.common.RegularInstructionOpcode(RegularInstructionOpcodeEnum.Mod);
     }
 
 }

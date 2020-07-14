@@ -21,6 +21,6 @@ public class Jump2IfNeq  extends AccRegisterInstruction
 
     @Override
     public InstructionOpcode getInstructionOpcode() {
-        return new laboflieven.common.AccInstructionOpcode(AccInstructionOpcode.Jump2IfNeq);
+        return new laboflieven.common.AccInstructionOpcode(AccInstructionOpcodeEnum.Jump2IfNeq);
     }
 }

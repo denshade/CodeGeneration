@@ -3,7 +3,7 @@ package laboflieven.programiterators;
 import laboflieven.InstructionMark;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
 import laboflieven.ProgramResolution;
-import laboflieven.accinstructions.AccInstructionOpcode;
+import laboflieven.accinstructions.AccInstructionOpcodeEnum;
 import laboflieven.accinstructions.InstructionFactory;
 import laboflieven.common.BestFitRegister;
 import laboflieven.common.PriorityQueueAlgos;
@@ -28,7 +28,7 @@ public class GeneralRandomGeneticProgramIterator {
 
     public List<List<InstructionMark>> positiveSolutions = new ArrayList<>();
     private ProgramFitnessExaminerInterface evaluator;
-    private AccInstructionOpcode[] enums;
+    private AccInstructionOpcodeEnum[] enums;
     private RecursionHeuristic heuristic = new AlwaysRecursionHeuristic();
     private int maxPopulation;
     private Register[] registers;
@@ -44,7 +44,7 @@ public class GeneralRandomGeneticProgramIterator {
     public int nrChildren = 3;
 
     public GeneralRandomGeneticProgramIterator(ProgramFitnessExaminerInterface evaluator, int maxPopulation, double maxOverflow, double popularParents) {
-        this(evaluator, AccInstructionOpcode.values(), maxPopulation, maxOverflow, popularParents ); }
+        this(evaluator, AccInstructionOpcodeEnum.values(), maxPopulation, maxOverflow, popularParents ); }
 
     /**
      * @param evaluator
@@ -53,11 +53,11 @@ public class GeneralRandomGeneticProgramIterator {
      * @param maxOverflow    If the size of the population > maxPopulation * maxOverflow then we cut down the least popular solutions.
      * @param popularParents Only popular parents can breed. This is the percent of parents that are taken into account. e.g. 0.8
      */
-    public GeneralRandomGeneticProgramIterator(ProgramFitnessExaminerInterface evaluator, AccInstructionOpcode[] enums, int maxPopulation, double maxOverflow, double popularParents) {
+    public GeneralRandomGeneticProgramIterator(ProgramFitnessExaminerInterface evaluator, AccInstructionOpcodeEnum[] enums, int maxPopulation, double maxOverflow, double popularParents) {
         this(evaluator, enums, maxPopulation, maxOverflow, popularParents, new AlwaysRecursionHeuristic());
     }
 
-    public GeneralRandomGeneticProgramIterator(ProgramFitnessExaminerInterface evaluator, AccInstructionOpcode[] enums, int maxPopulation, double maxOverflow, double popularParents, RecursionHeuristic heuristic) {
+    public GeneralRandomGeneticProgramIterator(ProgramFitnessExaminerInterface evaluator, AccInstructionOpcodeEnum[] enums, int maxPopulation, double maxOverflow, double popularParents, RecursionHeuristic heuristic) {
         this.evaluator = evaluator;
         this.enums = enums;
         this.maxPopulation = maxPopulation;
@@ -127,7 +127,7 @@ public class GeneralRandomGeneticProgramIterator {
         Random r = new Random();
         boolean foundProgram = false;
         while (!foundProgram) {
-            AccInstructionOpcode instruction;
+            AccInstructionOpcodeEnum instruction;
             if (instructions.size() == 0) {
                 instruction = pickRandomPush(r);
             } else {
@@ -150,17 +150,17 @@ public class GeneralRandomGeneticProgramIterator {
         }
     }
 
-    private AccInstructionOpcode pickRandomPush(Random r) {
-        AccInstructionOpcode instruction;
+    private AccInstructionOpcodeEnum pickRandomPush(Random r) {
+        AccInstructionOpcodeEnum instruction;
         if (r.nextBoolean()) {
-            instruction = AccInstructionOpcode.AccLeftPush;
+            instruction = AccInstructionOpcodeEnum.AccLeftPush;
         } else {
-            instruction = AccInstructionOpcode.AccRightPush;
+            instruction = AccInstructionOpcodeEnum.AccRightPush;
         }
         return instruction;
     }
 
-    private AccInstructionOpcode pickRandomInstruction(Random r) {
+    private AccInstructionOpcodeEnum pickRandomInstruction(Random r) {
         int location = r.nextInt(enums.length);
         return enums[location];
     }

@@ -22,6 +22,6 @@ public class JumpIfLteStart  extends AccRegisterInstruction
     }
     @Override
     public InstructionOpcode getInstructionOpcode() {
-        return new laboflieven.common.AccInstructionOpcode(AccInstructionOpcode.JumpIfLteStart);
+        return new laboflieven.common.AccInstructionOpcode(AccInstructionOpcodeEnum.JumpIfLteStart);
     }
 }

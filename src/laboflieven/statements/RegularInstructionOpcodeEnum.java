@@ -7,7 +7,7 @@ import java.util.Set;
 /**
  * Created by lveeckha on 4/06/2015.
  */
-public enum RegularInstructionOpcode
+public enum RegularInstructionOpcodeEnum
 {
     Add, Div, Invert, Move, Mul, Sqrt, Sub, Sin, Cos, Mod, Nand, Log, JmpIfZero, JmpIfZeroBegin, JmpIfZeroEnd, PI, Zero, One, JmpIfNotZeroBegin, JmpIfNotZeroEnd, JmpIfRegister2Steps;
 
@@ -17,28 +17,28 @@ public enum RegularInstructionOpcode
                 && !this.equals(JmpIfNotZeroBegin) && !this.equals(JmpIfNotZeroEnd) && !this.equals(JmpIfRegister2Steps);
     }
 
-    public static RegularInstructionOpcode[] anyExcept(RegularInstructionOpcode eq)
+    public static RegularInstructionOpcodeEnum[] anyExcept(RegularInstructionOpcodeEnum eq)
     {
-        List<RegularInstructionOpcode> result = new ArrayList<RegularInstructionOpcode>();
-        for (RegularInstructionOpcode enu : RegularInstructionOpcode.values())
+        List<RegularInstructionOpcodeEnum> result = new ArrayList<RegularInstructionOpcodeEnum>();
+        for (RegularInstructionOpcodeEnum enu : RegularInstructionOpcodeEnum.values())
         {
             if (!enu.equals(eq)) {
                 result.add(enu);
             }
         }
-        return result.toArray(new RegularInstructionOpcode[0]);
+        return result.toArray(new RegularInstructionOpcodeEnum[0]);
     }
 
-    public static RegularInstructionOpcode[] anyExcept(Set<RegularInstructionOpcode> eq)
+    public static RegularInstructionOpcodeEnum[] anyExcept(Set<RegularInstructionOpcodeEnum> eq)
     {
-        List<RegularInstructionOpcode> result = new ArrayList<RegularInstructionOpcode>();
-        for (RegularInstructionOpcode enu : RegularInstructionOpcode.values())
+        List<RegularInstructionOpcodeEnum> result = new ArrayList<RegularInstructionOpcodeEnum>();
+        for (RegularInstructionOpcodeEnum enu : RegularInstructionOpcodeEnum.values())
         {
             if (!eq.contains(enu)) {
                 result.add(enu);
             }
         }
-        return result.toArray(new RegularInstructionOpcode[0]);
+        return result.toArray(new RegularInstructionOpcodeEnum[0]);
     }
 
 }

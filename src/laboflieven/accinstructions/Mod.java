@@ -21,6 +21,6 @@ public class Mod extends AccRegisterInstruction
     }
     @Override
     public InstructionOpcode getInstructionOpcode() {
-        return new laboflieven.common.AccInstructionOpcode(AccInstructionOpcode.Mod);
+        return new laboflieven.common.AccInstructionOpcode(AccInstructionOpcodeEnum.Mod);
     }
 }

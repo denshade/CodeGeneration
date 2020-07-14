@@ -2,7 +2,7 @@ package laboflieven.ui;
 
 import laboflieven.*;
 import laboflieven.programiterators.RealRandomProgramIterator;
-import laboflieven.statements.RegularInstructionOpcode;
+import laboflieven.statements.RegularInstructionOpcodeEnum;
 
 import javax.swing.*;
 import java.awt.*;
@@ -29,7 +29,7 @@ public class ProgramDrawer
 
         JLabel instructions = new JLabel("Allowed instructions");
 
-        JList allowedInstructions = new JList(RegularInstructionOpcode.values());
+        JList allowedInstructions = new JList(RegularInstructionOpcodeEnum.values());
         ProgramRenderPanel programPanel = new ProgramRenderPanel(1000,1000);
 
         registerCountSlider.setMajorTickSpacing(10);
@@ -57,10 +57,10 @@ public class ProgramDrawer
     }
 
     private static void drawPrograms(int instructionCount, ProgramRenderPanel programPanel, JList allowedInstructions) {
-        RegularInstructionOpcode[] enums = new RegularInstructionOpcode[allowedInstructions.getSelectedValuesList().size()];
+        RegularInstructionOpcodeEnum[] enums = new RegularInstructionOpcodeEnum[allowedInstructions.getSelectedValuesList().size()];
         for (int i = 0; i < allowedInstructions.getSelectedValuesList().size(); i++)
         {
-            enums[i] = (RegularInstructionOpcode)allowedInstructions.getSelectedValuesList().get(i);
+            enums[i] = (RegularInstructionOpcodeEnum)allowedInstructions.getSelectedValuesList().get(i);
         }
         if (enums.length == 0) return;
         RealRandomProgramIterator iterator = new RealRandomProgramIterator(enums);

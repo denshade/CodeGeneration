@@ -1,15 +1,22 @@
 package laboflieven.common;
 
 
+import laboflieven.statements.RegularInstructionOpcodeEnum;
+
 public class RegularInstructionOpcode implements InstructionOpcode
 {
-    private final laboflieven.statements.RegularInstructionOpcode enumer;
+    private final RegularInstructionOpcodeEnum enumer;
 
-    public RegularInstructionOpcode(laboflieven.statements.RegularInstructionOpcode enumer) {
+    public RegularInstructionOpcode(RegularInstructionOpcodeEnum enumer) {
         this.enumer = enumer;
     }
 
-    public laboflieven.statements.RegularInstructionOpcode getEnumer() {
+    public RegularInstructionOpcodeEnum getEnumer() {
         return enumer;
+    }
+
+    @Override
+    public int getNrRegisters() {
+        return 0;
     }
 }

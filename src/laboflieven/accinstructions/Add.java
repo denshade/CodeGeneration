@@ -21,6 +21,6 @@ public class Add extends AccRegisterInstruction
     }
     @Override
     public InstructionOpcode getInstructionOpcode() {
-        return new laboflieven.common.AccInstructionOpcode(AccInstructionOpcode.Add);
+        return new laboflieven.common.AccInstructionOpcode(AccInstructionOpcodeEnum.Add);
     }
 }

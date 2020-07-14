@@ -15,7 +15,7 @@ public class One extends SingleRegisterInstruction {
     }
     @Override
     public InstructionOpcode getInstructionOpcode() {
-        return new laboflieven.common.RegularInstructionOpcode(RegularInstructionOpcode.One);
+        return new laboflieven.common.RegularInstructionOpcode(RegularInstructionOpcodeEnum.One);
     }
 
 }

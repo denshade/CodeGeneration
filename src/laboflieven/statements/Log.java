@@ -15,7 +15,7 @@ public class Log extends SingleRegisterInstruction {
     }
     @Override
     public InstructionOpcode getInstructionOpcode() {
-        return new laboflieven.common.RegularInstructionOpcode(RegularInstructionOpcode.Log);
+        return new laboflieven.common.RegularInstructionOpcode(RegularInstructionOpcodeEnum.Log);
     }
 
 }

@@ -15,7 +15,7 @@ public class Zero extends SingleRegisterInstruction {
     }
     @Override
     public InstructionOpcode getInstructionOpcode() {
-        return new laboflieven.common.RegularInstructionOpcode(RegularInstructionOpcode.Zero);
+        return new laboflieven.common.RegularInstructionOpcode(RegularInstructionOpcodeEnum.Zero);
     }
 
 }

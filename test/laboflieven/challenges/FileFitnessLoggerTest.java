@@ -24,7 +24,7 @@ public class FileFitnessLoggerTest {
         Instruction add = new Add(r0, r1);
         instructions.add(add);
         FileFitnessLogger l = new FileFitnessLogger(new java.io.File("f.csv"));
-        assertNotNull(l.getXandY(instructions, RegularInstructionOpcode.values().length, 2));
+        assertNotNull(l.getXandY(instructions, RegularInstructionOpcodeEnum.values().length, 2));
     }
 
     @Test

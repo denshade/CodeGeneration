@@ -18,7 +18,7 @@ public class Cos extends SingleRegisterInstruction{
     }
     @Override
     public InstructionOpcode getInstructionOpcode() {
-        return new laboflieven.common.RegularInstructionOpcode(RegularInstructionOpcode.Cos);
+        return new laboflieven.common.RegularInstructionOpcode(RegularInstructionOpcodeEnum.Cos);
     }
 
 }

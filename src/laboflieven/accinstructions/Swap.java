@@ -24,6 +24,6 @@ public class Swap extends AccRegisterInstruction
 
     @Override
     public InstructionOpcode getInstructionOpcode() {
-        return new laboflieven.common.AccInstructionOpcode(AccInstructionOpcode.Swap);
+        return new laboflieven.common.AccInstructionOpcode(AccInstructionOpcodeEnum.Swap);
     }
 }

@@ -24,7 +24,7 @@ public class JumpIfRegister1Zero extends DualRegisterInstruction {
 
     @Override
     public InstructionOpcode getInstructionOpcode() {
-        return new laboflieven.common.RegularInstructionOpcode(RegularInstructionOpcode.JmpIfZero);
+        return new laboflieven.common.RegularInstructionOpcode(RegularInstructionOpcodeEnum.JmpIfZero);
     }
 
 

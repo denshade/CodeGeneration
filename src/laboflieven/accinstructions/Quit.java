@@ -20,6 +20,6 @@ public class Quit extends AccRegisterInstruction
     }
     @Override
     public InstructionOpcode getInstructionOpcode() {
-        return new laboflieven.common.AccInstructionOpcode(AccInstructionOpcode.Quit);
+        return new laboflieven.common.AccInstructionOpcode(AccInstructionOpcodeEnum.Quit);
     }
 }

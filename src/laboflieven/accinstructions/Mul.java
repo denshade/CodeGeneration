@@ -20,6 +20,6 @@ public class Mul extends AccRegisterInstruction
     }
     @Override
     public InstructionOpcode getInstructionOpcode() {
-        return new laboflieven.common.AccInstructionOpcode(AccInstructionOpcode.Mul);
+        return new laboflieven.common.AccInstructionOpcode(AccInstructionOpcodeEnum.Mul);
     }
 }

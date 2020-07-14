@@ -17,12 +17,12 @@ public class PriorityProgramIterator
 
     public static final int MAXBADPROGRAM = 300;
     private final ProgramFitnessExaminerInterface evaluator;
-    private final RegularInstructionOpcode[] enums;
+    private final RegularInstructionOpcodeEnum[] enums;
     PriorityQueue<ComparableProgram> priorityQueue = new PriorityQueue<>();
     private Register[] registers;
     private InstructionFactoryInterface instructionFactory = new InstructionFactory();
 
-    public PriorityProgramIterator(ProgramFitnessExaminerInterface evaluator, RegularInstructionOpcode[] enums) {
+    public PriorityProgramIterator(ProgramFitnessExaminerInterface evaluator, RegularInstructionOpcodeEnum[] enums) {
         this.evaluator = evaluator;
         this.enums = enums;
     }
@@ -51,13 +51,13 @@ public class PriorityProgramIterator
         List<Register> registerList = Arrays.asList(registers);
         List<InstructionMark> instructionsSoFar = currentProgram.getProgram().getInstructions();
 
-        for (RegularInstructionOpcode instruction : enums)
+        for (RegularInstructionOpcodeEnum instruction : enums)
         {
             if (instruction.isDualRegister()) {
                 for (Register register1 : registers) {
 
                     for (Register register2 : registers) {
-                        if (instruction == RegularInstructionOpcode.Move && register1.name.equals(register2.name)) {
+                        if (instruction == RegularInstructionOpcodeEnum.Move && register1.name.equals(register2.name)) {
                             continue;
                         }
                         InstructionMark actualInstruction = instructionFactory.createInstruction(new laboflieven.common.RegularInstructionOpcode(instruction), register1, register2);
@@ -96,13 +96,13 @@ public class PriorityProgramIterator
     }
 
     private void fillFirstPrograms(List<Register> registerList) {
-        for (RegularInstructionOpcode instruction : enums)
+        for (RegularInstructionOpcodeEnum instruction : enums)
         {
             if (instruction.isDualRegister()) {
                 for (Register register1 : registers) {
 
                     for (Register register2 : registers) {
-                        if (instruction == RegularInstructionOpcode.Move && register1.name.equals(register2.name)) {
+                        if (instruction == RegularInstructionOpcodeEnum.Move && register1.name.equals(register2.name)) {
                             continue;
                         }
                         InstructionMark actualInstruction = instructionFactory.createInstruction(new laboflieven.common.RegularInstructionOpcode(instruction), register1, register2);

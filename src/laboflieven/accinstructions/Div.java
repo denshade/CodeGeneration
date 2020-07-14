@@ -21,6 +21,6 @@ public class Div extends AccRegisterInstruction
     }
     @Override
     public InstructionOpcode getInstructionOpcode() {
-        return new laboflieven.common.AccInstructionOpcode(AccInstructionOpcode.Div);
+        return new laboflieven.common.AccInstructionOpcode(AccInstructionOpcodeEnum.Div);
     }
 }

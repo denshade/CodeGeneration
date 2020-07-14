@@ -6,7 +6,7 @@ import laboflieven.examiners.ProgramFitnessExaminerInterface;
 import laboflieven.programiterators.BruteForceProgramIterator;
 import laboflieven.programiterators.RandomGeneticProgramIterator;
 import laboflieven.runners.RegularStatementRunner;
-import laboflieven.statements.RegularInstructionOpcode;
+import laboflieven.statements.RegularInstructionOpcodeEnum;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -69,7 +69,7 @@ public class DistanceFinder {
 
             for (int curMaxInstructions = 5; curMaxInstructions < 7; curMaxInstructions++) {
 
-                RandomGeneticProgramIterator iterator = new RandomGeneticProgramIterator(evaluator, new RegularInstructionOpcode[]{RegularInstructionOpcode.Add, RegularInstructionOpcode.Sub, RegularInstructionOpcode.Mul, RegularInstructionOpcode.Div, RegularInstructionOpcode.Sqrt},
+                RandomGeneticProgramIterator iterator = new RandomGeneticProgramIterator(evaluator, new RegularInstructionOpcodeEnum[]{RegularInstructionOpcodeEnum.Add, RegularInstructionOpcodeEnum.Sub, RegularInstructionOpcodeEnum.Mul, RegularInstructionOpcodeEnum.Div, RegularInstructionOpcodeEnum.Sqrt},
                         maxSizePopulation,
                         maxPopulationOverflow,
                         curpopularParents);

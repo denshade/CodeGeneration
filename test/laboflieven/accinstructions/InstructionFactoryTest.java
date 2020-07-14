@@ -11,7 +11,7 @@ class InstructionFactoryTest {
     @Test
     void createInstruction() {
         InstructionFactory fact = new InstructionFactory();
-        assertEquals("laboflieven.accinstructions.Pow", fact.createInstruction(new laboflieven.common.AccInstructionOpcode(AccInstructionOpcode.Pow)).getClass().getCanonicalName());
+        assertEquals("laboflieven.accinstructions.Pow", fact.createInstruction(new laboflieven.common.AccInstructionOpcode(AccInstructionOpcodeEnum.Pow)).getClass().getCanonicalName());
     }
 
     @Test
@@ -20,7 +20,7 @@ class InstructionFactoryTest {
         long l = System.currentTimeMillis();
         for (int i = 0; i < 1000000;i++)
         {
-            fact.createInstruction(new laboflieven.common.AccInstructionOpcode(AccInstructionOpcode.Pow)).getClass().getCanonicalName();
+            fact.createInstruction(new laboflieven.common.AccInstructionOpcode(AccInstructionOpcodeEnum.Pow)).getClass().getCanonicalName();
         }
         System.out.println(System.currentTimeMillis() - l);
     }

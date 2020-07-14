@@ -20,6 +20,6 @@ public class Cos extends AccRegisterInstruction {
     }
     @Override
     public InstructionOpcode getInstructionOpcode() {
-        return new laboflieven.common.AccInstructionOpcode(AccInstructionOpcode.Cos);
+        return new laboflieven.common.AccInstructionOpcode(AccInstructionOpcodeEnum.Cos);
     }
 }

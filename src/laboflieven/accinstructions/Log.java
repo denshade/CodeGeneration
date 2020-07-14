@@ -24,6 +24,6 @@ public class Log extends AccRegisterInstruction {
     }
     @Override
     public InstructionOpcode getInstructionOpcode() {
-        return new laboflieven.common.AccInstructionOpcode(AccInstructionOpcode.Log);
+        return new laboflieven.common.AccInstructionOpcode(AccInstructionOpcodeEnum.Log);
     }
 }

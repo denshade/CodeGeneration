@@ -23,7 +23,7 @@ public class JumpIfRegister2Steps extends SingleRegisterInstruction {
     }
     @Override
     public InstructionOpcode getInstructionOpcode() {
-        return new laboflieven.common.RegularInstructionOpcode(RegularInstructionOpcode.JmpIfRegister2Steps);
+        return new laboflieven.common.RegularInstructionOpcode(RegularInstructionOpcodeEnum.JmpIfRegister2Steps);
     }
 
 

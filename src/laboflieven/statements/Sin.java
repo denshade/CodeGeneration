@@ -18,7 +18,7 @@ public class Sin extends SingleRegisterInstruction{
     }
     @Override
     public InstructionOpcode getInstructionOpcode() {
-        return new laboflieven.common.RegularInstructionOpcode(RegularInstructionOpcode.Sin);
+        return new laboflieven.common.RegularInstructionOpcode(RegularInstructionOpcodeEnum.Sin);
     }
 
 }

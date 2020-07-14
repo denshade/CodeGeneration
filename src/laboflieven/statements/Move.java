@@ -20,7 +20,7 @@ public class Move extends DualRegisterInstruction
 
     @Override
     public InstructionOpcode getInstructionOpcode() {
-        return new laboflieven.common.RegularInstructionOpcode(RegularInstructionOpcode.Move);
+        return new laboflieven.common.RegularInstructionOpcode(RegularInstructionOpcodeEnum.Move);
     }
 
 }

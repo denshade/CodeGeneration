@@ -18,7 +18,7 @@ public class Mul extends DualRegisterInstruction
     }
     @Override
     public InstructionOpcode getInstructionOpcode() {
-        return new laboflieven.common.RegularInstructionOpcode(RegularInstructionOpcode.Mul);
+        return new laboflieven.common.RegularInstructionOpcode(RegularInstructionOpcodeEnum.Mul);
     }
 
 }

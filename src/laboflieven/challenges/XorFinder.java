@@ -7,7 +7,7 @@ import laboflieven.programiterators.BruteForceProgramIterator;
 import laboflieven.recursionheuristics.AlwaysRecursionHeuristic;
 import laboflieven.runners.RegularStatementRunner;
 import laboflieven.runners.StatementRunner;
-import laboflieven.statements.RegularInstructionOpcode;
+import laboflieven.statements.RegularInstructionOpcodeEnum;
 import laboflieven.statements.Register;
 
 import java.io.File;
@@ -45,7 +45,7 @@ public class XorFinder implements ProgramTemplate
             List<InOutParameters> collection = TestCases.getTestCases(new XorFinder(), points.toArray(new double[0][0]),curMaxRegisters);
             File f = new File("c:\\temp\\test.csv");
             ProgramFitnessExaminerInterface evaluator = new ProgramFitnessExaminer(collection, new RegularStatementRunner());
-            BruteForceProgramIterator iter = new BruteForceProgramIterator(evaluator, new AlwaysRecursionHeuristic(), new RegularInstructionOpcode[] {RegularInstructionOpcode.Add, RegularInstructionOpcode.Sub, RegularInstructionOpcode.Zero, RegularInstructionOpcode.One, RegularInstructionOpcode.Div, RegularInstructionOpcode.Mul, RegularInstructionOpcode.Invert, RegularInstructionOpcode.Mod});
+            BruteForceProgramIterator iter = new BruteForceProgramIterator(evaluator, new AlwaysRecursionHeuristic(), new RegularInstructionOpcodeEnum[] {RegularInstructionOpcodeEnum.Add, RegularInstructionOpcodeEnum.Sub, RegularInstructionOpcodeEnum.Zero, RegularInstructionOpcodeEnum.One, RegularInstructionOpcodeEnum.Div, RegularInstructionOpcodeEnum.Mul, RegularInstructionOpcodeEnum.Invert, RegularInstructionOpcodeEnum.Mod});
             long start = System.currentTimeMillis();
             iter.iterate(curMaxRegisters, 3);
             //evaluator.writeAndClose();

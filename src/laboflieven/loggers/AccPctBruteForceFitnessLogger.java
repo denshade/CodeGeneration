@@ -1,7 +1,7 @@
 package laboflieven.loggers;
 
 import laboflieven.InstructionMark;
-import laboflieven.accinstructions.AccInstructionOpcode;
+import laboflieven.accinstructions.AccInstructionOpcodeEnum;
 import laboflieven.accinstructions.InstructionFactory;
 import laboflieven.statements.InstructionFactoryInterface;
 import laboflieven.statements.Register;
@@ -11,7 +11,7 @@ import java.util.List;
 
 public class AccPctBruteForceFitnessLogger implements FitnessLogger
 {
-    private final AccInstructionOpcode[] availableInstructions;
+    private final AccInstructionOpcodeEnum[] availableInstructions;
     private final int refreshRateInMs;
     private final int nrRegisters;
     private List<InstructionMark> exampleInstructions;
@@ -19,7 +19,7 @@ public class AccPctBruteForceFitnessLogger implements FitnessLogger
 
     private long lastPrint;
 
-    public AccPctBruteForceFitnessLogger(AccInstructionOpcode[] instructions, int refreshRateInMs, int nrRegisters)
+    public AccPctBruteForceFitnessLogger(AccInstructionOpcodeEnum[] instructions, int refreshRateInMs, int nrRegisters)
     {
         this.availableInstructions = instructions;
         this.refreshRateInMs = refreshRateInMs;
@@ -68,13 +68,13 @@ public class AccPctBruteForceFitnessLogger implements FitnessLogger
 
     private List<InstructionMark> getExampleInstructions(int nrRegisters) {
         List<InstructionMark> instructions = new ArrayList<>();
-        for (AccInstructionOpcode accInstructionOpcode : this.availableInstructions) {
-            if (accInstructionOpcode.isSingleRegister()) {
+        for (AccInstructionOpcodeEnum accInstructionOpcodeEnum : this.availableInstructions) {
+            if (accInstructionOpcodeEnum.isSingleRegister()) {
                 for (int register = 0; register < nrRegisters; register++) {
-                    instructions.add(instructionFactory.createInstruction(new laboflieven.common.AccInstructionOpcode(accInstructionOpcode), new Register("r" + register)));
+                    instructions.add(instructionFactory.createInstruction(new laboflieven.common.AccInstructionOpcode(accInstructionOpcodeEnum), new Register("r" + register)));
                 }
             } else {
-                instructions.add(instructionFactory.createInstruction(new laboflieven.common.AccInstructionOpcode(accInstructionOpcode)));
+                instructions.add(instructionFactory.createInstruction(new laboflieven.common.AccInstructionOpcode(accInstructionOpcodeEnum)));
             }
         }
         return instructions;

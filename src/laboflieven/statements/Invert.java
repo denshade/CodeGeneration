@@ -19,7 +19,7 @@ public class Invert extends SingleRegisterInstruction
     }
     @Override
     public InstructionOpcode getInstructionOpcode() {
-        return new laboflieven.common.RegularInstructionOpcode(RegularInstructionOpcode.Invert);
+        return new laboflieven.common.RegularInstructionOpcode(RegularInstructionOpcodeEnum.Invert);
     }
 
 }
