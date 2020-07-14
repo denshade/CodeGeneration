@@ -2,6 +2,8 @@ package laboflieven.common;
 
 import laboflieven.accinstructions.AccInstructionOpcodeEnum;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class AccInstructionOpcode implements InstructionOpcode
@@ -10,6 +12,14 @@ public class AccInstructionOpcode implements InstructionOpcode
 
     public AccInstructionOpcode(AccInstructionOpcodeEnum enumer) {
         this.enumer = enumer;
+    }
+
+    public static List<InstructionOpcode> create(AccInstructionOpcodeEnum[] values) {
+        var result = new ArrayList<InstructionOpcode>();
+        for (AccInstructionOpcodeEnum c : values) {
+            result.add(new AccInstructionOpcode(c));
+        }
+        return result;
     }
 
     public AccInstructionOpcodeEnum getEnumer() {

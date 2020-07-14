@@ -30,7 +30,11 @@ public class ProgramEnumerator
         }
         return count;
     }
-
+    public BigInteger getMaxCounter(int nrInstructions)
+    {
+        BigInteger b = BigInteger.valueOf(actualNrOptionsWithRegs);
+        return b.pow(nrInstructions);
+    }
     public BigInteger convert(final List<InstructionMark> instructions)
     {
         BigInteger sum = BigInteger.ZERO;
@@ -82,14 +86,14 @@ public class ProgramEnumerator
                             new Register("R" + (index1+1)));
                 }
             } else if (currentOption.getNrRegisters() == 0) {
-                k--;
                 if (k == 0) {
                     return factoryInterface.createInstruction(currentOption);
                 }
+                k--;
             }
 
         }
-        throw new RuntimeException("Option not found.");
+        throw new RuntimeException("Option not found. " + instructionCounter);
     }
 
     private long getIndexForInstruction(InstructionMark currentInstruction) {
