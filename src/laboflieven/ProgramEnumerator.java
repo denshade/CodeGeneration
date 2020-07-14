@@ -68,19 +68,19 @@ public class ProgramEnumerator
         for (InstructionMark currentOption : options) {
 
             if (currentOption instanceof DualRegisterInstruction) {
-                if (k > nrRegisters * nrRegisters)
+                if (k >= nrRegisters * nrRegisters)
                 {
                     k -= nrRegisters* nrRegisters;
                 } else {
-                    long index1 = k % nrRegisters;
-                    long index2 = k / nrRegisters;
-                    return factoryInterface.createInstruction((InstructionOpcode) currentOption.getInstructionOpcode(),
+                    long index2 = k % nrRegisters;
+                    long index1 = k / nrRegisters;
+                    return factoryInterface.createInstruction(currentOption.getInstructionOpcode(),
                             new Register("R" + (index1+1)),
                             new Register("R" + (index2+1)));
                 }
 
             } else if (currentOption instanceof SingleRegisterInstruction || currentOption instanceof laboflieven.accinstructions.SingleRegisterInstruction) {
-                if (k > nrRegisters * nrRegisters)
+                if (k >= nrRegisters)
                 {
                     k -= nrRegisters;
                 } else {
