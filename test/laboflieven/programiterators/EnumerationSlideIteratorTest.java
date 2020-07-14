@@ -34,6 +34,6 @@ class EnumerationSlideIteratorTest {
                 AccInstructionOpcode.create(AccInstructionOpcodeEnum.values()),
                 new InstructionFactory()
         );
-        iterator.iterate(2, 5);
+        System.out.println(iterator.iterate(2, 100));
     }
 }
