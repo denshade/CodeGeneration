@@ -1,4 +1,5 @@
 import laboflieven.ProgramEnumerator;
+import laboflieven.common.RegularInstructionOpcode;
 import laboflieven.statements.*;
 import laboflieven.statements.Register;
 import org.junit.jupiter.api.Test;
@@ -16,7 +17,10 @@ class ProgramEnumeratorTest {
         Register r1 = new Register("R1");
         Register r2 = new Register("R2");
 
-        ProgramEnumerator enumator = new ProgramEnumerator(List.of(new Add(r1, r2), new Cos(r1), new Mul(r1, r2)), 2);
+        ProgramEnumerator enumator = new ProgramEnumerator(List.of(
+                new RegularInstructionOpcode(RegularInstructionOpcodeEnum.Add),
+                new RegularInstructionOpcode(RegularInstructionOpcodeEnum.Cos),
+                new RegularInstructionOpcode(RegularInstructionOpcodeEnum.Mul)), 2);
         var l = enumator.convert(Arrays.asList(new Add(r1, r2), new Cos(r1), new Mul(r1, r2)));//0+1*13+13*13*8
         assertEquals(l.toString() , "741");
         l = enumator.convert(Arrays.asList(new Add(r1, r1), new Cos(r1), new Mul(r1, r2)));//0+1*13+13*13*8
@@ -28,7 +32,10 @@ class ProgramEnumeratorTest {
         Register r1 = new Register("R1");
         Register r2 = new Register("R2");
 
-        ProgramEnumerator enumator = new ProgramEnumerator(List.of(new Add(r1, r2), new Cos(r1), new Mul(r1, r2)), 2);
+        ProgramEnumerator enumator = new ProgramEnumerator(List.of(
+                new RegularInstructionOpcode(RegularInstructionOpcodeEnum.Add),
+                new RegularInstructionOpcode(RegularInstructionOpcodeEnum.Cos),
+                new RegularInstructionOpcode(RegularInstructionOpcodeEnum.Mul)), 2);
         var l = enumator.convertToInstructions(new BigInteger("741"), new InstructionFactory());//0+1*13+13*13*8
         assertEquals(Arrays.asList(new Add(r1, r2), new Cos(r1), new Mul(r1, r2)).toString(), l.toString());
 

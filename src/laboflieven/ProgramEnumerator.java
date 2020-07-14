@@ -10,22 +10,22 @@ import java.util.List;
 
 public class ProgramEnumerator
 {
-    private final List<InstructionMark> options;
+    private final List<InstructionOpcode> options;
     private long actualNrOptionsWithRegs;
     private int nrRegisters;
 
-    public ProgramEnumerator(List<InstructionMark> options, int nrRegisters)
+    public ProgramEnumerator(List<InstructionOpcode> options, int nrRegisters)
     {
         this.options = options;
         this.nrRegisters = nrRegisters;
         actualNrOptionsWithRegs = countInstructionsForOneLevel(options, nrRegisters);
     }
 
-    private long countInstructionsForOneLevel(List<InstructionMark> options, int nrRegisters) {
+    private long countInstructionsForOneLevel(List<InstructionOpcode> options, int nrRegisters) {
         var count = 0;
-        for (InstructionMark mark : options)
+        for (InstructionOpcode opcode : options)
         {
-            int nrRegistersForOpcode = mark.getInstructionOpcode().getNrRegisters();
+            int nrRegistersForOpcode = opcode.getNrRegisters();
             count += Math.pow(nrRegisters, nrRegistersForOpcode);
         }
         return count;
@@ -58,33 +58,33 @@ public class ProgramEnumerator
 
     private InstructionMark getIndexForOptions(long instructionCounter, InstructionFactoryInterface factoryInterface) {
         long k = instructionCounter;
-        for (InstructionMark currentOption : options) {
+        for (InstructionOpcode currentOption : options) {
 
-            if (currentOption instanceof DualRegisterInstruction) {
+            if (currentOption.getNrRegisters() == 2) {
                 if (k >= nrRegisters * nrRegisters)
                 {
                     k -= nrRegisters* nrRegisters;
                 } else {
                     long index2 = k % nrRegisters;
                     long index1 = k / nrRegisters;
-                    return factoryInterface.createInstruction(currentOption.getInstructionOpcode(),
+                    return factoryInterface.createInstruction(currentOption,
                             new Register("R" + (index1+1)),
                             new Register("R" + (index2+1)));
                 }
 
-            } else if (currentOption instanceof SingleRegisterInstruction || currentOption instanceof laboflieven.accinstructions.SingleRegisterInstruction) {
+            } else if (currentOption.getNrRegisters() == 1) {
                 if (k >= nrRegisters)
                 {
                     k -= nrRegisters;
                 } else {
                     long index1 = k % nrRegisters;
-                    return factoryInterface.createInstruction(currentOption.getInstructionOpcode(),
+                    return factoryInterface.createInstruction(currentOption,
                             new Register("R" + (index1+1)));
                 }
-            } else if (currentOption instanceof AccRegisterInstruction) {
+            } else if (currentOption.getNrRegisters() == 0) {
                 k--;
                 if (k == 0) {
-                    return factoryInterface.createInstruction(currentOption.getInstructionOpcode());
+                    return factoryInterface.createInstruction(currentOption);
                 }
             }
 
@@ -94,13 +94,13 @@ public class ProgramEnumerator
 
     private long getIndexForInstruction(InstructionMark currentInstruction) {
         int k = 0;
-        for (InstructionMark currentOption : options) {
+        for (InstructionOpcode currentOption : options) {
             boolean match = false;
-            if (currentOption.getInstructionOpcode().equals(currentInstruction.getInstructionOpcode())) {
+            if (currentOption.equals(currentInstruction.getInstructionOpcode())) {
                 match = true;
             }
 
-            if (currentOption instanceof DualRegisterInstruction) {
+            if (currentOption.getNrRegisters() == 2) {
                 if (match) {
                     int index1 = getRegisterIndex(((DualRegisterInstruction) currentInstruction).destination.name);
                     int index2 = getRegisterIndex(((DualRegisterInstruction) currentInstruction).source.name);
@@ -108,22 +108,21 @@ public class ProgramEnumerator
                     return k;
                 }
                 k += nrRegisters * nrRegisters;
-            } else if (currentOption instanceof SingleRegisterInstruction) {
+            } else if (currentOption.getNrRegisters() == 1) {
                 if (match) {
-
-                    int index1 = getRegisterIndex(((SingleRegisterInstruction) currentInstruction).destination.name);
-                    k += index1;
+                    if (currentInstruction instanceof SingleRegisterInstruction)
+                    {
+                        int index1 = getRegisterIndex(((SingleRegisterInstruction) currentInstruction).destination.name);
+                        k += index1;
+                    } else if (currentInstruction instanceof laboflieven.accinstructions.SingleRegisterInstruction)
+                    {
+                        int index1 = getRegisterIndex(((laboflieven.accinstructions.SingleRegisterInstruction) currentInstruction).getRegister().name);
+                        k += index1;
+                    }
                     return k;
                 }
                 k += nrRegisters;
-            } else if (currentOption instanceof laboflieven.accinstructions.SingleRegisterInstruction) {
-                if (match) {
-                    int index1 = getRegisterIndex(((laboflieven.accinstructions.SingleRegisterInstruction) currentInstruction).getRegister().name);
-                    k += index1;
-                    return k;
-                }
-                k += nrRegisters;
-            } else if (currentOption instanceof AccRegisterInstruction) {
+            }  else if (currentOption.getNrRegisters() == 0) {
                 k++;
                 if (match)
                     return k;
