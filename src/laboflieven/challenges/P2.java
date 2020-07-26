@@ -7,7 +7,10 @@ import laboflieven.accinstructions.AccInstructionOpcodeEnum;
 import laboflieven.loggers.SysOutAccFitnessLogger;
 import laboflieven.programiterators.GeneralBruteForceProgramIterator;
 import laboflieven.recursionheuristics.AccHeuristic;
+import laboflieven.recursionheuristics.CombinedHeuristic;
+import laboflieven.recursionheuristics.ResultsNoDataAfterFiveHeuristic;
 import laboflieven.runners.AccStatementRunner;
+import laboflieven.statements.Register;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -28,9 +31,19 @@ public class P2 implements ProgramTemplate
         List<InOutParameters> collection = TestCases.getTestCases(new P2(), points.toArray(new double[0][0]),curMaxRegisters);
         ProgramFitnessExaminerInterface evaluator = new ProgramFitnessExaminer(collection, new AccStatementRunner());
         evaluator.addListener(new SysOutAccFitnessLogger(10000));
-        GeneralBruteForceProgramIterator iter = new GeneralBruteForceProgramIterator(evaluator,  AccInstructionOpcodeEnum.values(),new AccHeuristic());
+        GeneralBruteForceProgramIterator iter = new GeneralBruteForceProgramIterator(evaluator,
+                AccInstructionOpcodeEnum.values(),
+                new CombinedHeuristic(List.of(
+                new ResultsNoDataAfterFiveHeuristic(
+                        new AccStatementRunner(),
+                        evaluator,
+                        Register.createRegisters(curMaxRegisters, "R")
+                )
+                ,
+                        new AccHeuristic()
+                        )));
         long start = System.currentTimeMillis();
-        System.out.println(iter.iterate(curMaxRegisters, 5));
+        System.out.println(iter.iterate(curMaxRegisters, 6));
         //evaluator.writeAndClose();
         System.out.println(System.currentTimeMillis() - start + "ms");
 
