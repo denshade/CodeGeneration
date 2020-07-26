@@ -66,6 +66,7 @@ public class BruteForceProgramIterator
     {
         if (instructions.size() >= maximumInstructions)
             return;
+        List<Register> registerList = Arrays.asList(registers);
         for (RegularInstructionOpcodeEnum instruction : regularInstructionOpcodeEnums)
         {
             for (Register register1 : registers) {
@@ -73,9 +74,9 @@ public class BruteForceProgramIterator
                     for (Register register2 : registers) {
                         InstructionMark actualInstruction = instructionFactory.createInstruction(new laboflieven.common.RegularInstructionOpcode(instruction), register1, register2);
                         instructions.add(actualInstruction);
-                        if (recursionHeuristic.shouldRecurse((List<InstructionMark>)(List<?>)instructions, nrRegisters))
+                        if (recursionHeuristic.shouldRecurse(instructions, nrRegisters))
                         {
-                            eval(instructions, Arrays.asList(registers));
+                            eval(instructions, registerList);
                             recurse(instructions, registers);
                         }
 
@@ -84,8 +85,8 @@ public class BruteForceProgramIterator
                 } else {
                     InstructionMark actualInstruction = instructionFactory.createInstruction(new laboflieven.common.RegularInstructionOpcode(instruction), register1);
                     instructions.add(actualInstruction);
-                    if (recursionHeuristic.shouldRecurse((List<InstructionMark>)(List<?>)instructions, nrRegisters)) {
-                        eval(instructions, Arrays.asList(registers));
+                    if (recursionHeuristic.shouldRecurse(instructions, nrRegisters)) {
+                        eval(instructions, registerList);
                         recurse(instructions, registers);
                     }
                     instructions.remove(instructions.size() - 1);

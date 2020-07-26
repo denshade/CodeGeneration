@@ -27,6 +27,7 @@ public class GeneralBruteForceProgramIterator
     public boolean stopAtFirstSolution = true;
     public boolean onlyEvaluateAtLastInstruction = true;
     public InstructionFactoryInterface instructionFactory = new InstructionFactory();
+    private List<Register> registers;
 
 
     public GeneralBruteForceProgramIterator(ProgramFitnessExaminerInterface evaluator)
@@ -48,9 +49,9 @@ public class GeneralBruteForceProgramIterator
     public List<List<InstructionMark>> iterate(final int nrOfRegisters, int maximumInstructions)
     {
         this.maximumInstructions = maximumInstructions;
-        List<Register> registers =  Register.createRegisters(nrOfRegisters, "R");
+        registers =  Register.createRegisters(nrOfRegisters, "R");
         try {
-            recurse(new ArrayList<>(), registers.toArray(new Register[0]));
+            recurse(new ArrayList<>());
         } catch (StopException ex)
         {
             //Allow quick termination.
@@ -58,7 +59,7 @@ public class GeneralBruteForceProgramIterator
         return positiveSolutions;
     }
 
-    private void recurse(List<InstructionMark> instructions, Register[] registers)
+    private void recurse(List<InstructionMark> instructions)
     {
         if (instructions.size() >= maximumInstructions)
             return;
@@ -68,40 +69,43 @@ public class GeneralBruteForceProgramIterator
                 if (instruction.isSingleRegister()) {
                     for (Register register1 : registers) {
                         InstructionMark actualInstruction = instructionFactory.createInstruction(new laboflieven.common.AccInstructionOpcode(instruction), register1);
-                        processInstruction(instructions, registers, (AccRegisterInstruction) actualInstruction);
+                        processInstruction(instructions, (AccRegisterInstruction) actualInstruction);
                     }
                 } else {
                     InstructionMark actualInstruction = instructionFactory.createInstruction(new laboflieven.common.AccInstructionOpcode(instruction));
-                    processInstruction(instructions, registers, (AccRegisterInstruction) actualInstruction);
+                    processInstruction(instructions, (AccRegisterInstruction) actualInstruction);
                 }
             }
 
         }
     }
 
-    private void processInstruction(List<InstructionMark> instructions, Register[] registers, AccRegisterInstruction actualInstruction) {
+    private void processInstruction(List<InstructionMark> instructions, AccRegisterInstruction actualInstruction) {
         instructions.add(actualInstruction);
-        eval(instructions, Arrays.asList(registers));
-        recurse(instructions, registers);
+        eval(instructions);
+        recurse(instructions);
         instructions.remove(instructions.size() - 1);
     }
 
-    private void eval(List<InstructionMark> instructions, List<Register> registers) {
+    private void eval(List<InstructionMark> instructions) {
         if (onlyEvaluateAtLastInstruction && instructions.size() != maximumInstructions)
         {
             //Not yet!
         } else {
-            if (evaluator.isFit(instructions, registers)){
+            counter++;
+            double err = evaluator.calculateFitness(instructions, registers);
+            if (err < 0.001){
                 System.out.println("Found a program: " + instructions);
-                positiveSolutions.add(new ArrayList<InstructionMark>(instructions));
-                evaluator.calculateFitness(instructions, registers);
+                positiveSolutions.add(new ArrayList<>(instructions));
                 if (stopAtFirstSolution) {
                     throw new StopException();
                 }
             } else {
-                double err = evaluator.calculateFitness(instructions, registers);
-                if (err < 100 && counter++ % 100000 == 0)
+                if (err < 100 && counter % 100000 == 0)
                     System.out.println("Current fitness " + err + " " + instructions);
+            }
+            if (counter % 100000000 == 0) {
+                System.out.println(instructions);
             }
         }
     }

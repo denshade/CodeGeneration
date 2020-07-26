@@ -21,6 +21,10 @@ public class AccHeuristic implements RecursionHeuristic
         //if (instructions.size() == maximumInstructions - 1 && isAccPushPull)
         //    return false;
         //Don't use pull from right/left before a push.
+        if (size == maximumInstructions && (lastInstruction instanceof AccLeftPush || lastInstruction instanceof AccRightPush ))
+            return false;
+        if (size == maximumInstructions && !(lastInstruction instanceof AccLeftPull || lastInstruction instanceof AccRightPull ))
+            return false;
         if (lastInstruction instanceof AccLeftPull)
         {
             if (!hasAccLeftPush(instructions)) return false;
@@ -29,10 +33,7 @@ public class AccHeuristic implements RecursionHeuristic
         {
             if (!hasAccRightPush(instructions)) return false;
         }
-        if (size == maximumInstructions && (lastInstruction instanceof AccLeftPush || lastInstruction instanceof AccRightPush ))
-            return false;
-        if (size == maximumInstructions && !(lastInstruction instanceof AccLeftPull || lastInstruction instanceof AccRightPull ))
-            return false;
+
         if (size - 2 >= 0)
         {
             AccRegisterInstruction prevInstruction = instructions.get(size - 2);
@@ -68,27 +69,23 @@ public class AccHeuristic implements RecursionHeuristic
         return true;
     }
     private boolean hasAccLeftPush(List<AccRegisterInstruction> instructions) {
-        boolean used = false;
         for ( AccRegisterInstruction instructionI: instructions)
         {
             if (instructionI instanceof AccLeftPush) {
-                used = true;
-                break;
+                return true;
             }
         }
-        return used;
+        return false;
     }
 
     private boolean hasAccRightPush(List<AccRegisterInstruction> instructions) {
-        boolean used = false;
         for ( AccRegisterInstruction instructionI: instructions)
         {
             if (instructionI instanceof AccRightPush) {
-                used = true;
-                break;
+                return true;
             }
         }
-        return used;
+        return false;
     }
 
 }
