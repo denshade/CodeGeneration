@@ -21,7 +21,7 @@ public class RandomProgramIterator {
     private int numberOfRegisters;
     private List<InstructionMark> bestSolution;
     private double bestScore = 1000;
-    private InstructionFactoryInterface instructionFactory = new InstructionFactory();
+    public InstructionFactoryInterface instructionFactory = new InstructionFactory();
 
     public RandomProgramIterator(ProgramFitnessExaminerInterface evaluator) {
         this.evaluator = evaluator;
@@ -37,10 +37,7 @@ public class RandomProgramIterator {
     public void iterate(int numberOfRegisters, int maximumInstructions) {
         this.numberOfRegisters = numberOfRegisters;
         this.maximumInstructions = maximumInstructions;
-        registers = new Register[numberOfRegisters];
-        for (int i = 0; i < registers.length; i++) {
-            registers[i] = new Register("r" + i);
-        }
+        registers = Register.createRegisters(numberOfRegisters, "R").toArray(new Register[0]);
         Set<Register> availableRegisters = new HashSet<>();
         availableRegisters.add(registers[registers.length - 1]);// Add the result register.
         while (true) {
@@ -56,36 +53,12 @@ public class RandomProgramIterator {
         if (instructionsLeft < 0) {
             return;
         }
+        InstructionMark actualInstruction = instructionFactory.generateRandomInstruction(Arrays.asList(registers));
+        instructions.add(actualInstruction);
+        eval(instructions, Arrays.asList(registers));
+        recurse(instructions);
+        instructions.remove(0);
 
-        Random r = new Random();
-        int location = r.nextInt(enums.length);
-        RegularInstructionOpcodeEnum instruction = enums[location];
-        if (instruction.isDualRegister()) {
-            Register register1 = registers[r.nextInt(registers.length)];
-            Register register2 = registers[r.nextInt(registers.length)];
-
-            if (isUselessOp(instruction, register1, register2)) {
-                return;
-            }
-
-            InstructionMark actualInstruction = instructionFactory.createInstruction(new laboflieven.common.RegularInstructionOpcode(instruction), register1, register2);
-            instructions.add(actualInstruction);
-            eval(instructions, Arrays.asList(registers));
-            recurse(instructions);
-            instructions.remove(0);
-        } else {
-
-            Register register1 = registers[r.nextInt(registers.length)];
-            InstructionMark actualInstruction = instructionFactory.createInstruction(new laboflieven.common.RegularInstructionOpcode(instruction), register1);
-            instructions.add(0, actualInstruction);
-            eval(instructions, Arrays.asList(registers));
-            /**
-             * Available registers remains the same. No new registers are used.
-             */
-            recurse(instructions);
-            instructions.remove(0);
-
-        }
     }
 
     private boolean isUselessOp(RegularInstructionOpcodeEnum instruction, Register register1, Register register2) {
