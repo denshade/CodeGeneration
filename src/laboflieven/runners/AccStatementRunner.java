@@ -14,6 +14,7 @@ import java.util.Map;
 public class AccStatementRunner implements StatementRunner {
 
     public int MAXINSTRUCT;
+    public boolean verbose = false;
 
     public AccStatementRunner()
     {
@@ -23,6 +24,7 @@ public class AccStatementRunner implements StatementRunner {
     {
          MAXINSTRUCT =  maxExec;
     }
+
 
 
     /**
@@ -46,7 +48,15 @@ public class AccStatementRunner implements StatementRunner {
                 break;
             }
             AccRegisterInstruction instruction = (AccRegisterInstruction) instructions.get(ip);
+            if (verbose) {
+                System.out.println(instruction);
+            }
             Integer pointer = instruction.execute(left, right, ip);
+            if (verbose) {
+                System.out.println(pointer);
+                System.out.println(registerValues);
+            }
+
             if (pointer != null && pointer >= 0)
             {
                 ip = pointer;

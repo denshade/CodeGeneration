@@ -6,7 +6,7 @@ import laboflieven.statements.Register;
 public class AccRightPull extends SingleRegisterInstruction
 {
 
-    AccRightPull(Register register)
+    public AccRightPull(Register register)
     {
         this.register = register;
     }

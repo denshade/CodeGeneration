@@ -1,6 +1,9 @@
 package laboflieven.programiterators;
 
 import laboflieven.InstructionMark;
+import laboflieven.accinstructions.AccLeftPull;
+import laboflieven.accinstructions.AccLeftPush;
+import laboflieven.common.BestFitRegister;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
 import laboflieven.StoppedByUserException;
 import laboflieven.statements.*;
@@ -41,13 +44,19 @@ public class RandomProgramIterator {
         Set<Register> availableRegisters = new HashSet<>();
         availableRegisters.add(registers[registers.length - 1]);// Add the result register.
         while (true) {
-            recurse(new ArrayList<>());
+            recurse(new ArrayList<>(List.of(new AccLeftPush(registers[0]))));
         }
     }
 
     public void recurse(List<InstructionMark> instructions) {
         if (instructions.size() >= maximumInstructions)
             return;
+        if (instructions.size() == maximumInstructions - 1)
+        {
+            instructions.add(new AccLeftPull(registers[0]));
+            eval(instructions, Arrays.asList(registers));
+            instructions.remove(instructions.size()-1);
+        }
 
         int instructionsLeft = maximumInstructions - instructions.size();
         if (instructionsLeft < 0) {
@@ -57,7 +66,7 @@ public class RandomProgramIterator {
         instructions.add(actualInstruction);
         eval(instructions, Arrays.asList(registers));
         recurse(instructions);
-        instructions.remove(0);
+        instructions.remove(instructions.size()-1);
 
     }
 

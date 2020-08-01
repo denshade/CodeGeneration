@@ -1,8 +1,9 @@
 package laboflieven.challenges;
 
 import laboflieven.InOutParameters;
-import laboflieven.accinstructions.AccInstructionOpcodeEnum;
-import laboflieven.accinstructions.InstructionFactory;
+import laboflieven.InstructionMark;
+import laboflieven.Program;
+import laboflieven.accinstructions.*;
 import laboflieven.examiners.ProgramFitnessExaminer;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
 import laboflieven.loggers.SysOutAccFitnessLogger;
@@ -40,7 +41,7 @@ public class Palendrom implements ProgramTemplate
 
 
         List<InOutParameters> collection = TestCases.getTestCases(new Palendrom(), points.toArray(new double[0][0]),curMaxRegisters);
-        ProgramFitnessExaminerInterface evaluator = new ProgramFitnessExaminer(collection, new AccStatementRunner());
+        var evaluator = new ProgramFitnessExaminer(collection, new AccStatementRunner());
         evaluator.addListener(new SysOutAccFitnessLogger(10000));
         RandomProgramIterator iter = new RandomProgramIterator(evaluator);
         iter.instructionFactory = new InstructionFactory();
@@ -50,10 +51,51 @@ public class Palendrom implements ProgramTemplate
                 new CombinedHeuristic(List.of(
                         new AccHeuristic()
                         )));*/
-        long start = System.currentTimeMillis();
-        iter.iterate(curMaxRegisters, 20);
+        //long start = System.currentTimeMillis();
+        //iter.iterate(curMaxRegisters, 20);
         //evaluator.writeAndClose();
-        System.out.println(System.currentTimeMillis() - start + "ms");
+        //System.out.println(System.currentTimeMillis() - start + "ms");
+//[ left = R1, R1 = left, left = log(left),  right = R2,
+// swap = left, left = right, right = swap,
+// Jump if left <= right goto this + 2,  Jump if left >= right goto this + 2,
+// left = R1,
+// left = left * right,
+// R1 = right, left = log(left), left = left - right, left = left ^ right, left = cos(left), left = sqrt(left),
+// left = left ^ right, left = left * right, left = left - right, left = nand(left, right), R1 = left]
+        var registers = Register.createRegisters(2, "R");
+        List<InstructionMark> instructions = List.of(
+                new AccLeftPush(registers.get(0)),
+                //new AccLeftPull(registers.get(0)),
+                new Log(),
+                new AccRightPush(registers.get(1)),
+                new Swap(),
+                new Jump2IfLte(),
+                new Jump2IfGte(),
+                //new Mul(),
+                new AccLeftPush(registers.get(0)),
+                new Mul(),
+               // new AccRightPull(registers.get(0)),
+                new Log(),
+                new Sub(),
+                new Pow(),
+                new Cos(),
+                new Sqrt(),
+                new Pow(),
+                new Mul(),
+                new Sub(),
+                new Nand(),
+                new AccLeftPull(registers.get(0))
+        );
+        var runner = new AccStatementRunner();
+        runner.verbose = true;
+        var program = new Program(instructions, registers);
+        runner.execute(program, collection.get(4).input);
+        System.out.println(instructions);
+        //System.out.println("vs");
+        //System.out.println("[ left = R1, R1 = left, left = log(left),  right = R2, swap = left, left = right, right = swap,  Jump if left <= right goto this + 2,  Jump if left >= right goto this + 2,  left = R1, left = left * right, R1 = right, left = log(left), left = left - right, left = left ^ right, left = cos(left), left = sqrt(left), left = left ^ right, left = left * right, left = left - right, left = nand(left, right), R1 = left]);");
+        System.out.println(registers.get(0).value);
+        System.out.println("Error " + evaluator.calculateFitness(instructions, registers));
+        System.out.println(collection.get(4).expectedOutput);
 
         //mainT(15,3);
     }
