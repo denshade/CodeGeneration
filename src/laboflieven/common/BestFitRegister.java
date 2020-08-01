@@ -20,4 +20,8 @@ public class BestFitRegister<T>
     public T getBest() {
         return best;
     }
+
+    public Double getBestScore() {
+        return bestScore;
+    }
 }

@@ -7,6 +7,7 @@ import laboflieven.accinstructions.*;
 import laboflieven.examiners.ProgramFitnessExaminer;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
 import laboflieven.loggers.SysOutAccFitnessLogger;
+import laboflieven.loggers.TimingAccFitnessLogger;
 import laboflieven.programiterators.GeneralBruteForceProgramIterator;
 import laboflieven.programiterators.RandomGeneticProgramIterator;
 import laboflieven.programiterators.RandomProgramIterator;
@@ -35,14 +36,16 @@ public class Palendrom implements ProgramTemplate
         points.add(new double[]{2222});
         points.add(new double[]{555555});
         points.add(new double[]{5555556});
-        points.add(new double[]{9999});
+        points.add(new double[]{999999});
         points.add(new double[]{1234});
         points.add(new double[]{4321});
+        points.add(new double[]{12});
+        points.add(new double[]{11});
 
 
         List<InOutParameters> collection = TestCases.getTestCases(new Palendrom(), points.toArray(new double[0][0]),curMaxRegisters);
         var evaluator = new ProgramFitnessExaminer(collection, new AccStatementRunner());
-        evaluator.addListener(new SysOutAccFitnessLogger(10000));
+        evaluator.addListener(new TimingAccFitnessLogger(10000));
         RandomProgramIterator iter = new RandomProgramIterator(evaluator);
         iter.instructionFactory = new InstructionFactory();
 
@@ -51,10 +54,10 @@ public class Palendrom implements ProgramTemplate
                 new CombinedHeuristic(List.of(
                         new AccHeuristic()
                         )));*/
-        //long start = System.currentTimeMillis();
-        //iter.iterate(curMaxRegisters, 20);
+        long start = System.currentTimeMillis();
+        iter.iterate(curMaxRegisters, 20);
         //evaluator.writeAndClose();
-        //System.out.println(System.currentTimeMillis() - start + "ms");
+        System.out.println(System.currentTimeMillis() - start + "ms");
 //[ left = R1, R1 = left, left = log(left),  right = R2,
 // swap = left, left = right, right = swap,
 // Jump if left <= right goto this + 2,  Jump if left >= right goto this + 2,
@@ -62,7 +65,7 @@ public class Palendrom implements ProgramTemplate
 // left = left * right,
 // R1 = right, left = log(left), left = left - right, left = left ^ right, left = cos(left), left = sqrt(left),
 // left = left ^ right, left = left * right, left = left - right, left = nand(left, right), R1 = left]
-        var registers = Register.createRegisters(2, "R");
+        /*var registers = Register.createRegisters(2, "R");
         List<InstructionMark> instructions = List.of(
                 new AccLeftPush(registers.get(0)),
                 //new AccLeftPull(registers.get(0)),
@@ -96,7 +99,7 @@ public class Palendrom implements ProgramTemplate
         System.out.println(registers.get(0).value);
         System.out.println("Error " + evaluator.calculateFitness(instructions, registers));
         System.out.println(collection.get(4).expectedOutput);
-
+*/
         //mainT(15,3);
     }
 

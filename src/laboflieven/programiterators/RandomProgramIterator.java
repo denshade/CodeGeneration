@@ -21,6 +21,7 @@ public class RandomProgramIterator {
     private ProgramFitnessExaminerInterface evaluator;
     private RegularInstructionOpcodeEnum[] enums;
     private Register[] registers;
+    private BestFitRegister<List<InstructionMark>> bestFit = new BestFitRegister<>();
     private int numberOfRegisters;
     private List<InstructionMark> bestSolution;
     private double bestScore = 1000;
@@ -41,49 +42,25 @@ public class RandomProgramIterator {
         this.numberOfRegisters = numberOfRegisters;
         this.maximumInstructions = maximumInstructions;
         registers = Register.createRegisters(numberOfRegisters, "R").toArray(new Register[0]);
-        Set<Register> availableRegisters = new HashSet<>();
-        availableRegisters.add(registers[registers.length - 1]);// Add the result register.
         while (true) {
-            recurse(new ArrayList<>(List.of(new AccLeftPush(registers[0]))));
+            loop();
         }
     }
-
-    public void recurse(List<InstructionMark> instructions) {
-        if (instructions.size() >= maximumInstructions)
-            return;
-        if (instructions.size() == maximumInstructions - 1)
+    public void loop() {
+        var instructions = new ArrayList<InstructionMark>();
+        instructions.add(new AccLeftPush(registers[0]));
+        for (int i = 0; i < maximumInstructions - 2; i++)
         {
-            instructions.add(new AccLeftPull(registers[0]));
-            eval(instructions, Arrays.asList(registers));
-            instructions.remove(instructions.size()-1);
+            InstructionMark actualInstruction = instructionFactory.generateRandomInstruction(Arrays.asList(registers));
+            instructions.add(actualInstruction);
         }
-
-        int instructionsLeft = maximumInstructions - instructions.size();
-        if (instructionsLeft < 0) {
-            return;
-        }
-        InstructionMark actualInstruction = instructionFactory.generateRandomInstruction(Arrays.asList(registers));
-        instructions.add(actualInstruction);
+        instructions.add(new AccLeftPull(registers[0]));
         eval(instructions, Arrays.asList(registers));
-        recurse(instructions);
-        instructions.remove(instructions.size()-1);
-
     }
-
-    private boolean isUselessOp(RegularInstructionOpcodeEnum instruction, Register register1, Register register2) {
-        return instruction == RegularInstructionOpcodeEnum.Move && register1.name.equals(register2.name);
-    }
-
     private void eval(List<InstructionMark> instructions, List<Register> registers) {
-        if (instructions.size() != maximumInstructions) return;
         double val =  evaluator.calculateFitness(instructions, registers);
-        if (val < bestScore)
-        {
-            bestScore = val;
-            bestSolution = instructions;
-            System.out.println( evaluator.calculateFitness(instructions, registers) + "," + difference(instructions) );
-        }
-        if (instructions.size() == maximumInstructions && evaluator.isFit(instructions, registers)) {
+        bestFit.register(val, instructions);
+        if (instructions.size() == maximumInstructions && val < 0.0001) {
             positiveSolutions.add(new ArrayList<>(instructions));
             System.out.println("Found a program! " + positiveSolutions);
             throw new StoppedByUserException();
