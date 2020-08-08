@@ -27,8 +27,12 @@ public class Palendrom implements ProgramTemplate
 [ Jump if left >= right goto this + 2, left = nand(left, right),  left = R1,  Jump if left <= right goto this + 2, left = log(left), R1 = left, R1 = left, left = log(left),  left = R1,  right = R1,  right = R1,  right = R1, left = left * right, left = left ^ right, R1 = left]
      */
     public static void main(String[] args) throws IOException {
-
+        int nrInstructions = 50;
+        if (args.length > 0) {
+            nrInstructions = Integer.parseInt(args[0]);
+        }
         int curMaxRegisters = 2;
+        System.out.println("Running at #instructions: " + nrInstructions + " #nrRegisters:" + curMaxRegisters);
         List<double[]> points = new ArrayList<>();
         points.add(new double[]{1445});
         points.add(new double[]{1441});
@@ -55,7 +59,7 @@ public class Palendrom implements ProgramTemplate
                         new AccHeuristic()
                         )));*/
         long start = System.currentTimeMillis();
-        iter.iterate(curMaxRegisters, 20);
+        iter.iterate(curMaxRegisters, nrInstructions);
         //evaluator.writeAndClose();
         System.out.println(System.currentTimeMillis() - start + "ms");
 //[ left = R1, R1 = left, left = log(left),  right = R2,
