@@ -3,6 +3,7 @@ package laboflieven.challenges;
 import laboflieven.InOutParameters;
 import laboflieven.InstructionMark;
 import laboflieven.Program;
+import laboflieven.StoppedByUserException;
 import laboflieven.accinstructions.*;
 import laboflieven.examiners.ProgramFitnessExaminer;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
@@ -27,41 +28,15 @@ public class Palendrom implements ProgramTemplate
 [ Jump if left >= right goto this + 2, left = nand(left, right),  left = R1,  Jump if left <= right goto this + 2, left = log(left), R1 = left, R1 = left, left = log(left),  left = R1,  right = R1,  right = R1,  right = R1, left = left * right, left = left ^ right, R1 = left]
      */
     public static void main(String[] args) throws IOException {
-        int nrInstructions = 50;
+        int nrInstructions = 30;
         if (args.length > 0) {
             nrInstructions = Integer.parseInt(args[0]);
         }
         int curMaxRegisters = 2;
-        System.out.println("Running at #instructions: " + nrInstructions + " #nrRegisters:" + curMaxRegisters);
-        List<double[]> points = new ArrayList<>();
-        points.add(new double[]{1445});
-        points.add(new double[]{1441});
-        points.add(new double[]{1111});
-        points.add(new double[]{2222});
-        points.add(new double[]{555555});
-        points.add(new double[]{5555556});
-        points.add(new double[]{999999});
-        points.add(new double[]{1234});
-        points.add(new double[]{4321});
-        points.add(new double[]{12});
-        points.add(new double[]{11});
-
-
-        List<InOutParameters> collection = TestCases.getTestCases(new Palendrom(), points.toArray(new double[0][0]),curMaxRegisters);
-        var evaluator = new ProgramFitnessExaminer(collection, new AccStatementRunner());
-        evaluator.addListener(new TimingAccFitnessLogger(10000));
-        RandomProgramIterator iter = new RandomProgramIterator(evaluator);
-        iter.instructionFactory = new InstructionFactory();
-
-        /*GeneralBruteForceProgramIterator iter = new GeneralBruteForceProgramIterator(evaluator,
-                AccInstructionOpcodeEnum.values(),
-                new CombinedHeuristic(List.of(
-                        new AccHeuristic()
-                        )));*/
-        long start = System.currentTimeMillis();
-        iter.iterate(curMaxRegisters, nrInstructions);
-        //evaluator.writeAndClose();
-        System.out.println(System.currentTimeMillis() - start + "ms");
+        for (int i = 0; i < 100; i++)
+        {
+            runIteration(nrInstructions, curMaxRegisters);
+        }
 //[ left = R1, R1 = left, left = log(left),  right = R2,
 // swap = left, left = right, right = swap,
 // Jump if left <= right goto this + 2,  Jump if left >= right goto this + 2,
@@ -105,6 +80,44 @@ public class Palendrom implements ProgramTemplate
         System.out.println(collection.get(4).expectedOutput);
 */
         //mainT(15,3);
+    }
+
+    private static void runIteration(int nrInstructions, int curMaxRegisters) {
+        System.out.println("Running at #instructions: " + nrInstructions + " #nrRegisters:" + curMaxRegisters);
+        List<double[]> points = new ArrayList<>();
+        points.add(new double[]{1445});
+        points.add(new double[]{1441});
+        points.add(new double[]{1111});
+        points.add(new double[]{2222});
+        points.add(new double[]{555555});
+        points.add(new double[]{5555556});
+        points.add(new double[]{999999});
+        points.add(new double[]{1234});
+        points.add(new double[]{4321});
+        points.add(new double[]{12});
+        points.add(new double[]{11});
+
+
+        List<InOutParameters> collection = TestCases.getTestCases(new Palendrom(), points.toArray(new double[0][0]),curMaxRegisters);
+        var evaluator = new ProgramFitnessExaminer(collection, new AccStatementRunner());
+        //evaluator.addListener(new TimingAccFitnessLogger(10000));
+        RandomProgramIterator iter = new RandomProgramIterator(evaluator);
+        iter.instructionFactory = new InstructionFactory();
+
+        /*GeneralBruteForceProgramIterator iter = new GeneralBruteForceProgramIterator(evaluator,
+                AccInstructionOpcodeEnum.values(),
+                new CombinedHeuristic(List.of(
+                        new AccHeuristic()
+                        )));*/
+        long start = System.currentTimeMillis();
+        try {
+            iter.iterate(curMaxRegisters, nrInstructions);
+        } catch(StoppedByUserException stopped)
+        {
+
+        }
+        //evaluator.writeAndClose();
+        System.out.println(System.currentTimeMillis() - start + "ms");
     }
 
     @Override

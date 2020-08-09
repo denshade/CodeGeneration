@@ -4,6 +4,7 @@ import laboflieven.InstructionMark;
 import laboflieven.accinstructions.AccLeftPull;
 import laboflieven.accinstructions.AccLeftPush;
 import laboflieven.common.BestFitRegister;
+import laboflieven.examiners.ProgramFitnessExaminer;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
 import laboflieven.StoppedByUserException;
 import laboflieven.statements.*;
@@ -19,6 +20,7 @@ public class RandomProgramIterator {
 
     public List<List<InstructionMark>> positiveSolutions = new ArrayList<>();
     private ProgramFitnessExaminerInterface evaluator;
+    private int maxExecutionTimeSeconds = 3600 * 2;
     private RegularInstructionOpcodeEnum[] enums;
     private Register[] registers;
     private BestFitRegister<List<InstructionMark>> bestFit = new BestFitRegister<>();
@@ -38,12 +40,22 @@ public class RandomProgramIterator {
         this.enums = enums;
     }
 
+    public RandomProgramIterator(ProgramFitnessExaminer evaluator, int maxExecutionTime) {
+        this.evaluator = evaluator;
+        this.maxExecutionTimeSeconds = maxExecutionTime;
+        enums = RegularInstructionOpcodeEnum.values();
+
+    }
+
     public void iterate(int numberOfRegisters, int maximumInstructions) {
         this.numberOfRegisters = numberOfRegisters;
         this.maximumInstructions = maximumInstructions;
         registers = Register.createRegisters(numberOfRegisters, "R").toArray(new Register[0]);
-        while (true) {
+        long startTime = System.currentTimeMillis();
+        long runTime = System.currentTimeMillis() - startTime;
+        while (runTime < maxExecutionTimeSeconds * 1000) {
             loop();
+            runTime = System.currentTimeMillis() - startTime;
         }
     }
     public void loop() {
