@@ -21,6 +21,7 @@ import laboflieven.statements.Register;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class Palendrom implements ProgramTemplate
 {
@@ -33,9 +34,28 @@ public class Palendrom implements ProgramTemplate
             nrInstructions = Integer.parseInt(args[0]);
         }
         int curMaxRegisters = 2;
+        List<double[]> points = new ArrayList<>();
+        points.add(new double[]{1445});
+        points.add(new double[]{1441});
+        points.add(new double[]{1111});
+        points.add(new double[]{2222});
+        points.add(new double[]{555555});
+        points.add(new double[]{5555556});
+        points.add(new double[]{999999});
+        points.add(new double[]{1234});
+        points.add(new double[]{4321});
+        points.add(new double[]{12});
+        points.add(new double[]{11});
+        var random = new Random(12);
         for (int i = 0; i < 100; i++)
         {
-            runIteration(nrInstructions, curMaxRegisters);
+            points.add(new double[]{random.nextInt(99999999)});
+        }
+
+        List<InOutParameters> collection = TestCases.getTestCases(new Palendrom(), points.toArray(new double[0][0]),curMaxRegisters);
+        for (int i = 0; i < 10; i++)
+        {
+            runIteration(nrInstructions, curMaxRegisters, collection);
         }
 //[ left = R1, R1 = left, left = log(left),  right = R2,
 // swap = left, left = right, right = swap,
@@ -82,23 +102,9 @@ public class Palendrom implements ProgramTemplate
         //mainT(15,3);
     }
 
-    private static void runIteration(int nrInstructions, int curMaxRegisters) {
+    private static void runIteration(int nrInstructions, int curMaxRegisters, List<InOutParameters> collection) {
         System.out.println("Running at #instructions: " + nrInstructions + " #nrRegisters:" + curMaxRegisters);
-        List<double[]> points = new ArrayList<>();
-        points.add(new double[]{1445});
-        points.add(new double[]{1441});
-        points.add(new double[]{1111});
-        points.add(new double[]{2222});
-        points.add(new double[]{555555});
-        points.add(new double[]{5555556});
-        points.add(new double[]{999999});
-        points.add(new double[]{1234});
-        points.add(new double[]{4321});
-        points.add(new double[]{12});
-        points.add(new double[]{11});
 
-
-        List<InOutParameters> collection = TestCases.getTestCases(new Palendrom(), points.toArray(new double[0][0]),curMaxRegisters);
         var evaluator = new ProgramFitnessExaminer(collection, new AccStatementRunner());
         //evaluator.addListener(new TimingAccFitnessLogger(10000));
         RandomProgramIterator iter = new RandomProgramIterator(evaluator);

@@ -20,7 +20,7 @@ public class RandomProgramIterator {
 
     public List<List<InstructionMark>> positiveSolutions = new ArrayList<>();
     private ProgramFitnessExaminerInterface evaluator;
-    private int maxExecutionTimeSeconds = 3600 * 2;
+    private int maxExecutionTimeSeconds = 3600 * 12;
     private RegularInstructionOpcodeEnum[] enums;
     private Register[] registers;
     private BestFitRegister<List<InstructionMark>> bestFit = new BestFitRegister<>();
