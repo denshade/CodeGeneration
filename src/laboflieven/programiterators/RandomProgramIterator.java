@@ -4,6 +4,7 @@ import laboflieven.InstructionMark;
 import laboflieven.accinstructions.AccLeftPull;
 import laboflieven.accinstructions.AccLeftPush;
 import laboflieven.common.BestFitRegister;
+import laboflieven.common.Configuration;
 import laboflieven.examiners.ProgramFitnessExaminer;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
 import laboflieven.StoppedByUserException;
@@ -47,9 +48,9 @@ public class RandomProgramIterator {
 
     }
 
-    public void iterate(int numberOfRegisters, int maximumInstructions) {
+    public void iterate(int numberOfRegisters) {
         this.numberOfRegisters = numberOfRegisters;
-        this.maximumInstructions = maximumInstructions;
+        this.maximumInstructions = Configuration.getInstance().getMaxNrInstructions(6);
         registers = Register.createRegisters(numberOfRegisters, "R").toArray(new Register[0]);
         long startTime = System.currentTimeMillis();
         long runTime = System.currentTimeMillis() - startTime;

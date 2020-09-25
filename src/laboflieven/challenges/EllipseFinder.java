@@ -3,6 +3,7 @@ package laboflieven.challenges;
 import laboflieven.InOutParameters;
 import laboflieven.accinstructions.AccInstructionOpcodeEnum;
 import laboflieven.accinstructions.InstructionFactory;
+import laboflieven.common.Configuration;
 import laboflieven.examiners.ProgramFitnessExaminer;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
 import laboflieven.humanresource.RandomGeneticProgramIterator;
@@ -41,7 +42,8 @@ public class EllipseFinder implements ProgramTemplate
         RandomProgramIterator iter = new RandomProgramIterator(evaluator);
         iter.instructionFactory = new InstructionFactory();
         long start = System.currentTimeMillis();
-        iter.iterate(curMaxRegisters, nrInstructions);
+        Configuration.getInstance().setMaxNrInstructions(nrInstructions);
+        iter.iterate(curMaxRegisters);
         //evaluator.writeAndClose();
         System.out.println(System.currentTimeMillis() - start + "ms");
     }

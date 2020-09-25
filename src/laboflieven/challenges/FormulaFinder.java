@@ -2,6 +2,7 @@ package laboflieven.challenges;
 
 import laboflieven.*;
 import laboflieven.accinstructions.AccInstructionOpcodeEnum;
+import laboflieven.common.Configuration;
 import laboflieven.examiners.LoggingProgramFitnessExaminer;
 import laboflieven.examiners.ProgramFitnessExaminer;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
@@ -187,8 +188,9 @@ public class FormulaFinder {
 
         ProgramFitnessExaminerInterface evaluator = new LoggingProgramFitnessExaminer(new File("logs.csv"), collection, new RegularStatementRunner());
 
+        Configuration.getInstance().setMaxNrInstructions(6);
         RandomProgramIterator iter = new RandomProgramIterator(evaluator, new RegularInstructionOpcodeEnum[]{RegularInstructionOpcodeEnum.Add, RegularInstructionOpcodeEnum.Sub, RegularInstructionOpcodeEnum.Mul, RegularInstructionOpcodeEnum.Div, RegularInstructionOpcodeEnum.Sqrt, RegularInstructionOpcodeEnum.Move, RegularInstructionOpcodeEnum.Log});
-        iter.iterate(curMaxRegisters, 6);
+        iter.iterate(curMaxRegisters);
 
     }
 

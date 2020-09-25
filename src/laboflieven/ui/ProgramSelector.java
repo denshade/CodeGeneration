@@ -1,6 +1,7 @@
 package laboflieven.ui;
 
 import laboflieven.*;
+import laboflieven.common.Configuration;
 import laboflieven.examiners.ProgramFitnessExaminer;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
 import laboflieven.programiterators.BruteForceProgramIterator;
@@ -91,7 +92,8 @@ public class ProgramSelector
             if (combo.getSelectedItem().equals(RANDOM))
             {
                 RandomProgramIterator iterator = new RandomProgramIterator(evaluator, enums);
-                iterator.iterate(registerCountSlider.getValue(), instructionCountSlider.getValue());
+                Configuration.getInstance().setMaxNrInstructions(instructionCountSlider.getValue());
+                iterator.iterate(registerCountSlider.getValue());
             }
             if (combo.getSelectedItem().equals(ASTAR))
             {

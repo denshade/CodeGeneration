@@ -5,6 +5,7 @@ import laboflieven.InstructionMark;
 import laboflieven.Program;
 import laboflieven.StoppedByUserException;
 import laboflieven.accinstructions.*;
+import laboflieven.common.Configuration;
 import laboflieven.examiners.ProgramFitnessExaminer;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
 import laboflieven.loggers.SysOutAccFitnessLogger;
@@ -115,9 +116,10 @@ public class Palendrom implements ProgramTemplate
                 new CombinedHeuristic(List.of(
                         new AccHeuristic()
                         )));*/
+        Configuration.getInstance().setMaxNrInstructions(nrInstructions);
         long start = System.currentTimeMillis();
         try {
-            iter.iterate(curMaxRegisters, nrInstructions);
+            iter.iterate(curMaxRegisters);
         } catch(StoppedByUserException stopped)
         {
 
