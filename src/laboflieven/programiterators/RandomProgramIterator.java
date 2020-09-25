@@ -26,26 +26,21 @@ public class RandomProgramIterator {
     private Register[] registers;
     private BestFitRegister<List<InstructionMark>> bestFit = new BestFitRegister<>();
     private int numberOfRegisters;
-    private List<InstructionMark> bestSolution;
-    private double bestScore = 1000;
     public InstructionFactoryInterface instructionFactory = new InstructionFactory();
 
-    public RandomProgramIterator(ProgramFitnessExaminerInterface evaluator) {
-        this.evaluator = evaluator;
-        enums = RegularInstructionOpcodeEnum.values();
-    }
-
-    public RandomProgramIterator(ProgramFitnessExaminerInterface evaluator, RegularInstructionOpcodeEnum[] enums) {
-        this.evaluator = evaluator;
-
-        this.enums = enums;
-    }
-
-    public RandomProgramIterator(ProgramFitnessExaminer evaluator, int maxExecutionTime) {
-        this.evaluator = evaluator;
-        this.maxExecutionTimeSeconds = maxExecutionTime;
-        enums = RegularInstructionOpcodeEnum.values();
-
+    public void iterate(Configuration configuration) {
+        this.evaluator = configuration.getFitnessExaminer();
+        this.numberOfRegisters = configuration.getNumberOfRegisters(2);
+        this.maximumInstructions = configuration.getMaxNrInstructions(6);
+        this.instructionFactory = configuration.getInstructionFactory();
+        this.enums = configuration.getInstructionOpcodes();
+        registers = Register.createRegisters(numberOfRegisters, "R").toArray(new Register[0]);
+        long startTime = System.currentTimeMillis();
+        long runTime = System.currentTimeMillis() - startTime;
+        while (runTime < configuration.getMaxDurationSeconds(3600) * 1000) {
+            loop();
+            runTime = System.currentTimeMillis() - startTime;
+        }
     }
 
     public void iterate(int numberOfRegisters) {

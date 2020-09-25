@@ -187,10 +187,13 @@ public class FormulaFinder {
         }
 
         ProgramFitnessExaminerInterface evaluator = new LoggingProgramFitnessExaminer(new File("logs.csv"), collection, new RegularStatementRunner());
+        Configuration configuration = Configuration.getInstance();
+        configuration.setMaxNrInstructions(6);
+        configuration.setFitnessExaminer(evaluator);
+        configuration.setInstructionOpcodes(new RegularInstructionOpcodeEnum[]{RegularInstructionOpcodeEnum.Add, RegularInstructionOpcodeEnum.Sub, RegularInstructionOpcodeEnum.Mul, RegularInstructionOpcodeEnum.Div, RegularInstructionOpcodeEnum.Sqrt, RegularInstructionOpcodeEnum.Move, RegularInstructionOpcodeEnum.Log});
 
-        Configuration.getInstance().setMaxNrInstructions(6);
-        RandomProgramIterator iter = new RandomProgramIterator(evaluator, new RegularInstructionOpcodeEnum[]{RegularInstructionOpcodeEnum.Add, RegularInstructionOpcodeEnum.Sub, RegularInstructionOpcodeEnum.Mul, RegularInstructionOpcodeEnum.Div, RegularInstructionOpcodeEnum.Sqrt, RegularInstructionOpcodeEnum.Move, RegularInstructionOpcodeEnum.Log});
-        iter.iterate(curMaxRegisters);
+        RandomProgramIterator iter = new RandomProgramIterator();
+        iter.iterate(configuration);
 
     }
 

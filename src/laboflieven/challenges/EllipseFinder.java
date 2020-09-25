@@ -37,14 +37,18 @@ public class EllipseFinder implements ProgramTemplate
         int curMaxRegisters = 2;
         List<InOutParameters> collection = TestCases.getTestCases(new EllipseFinder(), TestCases.getExampleInput2D(10000,100),curMaxRegisters);
         collection = differentiate(collection);
+
         ProgramFitnessExaminerInterface evaluator = new ProgramFitnessExaminer(collection, new AccStatementRunner());
         evaluator.addListener(new SysOutAccFitnessLogger(10000));
-        RandomProgramIterator iter = new RandomProgramIterator(evaluator);
-        iter.instructionFactory = new InstructionFactory();
+
+        Configuration config = Configuration.getInstance();
+        config.setMaxNrInstructions(nrInstructions);
+        config.setFitnessExaminer(evaluator);
+        config.setInstructionFactory(new InstructionFactory());
+
+        RandomProgramIterator iter = new RandomProgramIterator();
         long start = System.currentTimeMillis();
-        Configuration.getInstance().setMaxNrInstructions(nrInstructions);
-        iter.iterate(curMaxRegisters);
-        //evaluator.writeAndClose();
+        iter.iterate(config);
         System.out.println(System.currentTimeMillis() - start + "ms");
     }
 

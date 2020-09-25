@@ -107,19 +107,14 @@ public class Palendrom implements ProgramTemplate
         System.out.println("Running at #instructions: " + nrInstructions + " #nrRegisters:" + curMaxRegisters);
 
         var evaluator = new ProgramFitnessExaminer(collection, new AccStatementRunner());
-        //evaluator.addListener(new TimingAccFitnessLogger(10000));
-        RandomProgramIterator iter = new RandomProgramIterator(evaluator);
-        iter.instructionFactory = new InstructionFactory();
-
-        /*GeneralBruteForceProgramIterator iter = new GeneralBruteForceProgramIterator(evaluator,
-                AccInstructionOpcodeEnum.values(),
-                new CombinedHeuristic(List.of(
-                        new AccHeuristic()
-                        )));*/
-        Configuration.getInstance().setMaxNrInstructions(nrInstructions);
+        Configuration config = Configuration.getInstance();
+        config.setFitnessExaminer(evaluator);
+        config.setInstructionFactory(new InstructionFactory());
+        config.setMaxNrInstructions(nrInstructions);
+        RandomProgramIterator iter = new RandomProgramIterator();
         long start = System.currentTimeMillis();
         try {
-            iter.iterate(curMaxRegisters);
+            iter.iterate(config);
         } catch(StoppedByUserException stopped)
         {
 

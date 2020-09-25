@@ -91,9 +91,12 @@ public class ProgramSelector
             }
             if (combo.getSelectedItem().equals(RANDOM))
             {
-                RandomProgramIterator iterator = new RandomProgramIterator(evaluator, enums);
-                Configuration.getInstance().setMaxNrInstructions(instructionCountSlider.getValue());
-                iterator.iterate(registerCountSlider.getValue());
+                Configuration configuration = Configuration.getInstance();
+                configuration.setFitnessExaminer(evaluator);
+                configuration.setInstructionOpcodes(enums);
+                configuration.setMaxNrInstructions(instructionCountSlider.getValue());
+                RandomProgramIterator iterator = new RandomProgramIterator();
+                iterator.iterate(configuration);
             }
             if (combo.getSelectedItem().equals(ASTAR))
             {
