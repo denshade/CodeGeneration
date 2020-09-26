@@ -20,6 +20,13 @@ public class Configuration {
             return Integer.parseInt(s);
         }
     }
+    private static class DoubleParser implements Parser {
+
+        @Override
+        public Object parse(String s) {
+            return Double.parseDouble(s);
+        }
+    }
     private static class InstructionFactoryParser implements Parser {
 
         @Override
@@ -38,7 +45,8 @@ public class Configuration {
         NR_REGISTERS(new IntParser()),
         MAX_DURATION_SECONDS(new IntParser()),
         FITNESS_EXAMINER(new IntParser()),
-        INSTRUCTION_FACTORY(new InstructionFactoryParser());
+        INSTRUCTION_FACTORY(new InstructionFactoryParser()),
+        MAX_ERROR_VALUE(new DoubleParser());
 
         public Parser parser;
 
@@ -59,6 +67,10 @@ public class Configuration {
         return instance;
     }
 
+    public Double getMaxError(double defaultValue)
+    {
+        return getValue(defaultValue, ConfigurationKey.MAX_ERROR_VALUE);
+    }
 
     public int getMaxNrInstructions(int defaultValue)
     {
@@ -73,10 +85,6 @@ public class Configuration {
         return getValue(defaultValue, ConfigurationKey.NR_REGISTERS);
     }
 
-    public void setNumberOfRegisters(int value) {
-        configurationSettings.put(ConfigurationKey.NR_REGISTERS, value);
-    }
-
     private int getValue(int defaultValue, ConfigurationKey maxNrOfInstructions) {
         if (!configurationSettings.containsKey(maxNrOfInstructions)) {
             return defaultValue;
@@ -84,9 +92,11 @@ public class Configuration {
         return (int) configurationSettings.get(maxNrOfInstructions);
     }
 
-    public void setMaxDurationSeconds(int maxDurationSeconds)
-    {
-        configurationSettings.put(ConfigurationKey.MAX_DURATION_SECONDS, maxDurationSeconds);
+    private double getValue(double defaultValue, ConfigurationKey maxNrOfInstructions) {
+        if (!configurationSettings.containsKey(maxNrOfInstructions)) {
+            return defaultValue;
+        }
+        return (double) configurationSettings.get(maxNrOfInstructions);
     }
 
     public int getMaxDurationSeconds(int defaultValue) {

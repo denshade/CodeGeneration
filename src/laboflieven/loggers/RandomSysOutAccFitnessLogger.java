@@ -6,12 +6,12 @@ import laboflieven.accinstructions.AccRegisterInstruction;
 import java.util.List;
 import java.util.Random;
 
-public class SysOutAccFitnessLogger implements FitnessLogger
+public class RandomSysOutAccFitnessLogger implements FitnessLogger
 {
     private final int bound;
     private double bestErr = Double.MAX_VALUE;
 
-    public SysOutAccFitnessLogger(int bound)
+    public RandomSysOutAccFitnessLogger(int bound)
     {
 
         this.bound = bound;

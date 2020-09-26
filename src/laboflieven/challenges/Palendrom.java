@@ -1,23 +1,12 @@
 package laboflieven.challenges;
 
 import laboflieven.InOutParameters;
-import laboflieven.InstructionMark;
-import laboflieven.Program;
 import laboflieven.StoppedByUserException;
 import laboflieven.accinstructions.*;
 import laboflieven.common.Configuration;
 import laboflieven.examiners.ProgramFitnessExaminer;
-import laboflieven.examiners.ProgramFitnessExaminerInterface;
-import laboflieven.loggers.SysOutAccFitnessLogger;
-import laboflieven.loggers.TimingAccFitnessLogger;
-import laboflieven.programiterators.GeneralBruteForceProgramIterator;
-import laboflieven.programiterators.RandomGeneticProgramIterator;
 import laboflieven.programiterators.RandomProgramIterator;
-import laboflieven.recursionheuristics.AccHeuristic;
-import laboflieven.recursionheuristics.CombinedHeuristic;
-import laboflieven.recursionheuristics.ResultsNoDataAfterFiveHeuristic;
 import laboflieven.runners.AccStatementRunner;
-import laboflieven.statements.Register;
 
 import java.io.IOException;
 import java.util.ArrayList;

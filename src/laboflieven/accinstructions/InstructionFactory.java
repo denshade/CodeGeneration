@@ -12,13 +12,10 @@ import java.util.Random;
 /**
  * Created by lveeckha on 4/06/2015.
  */
-public class InstructionFactory implements InstructionFactoryInterface
-{
-    public AccRegisterInstruction createInstruction(InstructionOpcode instructionEnum, Register... registers)
-    {
-        AccInstructionOpcodeEnum instruct = ((laboflieven.common.AccInstructionOpcode)instructionEnum).getEnumer();
-        if (registers.length == 0)
-        {
+public class InstructionFactory implements InstructionFactoryInterface {
+    public AccRegisterInstruction createInstruction(InstructionOpcode instructionEnum, Register... registers) {
+        AccInstructionOpcodeEnum instruct = ((laboflieven.common.AccInstructionOpcode) instructionEnum).getEnumer();
+        if (registers.length == 0) {
             return createInstructionP(instruct);
         } else if (registers.length == 1) {
             return createInstructionP(instruct, registers[0]);
@@ -26,10 +23,9 @@ public class InstructionFactory implements InstructionFactoryInterface
         throw new RuntimeException("Too many registers");
     }
 
-    public AccRegisterInstruction createInstructionP(AccInstructionOpcodeEnum accInstructionOpcodeEnum)
-    {
+    public AccRegisterInstruction createInstructionP(AccInstructionOpcodeEnum accInstructionOpcodeEnum) {
         AccRegisterInstruction instruction;
-        switch(accInstructionOpcodeEnum){
+        switch (accInstructionOpcodeEnum) {
             case Add:
                 instruction = new Add();
                 break;
@@ -37,16 +33,16 @@ public class InstructionFactory implements InstructionFactoryInterface
                 instruction = new Div();
                 break;
             case Mod:
-                instruction = new  Mod();
+                instruction = new Mod();
                 break;
             case Mul:
                 instruction = new Mul();
                 break;
             case Sub:
-                instruction = new  Sub();
+                instruction = new Sub();
                 break;
             case Nand:
-                instruction = new  Nand();
+                instruction = new Nand();
                 break;
             case Invert:
                 instruction = new Invert();
@@ -93,16 +89,18 @@ public class InstructionFactory implements InstructionFactoryInterface
             case Swap:
                 instruction = new Swap();
                 break;
+            case PI:
+                instruction = new PI();
+                break;
             default:
                 throw new IllegalArgumentException("invalid instruction " + accInstructionOpcodeEnum.toString());
         }
         return instruction;
     }
 
-    public AccRegisterInstruction createInstructionP(AccInstructionOpcodeEnum accInstructionOpcodeEnum, Register register1)
-    {
+    public AccRegisterInstruction createInstructionP(AccInstructionOpcodeEnum accInstructionOpcodeEnum, Register register1) {
         AccRegisterInstruction instruction;
-        switch(accInstructionOpcodeEnum){
+        switch (accInstructionOpcodeEnum) {
             case AccLeftPull:
                 instruction = new AccLeftPull(register1);
                 break;

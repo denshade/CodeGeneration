@@ -4,7 +4,7 @@ import laboflieven.InOutParameters;
 import laboflieven.accinstructions.AccInstructionOpcodeEnum;
 import laboflieven.examiners.ProgramFitnessExaminer;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
-import laboflieven.loggers.SysOutAccFitnessLogger;
+import laboflieven.loggers.RandomSysOutAccFitnessLogger;
 import laboflieven.programiterators.GeneralBruteForceProgramIterator;
 import laboflieven.recursionheuristics.AccHeuristic;
 import laboflieven.recursionheuristics.CombinedHeuristic;
@@ -30,7 +30,7 @@ public class P2Bis implements ProgramTemplate
         }
         List<InOutParameters> collection = TestCases.getTestCases(new P2Bis(), points.toArray(new double[0][0]),curMaxRegisters);
         ProgramFitnessExaminerInterface evaluator = new ProgramFitnessExaminer(collection, new AccStatementRunner());
-        evaluator.addListener(new SysOutAccFitnessLogger(10000));
+        evaluator.addListener(new RandomSysOutAccFitnessLogger(10000));
         GeneralBruteForceProgramIterator iter = new GeneralBruteForceProgramIterator(evaluator,
                 AccInstructionOpcodeEnum.values(),
                 new CombinedHeuristic(List.of(

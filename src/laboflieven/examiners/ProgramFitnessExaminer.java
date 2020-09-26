@@ -3,6 +3,7 @@ package laboflieven.examiners;
 import laboflieven.InOutParameters;
 import laboflieven.InstructionMark;
 import laboflieven.Program;
+import laboflieven.common.Configuration;
 import laboflieven.runners.RegularStatementRunner;
 import laboflieven.runners.StatementRunner;
 import laboflieven.loggers.FitnessLogger;
@@ -51,6 +52,7 @@ public class ProgramFitnessExaminer implements ProgramFitnessExaminerInterface {
     public double calculateFitness(List<InstructionMark> instructions, List<Register> registers)
     {
         Program program = new Program(instructions, registers);
+        double noFitAtAll = Configuration.getInstance().getMaxError(Double.POSITIVE_INFINITY);
         double err = 0.0;
         total:
         for(InOutParameters parameter : conditions)
@@ -62,7 +64,7 @@ public class ProgramFitnessExaminer implements ProgramFitnessExaminerInterface {
             {
                 if (Double.isNaN(register.value) || Double.isInfinite(register.value))
                 {
-                    err = NO_FIT_AT_ALL;
+                    err = noFitAtAll;
                     break total;
                 } else
                 {
@@ -70,8 +72,8 @@ public class ProgramFitnessExaminer implements ProgramFitnessExaminerInterface {
                     {
                         foundExpectedRegisters++;
                         err += Math.abs(expectedOutput.get(register.name) - register.value);
-                        if (err >= NO_FIT_AT_ALL){
-                            return NO_FIT_AT_ALL;
+                        if (err >= noFitAtAll){
+                            return noFitAtAll;
                         }
                         if (foundExpectedRegisters == expectedOutput.size()) break;
                     }

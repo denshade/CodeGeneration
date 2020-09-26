@@ -1,21 +1,15 @@
 package laboflieven.challenges;
 
 import laboflieven.InOutParameters;
-import laboflieven.accinstructions.AccInstructionOpcodeEnum;
-import laboflieven.accinstructions.InstructionFactory;
 import laboflieven.common.CommandLineConfigLoader;
 import laboflieven.common.Configuration;
 import laboflieven.examiners.ProgramFitnessExaminer;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
-import laboflieven.humanresource.RandomGeneticProgramIterator;
-import laboflieven.loggers.FitnessLogger;
-import laboflieven.loggers.SysOutAccFitnessLogger;
-import laboflieven.programiterators.GeneralBruteForceProgramIterator;
+import laboflieven.loggers.RandomSysOutAccFitnessLogger;
+import laboflieven.loggers.TimingAccFitnessLogger;
 import laboflieven.programiterators.RandomProgramIterator;
 import laboflieven.runners.AccStatementRunner;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -41,7 +35,7 @@ public class EllipseFinder implements ProgramTemplate
         collection = differentiate(collection);
 
         ProgramFitnessExaminerInterface evaluator = new ProgramFitnessExaminer(collection, new AccStatementRunner());
-        evaluator.addListener(new SysOutAccFitnessLogger(10000));
+        evaluator.addListener(new TimingAccFitnessLogger(10000));
 
         config.setFitnessExaminer(evaluator);
         /*Configuration config = Configuration.getInstance();
