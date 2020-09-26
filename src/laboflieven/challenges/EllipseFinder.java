@@ -32,7 +32,6 @@ public class EllipseFinder implements ProgramTemplate
         System.out.println(distance(100,300));
         int curMaxRegisters = config.getNumberOfRegisters(2);
         List<InOutParameters> collection = TestCases.getTestCases(new EllipseFinder(), TestCases.getExampleInput2D(10000,100), curMaxRegisters);
-        collection = differentiate(collection);
 
         ProgramFitnessExaminerInterface evaluator = new ProgramFitnessExaminer(collection, new AccStatementRunner());
         evaluator.addListener(new TimingAccFitnessLogger(10000));
@@ -47,27 +46,6 @@ public class EllipseFinder implements ProgramTemplate
         long start = System.currentTimeMillis();
         iter.iterate(config);
         System.out.println(System.currentTimeMillis() - start + "ms");
-    }
-
-    private static List<InOutParameters> differentiate(List<InOutParameters> collection) {
-        List<InOutParameters> result = new ArrayList<>();
-
-        for (int i = 0; i < collection.size() - 1; i++)
-        {
-            InOutParameters param = new  InOutParameters();
-            param.input =  collection.get(i).input;
-            Map<String, Double> stringDoubleMap = new HashMap<String, Double>();
-            Map<String, Double> currentValues = collection.get(i).expectedOutput;
-            Map<String, Double> nextValues = collection.get(i + 1).expectedOutput;
-            for (String r : currentValues.keySet())
-            {
-                stringDoubleMap.put(r,nextValues.get(r) - currentValues.get(r));
-            }
-            param.expectedOutput = stringDoubleMap;
-            result.add(param);
-
-        }
-        return result;
     }
 
     @Override
