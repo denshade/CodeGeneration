@@ -3,6 +3,8 @@ package laboflieven.common;
 import laboflieven.accinstructions.InstructionFactory;
 import laboflieven.challenges.ProgramTemplate;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
+import laboflieven.programiterators.GeneralBruteForceProgramIterator;
+import laboflieven.programiterators.GeneralRandomGeneticProgramIterator;
 import laboflieven.programiterators.ProgramIterator;
 import laboflieven.programiterators.RandomProgramIterator;
 import laboflieven.recursionheuristics.AccHeuristic;
@@ -52,8 +54,8 @@ public class Configuration {
         public Object parse(String s) {
             switch(s) {
                 case "Random" : return new RandomProgramIterator();
-                case "Acc" :
-                default: return new InstructionFactory();
+                case "genetic" : return new GeneralRandomGeneticProgramIterator();
+                default: return new RandomProgramIterator();
             }
         }
     }

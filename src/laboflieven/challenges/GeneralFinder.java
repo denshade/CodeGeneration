@@ -13,8 +13,8 @@ import laboflieven.runners.AccStatementRunner;
 import java.util.List;
 
 /**
- * MAX_NR_OF_INSTRUCTIONS=10 INSTRUCTION_FACTORY=Acc DATA_PROVIDER=laboflieven.challenges.EllipseFinder PROGRAM_ITERATOR=laboflieven.programiterators.RandomProgramIterator
- *
+ * MAX_NR_OF_INSTRUCTIONS=10 INSTRUCTION_FACTORY=Acc DATA_PROVIDER=laboflieven.challenges.EllipseFinder PROGRAM_ITERATOR=random
+ * MAX_NR_OF_INSTRUCTIONS=100 INSTRUCTION_FACTORY=Acc DATA_PROVIDER=laboflieven.challenges.EllipseFinder PROGRAM_ITERATOR=genetic MAX_POPULATION=1000 MAX_OVERFLOW=1.2 POPULAR_PARENT_PART=0.5
  */
 public class GeneralFinder
 {
