@@ -1,6 +1,7 @@
 package laboflieven.common;
 
 import laboflieven.accinstructions.InstructionFactory;
+import laboflieven.challenges.ProgramTemplate;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
 import laboflieven.programiterators.ProgramIterator;
 import laboflieven.programiterators.RandomProgramIterator;
@@ -53,6 +54,17 @@ public class Configuration {
         }
     }
 
+    private static class DataProviderParser implements Parser {
+        @Override
+        public ProgramTemplate parse(String s) {
+            try {
+                return (ProgramTemplate) Class.forName(s).newInstance();
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
     public enum ConfigurationKey  {
         OPCODES(new IntParser()),
         MAX_NR_OF_INSTRUCTIONS(new IntParser()),
@@ -61,13 +73,16 @@ public class Configuration {
         FITNESS_EXAMINER(new IntParser()),
         INSTRUCTION_FACTORY(new InstructionFactoryParser()),
         PROGRAM_ITERATOR(new ProgramIteratorParser()),
-        MAX_ERROR_VALUE(new DoubleParser());
+        MAX_ERROR_VALUE(new DoubleParser()),
+        DATA_PROVIDER(new DataProviderParser());
 
         public Parser parser;
 
         ConfigurationKey(Parser s) {
             this.parser = s;
         }
+
+
     }
 
 
@@ -150,6 +165,10 @@ public class Configuration {
             return defaultIterator;
         }
         return (ProgramIterator) configurationSettings.get(ConfigurationKey.PROGRAM_ITERATOR);
+    }
+
+    public ProgramTemplate getDataProvider() {
+        return (ProgramTemplate) configurationSettings.get(ConfigurationKey.DATA_PROVIDER);
     }
 
 
