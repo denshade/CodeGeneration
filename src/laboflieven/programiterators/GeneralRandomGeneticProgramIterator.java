@@ -1,6 +1,7 @@
 package laboflieven.programiterators;
 
 import laboflieven.InstructionMark;
+import laboflieven.common.Configuration;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
 import laboflieven.ProgramResolution;
 import laboflieven.accinstructions.AccInstructionOpcodeEnum;
@@ -18,7 +19,7 @@ import java.util.stream.IntStream;
 /**
  * Created by lveeckha on 31/05/2015.
  */
-public class GeneralRandomGeneticProgramIterator {
+public class GeneralRandomGeneticProgramIterator implements ProgramIterator{
     public static final int BEST_SOLUTION_CYCLE = 10000000;
     public int POPULATION_MAX = 1000;
     private double popularParents;
@@ -56,6 +57,8 @@ public class GeneralRandomGeneticProgramIterator {
     public GeneralRandomGeneticProgramIterator(ProgramFitnessExaminerInterface evaluator, AccInstructionOpcodeEnum[] enums, int maxPopulation, double maxOverflow, double popularParents) {
         this(evaluator, enums, maxPopulation, maxOverflow, popularParents, new AlwaysRecursionHeuristic());
     }
+    public GeneralRandomGeneticProgramIterator() {
+    }
 
     public GeneralRandomGeneticProgramIterator(ProgramFitnessExaminerInterface evaluator, AccInstructionOpcodeEnum[] enums, int maxPopulation, double maxOverflow, double popularParents, RecursionHeuristic heuristic) {
         this.evaluator = evaluator;
@@ -69,6 +72,49 @@ public class GeneralRandomGeneticProgramIterator {
         }
     }
 
+    @Override
+    public ProgramResolution iterate(Configuration configuration) {
+        chosenSolutions = new ArrayList<>();
+        this.numberOfRegisters = configuration.getNumberOfRegisters(2);
+        this.maximumInstructions = configuration.getMaxNrInstructions(10);
+        this.evaluator = configuration.getFitnessExaminer();
+        //this.enums = configuration.getInstructionOpcodes();
+        this.maxPopulation = configuration.getMaxPopulation();
+        this.maxOverflow = configuration.getMaxOverFlow();
+        this.popularParents = configuration.getPopularParents();
+        this.heuristic = configuration.getHeuristic(new AlwaysRecursionHeuristic());
+        if (popularParents < 0 || popularParents > 1) {
+            throw new IllegalArgumentException("PopularParents should be in [0,1]");
+        }
+
+        registers = Register.createRegisters(numberOfRegisters, "R").toArray(new Register[0]);
+        IntStream.range(0,  initialPopSize).forEach(k -> recurse(new ArrayList<>()));
+        // System.out.println(chosenSolutions);
+        PriorityQueue<ProgramResolution> solutions = new PriorityQueue<>();
+        for (List<InstructionMark> instruction : chosenSolutions) {
+            solutions.add(new ProgramResolution(instruction, eval(instruction, Arrays.asList(registers))));
+        }
+        int bestSolutionCycle = BEST_SOLUTION_CYCLE;
+        //Let the best 10 solutions procreate.
+        double overflowLimit = maxPopulation * maxOverflow;
+        BestFitRegister<ProgramResolution> register = new BestFitRegister<>();
+        while (solutions.peek() != null && solutions.peek().weight > 0.10 && bestSolutionCycle > 0) {
+            ProgramResolution peekSolution = solutions.peek();
+            if (register.register(peekSolution.weight, peekSolution))
+            {
+                bestSolutionCycle = BEST_SOLUTION_CYCLE;
+            } else {
+                bestSolutionCycle--;
+            }
+            reproduce(solutions);
+            if (solutions.size() > overflowLimit) {
+                solutions = PriorityQueueAlgos.cutPopulation(maxPopulation, solutions);
+            }
+        }
+        //System.out.println("BestSolutionCycle:" + bestSolutionCycle);
+        //System.out.println("Best solution" + solutions.peek().weight + " " + solutions.peek().instructions);
+        return solutions.peek();
+    }
 
     public ProgramResolution iterate(int numberOfRegisters, int maximumInstructions) {
         chosenSolutions = new ArrayList<>();
@@ -168,5 +214,6 @@ public class GeneralRandomGeneticProgramIterator {
     private double eval(List<InstructionMark> instructions, List<Register> registers) {
         return evaluator.calculateFitness(instructions, registers);
     }
+
 
 }

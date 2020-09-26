@@ -5,12 +5,16 @@ import laboflieven.challenges.ProgramTemplate;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
 import laboflieven.programiterators.ProgramIterator;
 import laboflieven.programiterators.RandomProgramIterator;
+import laboflieven.recursionheuristics.AccHeuristic;
+import laboflieven.recursionheuristics.AlwaysRecursionHeuristic;
+import laboflieven.recursionheuristics.RecursionHeuristic;
 import laboflieven.statements.InstructionFactoryInterface;
 import laboflieven.statements.RegularInstructionOpcodeEnum;
 
 import java.util.HashMap;
 
 public class Configuration {
+
 
 
     private interface Parser
@@ -65,6 +69,18 @@ public class Configuration {
         }
     }
 
+    private static class HeuristicParser implements Parser {
+        @Override
+        public RecursionHeuristic parse(String s) {
+                switch(s)
+                {
+                    case "Acc": return new AccHeuristic();
+                    case "always":
+                    default: return new AlwaysRecursionHeuristic();
+                }
+        }
+    }
+
     public enum ConfigurationKey  {
         OPCODES(new IntParser()),
         MAX_NR_OF_INSTRUCTIONS(new IntParser()),
@@ -74,7 +90,11 @@ public class Configuration {
         INSTRUCTION_FACTORY(new InstructionFactoryParser()),
         PROGRAM_ITERATOR(new ProgramIteratorParser()),
         MAX_ERROR_VALUE(new DoubleParser()),
-        DATA_PROVIDER(new DataProviderParser());
+        DATA_PROVIDER(new DataProviderParser()),
+        MAX_POPULATION(new IntParser()),
+        MAX_OVERFLOW(new DoubleParser()),
+        POPULAR_PARENT_PART(new DoubleParser()),
+        RECURSION_HEURISTIC(new HeuristicParser());
 
         public Parser parser;
 
@@ -171,6 +191,25 @@ public class Configuration {
         return (ProgramTemplate) configurationSettings.get(ConfigurationKey.DATA_PROVIDER);
     }
 
+    public int getMaxPopulation() {
+        return (int) configurationSettings.get(ConfigurationKey.MAX_POPULATION);
+    }
+
+    public double getMaxOverFlow() {
+        return (double) configurationSettings.get(ConfigurationKey.MAX_OVERFLOW);
+    }
+
+    public double getPopularParents() {
+        return (double) configurationSettings.get(ConfigurationKey.POPULAR_PARENT_PART);
+    }
+
+
+    public RecursionHeuristic getHeuristic(AlwaysRecursionHeuristic alwaysRecursionHeuristic) {
+        if (configurationSettings.containsKey(ConfigurationKey.RECURSION_HEURISTIC))
+                return (RecursionHeuristic) configurationSettings.get(ConfigurationKey.RECURSION_HEURISTIC);
+            else
+                return alwaysRecursionHeuristic;
+    }
 
     void setByKey(ConfigurationKey key, String value)
     {

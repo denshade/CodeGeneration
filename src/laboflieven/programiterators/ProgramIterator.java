@@ -1,7 +1,8 @@
 package laboflieven.programiterators;
 
+import laboflieven.ProgramResolution;
 import laboflieven.common.Configuration;
 
 public interface ProgramIterator {
-    void iterate(Configuration configuration);
+    ProgramResolution iterate(Configuration configuration);
 }

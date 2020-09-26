@@ -1,11 +1,11 @@
 package laboflieven.programiterators;
 
 import laboflieven.InstructionMark;
+import laboflieven.ProgramResolution;
 import laboflieven.accinstructions.AccLeftPull;
 import laboflieven.accinstructions.AccLeftPush;
 import laboflieven.common.BestFitRegister;
 import laboflieven.common.Configuration;
-import laboflieven.examiners.ProgramFitnessExaminer;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
 import laboflieven.StoppedByUserException;
 import laboflieven.statements.*;
@@ -29,7 +29,7 @@ public class RandomProgramIterator implements ProgramIterator {
     public InstructionFactoryInterface instructionFactory = new InstructionFactory();
 
     @Override
-    public void iterate(Configuration configuration) {
+    public ProgramResolution iterate(Configuration configuration) {
         System.out.println("Running with " + configuration);
         this.evaluator = configuration.getFitnessExaminer();
         this.numberOfRegisters = configuration.getNumberOfRegisters(2);
@@ -43,6 +43,7 @@ public class RandomProgramIterator implements ProgramIterator {
             loop();
             runTime = System.currentTimeMillis() - startTime;
         }
+        return null;
     }
 
     public void loop() {

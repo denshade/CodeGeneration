@@ -13,7 +13,8 @@ import laboflieven.runners.AccStatementRunner;
 import java.util.List;
 
 /**
- * MAX_NR_OF_INSTRUCTIONS=10 INSTRUCTION_FACTORY=Acc DATA_PROVIDER=laboflieven.challenges.EllipseFinder
+ * MAX_NR_OF_INSTRUCTIONS=10 INSTRUCTION_FACTORY=Acc DATA_PROVIDER=laboflieven.challenges.EllipseFinder PROGRAM_ITERATOR=laboflieven.programiterators.RandomProgramIterator
+ *
  */
 public class GeneralFinder
 {
