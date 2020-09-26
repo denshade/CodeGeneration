@@ -5,6 +5,7 @@ import laboflieven.StoppedByUserException;
 import laboflieven.accinstructions.*;
 import laboflieven.common.Configuration;
 import laboflieven.examiners.ProgramFitnessExaminer;
+import laboflieven.programiterators.ProgramIterator;
 import laboflieven.programiterators.RandomProgramIterator;
 import laboflieven.runners.AccStatementRunner;
 
@@ -100,7 +101,7 @@ public class Palendrom implements ProgramTemplate
         config.setFitnessExaminer(evaluator);
         config.setInstructionFactory(new InstructionFactory());
         config.setMaxNrInstructions(nrInstructions);
-        RandomProgramIterator iter = new RandomProgramIterator();
+        ProgramIterator iter = new RandomProgramIterator();
         long start = System.currentTimeMillis();
         try {
             iter.iterate(config);

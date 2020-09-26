@@ -192,7 +192,7 @@ public class FormulaFinder {
         configuration.setFitnessExaminer(evaluator);
         configuration.setInstructionOpcodes(new RegularInstructionOpcodeEnum[]{RegularInstructionOpcodeEnum.Add, RegularInstructionOpcodeEnum.Sub, RegularInstructionOpcodeEnum.Mul, RegularInstructionOpcodeEnum.Div, RegularInstructionOpcodeEnum.Sqrt, RegularInstructionOpcodeEnum.Move, RegularInstructionOpcodeEnum.Log});
 
-        RandomProgramIterator iter = new RandomProgramIterator();
+        ProgramIterator iter = new RandomProgramIterator();
         iter.iterate(configuration);
 
     }

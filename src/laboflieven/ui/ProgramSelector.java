@@ -4,9 +4,7 @@ import laboflieven.*;
 import laboflieven.common.Configuration;
 import laboflieven.examiners.ProgramFitnessExaminer;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
-import laboflieven.programiterators.BruteForceProgramIterator;
-import laboflieven.programiterators.PriorityProgramIterator;
-import laboflieven.programiterators.RandomProgramIterator;
+import laboflieven.programiterators.*;
 import laboflieven.programiterators.ReverseProgramIterator;
 import laboflieven.runners.RegularStatementRunner;
 import laboflieven.statements.RegularInstructionOpcodeEnum;
@@ -95,7 +93,7 @@ public class ProgramSelector
                 configuration.setFitnessExaminer(evaluator);
                 configuration.setInstructionOpcodes(enums);
                 configuration.setMaxNrInstructions(instructionCountSlider.getValue());
-                RandomProgramIterator iterator = new RandomProgramIterator();
+                ProgramIterator iterator = new RandomProgramIterator();
                 iterator.iterate(configuration);
             }
             if (combo.getSelectedItem().equals(ASTAR))

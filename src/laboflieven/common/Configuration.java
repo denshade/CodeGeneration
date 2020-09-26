@@ -2,12 +2,15 @@ package laboflieven.common;
 
 import laboflieven.accinstructions.InstructionFactory;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
+import laboflieven.programiterators.ProgramIterator;
+import laboflieven.programiterators.RandomProgramIterator;
 import laboflieven.statements.InstructionFactoryInterface;
 import laboflieven.statements.RegularInstructionOpcodeEnum;
 
 import java.util.HashMap;
 
 public class Configuration {
+
 
     private interface Parser
     {
@@ -38,6 +41,17 @@ public class Configuration {
             }
         }
     }
+    private static class ProgramIteratorParser implements Parser {
+
+        @Override
+        public Object parse(String s) {
+            switch(s) {
+                case "Random" : return new RandomProgramIterator();
+                case "Acc" :
+                default: return new InstructionFactory();
+            }
+        }
+    }
 
     public enum ConfigurationKey  {
         OPCODES(new IntParser()),
@@ -46,6 +60,7 @@ public class Configuration {
         MAX_DURATION_SECONDS(new IntParser()),
         FITNESS_EXAMINER(new IntParser()),
         INSTRUCTION_FACTORY(new InstructionFactoryParser()),
+        PROGRAM_ITERATOR(new ProgramIteratorParser()),
         MAX_ERROR_VALUE(new DoubleParser());
 
         public Parser parser;
@@ -129,6 +144,14 @@ public class Configuration {
     {
         return (RegularInstructionOpcodeEnum[]) configurationSettings.get(ConfigurationKey.OPCODES);
     }
+
+    public ProgramIterator getProgramIterator(ProgramIterator defaultIterator) {
+        if (!configurationSettings.containsKey(ConfigurationKey.PROGRAM_ITERATOR)) {
+            return defaultIterator;
+        }
+        return (ProgramIterator) configurationSettings.get(ConfigurationKey.PROGRAM_ITERATOR);
+    }
+
 
     void setByKey(ConfigurationKey key, String value)
     {

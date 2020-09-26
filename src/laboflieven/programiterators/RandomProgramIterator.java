@@ -15,7 +15,7 @@ import java.util.*;
 /**
  * Created by lveeckha on 31/05/2015.
  */
-public class RandomProgramIterator {
+public class RandomProgramIterator implements ProgramIterator {
     public int maximumInstructions = 12;
     public long counter = 0;
 
@@ -28,6 +28,7 @@ public class RandomProgramIterator {
     private int numberOfRegisters;
     public InstructionFactoryInterface instructionFactory = new InstructionFactory();
 
+    @Override
     public void iterate(Configuration configuration) {
         System.out.println("Running with " + configuration);
         this.evaluator = configuration.getFitnessExaminer();
@@ -44,17 +45,6 @@ public class RandomProgramIterator {
         }
     }
 
-    public void iterate(int numberOfRegisters) {
-        this.numberOfRegisters = numberOfRegisters;
-        this.maximumInstructions = Configuration.getInstance().getMaxNrInstructions(6);
-        registers = Register.createRegisters(numberOfRegisters, "R").toArray(new Register[0]);
-        long startTime = System.currentTimeMillis();
-        long runTime = System.currentTimeMillis() - startTime;
-        while (runTime < maxExecutionTimeSeconds * 1000) {
-            loop();
-            runTime = System.currentTimeMillis() - startTime;
-        }
-    }
     public void loop() {
         var instructions = new ArrayList<InstructionMark>();
         instructions.add(new AccLeftPush(registers[0]));

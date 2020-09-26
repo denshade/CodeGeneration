@@ -5,15 +5,12 @@ import laboflieven.common.CommandLineConfigLoader;
 import laboflieven.common.Configuration;
 import laboflieven.examiners.ProgramFitnessExaminer;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
-import laboflieven.loggers.RandomSysOutAccFitnessLogger;
 import laboflieven.loggers.TimingAccFitnessLogger;
+import laboflieven.programiterators.ProgramIterator;
 import laboflieven.programiterators.RandomProgramIterator;
 import laboflieven.runners.AccStatementRunner;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * MAX_NR_OF_INSTRUCTIONS=10 INSTRUCTION_FACTORY=Acc
@@ -41,8 +38,7 @@ public class EllipseFinder implements ProgramTemplate
         config.setMaxNrInstructions(nrInstructions);
         config.setFitnessExaminer(evaluator);
         config.setInstructionFactory(new InstructionFactory());*/
-
-        RandomProgramIterator iter = new RandomProgramIterator();
+        ProgramIterator iter = config.getProgramIterator(new RandomProgramIterator());
         long start = System.currentTimeMillis();
         iter.iterate(config);
         System.out.println(System.currentTimeMillis() - start + "ms");
