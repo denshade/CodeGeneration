@@ -29,6 +29,7 @@ public class RandomProgramIterator {
     public InstructionFactoryInterface instructionFactory = new InstructionFactory();
 
     public void iterate(Configuration configuration) {
+        System.out.println("Running with " + configuration);
         this.evaluator = configuration.getFitnessExaminer();
         this.numberOfRegisters = configuration.getNumberOfRegisters(2);
         this.maximumInstructions = configuration.getMaxNrInstructions(6);

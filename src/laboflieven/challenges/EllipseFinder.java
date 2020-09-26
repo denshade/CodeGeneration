@@ -3,6 +3,7 @@ package laboflieven.challenges;
 import laboflieven.InOutParameters;
 import laboflieven.accinstructions.AccInstructionOpcodeEnum;
 import laboflieven.accinstructions.InstructionFactory;
+import laboflieven.common.CommandLineConfigLoader;
 import laboflieven.common.Configuration;
 import laboflieven.examiners.ProgramFitnessExaminer;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
@@ -20,6 +21,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * MAX_NR_OF_INSTRUCTIONS=10 INSTRUCTION_FACTORY=Acc
+ */
 public class EllipseFinder implements ProgramTemplate
 {
     public static double distance(double a, double b) {
@@ -28,23 +32,22 @@ public class EllipseFinder implements ProgramTemplate
     }
 
 
-    public static void main(String[] args) throws IOException {
-        int nrInstructions = 30;
-        if (args.length > 0) {
-            nrInstructions = Integer.parseInt(args[0]);
-        }
+    public static void main(String[] args) {
+        CommandLineConfigLoader loader = new CommandLineConfigLoader();
+        Configuration config = loader.loadFromCommandLine(args);
         System.out.println(distance(100,300));
-        int curMaxRegisters = 2;
-        List<InOutParameters> collection = TestCases.getTestCases(new EllipseFinder(), TestCases.getExampleInput2D(10000,100),curMaxRegisters);
+        int curMaxRegisters = config.getNumberOfRegisters(2);
+        List<InOutParameters> collection = TestCases.getTestCases(new EllipseFinder(), TestCases.getExampleInput2D(10000,100), curMaxRegisters);
         collection = differentiate(collection);
 
         ProgramFitnessExaminerInterface evaluator = new ProgramFitnessExaminer(collection, new AccStatementRunner());
         evaluator.addListener(new SysOutAccFitnessLogger(10000));
 
-        Configuration config = Configuration.getInstance();
+        config.setFitnessExaminer(evaluator);
+        /*Configuration config = Configuration.getInstance();
         config.setMaxNrInstructions(nrInstructions);
         config.setFitnessExaminer(evaluator);
-        config.setInstructionFactory(new InstructionFactory());
+        config.setInstructionFactory(new InstructionFactory());*/
 
         RandomProgramIterator iter = new RandomProgramIterator();
         long start = System.currentTimeMillis();

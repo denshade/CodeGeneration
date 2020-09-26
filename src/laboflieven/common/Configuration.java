@@ -9,13 +9,46 @@ import java.util.HashMap;
 
 public class Configuration {
 
-    private static final String OPCODES = "OPCODES";
-    private static String MAX_NR_OF_INSTRUCTIONS = "max_nr_instructions";
-    private static String NR_REGISTERS = "nr_registers";
-    private static String MAX_DURATION_SECONDS = "max_duration_seconds";
-    private static String FITNESS_EXAMINER = "fitness_examiner";
-    private static final String INSTRUCTION_FACTORY = "INSTRUCTION_FACTORY";
-    private HashMap<String, Object> configurationSettings = new HashMap<>();
+    private interface Parser
+    {
+        Object parse(String s);
+    }
+    private static class IntParser implements Parser {
+
+        @Override
+        public Object parse(String s) {
+            return Integer.parseInt(s);
+        }
+    }
+    private static class InstructionFactoryParser implements Parser {
+
+        @Override
+        public Object parse(String s) {
+            switch(s) {
+                case "Regular" : return new laboflieven.statements.InstructionFactory();
+                case "Acc" :
+                default: return new InstructionFactory();
+            }
+        }
+    }
+
+    public enum ConfigurationKey  {
+        OPCODES(new IntParser()),
+        MAX_NR_OF_INSTRUCTIONS(new IntParser()),
+        NR_REGISTERS(new IntParser()),
+        MAX_DURATION_SECONDS(new IntParser()),
+        FITNESS_EXAMINER(new IntParser()),
+        INSTRUCTION_FACTORY(new InstructionFactoryParser());
+
+        public Parser parser;
+
+        ConfigurationKey(Parser s) {
+            this.parser = s;
+        }
+    }
+
+
+    private HashMap<ConfigurationKey, Object> configurationSettings = new HashMap<>();
 
     private static Configuration instance;
     public static Configuration getInstance()
@@ -29,22 +62,22 @@ public class Configuration {
 
     public int getMaxNrInstructions(int defaultValue)
     {
-        return getValue(defaultValue, MAX_NR_OF_INSTRUCTIONS);
+        return getValue(defaultValue, ConfigurationKey.MAX_NR_OF_INSTRUCTIONS);
     }
 
     public void setMaxNrInstructions(int nrInstructions) {
-        configurationSettings.put(MAX_NR_OF_INSTRUCTIONS, nrInstructions);
+        configurationSettings.put(ConfigurationKey.MAX_NR_OF_INSTRUCTIONS, nrInstructions);
     }
 
     public int getNumberOfRegisters(int defaultValue) {
-        return getValue(defaultValue, NR_REGISTERS);
+        return getValue(defaultValue, ConfigurationKey.NR_REGISTERS);
     }
 
     public void setNumberOfRegisters(int value) {
-        configurationSettings.put(NR_REGISTERS, value);
+        configurationSettings.put(ConfigurationKey.NR_REGISTERS, value);
     }
 
-    private int getValue(int defaultValue, String maxNrOfInstructions) {
+    private int getValue(int defaultValue, ConfigurationKey maxNrOfInstructions) {
         if (!configurationSettings.containsKey(maxNrOfInstructions)) {
             return defaultValue;
         }
@@ -53,37 +86,47 @@ public class Configuration {
 
     public void setMaxDurationSeconds(int maxDurationSeconds)
     {
-        configurationSettings.put(MAX_DURATION_SECONDS, maxDurationSeconds);
+        configurationSettings.put(ConfigurationKey.MAX_DURATION_SECONDS, maxDurationSeconds);
     }
 
     public int getMaxDurationSeconds(int defaultValue) {
-        return getValue(defaultValue, NR_REGISTERS);
+        return getValue(defaultValue, ConfigurationKey.NR_REGISTERS);
     }
 
     public void setFitnessExaminer(ProgramFitnessExaminerInterface programFitnessExaminer)
     {
-        configurationSettings.put(FITNESS_EXAMINER, programFitnessExaminer);
+        configurationSettings.put(ConfigurationKey.FITNESS_EXAMINER, programFitnessExaminer);
     }
 
     public ProgramFitnessExaminerInterface getFitnessExaminer() {
-        return (ProgramFitnessExaminerInterface) configurationSettings.get(FITNESS_EXAMINER);
+        return (ProgramFitnessExaminerInterface) configurationSettings.get(ConfigurationKey.FITNESS_EXAMINER);
     }
 
     public void setInstructionFactory(InstructionFactory instructionFactory) {
-        configurationSettings.put(INSTRUCTION_FACTORY, instructionFactory);
+        configurationSettings.put(ConfigurationKey.INSTRUCTION_FACTORY, instructionFactory);
     }
 
     public InstructionFactoryInterface getInstructionFactory()
     {
-        return (InstructionFactoryInterface) configurationSettings.get(INSTRUCTION_FACTORY);
+        return (InstructionFactoryInterface) configurationSettings.get(ConfigurationKey.INSTRUCTION_FACTORY);
     }
 
     public void setInstructionOpcodes(RegularInstructionOpcodeEnum[] regularInstructionOpcodeEnums) {
-        configurationSettings.put(OPCODES, regularInstructionOpcodeEnums);
+        configurationSettings.put(ConfigurationKey.OPCODES, regularInstructionOpcodeEnums);
     }
 
     public RegularInstructionOpcodeEnum[] getInstructionOpcodes()
     {
-        return (RegularInstructionOpcodeEnum[]) configurationSettings.get(OPCODES);
+        return (RegularInstructionOpcodeEnum[]) configurationSettings.get(ConfigurationKey.OPCODES);
+    }
+
+    void setByKey(ConfigurationKey key, String value)
+    {
+        configurationSettings.put(key, key.parser.parse(value));
+    }
+
+    public String toString()
+    {
+        return configurationSettings.toString();
     }
 }
