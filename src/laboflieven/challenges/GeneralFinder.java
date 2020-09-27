@@ -15,7 +15,7 @@ import java.util.List;
 /**
  * MAX_NR_OF_INSTRUCTIONS=10 INSTRUCTION_FACTORY=Acc DATA_PROVIDER=laboflieven.challenges.EllipseFinder PROGRAM_ITERATOR=random
  * MAX_NR_OF_INSTRUCTIONS=100 INSTRUCTION_FACTORY=Acc DATA_PROVIDER=laboflieven.challenges.EllipseFinder PROGRAM_ITERATOR=genetic MAX_POPULATION=1000 MAX_OVERFLOW=1.2 POPULAR_PARENT_PART=0.5
- * MAX_NR_OF_INSTRUCTIONS=10 INSTRUCTION_FACTORY=Acc DATA_PROVIDER=laboflieven.challenges.EllipseFinder PROGRAM_ITERATOR=brute
+ * MAX_NR_OF_INSTRUCTIONS=20 INSTRUCTION_FACTORY=Acc DATA_PROVIDER=laboflieven.challenges.EllipseFinder PROGRAM_ITERATOR=brute
  */
 public class GeneralFinder
 {
@@ -23,6 +23,7 @@ public class GeneralFinder
     public static void main(String[] args) {
         CommandLineConfigLoader loader = new CommandLineConfigLoader();
         Configuration config = loader.loadFromCommandLine(args);
+        System.out.println("Running with the following config: " + config);
         int curMaxRegisters = config.getNumberOfRegisters(2);
         List<InOutParameters> collection = TestCases.getTestCases(config.getDataProvider(), TestCases.getExampleInput2D(10000,100), curMaxRegisters);
 
