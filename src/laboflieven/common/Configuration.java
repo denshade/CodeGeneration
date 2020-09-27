@@ -55,6 +55,7 @@ public class Configuration {
             switch(s) {
                 case "Random" : return new RandomProgramIterator();
                 case "genetic" : return new GeneralRandomGeneticProgramIterator();
+                case "brute" : return new GeneralBruteForceProgramIterator();
                 default: return new RandomProgramIterator();
             }
         }

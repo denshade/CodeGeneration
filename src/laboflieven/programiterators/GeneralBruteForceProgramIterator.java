@@ -1,6 +1,8 @@
 package laboflieven.programiterators;
 
 import laboflieven.InstructionMark;
+import laboflieven.ProgramResolution;
+import laboflieven.common.Configuration;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
 import laboflieven.accinstructions.*;
 import laboflieven.recursionheuristics.AlwaysRecursionHeuristic;
@@ -15,7 +17,7 @@ import java.util.List;
 /**
  * Created by lveeckha on 31/05/2015.
  */
-public class GeneralBruteForceProgramIterator
+public class GeneralBruteForceProgramIterator implements ProgramIterator
 {
     public int maximumInstructions;
     public long counter = 0;
@@ -34,6 +36,9 @@ public class GeneralBruteForceProgramIterator
     {
         this(evaluator, AccInstructionOpcodeEnum.values());
     }
+    public GeneralBruteForceProgramIterator()
+    {
+    }
 
     public GeneralBruteForceProgramIterator(ProgramFitnessExaminerInterface evaluator, AccInstructionOpcodeEnum[] instructions)
     {
@@ -45,7 +50,16 @@ public class GeneralBruteForceProgramIterator
         accInstructionOpcodeEnums = instructions;
         this.heuristic = heuristic;
     }
-
+    public ProgramResolution iterate(Configuration configuration) {
+        this.evaluator = configuration.getFitnessExaminer();
+        accInstructionOpcodeEnums = AccInstructionOpcodeEnum.values();
+        this.heuristic = configuration.getHeuristic(new AlwaysRecursionHeuristic());
+        var instructions = iterate(configuration.getNumberOfRegisters(2), configuration.getMaxNrInstructions(10));
+        if (instructions.size() > 0) {
+            return new ProgramResolution(instructions.get(0), 0);
+        }
+        return null;
+    }
     public List<List<InstructionMark>> iterate(final int nrOfRegisters, int maximumInstructions)
     {
         this.maximumInstructions = maximumInstructions;
