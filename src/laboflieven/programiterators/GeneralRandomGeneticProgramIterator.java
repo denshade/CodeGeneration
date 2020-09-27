@@ -78,7 +78,7 @@ public class GeneralRandomGeneticProgramIterator implements ProgramIterator{
         this.numberOfRegisters = configuration.getNumberOfRegisters(2);
         this.maximumInstructions = configuration.getMaxNrInstructions(10);
         this.evaluator = configuration.getFitnessExaminer();
-        this.enums = AccInstructionOpcodeEnum.values();
+        this.enums = configuration.getAccOperations();
         this.maxPopulation = configuration.getMaxPopulation();
         this.maxOverflow = configuration.getMaxOverFlow();
         this.popularParents = configuration.getPopularParents();

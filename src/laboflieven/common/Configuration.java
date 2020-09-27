@@ -1,5 +1,6 @@
 package laboflieven.common;
 
+import laboflieven.accinstructions.AccInstructionOpcodeEnum;
 import laboflieven.accinstructions.InstructionFactory;
 import laboflieven.challenges.ProgramTemplate;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
@@ -16,8 +17,6 @@ import laboflieven.statements.RegularInstructionOpcodeEnum;
 import java.util.HashMap;
 
 public class Configuration {
-
-
 
     private interface Parser
     {
@@ -84,6 +83,34 @@ public class Configuration {
         }
     }
 
+    private static class AccOperationsParser implements Parser {
+        @Override
+        public AccInstructionOpcodeEnum[] parse(String s) {
+            switch(s)
+            {
+                case "nobranch": return new AccInstructionOpcodeEnum[] {
+                        AccInstructionOpcodeEnum.AccLeftPull,
+                        AccInstructionOpcodeEnum.AccRightPull,
+                        AccInstructionOpcodeEnum.AccLeftPush,
+                        AccInstructionOpcodeEnum.AccRightPush,
+                        AccInstructionOpcodeEnum.Div,
+                        AccInstructionOpcodeEnum.Mul,
+                        AccInstructionOpcodeEnum.Mod,
+                        AccInstructionOpcodeEnum.Log,
+                        AccInstructionOpcodeEnum.Add,
+                        AccInstructionOpcodeEnum.Sqrt,
+                        AccInstructionOpcodeEnum.Cos,
+                        AccInstructionOpcodeEnum.Sub,
+                        AccInstructionOpcodeEnum.Invert,
+                        AccInstructionOpcodeEnum.Pow,
+                        AccInstructionOpcodeEnum.PI,
+                    };
+                case "all":
+                default: return AccInstructionOpcodeEnum.values();
+            }
+        }
+    }
+
     public enum ConfigurationKey  {
         OPCODES(new IntParser()),
         MAX_NR_OF_INSTRUCTIONS(new IntParser()),
@@ -97,15 +124,14 @@ public class Configuration {
         MAX_POPULATION(new IntParser()),
         MAX_OVERFLOW(new DoubleParser()),
         POPULAR_PARENT_PART(new DoubleParser()),
-        RECURSION_HEURISTIC(new HeuristicParser());
+        RECURSION_HEURISTIC(new HeuristicParser()),
+        ACC_OPERATIONS(new AccOperationsParser());
 
         public Parser parser;
 
         ConfigurationKey(Parser s) {
             this.parser = s;
         }
-
-
     }
 
 
@@ -213,6 +239,14 @@ public class Configuration {
             else
                 return alwaysRecursionHeuristic;
     }
+
+    public AccInstructionOpcodeEnum[] getAccOperations() {
+        if (configurationSettings.containsKey(ConfigurationKey.ACC_OPERATIONS))
+            return (AccInstructionOpcodeEnum[]) configurationSettings.get(ConfigurationKey.ACC_OPERATIONS);
+        else
+            return AccInstructionOpcodeEnum.values();
+    }
+
 
     void setByKey(ConfigurationKey key, String value)
     {

@@ -52,7 +52,7 @@ public class GeneralBruteForceProgramIterator implements ProgramIterator
     }
     public ProgramResolution iterate(Configuration configuration) {
         this.evaluator = configuration.getFitnessExaminer();
-        accInstructionOpcodeEnums = AccInstructionOpcodeEnum.values();
+        this.accInstructionOpcodeEnums = configuration.getAccOperations();
         this.heuristic = configuration.getHeuristic(new AlwaysRecursionHeuristic());
         var instructions = iterate(configuration.getNumberOfRegisters(2), configuration.getMaxNrInstructions(10));
         if (instructions.size() > 0) {
