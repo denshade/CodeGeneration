@@ -3,6 +3,7 @@ package laboflieven.programiterators;
 import laboflieven.*;
 import laboflieven.accinstructions.AccInstructionOpcodeEnum;
 import laboflieven.common.AccInstructionOpcode;
+import laboflieven.common.BestFitRegister;
 import laboflieven.common.Configuration;
 import laboflieven.common.InstructionOpcode;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
@@ -20,12 +21,12 @@ import java.util.PriorityQueue;
 public class AccPriorityProgramIterator  implements ProgramIterator
 {
 
-    public static final int MAXBADPROGRAM = 300;
     private ProgramFitnessExaminerInterface evaluator;
     private AccInstructionOpcodeEnum[] enums;
     PriorityQueue<ProgramResolution> priorityQueue = new PriorityQueue<>();
     private Register[] registers;
     private InstructionFactoryInterface instructionFactory;
+    private BestFitRegister<ProgramResolution> bestFitRegister = new BestFitRegister<>();
 
 
     public ProgramResolution iterate(Configuration configuration)
@@ -38,9 +39,13 @@ public class AccPriorityProgramIterator  implements ProgramIterator
         addLevel(registerList, new ArrayList<>());
         while (priorityQueue.size() > 0)
         {
-            List<InstructionMark> instructions = priorityQueue.poll().instructions;
+            ProgramResolution res = priorityQueue.poll();
+            List<InstructionMark> instructions = res.instructions;
             if (instructions.size() < configuration.getMaxNrInstructions(10)) {
                 addLevel(registerList, instructions);
+            } else {
+                if (priorityQueue.size() % 1000 == 0)
+                    System.out.println(priorityQueue.size());
             }
         }
         return null;
@@ -65,6 +70,7 @@ public class AccPriorityProgramIterator  implements ProgramIterator
 
     private ProgramResolution eval(List<InstructionMark> instructions, List<Register> registers) {
         double val =  evaluator.calculateFitness(instructions, registers);
+        bestFitRegister.register(val,  new ProgramResolution(new ArrayList<>(instructions), val));
         return new ProgramResolution(new ArrayList<>(instructions), val);
     }
 

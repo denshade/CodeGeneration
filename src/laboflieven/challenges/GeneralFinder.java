@@ -26,7 +26,7 @@ public class GeneralFinder
         Configuration config = loader.loadFromCommandLine(args);
         System.out.println("Running with the following config: " + config);
         int curMaxRegisters = config.getNumberOfRegisters(2);
-        List<InOutParameters> collection = TestCases.getTestCases(config.getDataProvider(), TestCases.getExampleInput2D(10000,100), curMaxRegisters);
+        List<InOutParameters> collection = TestCases.getTestCases(config.getDataProvider(), TestCases.getExampleInput2D(1000,100), curMaxRegisters);
 
         ProgramFitnessExaminerInterface evaluator = new ProgramFitnessExaminer(collection, new AccStatementRunner());
         evaluator.addListener(new TimingAccFitnessLogger(10000));
