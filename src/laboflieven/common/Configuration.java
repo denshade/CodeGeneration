@@ -4,10 +4,7 @@ import laboflieven.accinstructions.AccInstructionOpcodeEnum;
 import laboflieven.accinstructions.InstructionFactory;
 import laboflieven.challenges.ProgramTemplate;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
-import laboflieven.programiterators.GeneralBruteForceProgramIterator;
-import laboflieven.programiterators.GeneralRandomGeneticProgramIterator;
-import laboflieven.programiterators.ProgramIterator;
-import laboflieven.programiterators.RandomProgramIterator;
+import laboflieven.programiterators.*;
 import laboflieven.recursionheuristics.AccHeuristic;
 import laboflieven.recursionheuristics.AlwaysRecursionHeuristic;
 import laboflieven.recursionheuristics.RecursionHeuristic;
@@ -55,6 +52,7 @@ public class Configuration {
                 case "Random" : return new RandomProgramIterator();
                 case "genetic" : return new GeneralRandomGeneticProgramIterator();
                 case "brute" : return new GeneralBruteForceProgramIterator();
+                case "priority": return new AccPriorityProgramIterator();
                 default: return new RandomProgramIterator();
             }
         }
