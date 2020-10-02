@@ -2,10 +2,7 @@ package laboflieven.programiterators;
 
 import laboflieven.*;
 import laboflieven.accinstructions.AccInstructionOpcodeEnum;
-import laboflieven.common.AccInstructionOpcode;
-import laboflieven.common.BestFitRegister;
-import laboflieven.common.Configuration;
-import laboflieven.common.InstructionOpcode;
+import laboflieven.common.*;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
 import laboflieven.statements.InstructionFactory;
 import laboflieven.statements.InstructionFactoryInterface;
@@ -44,8 +41,11 @@ public class AccPriorityProgramIterator  implements ProgramIterator
             if (instructions.size() < configuration.getMaxNrInstructions(10)) {
                 addLevel(registerList, instructions);
             } else {
-                if (priorityQueue.size() % 1000 == 0)
-                    System.out.println(priorityQueue.size());
+                if (priorityQueue.size() > 150000)
+                {
+                    System.out.println("Cutting population");
+                    priorityQueue = PriorityQueueAlgos.cutPopulation(100000, priorityQueue);
+                }
             }
         }
         return null;
