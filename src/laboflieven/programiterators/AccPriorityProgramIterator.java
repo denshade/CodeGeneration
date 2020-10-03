@@ -33,6 +33,8 @@ public class AccPriorityProgramIterator  implements ProgramIterator
         this.instructionFactory = configuration.getInstructionFactory();
         List<Register> registerList = Register.createRegisters(configuration.getNumberOfRegisters(2), "R");
         this.registers = registerList.toArray(new Register[0]);
+        int CUT_POPULATION_AT_MAX = configuration.getCutPopulationAtMax(150000);
+        int CUT_POPULATION_TO = configuration.getCutPopulationTo(100000);
         addLevel(registerList, new ArrayList<>());
         while (priorityQueue.size() > 0)
         {
@@ -41,10 +43,10 @@ public class AccPriorityProgramIterator  implements ProgramIterator
             if (instructions.size() < configuration.getMaxNrInstructions(10)) {
                 addLevel(registerList, instructions);
             } else {
-                if (priorityQueue.size() > 150000)
+                if (priorityQueue.size() > CUT_POPULATION_AT_MAX)
                 {
                     System.out.println("Cutting population");
-                    priorityQueue = PriorityQueueAlgos.cutPopulation(100000, priorityQueue);
+                    priorityQueue = PriorityQueueAlgos.cutPopulation(CUT_POPULATION_TO, priorityQueue);
                 }
             }
         }

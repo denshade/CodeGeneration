@@ -123,7 +123,9 @@ public class Configuration {
         MAX_OVERFLOW(new DoubleParser()),
         POPULAR_PARENT_PART(new DoubleParser()),
         RECURSION_HEURISTIC(new HeuristicParser()),
-        ACC_OPERATIONS(new AccOperationsParser());
+        ACC_OPERATIONS(new AccOperationsParser()),
+        CUT_POPULATION_AT_MAX(new IntParser()),
+        CUT_POPULATION_TO(new IntParser());
 
         public Parser parser;
 
@@ -245,6 +247,13 @@ public class Configuration {
             return AccInstructionOpcodeEnum.values();
     }
 
+    public int getCutPopulationAtMax(int defaultNr){
+        return getValue(defaultNr, ConfigurationKey.CUT_POPULATION_AT_MAX);
+    }
+
+    public int getCutPopulationTo(int defaultNr){
+        return getValue(defaultNr, ConfigurationKey.CUT_POPULATION_TO);
+    }
 
     void setByKey(ConfigurationKey key, String value)
     {
