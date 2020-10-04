@@ -33,6 +33,15 @@ public class Configuration {
             return Double.parseDouble(s);
         }
     }
+
+    private static class BoolParser implements Parser {
+
+        @Override
+        public Object parse(String s) {
+            return Boolean.parseBoolean(s);
+        }
+    }
+
     private static class InstructionFactoryParser implements Parser {
 
         @Override
@@ -125,7 +134,7 @@ public class Configuration {
         RECURSION_HEURISTIC(new HeuristicParser()),
         ACC_OPERATIONS(new AccOperationsParser()),
         CUT_POPULATION_AT_MAX(new IntParser()),
-        CUT_POPULATION_TO(new IntParser());
+        CUT_POPULATION_TO(new IntParser()), RND_ADDED(new BoolParser());
 
         public Parser parser;
 
@@ -264,4 +273,12 @@ public class Configuration {
     {
         return configurationSettings.toString();
     }
+
+    public boolean getRandomAdded(boolean defaultBool) {
+        if (!configurationSettings.containsKey(ConfigurationKey.RND_ADDED)) {
+            return defaultBool;
+        }
+        return (boolean) configurationSettings.get(ConfigurationKey.RND_ADDED);
+    }
+
 }

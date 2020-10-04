@@ -36,7 +36,7 @@ public class AccPriorityProgramIterator  implements ProgramIterator
         this.registers = registerList.toArray(new Register[0]);
         int CUT_POPULATION_AT_MAX = configuration.getCutPopulationAtMax(150000);
         int CUT_POPULATION_TO = configuration.getCutPopulationTo(100000);
-        boolean addRandom = true;
+        boolean addRandom = configuration.getRandomAdded(true);
         addLevel(registerList, new ArrayList<>());
         while (priorityQueue.size() > 0)
         {
