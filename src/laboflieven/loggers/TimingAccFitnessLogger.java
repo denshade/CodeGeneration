@@ -24,7 +24,7 @@ public class TimingAccFitnessLogger implements FitnessLogger
         if (System.currentTimeMillis() - previousTiming > nrMillis) {
             previousTiming = System.currentTimeMillis();
             System.out.println(error + ": " + instructions);
-            System.out.println( "Best: " + bestFit.getBestScore() + " "+ bestFit.getBest());
+            System.out.println( "Best[" + System.currentTimeMillis()/1000 + "] : " + bestFit.getBestScore() + " "+ bestFit.getBest());
 
         }
     }

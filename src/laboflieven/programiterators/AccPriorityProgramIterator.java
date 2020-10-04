@@ -11,6 +11,7 @@ import laboflieven.statements.Register;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.PriorityQueue;
+import java.util.Random;
 
 /**
  * Created by Lieven on 11-6-2016.
@@ -35,6 +36,7 @@ public class AccPriorityProgramIterator  implements ProgramIterator
         this.registers = registerList.toArray(new Register[0]);
         int CUT_POPULATION_AT_MAX = configuration.getCutPopulationAtMax(150000);
         int CUT_POPULATION_TO = configuration.getCutPopulationTo(100000);
+        boolean addRandom = true;
         addLevel(registerList, new ArrayList<>());
         while (priorityQueue.size() > 0)
         {
@@ -49,8 +51,24 @@ public class AccPriorityProgramIterator  implements ProgramIterator
                     priorityQueue = PriorityQueueAlgos.cutPopulation(CUT_POPULATION_TO, priorityQueue);
                 }
             }
+            if (addRandom)
+            {
+                createRandom(registerList, res);
+            }
         }
         return null;
+    }
+
+    private void createRandom(List<Register> registerList, ProgramResolution res) {
+        List<InstructionMark> randomProgram = new ArrayList<>();
+        for (int k = 0; k < res.instructions.size(); k++) {
+            randomProgram.add(instructionFactory.generateRandomInstruction(registerList));
+        }
+        ProgramResolution eval = eval(randomProgram, registerList);
+        if (eval.weight / 2 < bestFitRegister.getBestScore())
+        {
+            priorityQueue.add(eval);
+        }
     }
 
     private void addLevel(List<Register> registerList, List<InstructionMark> instructions) {
