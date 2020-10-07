@@ -5,6 +5,8 @@ import laboflieven.Program;
 import laboflieven.accinstructions.AccRegisterInstruction;
 import laboflieven.statements.Register;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -31,7 +33,7 @@ public class AccStatementRunner implements StatementRunner {
      *
      * @param registerValues name => Value pairs.
      */
-    public void execute(Program program, Map<String, Double> registerValues)
+    public Map<String, Double> execute(Program program, Map<String, Double> registerValues)
     {
         program.initializeRegisters(registerValues);
         List<InstructionMark> instructions = program.getInstructions();
@@ -66,5 +68,18 @@ public class AccStatementRunner implements StatementRunner {
                 ip++;
             }
         }
+        Map<String, Double> m = getResultValueMap(program);
+        m.put(left.name, left.value);
+        m.put(right.name, right.value);
+        return m;
+    }
+
+    private Map<String, Double> getResultValueMap(Program program) {
+        Map<String, Double> m = new HashMap<>();
+        for (Register registr : program.getRegisters())
+        {
+            m.put(registr.name, registr.value);
+        }
+        return m;
     }
 }

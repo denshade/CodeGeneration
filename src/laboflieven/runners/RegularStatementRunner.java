@@ -7,6 +7,7 @@ import laboflieven.statements.Instruction;
 import laboflieven.statements.Register;
 import laboflieven.statements.SingleRegisterInstruction;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -31,7 +32,7 @@ public class RegularStatementRunner implements StatementRunner {
      * @param registerValues name => Value pairs.
      */
     @Override
-    public void execute(Program program, Map<String, Double> registerValues)  {
+    public Map<String, Double> execute(Program program, Map<String, Double> registerValues)  {
         program.initializeRegisters(registerValues);
         List<InstructionMark> instructions = program.getInstructions();
         if (false)checkIfBound(program, instructions);
@@ -55,6 +56,17 @@ public class RegularStatementRunner implements StatementRunner {
                 ip++;
             }
         }
+        Map<String, Double> m = getResultValueMap(program);
+        return m;
+    }
+
+    private Map<String, Double> getResultValueMap(Program program) {
+        Map<String, Double> m = new HashMap<>();
+        for (Register registr : program.getRegisters())
+        {
+            m.put(registr.name, registr.value);
+        }
+        return m;
     }
 
     private void checkIfBound(Program program, List<InstructionMark> instructions) {
