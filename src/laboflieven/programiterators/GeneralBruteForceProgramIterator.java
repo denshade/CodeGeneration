@@ -25,18 +25,13 @@ public class GeneralBruteForceProgramIterator implements ProgramIterator
 
     public List<List<InstructionMark>> positiveSolutions = new ArrayList<>();
     private ProgramFitnessExaminerInterface evaluator;
-    private AccInstructionOpcodeEnum[] accInstructionOpcodeEnums;
+    private AccInstructionOpcodeEnum[] accInstructionOpcodeEnums = AccInstructionOpcodeEnum.values();
     private RecursionHeuristic heuristic = new AlwaysRecursionHeuristic();
     public boolean stopAtFirstSolution = true;
     public boolean onlyEvaluateAtLastInstruction = true;
     public InstructionFactoryInterface instructionFactory = new InstructionFactory();
     private List<Register> registers;
 
-
-    public GeneralBruteForceProgramIterator(ProgramFitnessExaminerInterface evaluator)
-    {
-        this(evaluator, AccInstructionOpcodeEnum.values());
-    }
     public GeneralBruteForceProgramIterator()
     {
     }
@@ -51,17 +46,28 @@ public class GeneralBruteForceProgramIterator implements ProgramIterator
         accInstructionOpcodeEnums = instructions;
         this.heuristic = heuristic;
     }
+
     public ProgramResolution iterate(Configuration configuration) {
         this.evaluator = configuration.getFitnessExaminer();
         this.accInstructionOpcodeEnums = configuration.getAccOperations();
         this.heuristic = configuration.getHeuristic(new AlwaysRecursionHeuristic());
-        var instructions = iterate(configuration.getNumberOfRegisters(2), configuration.getMaxNrInstructions(10));
+        var instructions = runWithParams(configuration.getNumberOfRegisters(2), configuration.getMaxNrInstructions(10));
         if (instructions.size() > 0) {
             return new ProgramResolution(instructions.get(0), 0);
         }
         return null;
     }
+
     public List<List<InstructionMark>> iterate(final int nrOfRegisters, int maximumInstructions)
+    {
+        Configuration config = new Configuration();
+        config.setMaxNrInstructions(maximumInstructions);
+        config.setNumberOfRegisters(nrOfRegisters);
+        iterate(config);
+        return positiveSolutions;
+    }
+
+    private List<List<InstructionMark>> runWithParams(final int nrOfRegisters, int maximumInstructions)
     {
         this.maximumInstructions = maximumInstructions;
         registers =  Register.createRegisters(nrOfRegisters, "R");

@@ -15,7 +15,7 @@ import java.util.Map;
 /**
  * Created by Lieven on 8/07/2015.
  */
-public class AdderFinder {
+public class AdderFinder implements ProgramTemplate{
 
     /**
      * //No solutions for 2 -> 5.
@@ -70,4 +70,8 @@ public class AdderFinder {
         return results;
     }
 
+    @Override
+    public double run(double[] args) {
+        return args[0] + args[1];
+    }
 }

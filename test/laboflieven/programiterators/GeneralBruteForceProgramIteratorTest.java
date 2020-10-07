@@ -1,6 +1,18 @@
 package laboflieven.programiterators;
 
+import laboflieven.InOutParameters;
+import laboflieven.challenges.AdderFinder;
+import laboflieven.challenges.EllipseFinder;
+import laboflieven.challenges.TestCases;
+import laboflieven.common.AccInstructionOpcode;
+import laboflieven.common.Configuration;
+import laboflieven.examiners.ProgramFitnessExaminer;
+import laboflieven.examiners.ProgramFitnessExaminerInterface;
+import laboflieven.loggers.TimingAccFitnessLogger;
+import laboflieven.runners.AccStatementRunner;
 import org.junit.jupiter.api.Test;
+
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -8,8 +20,16 @@ class GeneralBruteForceProgramIteratorTest {
 
     @Test
     void iterate() {
+
+        Configuration conf = new Configuration();
+        conf.setNumberOfRegisters(2);
+        conf.setMaxNrInstructions(4);
+        List<InOutParameters> collection = TestCases.getTestCases(new AdderFinder(), TestCases.getExampleInput2D(1000,100, 10), 2);
+        ProgramFitnessExaminerInterface evaluator = new ProgramFitnessExaminer(collection, new AccStatementRunner());
+        evaluator.addListener(new TimingAccFitnessLogger(10000));
+        conf.setFitnessExaminer(evaluator);
         GeneralBruteForceProgramIterator iter = new GeneralBruteForceProgramIterator();
-        iter.iterate(2, 2);
+        iter.iterate(conf);
 
     }
 }

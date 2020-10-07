@@ -174,6 +174,10 @@ public class Configuration {
         return getValue(defaultValue, ConfigurationKey.NR_REGISTERS);
     }
 
+    public void setNumberOfRegisters(int value) {
+        configurationSettings.put(ConfigurationKey.NR_REGISTERS, value);
+    }
+
     private int getValue(int defaultValue, ConfigurationKey maxNrOfInstructions) {
         if (!configurationSettings.containsKey(maxNrOfInstructions)) {
             return defaultValue;
