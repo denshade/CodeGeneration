@@ -9,6 +9,7 @@ import laboflieven.common.Configuration;
 import laboflieven.examiners.ProgramFitnessExaminer;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
 import laboflieven.loggers.TimingAccFitnessLogger;
+import laboflieven.recursionheuristics.HashedResultsHeuristic;
 import laboflieven.runners.AccStatementRunner;
 import org.junit.jupiter.api.Test;
 
@@ -29,7 +30,24 @@ class GeneralBruteForceProgramIteratorTest {
         evaluator.addListener(new TimingAccFitnessLogger(10000));
         conf.setFitnessExaminer(evaluator);
         GeneralBruteForceProgramIterator iter = new GeneralBruteForceProgramIterator();
-        iter.iterate(conf);
+        assertNotNull(iter.iterate(conf));
 
     }
+
+    @Test
+    void iterateWithHeuristics() {
+
+        Configuration conf = new Configuration();
+        conf.setNumberOfRegisters(2);
+        conf.setMaxNrInstructions(4);
+        List<InOutParameters> collection = TestCases.getTestCases(new AdderFinder(), TestCases.getExampleInput2D(1000,100, 10), 2);
+        conf.setHeuristic(new HashedResultsHeuristic(collection.get(0).input, new AccStatementRunner()));
+        ProgramFitnessExaminerInterface evaluator = new ProgramFitnessExaminer(collection, new AccStatementRunner());
+        evaluator.addListener(new TimingAccFitnessLogger(10000));
+        conf.setFitnessExaminer(evaluator);
+        GeneralBruteForceProgramIterator iter = new GeneralBruteForceProgramIterator();
+        assertNotNull(iter.iterate(conf));
+
+    }
+
 }

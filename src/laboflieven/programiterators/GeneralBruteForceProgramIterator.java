@@ -86,26 +86,25 @@ public class GeneralBruteForceProgramIterator implements ProgramIterator
             return;
         for (AccInstructionOpcodeEnum instruction : accInstructionOpcodeEnums)
         {
-            Program p = new Program(instructions, registers);
-            if (heuristic.shouldRecurse(p, maximumInstructions)) {
-                if (instruction.isSingleRegister()) {
-                    for (Register register1 : registers) {
-                        InstructionMark actualInstruction = instructionFactory.createInstruction(new laboflieven.common.AccInstructionOpcode(instruction), register1);
-                        processInstruction(instructions, (AccRegisterInstruction) actualInstruction);
-                    }
-                } else {
-                    InstructionMark actualInstruction = instructionFactory.createInstruction(new laboflieven.common.AccInstructionOpcode(instruction));
+            if (instruction.isSingleRegister()) {
+                for (Register register1 : registers) {
+                    InstructionMark actualInstruction = instructionFactory.createInstruction(new laboflieven.common.AccInstructionOpcode(instruction), register1);
                     processInstruction(instructions, (AccRegisterInstruction) actualInstruction);
                 }
+            } else {
+                InstructionMark actualInstruction = instructionFactory.createInstruction(new laboflieven.common.AccInstructionOpcode(instruction));
+                processInstruction(instructions, (AccRegisterInstruction) actualInstruction);
             }
-
         }
     }
 
     private void processInstruction(List<InstructionMark> instructions, AccRegisterInstruction actualInstruction) {
         instructions.add(actualInstruction);
-        eval(instructions);
-        recurse(instructions);
+        Program p = new Program(instructions, registers);
+        if (heuristic.shouldRecurse(p, maximumInstructions)) {
+            eval(instructions);
+            recurse(instructions);
+        }
         instructions.remove(instructions.size() - 1);
     }
 
