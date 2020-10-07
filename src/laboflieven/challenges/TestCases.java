@@ -27,6 +27,18 @@ public class TestCases
         return points.toArray(new double[0][0]);
     }
 
+    public static double[][] getExampleInput2D(int max, int jump, int min)
+    {
+        List<double[]> points = new ArrayList<>();
+        for (int x = min; x < max; x+= jump){
+            for (int y = min; y < max; y += jump)
+            {
+                points.add(new double[] {(double) x, (double) y});
+            }
+        }
+        return points.toArray(new double[0][0]);
+    }
+
     public static double[][] getBooleanInput2D()
     {
         List<double[]> points = new ArrayList<>();
