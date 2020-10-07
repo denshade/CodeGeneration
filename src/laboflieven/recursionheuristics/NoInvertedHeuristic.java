@@ -1,6 +1,7 @@
 package laboflieven.recursionheuristics;
 
 import laboflieven.InstructionMark;
+import laboflieven.Program;
 import laboflieven.statements.Instruction;
 import laboflieven.statements.Invert;
 import laboflieven.statements.Mul;
@@ -12,8 +13,8 @@ public class NoInvertedHeuristic implements RecursionHeuristic
 {
 
     @Override
-    public boolean shouldRecurse(List<InstructionMark> instructions, int nrInstructions) {
-        String s = instructions.toString();
+    public boolean shouldRecurse(Program program, int nrInstructions) {
+        String s = program.getInstructions().toString();
         if (s.startsWith("[PI")){
                 return false;
         }

@@ -13,28 +13,25 @@ public class HashedResultsHeuristic implements RecursionHeuristic
 {
     private final Map<String, Double> challenge;
     private final StatementRunner runner;
-    private final List<Register> registers;
     private Map<String, Integer> hashMinInstructionMap = new HashMap<>();
 
-    public HashedResultsHeuristic(Map<String, Double> challenge, StatementRunner runner, List<Register> registers)
+    public HashedResultsHeuristic(Map<String, Double> challenge, StatementRunner runner)
     {
         this.challenge = challenge;
         this.runner = runner;
-        this.registers = registers;
     }
 
     @Override
-    public boolean shouldRecurse(List<InstructionMark> instructionsMarks, int maximumInstructions) {
-        Program p = new Program( instructionsMarks, registers);
-        Map<String, Double> values =  runner.execute(p, challenge);
+    public boolean shouldRecurse(Program program, int maximumInstructions) {
+        Map<String, Double> values =  runner.execute(program, challenge);
         String hash = getHash(values);
         if (hashMinInstructionMap.containsKey(hash))
         {
-            if (instructionsMarks.size() >= hashMinInstructionMap.get(hash)) {
+            if (program.getInstructions().size() >= hashMinInstructionMap.get(hash)) {
                 return false;
             }
         }
-        hashMinInstructionMap.put(hash, instructionsMarks.size());
+        hashMinInstructionMap.put(hash, program.getInstructions().size());
         return true;
     }
 

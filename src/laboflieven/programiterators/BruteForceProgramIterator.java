@@ -1,5 +1,6 @@
 package laboflieven.programiterators;
 
+import laboflieven.Program;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
 import laboflieven.InstructionMark;
 import laboflieven.recursionheuristics.AlwaysRecursionHeuristic;
@@ -74,7 +75,8 @@ public class BruteForceProgramIterator
                     for (Register register2 : registers) {
                         InstructionMark actualInstruction = instructionFactory.createInstruction(new laboflieven.common.RegularInstructionOpcode(instruction), register1, register2);
                         instructions.add(actualInstruction);
-                        if (recursionHeuristic.shouldRecurse(instructions, nrRegisters))
+                        Program p = new Program(instructions, registerList);
+                        if (recursionHeuristic.shouldRecurse(p, nrRegisters))
                         {
                             eval(instructions, registerList);
                             recurse(instructions, registers);
@@ -85,7 +87,8 @@ public class BruteForceProgramIterator
                 } else {
                     InstructionMark actualInstruction = instructionFactory.createInstruction(new laboflieven.common.RegularInstructionOpcode(instruction), register1);
                     instructions.add(actualInstruction);
-                    if (recursionHeuristic.shouldRecurse(instructions, nrRegisters)) {
+                    Program p = new Program(instructions, List.of(registers));
+                    if (recursionHeuristic.shouldRecurse(p, nrRegisters)) {
                         eval(instructions, registerList);
                         recurse(instructions, registers);
                     }

@@ -1,6 +1,7 @@
 package laboflieven.recursionheuristics;
 
 import laboflieven.InstructionMark;
+import laboflieven.Program;
 
 import java.util.List;
 
@@ -14,10 +15,10 @@ public class CombinedHeuristic implements RecursionHeuristic
         this.heuristics = heuristics;
     }
     @Override
-    public boolean shouldRecurse(List<InstructionMark> instructions, int nrInstructions) {
+    public boolean shouldRecurse(Program program, int nrInstructions) {
         for (RecursionHeuristic heuristic : heuristics)
         {
-            if (!heuristic.shouldRecurse(instructions, nrInstructions)) return false;
+            if (!heuristic.shouldRecurse(program, nrInstructions)) return false;
         }
         return true;
     }

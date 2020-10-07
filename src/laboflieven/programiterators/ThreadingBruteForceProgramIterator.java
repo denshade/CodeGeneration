@@ -1,6 +1,7 @@
 package laboflieven.programiterators;
 
 import laboflieven.InstructionMark;
+import laboflieven.Program;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
 import laboflieven.accinstructions.AccRegisterInstruction;
 import laboflieven.accinstructions.AccInstructionOpcodeEnum;
@@ -67,7 +68,8 @@ public class ThreadingBruteForceProgramIterator
             return;
         Arrays.stream(accInstructionOpcodeEnums).parallel().forEach(instruction ->
         {
-            if (heuristic.shouldRecurse(instructions, maximumInstructions)) {
+            Program p = new Program(instructions, List.of(registers));
+            if (heuristic.shouldRecurse(p, maximumInstructions)) {
                 if (instruction.isSingleRegister()) {
                     for (Register register1 : registers) {
                         InstructionMark actualInstruction = instructionFactory.createInstruction(new laboflieven.common.AccInstructionOpcode(instruction), register1);

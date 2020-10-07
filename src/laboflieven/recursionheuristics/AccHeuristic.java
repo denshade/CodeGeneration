@@ -1,8 +1,7 @@
 package laboflieven.recursionheuristics;
 
-import laboflieven.InstructionMark;
+import laboflieven.Program;
 import laboflieven.accinstructions.*;
-import laboflieven.statements.Register;
 
 import java.util.List;
 
@@ -10,8 +9,8 @@ public class AccHeuristic implements RecursionHeuristic
 {
 
     @Override
-    public boolean shouldRecurse(List<InstructionMark> instructionsMarks, int maximumInstructions) {
-        List<AccRegisterInstruction> instructions = (List<AccRegisterInstruction>)(List<?>)instructionsMarks;
+    public boolean shouldRecurse(Program program, int maximumInstructions) {
+        List<AccRegisterInstruction> instructions = (List<AccRegisterInstruction>)(List<?>)program.getInstructions();
         int size = instructions.size();
         if (size == 0) return true;
         AccRegisterInstruction lastInstruction = instructions.get(size - 1);

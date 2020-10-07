@@ -24,9 +24,10 @@ class HashedResultsHeuristicTest {
         k.put("r3", 2.0);
         k.put("r4", 2.0);
         List<InstructionMark> instructs = new ArrayList<>();
+        Program p = new Program(instructs, Register.create4Registers());
 
-        HashedResultsHeuristic h = new HashedResultsHeuristic(k, new AccStatementRunner(2), Register.create4Registers());
-        assertTrue(h.shouldRecurse(instructs,2));
+        HashedResultsHeuristic h = new HashedResultsHeuristic(k, new AccStatementRunner(2));
+        assertTrue(h.shouldRecurse(p,2));
 
     }
 
@@ -39,10 +40,11 @@ class HashedResultsHeuristicTest {
         k.put("r4", 2.0);
         List<InstructionMark> instructs = new ArrayList<>();
         instructs.add(new Add()); //L + R = 0
-        HashedResultsHeuristic h = new HashedResultsHeuristic(k, new AccStatementRunner(2), Register.create4Registers());
-        assertTrue(h.shouldRecurse(instructs,2));
+        Program p = new Program(instructs, Register.create4Registers());
+        HashedResultsHeuristic h = new HashedResultsHeuristic(k, new AccStatementRunner(2));
+        assertTrue(h.shouldRecurse(p,2));
         instructs.add(new Add()); //L + R = 0
-        assertFalse(h.shouldRecurse(instructs,2));
+        assertFalse(h.shouldRecurse(p,2));
     }
 
     @Test
@@ -57,13 +59,15 @@ class HashedResultsHeuristicTest {
         instructs.add(new AccLeftPush(registerList.get(0)));
         instructs.add(new AccRightPush(registerList.get(0)));
         instructs.add(new Add());
-        HashedResultsHeuristic h = new HashedResultsHeuristic(k, new AccStatementRunner(100), registerList);
-        assertTrue(h.shouldRecurse(instructs,2));
+        Program p = new Program(instructs, Register.create4Registers());
+        HashedResultsHeuristic h = new HashedResultsHeuristic(k, new AccStatementRunner(100));
+        assertTrue(h.shouldRecurse(p,2));
         List<InstructionMark> instructs2 = new ArrayList<>();
         instructs2.add(new AccRightPush(registerList.get(0)));
         instructs2.add(new AccLeftPush(registerList.get(0)));
         instructs2.add(new Add());
-        assertFalse(h.shouldRecurse(instructs2,2));
+        Program p2 = new Program(instructs2, Register.create4Registers());
+        assertFalse(h.shouldRecurse(p2,2));
     }
 
 }

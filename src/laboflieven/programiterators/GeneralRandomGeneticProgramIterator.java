@@ -1,6 +1,7 @@
 package laboflieven.programiterators;
 
 import laboflieven.InstructionMark;
+import laboflieven.Program;
 import laboflieven.common.Configuration;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
 import laboflieven.ProgramResolution;
@@ -187,7 +188,9 @@ public class GeneralRandomGeneticProgramIterator implements ProgramIterator{
             } else {
                 actualInstruction = instructionFactory.createInstruction(new laboflieven.common.AccInstructionOpcode(instruction));
             }
-            if (heuristic.shouldRecurse(instructions, maximumInstructions)) {
+            Program p = new Program(instructions, List.of(registers));
+
+            if (heuristic.shouldRecurse(p, maximumInstructions)) {
                 foundProgram = true;
                 instructions.add(0, actualInstruction);
                 recurse(instructions);

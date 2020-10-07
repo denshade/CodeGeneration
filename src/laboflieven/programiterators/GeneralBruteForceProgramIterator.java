@@ -1,6 +1,7 @@
 package laboflieven.programiterators;
 
 import laboflieven.InstructionMark;
+import laboflieven.Program;
 import laboflieven.ProgramResolution;
 import laboflieven.common.Configuration;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
@@ -79,7 +80,8 @@ public class GeneralBruteForceProgramIterator implements ProgramIterator
             return;
         for (AccInstructionOpcodeEnum instruction : accInstructionOpcodeEnums)
         {
-            if (heuristic.shouldRecurse(instructions, maximumInstructions)) {
+            Program p = new Program(instructions, registers);
+            if (heuristic.shouldRecurse(p, maximumInstructions)) {
                 if (instruction.isSingleRegister()) {
                     for (Register register1 : registers) {
                         InstructionMark actualInstruction = instructionFactory.createInstruction(new laboflieven.common.AccInstructionOpcode(instruction), register1);

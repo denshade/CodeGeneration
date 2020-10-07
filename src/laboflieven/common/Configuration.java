@@ -7,6 +7,7 @@ import laboflieven.examiners.ProgramFitnessExaminerInterface;
 import laboflieven.programiterators.*;
 import laboflieven.recursionheuristics.AccHeuristic;
 import laboflieven.recursionheuristics.AlwaysRecursionHeuristic;
+import laboflieven.recursionheuristics.HashedResultsHeuristic;
 import laboflieven.recursionheuristics.RecursionHeuristic;
 import laboflieven.statements.InstructionFactoryInterface;
 import laboflieven.statements.RegularInstructionOpcodeEnum;
