@@ -1,5 +1,6 @@
 package laboflieven.recursionheuristics;
 
+import laboflieven.InOutParameters;
 import laboflieven.InstructionMark;
 import laboflieven.Program;
 import laboflieven.accinstructions.*;
@@ -18,55 +19,56 @@ class HashedResultsHeuristicTest {
 
     @Test
     void shouldRecurseFirstTime() {
-        Map<String, Double> k = new HashMap<>();
-        k.put("r1", 2.0);
-        k.put("r2", 2.0);
-        k.put("r3", 2.0);
-        k.put("r4", 2.0);
         List<InstructionMark> instructs = new ArrayList<>();
-        Program p = new Program(instructs, Register.create4Registers());
+        Program p = new Program(instructs, Register.createRegisters(2, "r"));
 
-        HashedResultsHeuristic h = new HashedResultsHeuristic(k, new AccStatementRunner(2));
+        HashedResultsHeuristic h = new HashedResultsHeuristic( getExampleParameters(), new AccStatementRunner(2));
         assertTrue(h.shouldRecurse(p,2));
 
     }
 
     @Test
     void shouldNotRecurseIfSmallerProgramExists() {
-        Map<String, Double> k = new HashMap<>();
-        k.put("r1", 2.0);
-        k.put("r2", 2.0);
-        k.put("r3", 2.0);
-        k.put("r4", 2.0);
+        List<InOutParameters> solutions = getExampleParameters();
         List<InstructionMark> instructs = new ArrayList<>();
         instructs.add(new Add()); //L + R = 0
-        Program p = new Program(instructs, Register.create4Registers());
-        HashedResultsHeuristic h = new HashedResultsHeuristic(k, new AccStatementRunner(2));
+        Program p = new Program(instructs, Register.createRegisters(2, "r"));
+        HashedResultsHeuristic h = new HashedResultsHeuristic(solutions, new AccStatementRunner(2));
         assertTrue(h.shouldRecurse(p,2));
         instructs.add(new Add()); //L + R = 0
         assertFalse(h.shouldRecurse(p,2));
     }
 
+    private List<InOutParameters> getExampleParameters() {
+        InOutParameters param = getInOutParameter(2);
+        InOutParameters param2 = getInOutParameter(3);
+        return List.of(param, param2);
+    }
+
+    private InOutParameters getInOutParameter(double val) {
+        Map<String, Double> k = new HashMap<>();
+        k.put("r1", val);
+        k.put("r2", val + 1);
+        InOutParameters param = new InOutParameters();
+        param.input = k;
+        return param;
+    }
+
     @Test
     void shouldNotRecurseIfSmallerProgramExistsCaseStudy() {
-        Map<String, Double> k = new HashMap<>();
-        k.put("r1", 2.0);
-        k.put("r2", 2.0);
-        k.put("r3", 2.0);
-        k.put("r4", 2.0);
-        List<Register> registerList = Register.create4Registers();
+        List<Register> registerList = Register.createRegisters(2, "r");
         List<InstructionMark> instructs = new ArrayList<>();
         instructs.add(new AccLeftPush(registerList.get(0)));
         instructs.add(new AccRightPush(registerList.get(0)));
         instructs.add(new Add());
-        Program p = new Program(instructs, Register.create4Registers());
-        HashedResultsHeuristic h = new HashedResultsHeuristic(k, new AccStatementRunner(100));
+        Program p = new Program(instructs, registerList);
+        HashedResultsHeuristic h = new HashedResultsHeuristic( getExampleParameters(), new AccStatementRunner(100));
         assertTrue(h.shouldRecurse(p,2));
         List<InstructionMark> instructs2 = new ArrayList<>();
         instructs2.add(new AccRightPush(registerList.get(0)));
         instructs2.add(new AccLeftPush(registerList.get(0)));
         instructs2.add(new Add());
-        Program p2 = new Program(instructs2, Register.create4Registers());
+        Program p2 = new Program(instructs2, registerList);
         assertFalse(h.shouldRecurse(p2,2));
     }
 

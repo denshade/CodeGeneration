@@ -1,5 +1,6 @@
 package laboflieven.recursionheuristics;
 
+import laboflieven.InOutParameters;
 import laboflieven.InstructionMark;
 import laboflieven.Program;
 import laboflieven.accinstructions.*;
@@ -11,28 +12,32 @@ import java.util.*;
 
 public class HashedResultsHeuristic implements RecursionHeuristic
 {
-    private final Map<String, Double> challenge;
+    private final List<InOutParameters> challenges;
     private final StatementRunner runner;
     private Map<String, Integer> hashMinInstructionMap = new HashMap<>();
 
-    public HashedResultsHeuristic(Map<String, Double> challenge, StatementRunner runner)
+    public HashedResultsHeuristic(List<InOutParameters> challenges, StatementRunner runner)
     {
-        this.challenge = challenge;
+        this.challenges = challenges;
         this.runner = runner;
     }
 
     @Override
     public boolean shouldRecurse(Program program, int maximumInstructions) {
-        Map<String, Double> values =  runner.execute(program, challenge);
-        String hash = getHash(values);
-        if (hashMinInstructionMap.containsKey(hash))
+        StringBuilder hash = new StringBuilder();
+        for (InOutParameters challenge: challenges)
         {
-            if (program.getInstructions().size() >= hashMinInstructionMap.get(hash)) {
+            Map<String, Double> values =  runner.execute(program, challenge.input);
+            hash.append(getHash(values));
+        }
+        if (hashMinInstructionMap.containsKey(hash.toString()))
+        {
+            if (program.getInstructions().size() >= hashMinInstructionMap.get(hash.toString())) {
                 System.out.println(program.getInstructions() + " skipped");
                 return false;
             }
         }
-        hashMinInstructionMap.put(hash, program.getInstructions().size());
+        hashMinInstructionMap.put(hash.toString(), program.getInstructions().size());
         return true;
     }
 
