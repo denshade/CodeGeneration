@@ -20,8 +20,7 @@ import java.util.Map;
  */
 public class LoggingProgramFitnessExaminer extends ProgramFitnessExaminer
 {
-    final Map<BigInteger, Double>  errors = new HashMap<>();
-
+    private final Map<BigInteger, Double>  errors = new HashMap<>();
     private final FileWriter writer;
     /**
      * @param conditions Conditions that define the input parameters & the expected outcome.
@@ -39,9 +38,7 @@ public class LoggingProgramFitnessExaminer extends ProgramFitnessExaminer
         if (errors.containsKey(key) && errors.get(key) > err) {
             errors.put(key, err);
         }
-        if (!errors.containsKey(key)){
-            errors.put(key, err);
-        }
+        errors.putIfAbsent(key, err);
         return err;
     }
 
