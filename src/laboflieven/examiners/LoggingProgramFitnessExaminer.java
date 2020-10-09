@@ -3,7 +3,6 @@ package laboflieven.examiners;
 import laboflieven.InOutParameters;
 import laboflieven.InstructionMark;
 import laboflieven.ProgramEnumerator;
-import laboflieven.runners.RegularStatementRunner;
 import laboflieven.runners.StatementRunner;
 import laboflieven.statements.Register;
 
@@ -21,7 +20,7 @@ import java.util.Map;
  */
 public class LoggingProgramFitnessExaminer extends ProgramFitnessExaminer
 {
-    Map<BigInteger, Double> errors = new HashMap<>();
+    final Map<BigInteger, Double>  errors = new HashMap<>();
 
     private final FileWriter writer;
     /**
@@ -34,7 +33,7 @@ public class LoggingProgramFitnessExaminer extends ProgramFitnessExaminer
 
     public double calculateFitness(List<InstructionMark> instructions, List<Register> registers)
     {
-        ProgramEnumerator enumerator = new ProgramEnumerator(Collections.EMPTY_LIST, registers.size());
+        ProgramEnumerator enumerator = new ProgramEnumerator(List.of(), registers.size());
         double err = super.calculateFitness(instructions, registers);
         var key = enumerator.convert(instructions);
         if (errors.containsKey(key) && errors.get(key) > err) {
@@ -52,6 +51,7 @@ public class LoggingProgramFitnessExaminer extends ProgramFitnessExaminer
             Double err = errors.get(key);
             writer.write( key + "," + err + "\n");
         }
+        writer.close();
     }
 
 }
