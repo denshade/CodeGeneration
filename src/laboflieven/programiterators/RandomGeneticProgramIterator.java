@@ -179,16 +179,12 @@ public class RandomGeneticProgramIterator {
             chosenSolutions.add(new ArrayList<>(instructions));
             return;
         }
-        int instructionsLeft = maximumInstructions - instructions.size();
-        if (instructionsLeft < 0) {
-            return;
-        }
 
         Random r = new Random();
         int location = r.nextInt(enums.length);
         RegularInstructionOpcodeEnum instruction = enums[location];
+        Register register1 = registers[r.nextInt(registers.length)];
         if (instruction.isDualRegister()) {
-            Register register1 = registers[r.nextInt(registers.length)];
             Register register2 = registers[r.nextInt(registers.length)];
 
             if (isUselessOp(instruction, register1, register2)) {
@@ -198,21 +194,18 @@ public class RandomGeneticProgramIterator {
             InstructionMark actualInstruction = instructionFactory.createInstruction(new laboflieven.common.RegularInstructionOpcode(instruction), register1, register2);
             instructions.add(actualInstruction);
             //eval(instructions, Arrays.asList(registers));
-            recurse(instructions);
-            instructions.remove(0);
         } else {
 
-            Register register1 = registers[r.nextInt(registers.length)];
             InstructionMark actualInstruction = instructionFactory.createInstruction(new laboflieven.common.RegularInstructionOpcode(instruction), register1);
             instructions.add(0, actualInstruction);
             //eval(instructions, Arrays.asList(registers));
             /**
              * Available registers remains the same. No new registers are used.
              */
-            recurse(instructions);
-            instructions.remove(0);
 
         }
+        recurse(instructions);
+        instructions.remove(0);
     }
 
     private boolean isUselessOp(RegularInstructionOpcodeEnum instruction, Register register1, Register register2) {
