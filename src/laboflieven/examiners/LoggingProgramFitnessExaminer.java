@@ -14,6 +14,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * Created by Lieven on 14/06/2015.
@@ -42,11 +43,10 @@ public class LoggingProgramFitnessExaminer extends ProgramFitnessExaminer
         return err;
     }
 
-    public void writeAndClose() throws IOException {
-        for (var key : errors.keySet())
-        {
-            Double err = errors.get(key);
-            writer.write( key + "," + err + "\n");
+    public void writeAndClose() throws Exception {
+        for (Map.Entry<BigInteger, Double> e : errors.entrySet()) {
+            String s = e.getKey() + "," + e.getValue() + "\n";
+            writer.write(s);
         }
         writer.close();
     }
