@@ -43,7 +43,7 @@ public class LoggingProgramFitnessExaminer extends ProgramFitnessExaminer
         return err;
     }
 
-    public void writeAndClose() throws Exception {
+    public void writeAndClose() throws IOException {
         for (Map.Entry<BigInteger, Double> e : errors.entrySet()) {
             String s = e.getKey() + "," + e.getValue() + "\n";
             writer.write(s);
