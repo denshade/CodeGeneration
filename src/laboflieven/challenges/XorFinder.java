@@ -1,21 +1,6 @@
 package laboflieven.challenges;
 
-import laboflieven.*;
-import laboflieven.examiners.ProgramFitnessExaminer;
-import laboflieven.examiners.ProgramFitnessExaminerInterface;
-import laboflieven.programiterators.BruteForceProgramIterator;
-import laboflieven.recursionheuristics.AlwaysRecursionHeuristic;
-import laboflieven.runners.RegularStatementRunner;
-import laboflieven.runners.StatementRunner;
-import laboflieven.statements.RegularInstructionOpcodeEnum;
-import laboflieven.statements.Register;
-
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import laboflieven.common.Configuration;
 
 public class XorFinder implements ProgramTemplate
     {
@@ -25,31 +10,15 @@ public class XorFinder implements ProgramTemplate
             return (a|b)?1.0:0.0;
         }
 
-
-        public static void main(String[] args) throws IOException {
-            int curMaxRegisters = 2;
-            List<double[]> points = new ArrayList<>();
-            points.add(new double[] { 0,0});
-            points.add(new double[] { 0,1});
-            points.add(new double[] { 1,0});
-            points.add(new double[] { 1,1});
-
-            List<InstructionMark> instr = ProgramParser.parse("[R2 += R1, One R1, R2 += R1, Mod R2 -> R1]");
-            StatementRunner runner = new RegularStatementRunner();
-            Map<String, Double> m = new HashMap<>();
-            m.put("R1", 0.0);
-            m.put("R2", 0.0);
-
-            runner.execute(new Program(instr, Register.createRegisters(2, "R")), m);
-
-            List<InOutParameters> collection = TestCases.getTestCases(new XorFinder(), points.toArray(new double[0][0]),curMaxRegisters);
-            File f = new File("c:\\temp\\test.csv");
-            ProgramFitnessExaminerInterface evaluator = new ProgramFitnessExaminer(collection, new RegularStatementRunner());
-            BruteForceProgramIterator iter = new BruteForceProgramIterator(evaluator, new AlwaysRecursionHeuristic(), new RegularInstructionOpcodeEnum[] {RegularInstructionOpcodeEnum.Add, RegularInstructionOpcodeEnum.Sub, RegularInstructionOpcodeEnum.Zero, RegularInstructionOpcodeEnum.One, RegularInstructionOpcodeEnum.Div, RegularInstructionOpcodeEnum.Mul, RegularInstructionOpcodeEnum.Invert, RegularInstructionOpcodeEnum.Mod});
-            long start = System.currentTimeMillis();
-            iter.iterate(curMaxRegisters, 3);
-            //evaluator.writeAndClose();
-            System.out.println(System.currentTimeMillis() - start + "ms");
+        public static void main(String[] args) {
+            String[] arguments =
+                    (       Configuration.ConfigurationKey.MAX_NR_OF_INSTRUCTIONS + "=3 " +
+                            Configuration.ConfigurationKey.NR_REGISTERS + "=2 "+
+                            Configuration.ConfigurationKey.INSTRUCTION_FACTORY +"=Regular " +
+                            Configuration.ConfigurationKey.DATA_PROVIDER + "=laboflieven.challenges.XorFinder " +
+                            Configuration.ConfigurationKey.PROGRAM_ITERATOR + "=brute"
+                            ).split(" ");
+            GeneralFinder.loadConfigAndRun(arguments);
         }
 
         @Override

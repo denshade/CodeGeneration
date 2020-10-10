@@ -23,6 +23,11 @@ public class GeneralFinder
 {
 
     public static void main(String[] args) {
+        loadConfigAndRun(args);
+    }
+
+    public static void loadConfigAndRun(String[] args)
+    {
         CommandLineConfigLoader loader = new CommandLineConfigLoader();
         Configuration config = loader.loadFromCommandLine(args);
         System.out.println("Running with the following config: " + config);

@@ -50,7 +50,9 @@ public class Configuration {
             switch(s) {
                 case "Regular" : return new laboflieven.statements.InstructionFactory();
                 case "Acc" :
-                default: return new InstructionFactory();
+                default:
+                    System.out.println("Warning: Didn't recognize instruction factory:" + s);
+                    return new InstructionFactory();
             }
         }
     }
