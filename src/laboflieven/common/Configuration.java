@@ -120,6 +120,17 @@ public class Configuration {
             }
         }
     }
+    private static class DataSourceParser implements Parser {
+        @Override
+        public Object parse(String s) {
+            try {
+                return Class.forName(s).newInstance();
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
 
     public enum ConfigurationKey  {
         OPCODES(new IntParser()),
@@ -137,13 +148,15 @@ public class Configuration {
         RECURSION_HEURISTIC(new HeuristicParser()),
         ACC_OPERATIONS(new AccOperationsParser()),
         CUT_POPULATION_AT_MAX(new IntParser()),
-        CUT_POPULATION_TO(new IntParser()), RND_ADDED(new BoolParser());
+        CUT_POPULATION_TO(new IntParser()), RND_ADDED(new BoolParser()),
+        DATA_SOURCE(new DataSourceParser());
 
         public Parser parser;
 
         ConfigurationKey(Parser s) {
             this.parser = s;
         }
+
     }
 
 

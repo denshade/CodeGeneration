@@ -31,7 +31,6 @@ class GeneralBruteForceProgramIteratorTest {
         conf.setFitnessExaminer(evaluator);
         GeneralBruteForceProgramIterator iter = new GeneralBruteForceProgramIterator();
         assertNotNull(iter.iterate(conf));
-
     }
 
     @Test
