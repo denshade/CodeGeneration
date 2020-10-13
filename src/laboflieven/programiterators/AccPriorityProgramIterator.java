@@ -4,6 +4,8 @@ import laboflieven.*;
 import laboflieven.accinstructions.AccInstructionOpcodeEnum;
 import laboflieven.common.*;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
+import laboflieven.recursionheuristics.AlwaysRecursionHeuristic;
+import laboflieven.recursionheuristics.RecursionHeuristic;
 import laboflieven.statements.InstructionFactory;
 import laboflieven.statements.InstructionFactoryInterface;
 import laboflieven.statements.Register;
@@ -23,6 +25,7 @@ public class AccPriorityProgramIterator  implements ProgramIterator
     private AccInstructionOpcodeEnum[] enums;
     PriorityQueue<ProgramResolution> priorityQueue = new PriorityQueue<>();
     private Register[] registers;
+    private RecursionHeuristic heuristic = new AlwaysRecursionHeuristic();
     private InstructionFactoryInterface instructionFactory;
     private BestFitRegister<ProgramResolution> bestFitRegister = new BestFitRegister<>();
 
@@ -43,7 +46,14 @@ public class AccPriorityProgramIterator  implements ProgramIterator
             ProgramResolution res = priorityQueue.poll();
             List<InstructionMark> instructions = res.instructions;
             if (instructions.size() < configuration.getMaxNrInstructions(10)) {
-                addLevel(registerList, instructions);
+                Program prog = new Program(instructions, registerList);
+                if (heuristic.shouldRecurse(prog, configuration.getMaxNrInstructions(10)))
+                {
+                    addLevel(registerList, instructions);
+                }
+                else {
+                    System.out.println("Skipped level of " + instructions);
+                }
             } else {
                 if (priorityQueue.size() > CUT_POPULATION_AT_MAX)
                 {
