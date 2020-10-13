@@ -208,7 +208,7 @@ public class Configuration {
     }
 
     public int getMaxDurationSeconds(int defaultValue) {
-        return getValue(defaultValue, ConfigurationKey.NR_REGISTERS);
+        return getValue(defaultValue, ConfigurationKey.MAX_DURATION_SECONDS);
     }
 
     public void setFitnessExaminer(ProgramFitnessExaminerInterface programFitnessExaminer)
