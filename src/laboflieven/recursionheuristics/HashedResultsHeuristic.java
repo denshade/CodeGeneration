@@ -33,7 +33,7 @@ public class HashedResultsHeuristic implements RecursionHeuristic
         if (hashMinInstructionMap.containsKey(hash.toString()))
         {
             if (program.getInstructions().size() >= hashMinInstructionMap.get(hash.toString())) {
-                System.out.println(program.getInstructions() + " skipped");
+                //System.out.println(program.getInstructions() + " skipped");
                 return false;
             }
         }

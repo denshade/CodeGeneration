@@ -95,6 +95,9 @@ public class InstructionFactory implements InstructionFactoryInterface {
             case E:
                 instruction = new E();
                 break;
+            case Inc:
+                instruction = new Inc();
+                break;
             default:
                 throw new IllegalArgumentException("invalid instruction " + accInstructionOpcodeEnum.toString());
         }

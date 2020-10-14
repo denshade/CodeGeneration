@@ -10,7 +10,7 @@ import java.util.Set;
 public enum AccInstructionOpcodeEnum
 {
 
-    Add(0), Div(0), Invert(0), Mul(0), Sqrt(0), Sub(0), Sin(0), Cos(0), Mod(0), Nand(0), Log(0), AccLeftPull(1), AccLeftPush(1), AccRightPush(1), AccRightPull(1),
+    Add(0), Div(0), Invert(0), Inc(0), Mul(0), Sqrt(0), Sub(0), Sin(0), Cos(0), Mod(0), Nand(0), Log(0), AccLeftPull(1), AccLeftPush(1), AccRightPush(1), AccRightPull(1),
     JumpIfLteStart(0), JumpIfGteStart(0)/*JumpIfLte, JumpIfGte*/, Jump2IfGte(0), Jump2IfLte(0), Jump2IfEq(0), Jump2IfNeq(0),
     Jump2IfZero(0), Quit(0), Pow(0), Swap(0), PI(0), E(0);
 
