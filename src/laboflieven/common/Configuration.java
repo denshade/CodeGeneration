@@ -275,6 +275,9 @@ public class Configuration {
         else
             return AccInstructionOpcodeEnum.values();
     }
+    public void setAccOperations(AccInstructionOpcodeEnum[] enums) {
+        configurationSettings.put(ConfigurationKey.ACC_OPERATIONS, enums);
+    }
 
     public int getCutPopulationAtMax(int defaultNr){
         return getValue(defaultNr, ConfigurationKey.CUT_POPULATION_AT_MAX);
