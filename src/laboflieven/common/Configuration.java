@@ -303,6 +303,9 @@ public class Configuration {
         }
         return (boolean) configurationSettings.get(ConfigurationKey.RND_ADDED);
     }
+    public void setRandomAdded(boolean bool) {
+         configurationSettings.put(ConfigurationKey.RND_ADDED, bool);
+    }
 
     public void setHeuristic(RecursionHeuristic heuristic) {
         configurationSettings.put(ConfigurationKey.RECURSION_HEURISTIC, heuristic);
