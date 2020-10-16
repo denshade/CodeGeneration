@@ -282,6 +282,9 @@ public class Configuration {
     public int getCutPopulationAtMax(int defaultNr){
         return getValue(defaultNr, ConfigurationKey.CUT_POPULATION_AT_MAX);
     }
+    public void setCutPopulationAtMax(int defaultNr){
+        configurationSettings.put(ConfigurationKey.CUT_POPULATION_AT_MAX, defaultNr);
+    }
 
     public int getCutPopulationTo(int defaultNr){
         return getValue(defaultNr, ConfigurationKey.CUT_POPULATION_TO);

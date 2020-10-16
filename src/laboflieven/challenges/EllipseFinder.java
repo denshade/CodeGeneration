@@ -6,6 +6,7 @@ import laboflieven.common.Configuration;
 import laboflieven.examiners.ProgramFitnessExaminer;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
 import laboflieven.loggers.TimingAccFitnessLogger;
+import laboflieven.programiterators.GeneralBruteForceProgramIterator;
 import laboflieven.programiterators.ProgramIterator;
 import laboflieven.programiterators.RandomProgramIterator;
 import laboflieven.runners.AccStatementRunner;
@@ -18,9 +19,9 @@ import java.util.List;
 public class EllipseFinder implements ProgramTemplate
 {
     public static double distance(double a, double b) {
-        double h = ((a-b)*(a-b)) / ((a+b) * (a+b));
+        double h = ((a-b)*(a-b)) / ((a+b) * (a+b)); //
         return Math.PI * (a + b) * ( 1+ ( 3*h) / (10 + Math.sqrt(4 - 3 * h)));
-    }
+    } // PI ADD MUL  A+B = h = ADD, ADD. SUB SUB. ~ 50
 
 
     public static void main(String[] args) {
@@ -38,7 +39,7 @@ public class EllipseFinder implements ProgramTemplate
         config.setMaxNrInstructions(nrInstructions);
         config.setFitnessExaminer(evaluator);
         config.setInstructionFactory(new InstructionFactory());*/
-        ProgramIterator iter = config.getProgramIterator(new RandomProgramIterator());
+        ProgramIterator iter = config.getProgramIterator(new GeneralBruteForceProgramIterator());
         long start = System.currentTimeMillis();
         iter.iterate(config);
         System.out.println(System.currentTimeMillis() - start + "ms");

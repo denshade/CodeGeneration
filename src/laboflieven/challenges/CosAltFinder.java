@@ -25,7 +25,7 @@ import java.util.Set;
 public class CosAltFinder implements ProgramTemplate
 {
     public static double distance(double lat1) {
-        return 1.0/Math.cos(lat1);
+        return Math.cos(lat1);
     }
     //left ++, left++, swap, left=PI, left = left / right(DIV), right = R1, left = left - right, R1 = left.
     //Pi / 2.
@@ -38,9 +38,10 @@ public class CosAltFinder implements ProgramTemplate
         ProgramFitnessExaminerInterface evaluator = new ProgramFitnessExaminer(collection, new AccStatementRunner());
         evaluator.addListener(new TimingAccFitnessLogger(10000));
         configuration.setFitnessExaminer(evaluator);
-        configuration.setMaxNrInstructions(10);
+        configuration.setMaxNrInstructions(9);
         configuration.setNumberOfRegisters(1);
         configuration.setRandomAdded(false);
+        configuration.setCutPopulationAtMax(10000000);
         configuration.setInstructionFactory(new InstructionFactory());
         //configuration.setHeuristic(new HashedResultsHeuristic(collection, new AccStatementRunner()));
         configuration.setHeuristic(new AlwaysRecursionHeuristic());
