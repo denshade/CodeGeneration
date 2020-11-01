@@ -33,17 +33,17 @@ public class HumanProgramFitnessExaminer
     public boolean isFit(List<HumanInstruction> instructions, List<HumanRegister> registers)
     {
         resetRegisters(registers);
-        HumanStatementRunner runner = new HumanStatementRunner();
+        HumanStatementRunner runner = new HumanStatementRunner(maxExecutions);
         HumanResourceProgram program = new HumanResourceProgram(instructions, registers);
         for (int currentCondition = 0; currentCondition < conditions.size(); currentCondition++)
         {
-            Queue<Integer> outQ = new ArrayBlockingQueue<>(1000);
             HumanInOutput humanInOutput = conditions.get(currentCondition);
+            Queue<Integer> outQ = new ArrayBlockingQueue<>(humanInOutput.output.size());
             Queue<Integer> inQ = new ArrayBlockingQueue<>(humanInOutput.input.size());
             inQ.addAll(humanInOutput.input);
             try {
                 runner.execute(program, 0, inQ, outQ);
-            } catch (InvalidProgramException ipe)
+            } catch (Exception ipe)
             {
                 return false;
             }
@@ -77,8 +77,8 @@ public class HumanProgramFitnessExaminer
         HumanStatementRunner runner = new HumanStatementRunner(maxExecutions);
         HumanResourceProgram program = new HumanResourceProgram(instructions, registers);
         for (int currentCondition = 0; currentCondition < conditions.size(); currentCondition++) {
-            Queue<Integer> outQ = new ArrayBlockingQueue<>(1000);
             HumanInOutput currentExample = conditions.get(currentCondition);
+            Queue<Integer> outQ = new ArrayBlockingQueue<>(currentExample.output.size());
             Queue<Integer> inQ = new ArrayBlockingQueue<>(currentExample.input.size());
             inQ.addAll(currentExample.input);
             try {
@@ -92,7 +92,8 @@ public class HumanProgramFitnessExaminer
                         return false;
                     }
                 }
-            } catch (InvalidProgramException ipe) {
+            } catch(IllegalStateException | InvalidProgramException queueFull)
+            {
                 return false;
             }
         }

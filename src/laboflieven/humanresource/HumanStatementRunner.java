@@ -22,7 +22,7 @@ public class HumanStatementRunner {
         MAXINSTRUCT = maxInstructions;
     }
 
-    public int MAXINSTRUCT = 30;
+    public int MAXINSTRUCT = 100;
     /**
      *
      */
@@ -37,7 +37,10 @@ public class HumanStatementRunner {
         {
             instructionsRun++;
             if (instructionsRun > MAXINSTRUCT)
+            {
+                System.out.println("MAX INSTRUCT " + MAXINSTRUCT + " reached.");
                 break;
+            }
             HumanInstruction instruction = instructions.get(ip);
             if (instruction instanceof Inbox && incomingQ.size() == 0)
                 break;
