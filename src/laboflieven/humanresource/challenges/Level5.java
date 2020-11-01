@@ -15,7 +15,7 @@ public class Level5 {
         input.input = List.of(2,2,3,4,-3,6);
         input.output = List.of(4,7,3);
         var evaluator = new HumanProgramFitnessExaminer(List.of(input)
-                ,6);
+                ,100);
         var iterator = new BruteForceProgramIterator(evaluator, List.of(HumanInstructionEnum.INBOX, HumanInstructionEnum.OUTBOX, HumanInstructionEnum.CopyTo, HumanInstructionEnum.CopyFrom, HumanInstructionEnum.LOOP, HumanInstructionEnum.ADD).toArray(new HumanInstructionEnum[0]));
         iterator.iterate(1, 6);
     }

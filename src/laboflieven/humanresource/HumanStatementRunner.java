@@ -38,7 +38,7 @@ public class HumanStatementRunner {
             instructionsRun++;
             if (instructionsRun > MAXINSTRUCT)
             {
-                System.out.println("MAX INSTRUCT " + MAXINSTRUCT + " reached.");
+                //System.out.println("MAX INSTRUCT " + MAXINSTRUCT + " reached.");
                 break;
             }
             HumanInstruction instruction = instructions.get(ip);
