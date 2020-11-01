@@ -36,17 +36,6 @@ public class GeneralBruteForceProgramIterator implements ProgramIterator
     {
     }
 
-    public GeneralBruteForceProgramIterator(ProgramFitnessExaminerInterface evaluator, AccInstructionOpcodeEnum[] instructions)
-    {
-        this(evaluator, instructions, new AlwaysRecursionHeuristic());
-    }
-    public GeneralBruteForceProgramIterator(ProgramFitnessExaminerInterface evaluator, AccInstructionOpcodeEnum[] instructions, RecursionHeuristic heuristic)
-    {
-        this.evaluator = evaluator;
-        accInstructionOpcodeEnums = instructions;
-        this.heuristic = heuristic;
-    }
-
     public ProgramResolution iterate(Configuration configuration) {
         this.evaluator = configuration.getFitnessExaminer();
         this.accInstructionOpcodeEnums = configuration.getAccOperations();

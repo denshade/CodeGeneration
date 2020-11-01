@@ -1,6 +1,7 @@
 package laboflieven.challenges;
 
 import laboflieven.*;
+import laboflieven.common.Configuration;
 import laboflieven.examiners.ProgramFitnessExaminer;
 import laboflieven.loggers.AccPctBruteForceFitnessLogger;
 import laboflieven.accinstructions.AccInstructionOpcodeEnum;
@@ -35,10 +36,16 @@ Found a program: [R3 /= R1, Mod R2 -> R1, Mod R3 -> R2, Nand R2 -> R1]
                 AccInstructionOpcodeEnum.Nand
         };
         evaluator.addListener(new AccPctBruteForceFitnessLogger(instructions, 10000, curMaxRegisters));
-        GeneralBruteForceProgramIterator iter = new GeneralBruteForceProgramIterator(evaluator, instructions, new AccHeuristic());
+        var iter = new GeneralBruteForceProgramIterator();
+        var conf = new Configuration();
+        conf.setAccOperations(instructions);
+        conf.setFitnessExaminer(evaluator);
+        conf.setHeuristic(new AccHeuristic());
+        conf.setNumberOfRegisters(curMaxRegisters);
+        conf.setMaxNrInstructions(8);
         //AccRandomGeneticProgramIterator iter = new AccRandomGeneticProgramIterator(evaluator,  InstructionEnum.getMinimal(), 1000,1.2,0.4);
         long start = System.currentTimeMillis();
-        System.out.println(iter.iterate(curMaxRegisters, 8));
+        System.out.println(iter.iterate(conf));
         //evaluator.writeAndClose();
         System.out.println(System.currentTimeMillis() - start + "ms");
 
