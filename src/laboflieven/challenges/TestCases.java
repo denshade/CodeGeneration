@@ -127,6 +127,10 @@ public class TestCases
 
     public static List<InOutParameters> getTestCases(ProgramTemplate template, double[][] doubles, int curMaxRegisters)
     {
+        if (template == null) {
+            throw new IllegalArgumentException("Template must not be null");
+        }
+
         List<InOutParameters> collection = new ArrayList<>();
         for (double[] doubleRow : doubles)
         {
