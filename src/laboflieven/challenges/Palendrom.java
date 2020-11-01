@@ -26,71 +26,17 @@ public class Palendrom implements ProgramTemplate
         }
         int curMaxRegisters = 2;
         List<double[]> points = new ArrayList<>();
-        points.add(new double[]{1445});
-        points.add(new double[]{1441});
-        points.add(new double[]{1111});
-        points.add(new double[]{2222});
-        points.add(new double[]{555555});
-        points.add(new double[]{5555556});
-        points.add(new double[]{999999});
-        points.add(new double[]{1234});
-        points.add(new double[]{4321});
-        points.add(new double[]{12});
-        points.add(new double[]{11});
+        for (int i: new int[]{1445,1441,1111,2222,555555,5555556,999999,1234,4321,12,11})
+            points.add(new double[]{i});
         var random = new Random(12);
         for (int i = 0; i < 100; i++)
-        {
             points.add(new double[]{random.nextInt(99999999)});
-        }
 
         List<InOutParameters> collection = TestCases.getTestCases(new Palendrom(), points.toArray(new double[0][0]),curMaxRegisters);
         for (int i = 0; i < 10; i++)
         {
             runIteration(nrInstructions, curMaxRegisters, collection);
         }
-//[ left = R1, R1 = left, left = log(left),  right = R2,
-// swap = left, left = right, right = swap,
-// Jump if left <= right goto this + 2,  Jump if left >= right goto this + 2,
-// left = R1,
-// left = left * right,
-// R1 = right, left = log(left), left = left - right, left = left ^ right, left = cos(left), left = sqrt(left),
-// left = left ^ right, left = left * right, left = left - right, left = nand(left, right), R1 = left]
-        /*var registers = Register.createRegisters(2, "R");
-        List<InstructionMark> instructions = List.of(
-                new AccLeftPush(registers.get(0)),
-                //new AccLeftPull(registers.get(0)),
-                new Log(),
-                new AccRightPush(registers.get(1)),
-                new Swap(),
-                new Jump2IfLte(),
-                new Jump2IfGte(),
-                //new Mul(),
-                new AccLeftPush(registers.get(0)),
-                new Mul(),
-               // new AccRightPull(registers.get(0)),
-                new Log(),
-                new Sub(),
-                new Pow(),
-                new Cos(),
-                new Sqrt(),
-                new Pow(),
-                new Mul(),
-                new Sub(),
-                new Nand(),
-                new AccLeftPull(registers.get(0))
-        );
-        var runner = new AccStatementRunner();
-        runner.verbose = true;
-        var program = new Program(instructions, registers);
-        runner.execute(program, collection.get(4).input);
-        System.out.println(instructions);
-        //System.out.println("vs");
-        //System.out.println("[ left = R1, R1 = left, left = log(left),  right = R2, swap = left, left = right, right = swap,  Jump if left <= right goto this + 2,  Jump if left >= right goto this + 2,  left = R1, left = left * right, R1 = right, left = log(left), left = left - right, left = left ^ right, left = cos(left), left = sqrt(left), left = left ^ right, left = left * right, left = left - right, left = nand(left, right), R1 = left]);");
-        System.out.println(registers.get(0).value);
-        System.out.println("Error " + evaluator.calculateFitness(instructions, registers));
-        System.out.println(collection.get(4).expectedOutput);
-*/
-        //mainT(15,3);
     }
 
     private static void runIteration(int nrInstructions, int curMaxRegisters, List<InOutParameters> collection) {
@@ -98,16 +44,14 @@ public class Palendrom implements ProgramTemplate
 
         var evaluator = new ProgramFitnessExaminer(collection, new AccStatementRunner());
         Configuration config = Configuration.getInstance();
-        config.setFitnessExaminer(evaluator);
-        config.setInstructionFactory(new InstructionFactory());
-        config.setMaxNrInstructions(nrInstructions);
+        config.setFitnessExaminer(evaluator).setInstructionFactory(new InstructionFactory()).setMaxNrInstructions(nrInstructions);
         ProgramIterator iter = new RandomProgramIterator();
         long start = System.currentTimeMillis();
         try {
             iter.iterate(config);
         } catch(StoppedByUserException stopped)
         {
-
+            System.out.println("Stopped!");
         }
         //evaluator.writeAndClose();
         System.out.println(System.currentTimeMillis() - start + "ms");

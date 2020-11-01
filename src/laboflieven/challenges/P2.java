@@ -33,11 +33,9 @@ public class P2 implements ProgramTemplate
         ProgramFitnessExaminerInterface evaluator = new ProgramFitnessExaminer(collection, new AccStatementRunner());
         evaluator.addListener(new RandomSysOutAccFitnessLogger(10000));
         var conf = new Configuration();
-        conf.setMaxNrInstructions(6);
-        conf.setFitnessExaminer(evaluator);
-        conf.setNumberOfRegisters(curMaxRegisters);
-        conf.setAccOperations(AccInstructionOpcodeEnum.values());
-        conf.setHeuristic(new CombinedHeuristic(List.of(
+        conf.setMaxNrInstructions(6)
+        .setFitnessExaminer(evaluator).setNumberOfRegisters(curMaxRegisters).setAccOperations(AccInstructionOpcodeEnum.values())
+        .setHeuristic(new CombinedHeuristic(List.of(
                 new ResultsNoDataAfterFiveHeuristic(
                         new AccStatementRunner(),
                         evaluator,

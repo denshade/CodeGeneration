@@ -181,16 +181,18 @@ public class Configuration {
         return getValue(defaultValue, ConfigurationKey.MAX_NR_OF_INSTRUCTIONS);
     }
 
-    public void setMaxNrInstructions(int nrInstructions) {
+    public Configuration setMaxNrInstructions(int nrInstructions) {
         configurationSettings.put(ConfigurationKey.MAX_NR_OF_INSTRUCTIONS, nrInstructions);
+        return this;
     }
 
     public int getNumberOfRegisters(int defaultValue) {
         return getValue(defaultValue, ConfigurationKey.NR_REGISTERS);
     }
 
-    public void setNumberOfRegisters(int value) {
+    public Configuration setNumberOfRegisters(int value) {
         configurationSettings.put(ConfigurationKey.NR_REGISTERS, value);
+        return this;
     }
 
     private int getValue(int defaultValue, ConfigurationKey maxNrOfInstructions) {
@@ -211,17 +213,19 @@ public class Configuration {
         return getValue(defaultValue, ConfigurationKey.MAX_DURATION_SECONDS);
     }
 
-    public void setFitnessExaminer(ProgramFitnessExaminerInterface programFitnessExaminer)
+    public Configuration setFitnessExaminer(ProgramFitnessExaminerInterface programFitnessExaminer)
     {
         configurationSettings.put(ConfigurationKey.FITNESS_EXAMINER, programFitnessExaminer);
+        return this;
     }
 
     public ProgramFitnessExaminerInterface getFitnessExaminer() {
         return (ProgramFitnessExaminerInterface) configurationSettings.get(ConfigurationKey.FITNESS_EXAMINER);
     }
 
-    public void setInstructionFactory(InstructionFactory instructionFactory) {
+    public Configuration setInstructionFactory(InstructionFactory instructionFactory) {
         configurationSettings.put(ConfigurationKey.INSTRUCTION_FACTORY, instructionFactory);
+        return this;
     }
 
     public InstructionFactoryInterface getInstructionFactory()
@@ -275,8 +279,9 @@ public class Configuration {
         else
             return AccInstructionOpcodeEnum.values();
     }
-    public void setAccOperations(AccInstructionOpcodeEnum[] enums) {
+    public Configuration setAccOperations(AccInstructionOpcodeEnum[] enums) {
         configurationSettings.put(ConfigurationKey.ACC_OPERATIONS, enums);
+        return this;
     }
 
     public int getCutPopulationAtMax(int defaultNr){
@@ -310,8 +315,9 @@ public class Configuration {
          configurationSettings.put(ConfigurationKey.RND_ADDED, bool);
     }
 
-    public void setHeuristic(RecursionHeuristic heuristic) {
+    public Configuration setHeuristic(RecursionHeuristic heuristic) {
         configurationSettings.put(ConfigurationKey.RECURSION_HEURISTIC, heuristic);
+        return this;
     }
 
 

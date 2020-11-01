@@ -22,7 +22,7 @@ Found a program: [R3 /= R1, Mod R2 -> R1, Mod R3 -> R1, Nand R3 -> R1]
 Found a program: [R3 /= R1, Mod R2 -> R1, Mod R3 -> R2, Nand R2 -> R1]
 
      */
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
 
         int curMaxRegisters = 3;
         List<double[]> points = new ArrayList<>();
@@ -38,12 +38,9 @@ Found a program: [R3 /= R1, Mod R2 -> R1, Mod R3 -> R2, Nand R2 -> R1]
         evaluator.addListener(new AccPctBruteForceFitnessLogger(instructions, 10000, curMaxRegisters));
         var iter = new GeneralBruteForceProgramIterator();
         var conf = new Configuration();
-        conf.setAccOperations(instructions);
-        conf.setFitnessExaminer(evaluator);
-        conf.setHeuristic(new AccHeuristic());
-        conf.setNumberOfRegisters(curMaxRegisters);
-        conf.setMaxNrInstructions(8);
-        //AccRandomGeneticProgramIterator iter = new AccRandomGeneticProgramIterator(evaluator,  InstructionEnum.getMinimal(), 1000,1.2,0.4);
+        conf
+                .setAccOperations(instructions).setFitnessExaminer(evaluator).setHeuristic(new AccHeuristic())
+                .setNumberOfRegisters(curMaxRegisters).setMaxNrInstructions(8);
         long start = System.currentTimeMillis();
         System.out.println(iter.iterate(conf));
         //evaluator.writeAndClose();

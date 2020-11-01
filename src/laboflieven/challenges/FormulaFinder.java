@@ -3,10 +3,10 @@ package laboflieven.challenges;
 import laboflieven.*;
 import laboflieven.accinstructions.AccInstructionOpcodeEnum;
 import laboflieven.common.Configuration;
-import laboflieven.examiners.LoggingProgramFitnessExaminer;
 import laboflieven.examiners.ProgramFitnessExaminer;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
 import laboflieven.loggers.BitmapFitnessLogger;
+import laboflieven.loggers.FileFitnessLogger;
 import laboflieven.loggers.FitnessLogger;
 import laboflieven.programiterators.*;
 import laboflieven.programiterators.ReverseProgramIterator;
@@ -186,15 +186,15 @@ public class FormulaFinder {
                 collection.add(createParameter(fillDoubleArray(doubleRow, curMaxRegisters), simulateFormula(doubleRow)));
         }
 
-        ProgramFitnessExaminerInterface evaluator = new LoggingProgramFitnessExaminer(new File("logs.csv"), collection, new RegularStatementRunner());
+        ProgramFitnessExaminerInterface evaluator = new ProgramFitnessExaminer(collection, new RegularStatementRunner());
+        var logger = new FileFitnessLogger(new File("logs.csv"));
         Configuration configuration = Configuration.getInstance();
         configuration.setMaxNrInstructions(6);
         configuration.setFitnessExaminer(evaluator);
         configuration.setInstructionOpcodes(new RegularInstructionOpcodeEnum[]{RegularInstructionOpcodeEnum.Add, RegularInstructionOpcodeEnum.Sub, RegularInstructionOpcodeEnum.Mul, RegularInstructionOpcodeEnum.Div, RegularInstructionOpcodeEnum.Sqrt, RegularInstructionOpcodeEnum.Move, RegularInstructionOpcodeEnum.Log});
-
         ProgramIterator iter = new RandomProgramIterator();
         iter.iterate(configuration);
-
+        logger.finish();
     }
 
     public static void mainBrute(String[] args)
