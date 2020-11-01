@@ -7,6 +7,6 @@ import java.util.List;
  */
 public class HumanInOutput
 {
-    List<Integer> input;
-    List<Integer> output;
+    public List<Integer> input;
+    public List<Integer> output;
 }
