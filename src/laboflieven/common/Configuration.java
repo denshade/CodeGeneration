@@ -13,6 +13,7 @@ import laboflieven.statements.InstructionFactoryInterface;
 import laboflieven.statements.RegularInstructionOpcodeEnum;
 
 import java.util.HashMap;
+import java.util.Set;
 
 public class Configuration {
 
@@ -98,23 +99,17 @@ public class Configuration {
         public AccInstructionOpcodeEnum[] parse(String s) {
             switch(s)
             {
-                case "nobranch": return new AccInstructionOpcodeEnum[] {
-                        AccInstructionOpcodeEnum.AccLeftPull,
-                        AccInstructionOpcodeEnum.AccRightPull,
-                        AccInstructionOpcodeEnum.AccLeftPush,
-                        AccInstructionOpcodeEnum.AccRightPush,
-                        AccInstructionOpcodeEnum.Div,
-                        AccInstructionOpcodeEnum.Mul,
-                        AccInstructionOpcodeEnum.Mod,
-                        AccInstructionOpcodeEnum.Log,
-                        AccInstructionOpcodeEnum.Add,
-                        AccInstructionOpcodeEnum.Sqrt,
-                        AccInstructionOpcodeEnum.Cos,
-                        AccInstructionOpcodeEnum.Sub,
-                        AccInstructionOpcodeEnum.Invert,
-                        AccInstructionOpcodeEnum.Pow,
-                        AccInstructionOpcodeEnum.PI,
-                    };
+                case "nobranch": return AccInstructionOpcodeEnum.anyExcept(
+                        Set.of(
+                            new AccInstructionOpcodeEnum[]{
+                                    AccInstructionOpcodeEnum.JumpIfGteStart,
+                                    AccInstructionOpcodeEnum.JumpIfLteStart,
+                                    AccInstructionOpcodeEnum.Jump2IfEq,
+                                    AccInstructionOpcodeEnum.Jump2IfGte,
+                                    AccInstructionOpcodeEnum.Jump2IfLte,
+                                    AccInstructionOpcodeEnum.Jump2IfNeq,
+                                    AccInstructionOpcodeEnum.Jump2IfZero,
+                            }));
                 case "all":
                 default: return AccInstructionOpcodeEnum.values();
             }

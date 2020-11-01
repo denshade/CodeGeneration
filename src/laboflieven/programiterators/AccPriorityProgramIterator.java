@@ -47,12 +47,13 @@ public class AccPriorityProgramIterator  implements ProgramIterator
             List<InstructionMark> instructions = res.instructions;
             if (instructions.size() < configuration.getMaxNrInstructions(10)) {
                 Program prog = new Program(instructions, registerList);
-                if (heuristic.shouldRecurse(prog, configuration.getMaxNrInstructions(10)))
-                {
-                    addLevel(registerList, instructions);
-                }
-                else {
-                    System.out.println("Skipped level of " + instructions);
+                ProgramResolution score = eval(instructions, registerList);
+                if (score.weight < 1000000) {
+                    if (heuristic.shouldRecurse(prog, configuration.getMaxNrInstructions(10))) {
+                        addLevel(registerList, instructions);
+                    } else {
+                        System.out.println("Skipped level of " + instructions);
+                    }
                 }
             } else {
                 if (priorityQueue.size() > CUT_POPULATION_AT_MAX)
