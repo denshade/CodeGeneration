@@ -29,6 +29,9 @@ public enum AccInstructionOpcodeEnum
         return this.nrRegisters == 1;
     }
 
+    public static AccInstructionOpcodeEnum[] noGeo() {
+        return anyExcept(Set.of(AccRightPull, AccRightPush, JumpIfLteStart, JumpIfGteStart, Cos, Sin));
+    }
     public static AccInstructionOpcodeEnum[] getMinimal() {
         return anyExcept(Set.of(AccRightPull, AccRightPush, JumpIfLteStart, JumpIfGteStart));
     }

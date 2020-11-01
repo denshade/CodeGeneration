@@ -2,6 +2,7 @@ package laboflieven.challenges;
 
 import laboflieven.InOutParameters;
 import laboflieven.accinstructions.AccInstructionOpcodeEnum;
+import laboflieven.common.Configuration;
 import laboflieven.examiners.ProgramFitnessExaminer;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
 import laboflieven.programiterators.BruteForceProgramIterator;
@@ -31,13 +32,19 @@ public class CosDifferenceFinder implements ProgramTemplate
 
         File f = new File("c:\\temp\\test.csv");
         ProgramFitnessExaminerInterface evaluator = new ProgramFitnessExaminer(collection, new AccStatementRunner());
-        GeneralBruteForceProgramIterator iter = new GeneralBruteForceProgramIterator(evaluator, new AccInstructionOpcodeEnum[] {
+        var conf = new Configuration();
+        conf.setMaxNrInstructions(5);
+        conf.setFitnessExaminer(evaluator);
+        conf.setNumberOfRegisters(curMaxRegisters);
+        conf.setAccOperations( new AccInstructionOpcodeEnum[] {
                 AccInstructionOpcodeEnum.AccLeftPull,
                 AccInstructionOpcodeEnum.AccLeftPush,
                 AccInstructionOpcodeEnum.Cos,
         });
+
+        GeneralBruteForceProgramIterator iter = new GeneralBruteForceProgramIterator();
         long start = System.currentTimeMillis();
-        iter.iterate(curMaxRegisters, 5);
+        iter.iterate(conf);
         //evaluator.writeAndClose();
         System.out.println(System.currentTimeMillis() - start + "ms");
 

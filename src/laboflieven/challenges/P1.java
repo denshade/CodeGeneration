@@ -1,6 +1,7 @@
 package laboflieven.challenges;
 
 import laboflieven.*;
+import laboflieven.common.Configuration;
 import laboflieven.examiners.ProgramFitnessExaminer;
 import laboflieven.loggers.AccPctBruteForceFitnessLogger;
 import laboflieven.accinstructions.AccInstructionOpcodeEnum;
@@ -21,7 +22,7 @@ Found a program: [R3 /= R1, Mod R2 -> R1, Mod R3 -> R1, Nand R3 -> R1]
 Found a program: [R3 /= R1, Mod R2 -> R1, Mod R3 -> R2, Nand R2 -> R1]
 
      */
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
 
         int curMaxRegisters = 3;
         List<double[]> points = new ArrayList<>();
@@ -35,10 +36,13 @@ Found a program: [R3 /= R1, Mod R2 -> R1, Mod R3 -> R2, Nand R2 -> R1]
                 AccInstructionOpcodeEnum.Nand
         };
         evaluator.addListener(new AccPctBruteForceFitnessLogger(instructions, 10000, curMaxRegisters));
-        GeneralBruteForceProgramIterator iter = new GeneralBruteForceProgramIterator(evaluator, instructions, new AccHeuristic());
-        //AccRandomGeneticProgramIterator iter = new AccRandomGeneticProgramIterator(evaluator,  InstructionEnum.getMinimal(), 1000,1.2,0.4);
+        var iter = new GeneralBruteForceProgramIterator();
+        var conf = new Configuration();
+        conf
+                .setAccOperations(instructions).setFitnessExaminer(evaluator).setHeuristic(new AccHeuristic())
+                .setNumberOfRegisters(curMaxRegisters).setMaxNrInstructions(8);
         long start = System.currentTimeMillis();
-        System.out.println(iter.iterate(curMaxRegisters, 8));
+        System.out.println(iter.iterate(conf));
         //evaluator.writeAndClose();
         System.out.println(System.currentTimeMillis() - start + "ms");
 

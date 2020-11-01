@@ -19,8 +19,6 @@ public class QuadraticFinder implements InOutParameterSource, ProgramTemplate
 
     /**
      * //No solutions for 2 -> 5.
-     *
-     * @param args
      */
     public static void mainRandomized(String[] args)
     {
@@ -58,24 +56,6 @@ public class QuadraticFinder implements InOutParameterSource, ProgramTemplate
 
     public List<InOutParameters> getInOutParameters(int curMaxRegisters) {
         return TestCases.getTestCases(this, TestCases.getExampleInput4D(100,50),  4);
-        /*InOutParameters io = new InOutParameters();
-        List<InOutParameters> collection = new ArrayList<>();
-        collection.add(io.createParameter(io.fillDoubleArray(new double [] {2.0,-8.0,-24.0}, curMaxRegisters), calcQuad(new double [] {2.0,-8.0,-24.0}),1));
-        collection.add(io.createParameter(io.fillDoubleArray(new double [] {1.0, 2.0, 1.0}, curMaxRegisters), calcQuad(new double [] {1.0, 2.0, 1.0}),1));// -1
-        collection.add(io.createParameter(io.fillDoubleArray(new double [] {1.0, 2.0, -3.0}, curMaxRegisters), calcQuad(new double [] {1.0, 2.0, -3.0}),1 ));
-        collection.add(io.createParameter(io.fillDoubleArray(new double [] {1.0, -1, -56}, curMaxRegisters), calcQuad(new double [] {1.0, -1, -56}),1 ));
-        collection.add(io.createParameter(io.fillDoubleArray(new double [] {1.0, 2, -15}, curMaxRegisters), calcQuad(new double [] {1.0, 2.0, -15}),1 ));
-        collection.add(io.createParameter(io.fillDoubleArray(new double [] {1.0, -100, 2500}, curMaxRegisters), calcQuad(new double [] {1.0, -100, 2500}),1 ));
-        collection.add(io.createParameter(io.fillDoubleArray(new double [] {1.0, -200, 10000}, curMaxRegisters), calcQuad(new double [] {1.0, -200, 10000}),1 ));
-        collection.add(io.createParameter(io.fillDoubleArray(new double [] {1.0, -400, 40000}, curMaxRegisters), calcQuad(new double [] {1.0, -400, 40000}),1 ));
-        collection.add(io.createParameter(io.fillDoubleArray(new double [] {1.0, 500, 0}, curMaxRegisters), calcQuad(new double [] {1.0, 500, 0}),1 ));
-        collection.add(io.createParameter(io.fillDoubleArray(new double [] {1.0, 15000, 0}, curMaxRegisters), calcQuad(new double [] {1.0, 15000, 0}),1 ));
-        collection.add(io.createParameter(io.fillDoubleArray(new double [] {-1.0, 15000, 0}, curMaxRegisters), calcQuad(new double [] {-1.0, 15000, 0}),1 ));
-        collection.add(io.createParameter(io.fillDoubleArray(new double [] {2.0, 1000, 0}, curMaxRegisters), calcQuad(new double [] {2.0, 1000, 0}),1 ));
-        collection.add(io.createParameter(io.fillDoubleArray(new double [] {100.0, 500, 0}, curMaxRegisters), calcQuad(new double [] {100.0, 500, 0}),1 ));
-        collection.add(io.createParameter(io.fillDoubleArray(new double [] {1000.0, 50, 0}, curMaxRegisters), calcQuad(new double [] {1000.0, 50, 0}),1 ));
-
-        return collection;*/
     }
 
     @Override

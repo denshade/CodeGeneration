@@ -1,9 +1,7 @@
 package laboflieven;
 
-import laboflieven.accinstructions.AccRegisterInstruction;
 import laboflieven.common.InstructionOpcode;
 import laboflieven.statements.*;
-
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;

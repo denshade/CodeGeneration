@@ -1,5 +1,7 @@
 package laboflieven.humanresource;
 
+import laboflieven.humanresource.heuristics.AlwaysRecurseHeuristic;
+import laboflieven.humanresource.heuristics.HumanRecursionHeuristic;
 import laboflieven.humanresource.instructions.Inbox;
 import laboflieven.humanresource.instructions.Jump;
 import laboflieven.humanresource.instructions.JumpIfZero;
@@ -12,7 +14,6 @@ import laboflieven.humanresource.model.HumanRegister;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Random;
 
 /**
  * Created by lveeckha on 31/05/2015.
@@ -26,12 +27,20 @@ public class BruteForceProgramIterator
     public List<List<HumanInstruction>> positiveSolutions = new ArrayList<>();
     private HumanProgramFitnessExaminer evaluator;
     private HumanInstructionEnum[] instructionEnums;
+    private HumanRecursionHeuristic heuristic = new AlwaysRecurseHeuristic();
 
+    public BruteForceProgramIterator(HumanProgramFitnessExaminer evaluator, HumanInstructionEnum[] instructions, HumanRecursionHeuristic heuristic)
+    {
+        this.evaluator = evaluator;
+        instructionEnums = instructions;
+        this.heuristic = heuristic;
+    }
     public BruteForceProgramIterator(HumanProgramFitnessExaminer evaluator, HumanInstructionEnum[] instructions)
     {
         this.evaluator = evaluator;
         instructionEnums = instructions;
     }
+
 
     public void iterate(final int nrOfRegisters, int maximumInstructions)
     {
@@ -47,12 +56,12 @@ public class BruteForceProgramIterator
     {
         if (instructions.size() >= maximumInstructions)
             return;
+        if (!heuristic.shouldRecurse(instructions)) {
+            return;
+        }
         for (HumanInstructionEnum instruction : instructionEnums)
         {
-            if (isUseless(instructions, instruction))
-            {
-                continue;
-            }
+
             if (instruction.isSingleRegister()) {
                 for (HumanRegister register1 : registers) {
                     HumanInstruction actualInstruction = HumanInstructionFactory.createInstruction(instruction, register1);
@@ -95,12 +104,6 @@ public class BruteForceProgramIterator
         }
     }
 
-    private boolean isUseless(List<HumanInstruction> instructions, HumanInstructionEnum instruction) {
-        return isInboxAfterInbox(instructions, instruction)
-                || isJumpAfterJump(instructions, instruction)
-                || isInboxJumpTo0(instructions, instruction)
-                ;
-    }
 
 
     private boolean instructionsHasInboxOutbox(List<HumanInstruction> instructions) {
@@ -117,21 +120,8 @@ public class BruteForceProgramIterator
         return hasInbox && hasOutbox;
     }
 
-    private boolean isInboxJumpTo0(List<HumanInstruction> instructions, HumanInstructionEnum instruction) {
-        if (instructions.size() > 2 && instructions.get(0) instanceof Inbox && instructions.get(1) instanceof Jump) return true;
-        return false;
-    }
 
-    private boolean isJumpAfterJump(List<HumanInstruction> instructions, HumanInstructionEnum instruction) {
-        return (instruction == HumanInstructionEnum.LOOP && instructions.size() > 0 && instructions.get(instructions.size() - 1) instanceof Jump) ||
-                (instruction == HumanInstructionEnum.JumpIfZero && instructions.size() > 0 && instructions.get(instructions.size() - 1) instanceof JumpIfZero);
-    }
-
-    private boolean isInboxAfterInbox(List<HumanInstruction> instructions, HumanInstructionEnum instruction) {
-        return instruction == HumanInstructionEnum.INBOX && instructions.size() > 0 && instructions.get(instructions.size() - 1) instanceof Inbox;
-    }
-
-    private void eval(List<HumanInstruction> instructions, List<HumanRegister> registers) {
+    public void eval(List<HumanInstruction> instructions, List<HumanRegister> registers) {
         counter++;
         if (evaluator.isFit(instructions, registers)){
             System.out.println("Found a program: " + instructions);
@@ -146,7 +136,7 @@ public class BruteForceProgramIterator
         }
     }
 
-    private boolean isValid(List<HumanInstruction> instructions, List<HumanRegister> registers) {
+    public boolean isValid(List<HumanInstruction> instructions, List<HumanRegister> registers) {
         return evaluator.isValid(instructions, registers);
     }
 

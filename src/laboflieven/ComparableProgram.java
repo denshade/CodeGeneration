@@ -24,8 +24,6 @@ public class ComparableProgram implements Comparable<ComparableProgram>
         score = ProgramDifferenceScoringStrategy.evaluate(evaluator, program);
     }
 
-
-
     @Override
     public int compareTo(ComparableProgram o) {
         return (int)(score - o.score);

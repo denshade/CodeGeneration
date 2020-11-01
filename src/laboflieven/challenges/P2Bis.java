@@ -2,6 +2,7 @@ package laboflieven.challenges;
 
 import laboflieven.InOutParameters;
 import laboflieven.accinstructions.AccInstructionOpcodeEnum;
+import laboflieven.common.Configuration;
 import laboflieven.examiners.ProgramFitnessExaminer;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
 import laboflieven.loggers.RandomSysOutAccFitnessLogger;
@@ -31,19 +32,23 @@ public class P2Bis implements ProgramTemplate
         List<InOutParameters> collection = TestCases.getTestCases(new P2Bis(), points.toArray(new double[0][0]),curMaxRegisters);
         ProgramFitnessExaminerInterface evaluator = new ProgramFitnessExaminer(collection, new AccStatementRunner());
         evaluator.addListener(new RandomSysOutAccFitnessLogger(10000));
-        GeneralBruteForceProgramIterator iter = new GeneralBruteForceProgramIterator(evaluator,
-                AccInstructionOpcodeEnum.values(),
-                new CombinedHeuristic(List.of(
+        var conf = new Configuration();
+        conf.setMaxNrInstructions(4);
+        conf.setFitnessExaminer(evaluator);
+        conf.setNumberOfRegisters(curMaxRegisters);
+        conf.setAccOperations(AccInstructionOpcodeEnum.values());
+        conf.setHeuristic(new CombinedHeuristic(List.of(
                 new ResultsNoDataAfterFiveHeuristic(
                         new AccStatementRunner(),
                         evaluator,
                         Register.createRegisters(curMaxRegisters, "R")
                 )
                 ,
-                        new AccHeuristic()
-                        )));
+                new AccHeuristic()
+        )));
+        GeneralBruteForceProgramIterator iter = new GeneralBruteForceProgramIterator();
         long start = System.currentTimeMillis();
-        System.out.println(iter.iterate(curMaxRegisters, 4));
+        System.out.println(iter.iterate(conf));
         //evaluator.writeAndClose();
         System.out.println(System.currentTimeMillis() - start + "ms");
 

@@ -14,15 +14,8 @@ import java.util.Set;
 
 public class Prime implements ProgramTemplate
 {
-    /*
-    Found a program: [R2 /= R1, Mod R3 -> R1, Mod R2 -> R3, Nand R3 -> R1]
-Found a program: [R3 /= R1, Mod R2 -> R1, Mod R3 -> R1, Nand R1 -> R1]
-Found a program: [R3 /= R1, Mod R2 -> R1, Mod R3 -> R1, Nand R2 -> R1]
-Found a program: [R3 /= R1, Mod R2 -> R1, Mod R3 -> R1, Nand R3 -> R1]
-Found a program: [R3 /= R1, Mod R2 -> R1, Mod R3 -> R2, Nand R2 -> R1]
 
-     */
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
 
         int curMaxRegisters = 4;
         List<double[]> points = new ArrayList<>();

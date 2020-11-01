@@ -3,13 +3,17 @@ package laboflieven.challenges;
 import laboflieven.*;
 import laboflieven.accinstructions.AccProgramResolution;
 import laboflieven.accinstructions.AccInstructionOpcodeEnum;
+import laboflieven.common.Configuration;
 import laboflieven.examiners.ProgramFitnessExaminer;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
 import laboflieven.programiterators.AccRandomGeneticProgramIterator;
 import laboflieven.programiterators.GeneralBruteForceProgramIterator;
 import laboflieven.programiterators.GeneralRandomGeneticProgramIterator;
 import laboflieven.recursionheuristics.AccHeuristic;
+import laboflieven.recursionheuristics.CombinedHeuristic;
+import laboflieven.recursionheuristics.ResultsNoDataAfterFiveHeuristic;
 import laboflieven.runners.AccStatementRunner;
+import laboflieven.statements.Register;
 import org.junit.Test;
 
 import java.util.*;
@@ -39,7 +43,7 @@ public class FormulaFinderTest {
         };
         //enums = new InstructionEnum[]{InstructionEnum.Add, InstructionEnum.Sub, InstructionEnum.Mul, InstructionEnum.Div, InstructionEnum.Log};
         ProgramFitnessExaminer evaluator = new ProgramFitnessExaminer(collection,new AccStatementRunner());
-        GeneralBruteForceProgramIterator iter = new GeneralBruteForceProgramIterator(evaluator, enums, new AccHeuristic());
+        GeneralBruteForceProgramIterator iter = new GeneralBruteForceProgramIterator();
         long now = System.currentTimeMillis();
 
         assertEquals(1,iter.iterate(curMaxRegisters, 7).size());
@@ -93,8 +97,14 @@ public class FormulaFinderTest {
         };
         //enums = new InstructionEnum[]{InstructionEnum.Add, InstructionEnum.Sub, InstructionEnum.Mul, InstructionEnum.Div, InstructionEnum.Log};
         ProgramFitnessExaminerInterface evaluator = new ProgramFitnessExaminer(collection,new AccStatementRunner());
-        GeneralBruteForceProgramIterator iter = new GeneralBruteForceProgramIterator(evaluator, enums, new AccHeuristic());
-        iter.iterate(curMaxRegisters, 10);
+        var conf = new Configuration();
+        conf.setMaxNrInstructions(10);
+        conf.setFitnessExaminer(evaluator);
+        conf.setNumberOfRegisters(curMaxRegisters);
+        conf.setAccOperations(AccInstructionOpcodeEnum.values());
+
+        GeneralBruteForceProgramIterator iter = new GeneralBruteForceProgramIterator();
+        iter.iterate(conf);
     }
 
     @Test
@@ -128,8 +138,13 @@ public class FormulaFinderTest {
         };
         //enums = new InstructionEnum[]{InstructionEnum.Add, InstructionEnum.Sub, InstructionEnum.Mul, InstructionEnum.Div, InstructionEnum.Log};
         ProgramFitnessExaminer evaluator = new ProgramFitnessExaminer(collection,new AccStatementRunner());
-        GeneralBruteForceProgramIterator iter = new GeneralBruteForceProgramIterator(evaluator, enums);
-        iter.iterate(curMaxRegisters, 9);
+        var conf = new Configuration();
+        conf.setMaxNrInstructions(9);
+        conf.setFitnessExaminer(evaluator);
+        conf.setNumberOfRegisters(curMaxRegisters);
+        conf.setAccOperations(enums);
+        GeneralBruteForceProgramIterator iter = new GeneralBruteForceProgramIterator();
+        iter.iterate(conf);
     }
 
     @Test
@@ -158,8 +173,13 @@ public class FormulaFinderTest {
         };
         //enums = new InstructionEnum[]{InstructionEnum.Add, InstructionEnum.Sub, InstructionEnum.Mul, InstructionEnum.Div, InstructionEnum.Log};
         ProgramFitnessExaminer evaluator = new ProgramFitnessExaminer(collection,new AccStatementRunner());
-        GeneralBruteForceProgramIterator iter = new GeneralBruteForceProgramIterator(evaluator, enums);
-        iter.iterate(curMaxRegisters, 10);
+        var conf = new Configuration();
+        conf.setMaxNrInstructions(10);
+        conf.setFitnessExaminer(evaluator);
+        conf.setNumberOfRegisters(curMaxRegisters);
+        conf.setAccOperations(enums);
+        GeneralBruteForceProgramIterator iter = new GeneralBruteForceProgramIterator();
+        iter.iterate(conf);
     }
 
     @Test
