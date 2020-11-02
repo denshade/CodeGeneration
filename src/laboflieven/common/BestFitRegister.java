@@ -13,6 +13,7 @@ public class BestFitRegister<T>
             this.bestScore = bestScore;
             best = bestObject;
             updated = true;
+            System.out.println(bestScore);
         }
         return updated;
     }

@@ -1,14 +1,13 @@
 package laboflieven.humanresource.challenges;
 
+import laboflieven.humanresource.heuristics.CountInstructionHeuristic;
 import laboflieven.humanresource.instructions.Add;
 import laboflieven.humanresource.instructions.Jump;
 import laboflieven.humanresource.model.HumanRegister;
-import laboflieven.statements.Register;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 

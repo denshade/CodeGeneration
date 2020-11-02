@@ -1,4 +1,4 @@
-package laboflieven.humanresource.challenges;
+package laboflieven.humanresource.heuristics;
 
 import laboflieven.humanresource.heuristics.HumanRecursionHeuristic;
 import laboflieven.humanresource.model.HumanInstruction;

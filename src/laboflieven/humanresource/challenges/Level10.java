@@ -3,12 +3,11 @@ package laboflieven.humanresource.challenges;
 import laboflieven.humanresource.BruteForceProgramIterator;
 import laboflieven.humanresource.HumanInOutput;
 import laboflieven.humanresource.HumanProgramFitnessExaminer;
+import laboflieven.humanresource.heuristics.CountInstructionHeuristic;
 import laboflieven.humanresource.instructions.*;
 import laboflieven.humanresource.model.HumanInstructionEnum;
 import laboflieven.humanresource.model.HumanRegister;
-import laboflieven.statements.Register;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

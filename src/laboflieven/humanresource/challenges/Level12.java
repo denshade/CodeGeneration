@@ -1,8 +1,11 @@
 package laboflieven.humanresource.challenges;
 
+import laboflieven.common.Configuration;
 import laboflieven.humanresource.BruteForceProgramIterator;
 import laboflieven.humanresource.HumanInOutput;
+import laboflieven.humanresource.HumanPriorityProgramIterator;
 import laboflieven.humanresource.HumanProgramFitnessExaminer;
+import laboflieven.humanresource.heuristics.CountInstructionHeuristic;
 import laboflieven.humanresource.instructions.*;
 import laboflieven.humanresource.model.HumanInstructionEnum;
 import laboflieven.humanresource.model.HumanRegister;
@@ -15,7 +18,7 @@ import java.util.List;
 public class Level12 {
     public static void main(String[] args)
     {
-        int maxNr = 20;
+        int maxNr = 30;
         var input = new HumanInOutput();
         input.input = List.of(5,-2,7,0);
         input.output = List.of(5*40,-2*40,7*40,0*40);
@@ -29,13 +32,17 @@ public class Level12 {
         map.put(Jump.class, 1);
 
 
-        var heuristic = new CountInstructionHeuristic(map);
+/*        var heuristic = new CountInstructionHeuristic(map);
         var iterator = new BruteForceProgramIterator(evaluator,
                 List.of(HumanInstructionEnum.INBOX, HumanInstructionEnum.OUTBOX, HumanInstructionEnum.CopyTo, HumanInstructionEnum.LOOP, HumanInstructionEnum.ADD).toArray(new HumanInstructionEnum[0]),
                 heuristic);
         iterator.iterate(2, maxNr);
         List<HumanRegister> registers = new ArrayList();
         HumanRegister r0 = new HumanRegister("r0");
-        registers.add(r0);
+        registers.add(r0);*/
+        var iterator = new HumanPriorityProgramIterator();
+        Configuration config = new Configuration();
+        iterator.iterate(config, List.of(HumanInstructionEnum.INBOX, HumanInstructionEnum.OUTBOX, HumanInstructionEnum.CopyTo, HumanInstructionEnum.LOOP, HumanInstructionEnum.ADD).toArray(new HumanInstructionEnum[0]),
+                evaluator);
     }
 }
