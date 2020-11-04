@@ -154,6 +154,15 @@ public class Configuration {
 
     }
 
+    public String getHelp()
+    {
+        var buffer = new StringBuffer();
+        for (Configuration.ConfigurationKey key : Configuration.ConfigurationKey.values()) {
+            buffer.append(key.name()+" " + key.parser.getClass());
+        }
+        return buffer.toString();
+    }
+
 
     private HashMap<ConfigurationKey, Object> configurationSettings = new HashMap<>();
 
