@@ -1,2 +1,2 @@
 Manifest-Version: 1.0
-Main-Class:  laboflieven.challenges.GeneralFinder
+Main-Class:  laboflieven.humanresource.challenges.Level12

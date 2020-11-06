@@ -56,7 +56,9 @@ public class HumanProgramFitnessExaminer
             int inputIndex = 0;
             while (it.hasNext())
             {
-                if (humanInOutput.output.get(inputIndex++) != it.next())
+                Integer currentNumber = it.next();
+                Integer expected = humanInOutput.output.get(inputIndex++);
+                if (!expected.equals(currentNumber))
                 {
                     return false;
                 }
@@ -86,12 +88,12 @@ public class HumanProgramFitnessExaminer
                 if (outQ.size() > currentExample.output.size()) // The program has more output than expected.
                     return false;
                 Iterator<Integer> it = outQ.iterator();
-                int inputIndex = 0;
+                /*int inputIndex = 0;
                 while (it.hasNext()) {
                     if (currentExample.output.get(inputIndex++) != it.next()) {
                         return false;
                     }
-                }
+                }*/
             } catch(IllegalStateException | InvalidProgramException queueFull)
             {
                 return false;

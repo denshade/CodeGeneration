@@ -61,7 +61,6 @@ public class BruteForceProgramIterator
         }
         for (HumanInstructionEnum instruction : instructionEnums)
         {
-
             if (instruction.isSingleRegister()) {
                 for (HumanRegister register1 : registers) {
                     HumanInstruction actualInstruction = HumanInstructionFactory.createInstruction(instruction, register1);
@@ -125,9 +124,10 @@ public class BruteForceProgramIterator
         counter++;
         if (evaluator.isFit(instructions, registers)){
             System.out.println("Found a program: " + instructions);
+            System.exit(0);
             positiveSolutions.add(new ArrayList<>(instructions));
         } else {
-            if (counter % 10000000 == 0)
+            if (counter % 100000 == 0)
             {
                 long secondsSinceEpochNow = System.currentTimeMillis() + 1000;
                 long secondsPassed = secondsSinceEpochNow - secondsSinceEpochStart;
@@ -137,7 +137,7 @@ public class BruteForceProgramIterator
     }
 
     public boolean isValid(List<HumanInstruction> instructions, List<HumanRegister> registers) {
-        return evaluator.isValid(instructions, registers);
+        return true;//evaluator.isValid(instructions, registers);
     }
 
 }
