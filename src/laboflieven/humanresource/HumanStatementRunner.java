@@ -26,7 +26,7 @@ public class HumanStatementRunner {
     /**
      *
      */
-    public void execute(HumanResourceProgram program, int nrRegisters, Queue<Integer> incomingQ, Queue<Integer> outgoingQ) throws InvalidProgramException
+    public void execute(HumanResourceProgram program, Queue<Integer> incomingQ, Queue<Integer> outgoingQ) throws InvalidProgramException
     {
         Guy guy = new Guy();
         int instructionsRun = 0;

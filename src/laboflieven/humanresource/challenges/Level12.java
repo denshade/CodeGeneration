@@ -73,7 +73,7 @@ public class Level12 {
         inQ.addAll(input.input);
         System.out.println(evaluator.isFit(l, registers));
 
-        runner.execute(new HumanResourceProgram(l, registers), 2, inQ, outQ);
+        runner.execute(new HumanResourceProgram(l, registers), inQ, outQ);
         System.out.println(outQ);
     }
 }

@@ -22,18 +22,26 @@ public class HumanProgramFitnessExaminer
 {
     private List<HumanInOutput> conditions;
     private int maxExecutions;
+    private HumanStatementRunner runner;
 
 
     public HumanProgramFitnessExaminer(List<HumanInOutput> conditions, int maxExecutions)
     {
         this.conditions = conditions;
         this.maxExecutions = maxExecutions;
+        runner = new HumanStatementRunner(maxExecutions);
+    }
+
+    public HumanProgramFitnessExaminer(List<HumanInOutput> conditions, int maxExecutions, HumanStatementRunner runner)
+    {
+        this.conditions = conditions;
+        this.maxExecutions = maxExecutions;
+        this.runner = runner;
     }
 
     public boolean isFit(List<HumanInstruction> instructions, List<HumanRegister> registers)
     {
         resetRegisters(registers);
-        HumanStatementRunner runner = new HumanStatementRunner(maxExecutions);
         HumanResourceProgram program = new HumanResourceProgram(instructions, registers);
         for (int currentCondition = 0; currentCondition < conditions.size(); currentCondition++)
         {
@@ -42,7 +50,7 @@ public class HumanProgramFitnessExaminer
             Queue<Integer> inQ = new ArrayBlockingQueue<>(humanInOutput.input.size());
             inQ.addAll(humanInOutput.input);
             try {
-                runner.execute(program, 0, inQ, outQ);
+                runner.execute(program, inQ, outQ);
             } catch (Exception ipe)
             {
                 return false;
@@ -84,7 +92,7 @@ public class HumanProgramFitnessExaminer
             Queue<Integer> inQ = new ArrayBlockingQueue<>(currentExample.input.size());
             inQ.addAll(currentExample.input);
             try {
-                runner.execute(program, 0, inQ, outQ);
+                runner.execute(program, inQ, outQ);
                 if (outQ.size() > currentExample.output.size()) // The program has more output than expected.
                     return false;
                 Iterator<Integer> it = outQ.iterator();
@@ -114,7 +122,7 @@ public class HumanProgramFitnessExaminer
             Queue<Integer> inQ = new ArrayBlockingQueue<>(currentExample.input.size());
             inQ.addAll(currentExample.input);
             try {
-                runner.execute(program, 0, inQ, outQ);
+                runner.execute(program, inQ, outQ);
                 if (outQ.size() > currentExample.output.size()) // The program has more output than expected.
                     return 10000000;
                 Iterator<Integer> it = outQ.iterator();

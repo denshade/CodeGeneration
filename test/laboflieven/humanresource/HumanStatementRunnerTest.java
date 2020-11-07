@@ -37,7 +37,7 @@ public class HumanStatementRunnerTest
         inbox.add(4);
         inbox.add(1);
         inbox.add(2);
-        runner.execute(program, 0, inbox, outbox);
+        runner.execute(program, inbox, outbox);
         assertEquals(Integer.valueOf(4), outbox.poll());
         assertEquals(Integer.valueOf(1), outbox.poll());
         assertEquals(Integer.valueOf(2), outbox.poll());
@@ -61,7 +61,7 @@ public class HumanStatementRunnerTest
         inbox.add(4);
         inbox.add(1);
         inbox.add(2);
-        runner.execute(program, 0, inbox, outbox);
+        runner.execute(program, inbox, outbox);
         assertEquals(Integer.valueOf(4), outbox.poll());
         assertEquals(Integer.valueOf(1), outbox.poll());
         assertTrue(outbox.size() == 0);
@@ -83,7 +83,7 @@ public class HumanStatementRunnerTest
         inbox.add(4);
         inbox.add(1);
         inbox.add(2);
-        runner.execute(program, 0, inbox, outbox);
+        runner.execute(program, inbox, outbox);
         assertEquals(Integer.valueOf(4), outbox.poll());
         assertEquals(Integer.valueOf(1), outbox.poll());
         assertEquals(Integer.valueOf(2), outbox.poll());
@@ -116,7 +116,7 @@ public class HumanStatementRunnerTest
 
         Queue<Integer> inbox = new ArrayBlockingQueue<Integer>(2);
 
-        runner.execute(program, 0, inbox, outbox);
+        runner.execute(program, inbox, outbox);
         assertEquals(Integer.valueOf(1), outbox.poll());
         assertEquals(Integer.valueOf(2), outbox.poll());
     }
@@ -155,7 +155,7 @@ public class HumanStatementRunnerTest
         inbox.add(2);
         inbox.add(1);
 
-        runner.execute(program, 0, inbox, outbox);
+        runner.execute(program, inbox, outbox);
         assertEquals(Integer.valueOf(9), outbox.poll());
         assertEquals(Integer.valueOf(3), outbox.poll());
         assertEquals(Integer.valueOf(1), outbox.poll());
@@ -194,7 +194,7 @@ public class HumanStatementRunnerTest
         inbox.add(2);
         inbox.add(1);
 
-        runner.execute(program, 0, inbox, outbox);
+        runner.execute(program, inbox, outbox);
         assertEquals(Integer.valueOf(12), outbox.poll());
         assertEquals(Integer.valueOf(3), outbox.poll());
     }
@@ -236,7 +236,7 @@ public class HumanStatementRunnerTest
         inbox.add(6);
         inbox.add(3);
 
-        runner.execute(program, 0, inbox, outbox);
+        runner.execute(program, inbox, outbox);
         assertEquals(Integer.valueOf(6), outbox.poll());
         assertEquals(Integer.valueOf(-6), outbox.poll());
         assertEquals(Integer.valueOf(-3), outbox.poll());
@@ -263,7 +263,7 @@ public class HumanStatementRunnerTest
         inbox.add(0);
         inbox.add(2);
 
-        runner.execute(program, 0, inbox, outbox);
+        runner.execute(program, inbox, outbox);
         assertEquals(Integer.valueOf(3), outbox.poll());
         assertEquals(Integer.valueOf(2), outbox.poll());
     }
