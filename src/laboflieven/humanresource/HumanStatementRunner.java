@@ -1,12 +1,11 @@
 package laboflieven.humanresource;
 
 import laboflieven.humanresource.instructions.Inbox;
-import laboflieven.humanresource.model.Guy;
-import laboflieven.humanresource.model.HumanInstruction;
-import laboflieven.humanresource.model.HumanResourceProgram;
-import laboflieven.humanresource.model.InvalidProgramException;
+import laboflieven.humanresource.model.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Queue;
 
 /**
@@ -14,15 +13,28 @@ import java.util.Queue;
  */
 public class HumanStatementRunner {
 
+    public int MAXINSTRUCT = 100;
+    private final Map<String, Integer> initialRegisterValues;
+
+
     public HumanStatementRunner()
-    {}
+    {
+        initialRegisterValues= new HashMap<>();
+    }
 
     public HumanStatementRunner(int maxInstructions)
     {
         MAXINSTRUCT = maxInstructions;
+        initialRegisterValues= new HashMap<>();
     }
 
-    public int MAXINSTRUCT = 100;
+    public HumanStatementRunner(int maxInstructions, Map<String, Integer> initialRegisterValues)
+    {
+        MAXINSTRUCT = maxInstructions;
+        this.initialRegisterValues = initialRegisterValues;
+    }
+
+
     /**
      *
      */
@@ -32,6 +44,7 @@ public class HumanStatementRunner {
         int instructionsRun = 0;
         int ip = 0;
         final List<HumanInstruction> instructions = program.getInstructions();
+        initializeRegisters(program);
         int size = instructions.size();
         while ( ip < size)
         {
@@ -54,5 +67,14 @@ public class HumanStatementRunner {
                 ip++;
             }
         }
+    }
+
+    private void initializeRegisters(HumanResourceProgram program)
+    {
+      for (HumanRegister reg : program.getRegisters()) {
+          if (initialRegisterValues.containsKey(reg.name)) {
+              reg.value = initialRegisterValues.get(reg.name);
+          }
+      }
     }
 }

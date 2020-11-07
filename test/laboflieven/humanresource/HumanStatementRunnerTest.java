@@ -8,6 +8,7 @@ import laboflieven.humanresource.model.InvalidProgramException;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Queue;
 import java.util.concurrent.ArrayBlockingQueue;
@@ -266,5 +267,23 @@ public class HumanStatementRunnerTest
         runner.execute(program, inbox, outbox);
         assertEquals(Integer.valueOf(3), outbox.poll());
         assertEquals(Integer.valueOf(2), outbox.poll());
+    }
+    @Test
+    public void testInitialRegistersProgram() throws InvalidProgramException {
+        Queue<Integer> outbox = new ArrayBlockingQueue<Integer>(1000);
+
+        Queue<Integer> inbox = new ArrayBlockingQueue<Integer>(1000);
+        var r1 = new HumanRegister("r1");
+
+        var instructions = new ArrayList<HumanInstruction>();
+        instructions.add(new CopyFrom(r1));
+        instructions.add(new Outbox());
+        var map = new HashMap<String, Integer>();
+        map.put("r1", 15);
+        HumanResourceProgram program = new HumanResourceProgram(instructions, List.of(r1));
+        HumanStatementRunner runner = new HumanStatementRunner(2, map);
+        runner.execute(program, inbox, outbox);
+        assertEquals(15, outbox.poll().intValue());
+
     }
 }
