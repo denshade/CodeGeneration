@@ -1,6 +1,5 @@
 package laboflieven.humanresource.heuristics;
 
-import laboflieven.humanresource.heuristics.HumanRecursionHeuristic;
 import laboflieven.humanresource.model.HumanInstruction;
 
 import java.util.List;
