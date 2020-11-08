@@ -71,10 +71,12 @@ public class HumanStatementRunner {
 
     private void initializeRegisters(HumanResourceProgram program)
     {
-      for (HumanRegister reg : program.getRegisters()) {
-          if (initialRegisterValues.containsKey(reg.name)) {
-              reg.value = initialRegisterValues.get(reg.name);
-          }
-      }
+        if (initialRegisterValues.size()>0) {
+            for (HumanRegister reg : program.getRegisters()) {
+                if (initialRegisterValues.containsKey(reg.name)) {
+                    reg.value = initialRegisterValues.get(reg.name);
+                }
+            }
+        }
     }
 }
