@@ -1,10 +1,6 @@
 package laboflieven.humanresource;
 
 
-import laboflieven.humanresource.instructions.Inbox;
-import laboflieven.humanresource.instructions.Jump;
-import laboflieven.humanresource.instructions.Outbox;
-import laboflieven.humanresource.model.HumanInstruction;
 import laboflieven.humanresource.model.HumanInstructionEnum;
 import org.junit.Test;
 
@@ -32,7 +28,7 @@ public class BruteForceProgramIteratorTest
         inout.input = inbox;
         inout.output = outbox;
 
-        BruteForceProgramIterator it  = new BruteForceProgramIterator(new HumanProgramFitnessExaminer(Arrays.asList(inout),3), new HumanInstructionEnum[] {HumanInstructionEnum.INBOX, HumanInstructionEnum.OUTBOX, HumanInstructionEnum.LOOP});
+        BruteForceProgramIterator it  = new BruteForceProgramIterator(new HumanProgramFitnessExaminer(Arrays.asList(inout),3), new HumanInstructionEnum[] {HumanInstructionEnum.INBOX, HumanInstructionEnum.OUTBOX, HumanInstructionEnum.JUMP});
         it.iterate(0, 3);
     }
 
@@ -68,7 +64,7 @@ public class BruteForceProgramIteratorTest
                 new HumanInstructionEnum[] {
                         HumanInstructionEnum.INBOX,
                         HumanInstructionEnum.OUTBOX,
-                        HumanInstructionEnum.LOOP,
+                        HumanInstructionEnum.JUMP,
                         HumanInstructionEnum.BumpMin,
                         HumanInstructionEnum.BumpPlus,
                         HumanInstructionEnum.JumpIfZero,
@@ -125,7 +121,7 @@ public class BruteForceProgramIteratorTest
 
         BruteForceProgramIterator it  = new BruteForceProgramIterator(new HumanProgramFitnessExaminer(solutions,26), new HumanInstructionEnum[]{
                 HumanInstructionEnum.INBOX,
-                HumanInstructionEnum.LOOP,
+                HumanInstructionEnum.JUMP,
                 HumanInstructionEnum.CopyFrom,
                 HumanInstructionEnum.CopyTo,
                 HumanInstructionEnum.JumpIfZero,

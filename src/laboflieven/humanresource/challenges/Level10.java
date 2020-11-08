@@ -31,7 +31,7 @@ public class Level10 {
 
         var heuristic = new CountInstructionHeuristic(map);
         var iterator = new BruteForceProgramIterator(evaluator,
-                List.of(HumanInstructionEnum.INBOX, HumanInstructionEnum.OUTBOX, HumanInstructionEnum.CopyTo, HumanInstructionEnum.LOOP, HumanInstructionEnum.ADD).toArray(new HumanInstructionEnum[0]),
+                List.of(HumanInstructionEnum.INBOX, HumanInstructionEnum.OUTBOX, HumanInstructionEnum.CopyTo, HumanInstructionEnum.JUMP, HumanInstructionEnum.ADD).toArray(new HumanInstructionEnum[0]),
                 heuristic);
         iterator.iterate(1, 9);
         List<HumanRegister> registers = new ArrayList();

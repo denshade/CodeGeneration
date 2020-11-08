@@ -4,7 +4,6 @@ package laboflieven.humanresource.model;
 import laboflieven.humanresource.instructions.*;
 import laboflieven.humanresource.instructions.Add;
 import laboflieven.humanresource.instructions.Sub;
-import laboflieven.statements.*;
 
 /**
  * Created by lveeckha on 4/06/2015.
@@ -44,7 +43,7 @@ public class HumanInstructionFactory
     {
         HumanInstruction instruction;
         switch(instructionEnum){
-            case LOOP:
+            case JUMP:
                 instruction = new Jump(jumpToInstruction);
                 break;
             case JumpIfZero:

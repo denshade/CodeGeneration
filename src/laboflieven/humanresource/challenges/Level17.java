@@ -40,7 +40,7 @@ public class Level17 {
                         HumanInstructionEnum.OUTBOX,
                         HumanInstructionEnum.JumpIfZero,
                         HumanInstructionEnum.JumpIfNegative,
-                        HumanInstructionEnum.LOOP,
+                        HumanInstructionEnum.JUMP,
                         HumanInstructionEnum.CopyTo,
                         HumanInstructionEnum.CopyFrom,
                         HumanInstructionEnum.Sub,

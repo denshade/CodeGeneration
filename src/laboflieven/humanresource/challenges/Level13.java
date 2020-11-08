@@ -4,7 +4,6 @@ import laboflieven.humanresource.BruteForceProgramIterator;
 import laboflieven.humanresource.HumanInOutput;
 import laboflieven.humanresource.HumanProgramFitnessExaminer;
 import laboflieven.humanresource.heuristics.CountInstructionHeuristic;
-import laboflieven.humanresource.heuristics.StartInboxOutboxLoopCountInstructionHeuristic;
 import laboflieven.humanresource.instructions.*;
 import laboflieven.humanresource.model.HumanInstructionEnum;
 
@@ -38,7 +37,7 @@ public class Level13 {
                         HumanInstructionEnum.INBOX,
                         HumanInstructionEnum.OUTBOX,
                         HumanInstructionEnum.JumpIfZero,
-                        HumanInstructionEnum.LOOP,
+                        HumanInstructionEnum.JUMP,
                         HumanInstructionEnum.CopyTo,
                         HumanInstructionEnum.CopyFrom,
                         HumanInstructionEnum.Sub

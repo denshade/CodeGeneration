@@ -4,7 +4,6 @@ import laboflieven.humanresource.BruteForceProgramIterator;
 import laboflieven.humanresource.HumanInOutput;
 import laboflieven.humanresource.HumanProgramFitnessExaminer;
 import laboflieven.humanresource.HumanStatementRunner;
-import laboflieven.humanresource.heuristics.CountInstructionHeuristic;
 import laboflieven.humanresource.heuristics.StartInboxOutboxLoopCountInstructionHeuristic;
 import laboflieven.humanresource.instructions.*;
 import laboflieven.humanresource.model.*;
@@ -36,7 +35,7 @@ public class Level12 {
         var heuristic = new StartInboxOutboxLoopCountInstructionHeuristic(map, maxNr);
 
         var iterator = new BruteForceProgramIterator(evaluator,
-                List.of(HumanInstructionEnum.INBOX, HumanInstructionEnum.OUTBOX, HumanInstructionEnum.CopyTo, HumanInstructionEnum.LOOP, HumanInstructionEnum.ADD).toArray(new HumanInstructionEnum[0]),
+                List.of(HumanInstructionEnum.INBOX, HumanInstructionEnum.OUTBOX, HumanInstructionEnum.CopyTo, HumanInstructionEnum.JUMP, HumanInstructionEnum.ADD).toArray(new HumanInstructionEnum[0]),
                 heuristic);
         iterator.iterate(2, maxNr);
 
