@@ -23,7 +23,7 @@ public class Level19 {
                 HumanInstructionSet.OUTBOX,
                 HumanInstructionSet.JumpIfZero,
                 HumanInstructionSet.JumpIfNegative,
-                HumanInstructionSet.LOOP,
+                HumanInstructionSet.JUMP,
                 HumanInstructionSet.CopyTo,
                 HumanInstructionSet.CopyFrom,
                 HumanInstructionSet.BumpMin,
