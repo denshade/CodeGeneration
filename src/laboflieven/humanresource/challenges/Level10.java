@@ -5,7 +5,7 @@ import laboflieven.humanresource.HumanInOutput;
 import laboflieven.humanresource.HumanProgramFitnessExaminer;
 import laboflieven.humanresource.heuristics.CountInstructionHeuristic;
 import laboflieven.humanresource.instructions.*;
-import laboflieven.humanresource.model.HumanInstructionEnum;
+import laboflieven.humanresource.model.HumanInstructionSet;
 import laboflieven.humanresource.model.HumanRegister;
 
 import java.util.ArrayList;
@@ -21,7 +21,7 @@ public class Level10 {
         input.output = List.of(5*8,-2*8,7*8,0);
         var evaluator = new HumanProgramFitnessExaminer(List.of(input)
                 ,100);
-        var map = new HashMap<Class, Integer>();
+        var map = new HashMap<Class<?>, Integer>();
         map.put(Inbox.class, 1);
         map.put(CopyTo.class, 3);
         map.put(Add.class, 3);
@@ -31,10 +31,10 @@ public class Level10 {
 
         var heuristic = new CountInstructionHeuristic(map);
         var iterator = new BruteForceProgramIterator(evaluator,
-                List.of(HumanInstructionEnum.INBOX, HumanInstructionEnum.OUTBOX, HumanInstructionEnum.CopyTo, HumanInstructionEnum.LOOP, HumanInstructionEnum.ADD).toArray(new HumanInstructionEnum[0]),
+                List.of(HumanInstructionSet.INBOX, HumanInstructionSet.OUTBOX, HumanInstructionSet.CopyTo, HumanInstructionSet.LOOP, HumanInstructionSet.ADD).toArray(new HumanInstructionSet[0]),
                 heuristic);
         iterator.iterate(1, 9);
-        List<HumanRegister> registers = new ArrayList();
+        List<HumanRegister> registers = new ArrayList<>();
         HumanRegister r0 = new HumanRegister("r0");
         registers.add(r0);
 

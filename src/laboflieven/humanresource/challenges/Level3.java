@@ -3,7 +3,7 @@ package laboflieven.humanresource.challenges;
 import laboflieven.humanresource.BruteForceProgramIterator;
 import laboflieven.humanresource.HumanInOutput;
 import laboflieven.humanresource.HumanProgramFitnessExaminer;
-import laboflieven.humanresource.model.HumanInstructionEnum;
+import laboflieven.humanresource.model.HumanInstructionSet;
 
 import java.util.List;
 
@@ -15,7 +15,7 @@ public class Level3 {
         input.output = List.of(8,4,7);
         var evaluator = new HumanProgramFitnessExaminer(List.of(input)
                 ,6);
-        var iterator = new BruteForceProgramIterator(evaluator, List.of(HumanInstructionEnum.INBOX, HumanInstructionEnum.OUTBOX, HumanInstructionEnum.LOOP ).toArray(new HumanInstructionEnum[0]));
+        var iterator = new BruteForceProgramIterator(evaluator, List.of(HumanInstructionSet.INBOX, HumanInstructionSet.OUTBOX, HumanInstructionSet.LOOP ).toArray(new HumanInstructionSet[0]));
         iterator.iterate(5, 3);
     }
 }

@@ -6,7 +6,7 @@ import laboflieven.humanresource.HumanProgramFitnessExaminer;
 import laboflieven.humanresource.HumanStatementRunner;
 import laboflieven.humanresource.heuristics.CountInstructionHeuristic;
 import laboflieven.humanresource.instructions.*;
-import laboflieven.humanresource.model.HumanInstructionEnum;
+import laboflieven.humanresource.model.HumanInstructionSet;
 
 import java.util.HashMap;
 import java.util.List;
@@ -19,7 +19,7 @@ public class Level17 {
         input.input = List.of(-1,-1,1,-3,6,4,-4,5);
         input.output = List.of(0,1,0,1);
 
-        var map = new HashMap<Class, Integer>();
+        var map = new HashMap<Class<?>, Integer>();
         map.put(Inbox.class, 2);
         map.put(Sub.class, 1);
         map.put(Jump.class,2);
@@ -36,16 +36,16 @@ public class Level17 {
                 ,300, new HumanStatementRunner(maxNr, initRegisters));
         var iterator = new BruteForceProgramIterator(evaluator,
                 List.of(
-                        HumanInstructionEnum.INBOX,
-                        HumanInstructionEnum.OUTBOX,
-                        HumanInstructionEnum.JumpIfZero,
-                        HumanInstructionEnum.JumpIfNegative,
-                        HumanInstructionEnum.LOOP,
-                        HumanInstructionEnum.CopyTo,
-                        HumanInstructionEnum.CopyFrom,
-                        HumanInstructionEnum.Sub,
-                        HumanInstructionEnum.ADD
-                ).toArray(new HumanInstructionEnum[0]),
+                        HumanInstructionSet.INBOX,
+                        HumanInstructionSet.OUTBOX,
+                        HumanInstructionSet.JumpIfZero,
+                        HumanInstructionSet.JumpIfNegative,
+                        HumanInstructionSet.LOOP,
+                        HumanInstructionSet.CopyTo,
+                        HumanInstructionSet.CopyFrom,
+                        HumanInstructionSet.Sub,
+                        HumanInstructionSet.ADD
+                ).toArray(new HumanInstructionSet[0]),
                 heuristic);
         iterator.iterate(3, maxNr);
     }

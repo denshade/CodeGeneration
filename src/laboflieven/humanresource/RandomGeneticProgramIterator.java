@@ -2,7 +2,7 @@ package laboflieven.humanresource;
 
 import laboflieven.humanresource.instructions.Inbox;
 import laboflieven.humanresource.model.HumanInstruction;
-import laboflieven.humanresource.model.HumanInstructionEnum;
+import laboflieven.humanresource.model.HumanInstructionSet;
 import laboflieven.humanresource.model.HumanInstructionFactory;
 import laboflieven.humanresource.model.HumanRegister;
 import laboflieven.statements.RegularInstructionOpcodeEnum;
@@ -22,7 +22,7 @@ public class RandomGeneticProgramIterator {
 
     public List<List<HumanInstruction>> positiveSolutions = new ArrayList<>();
     private HumanProgramFitnessExaminer evaluator;
-    private HumanInstructionEnum[] enums;
+    private HumanInstructionSet[] enums;
     private int maxPopulation;
     private HumanRegister[] registers;
     private int numberOfRegisters;
@@ -36,10 +36,10 @@ public class RandomGeneticProgramIterator {
         this.evaluator = evaluator;
         POPULATION_MAX = maxPopulation;
         this.maxOverflow = maxOverflow;
-        enums = HumanInstructionEnum.values();
+        enums = HumanInstructionSet.values();
     }
 
-    public RandomGeneticProgramIterator(HumanProgramFitnessExaminer evaluator, HumanInstructionEnum[] enums, int maxPopulation, double maxOverflow, double popularParents) {
+    public RandomGeneticProgramIterator(HumanProgramFitnessExaminer evaluator, HumanInstructionSet[] enums, int maxPopulation, double maxOverflow, double popularParents) {
         this.evaluator = evaluator;
         this.enums = enums;
         this.maxPopulation = maxPopulation;
@@ -145,7 +145,7 @@ public class RandomGeneticProgramIterator {
 
         Random r = new Random();
         int location = r.nextInt(enums.length);
-        HumanInstructionEnum instruction = enums[location];
+        HumanInstructionSet instruction = enums[location];
         if (instruction.isSingleRegister()) {
             HumanRegister register1 = registers[r.nextInt(registers.length)];
             HumanInstruction actualInstruction = HumanInstructionFactory.createInstruction(instruction, register1);

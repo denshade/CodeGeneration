@@ -3,11 +3,9 @@ package laboflieven.humanresource;
 import laboflieven.humanresource.heuristics.AlwaysRecurseHeuristic;
 import laboflieven.humanresource.heuristics.HumanRecursionHeuristic;
 import laboflieven.humanresource.instructions.Inbox;
-import laboflieven.humanresource.instructions.Jump;
-import laboflieven.humanresource.instructions.JumpIfZero;
 import laboflieven.humanresource.instructions.Outbox;
 import laboflieven.humanresource.model.HumanInstruction;
-import laboflieven.humanresource.model.HumanInstructionEnum;
+import laboflieven.humanresource.model.HumanInstructionSet;
 import laboflieven.humanresource.model.HumanInstructionFactory;
 import laboflieven.humanresource.model.HumanRegister;
 
@@ -26,16 +24,16 @@ public class BruteForceProgramIterator
 
     public List<List<HumanInstruction>> positiveSolutions = new ArrayList<>();
     private HumanProgramFitnessExaminer evaluator;
-    private HumanInstructionEnum[] instructionEnums;
+    private HumanInstructionSet[] instructionEnums;
     private HumanRecursionHeuristic heuristic = new AlwaysRecurseHeuristic();
 
-    public BruteForceProgramIterator(HumanProgramFitnessExaminer evaluator, HumanInstructionEnum[] instructions, HumanRecursionHeuristic heuristic)
+    public BruteForceProgramIterator(HumanProgramFitnessExaminer evaluator, HumanInstructionSet[] instructions, HumanRecursionHeuristic heuristic)
     {
         this.evaluator = evaluator;
         instructionEnums = instructions;
         this.heuristic = heuristic;
     }
-    public BruteForceProgramIterator(HumanProgramFitnessExaminer evaluator, HumanInstructionEnum[] instructions)
+    public BruteForceProgramIterator(HumanProgramFitnessExaminer evaluator, HumanInstructionSet[] instructions)
     {
         this.evaluator = evaluator;
         instructionEnums = instructions;
@@ -59,7 +57,7 @@ public class BruteForceProgramIterator
         if (!heuristic.shouldRecurse(instructions)) {
             return;
         }
-        for (HumanInstructionEnum instruction : instructionEnums)
+        for (HumanInstructionSet instruction : instructionEnums)
         {
             if (instruction.isSingleRegister()) {
                 for (HumanRegister register1 : registers) {

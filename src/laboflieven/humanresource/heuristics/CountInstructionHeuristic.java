@@ -9,16 +9,16 @@ import java.util.stream.Collectors;
 public class CountInstructionHeuristic  implements HumanRecursionHeuristic
 {
 
-    private final Map<Class, Integer> count;
+    private final Map<Class<?>, Integer> count;
 
-    public CountInstructionHeuristic(Map<Class, Integer> count){
+    public CountInstructionHeuristic(Map<Class<?>, Integer> count){
 
         this.count = count;
     }
 
     @Override
     public boolean shouldRecurse(List<HumanInstruction> instructions) {
-        for (Map.Entry<Class, Integer> entry : count.entrySet()) {
+        for (Map.Entry<Class<?>, Integer> entry : count.entrySet()) {
             var filtered = instructions.stream().filter(c -> c.getClass().equals(entry.getKey())).collect(Collectors.toList());
             if (filtered.size() > entry.getValue())
                 return false;

@@ -4,14 +4,13 @@ package laboflieven.humanresource.model;
 import laboflieven.humanresource.instructions.*;
 import laboflieven.humanresource.instructions.Add;
 import laboflieven.humanresource.instructions.Sub;
-import laboflieven.statements.*;
 
 /**
  * Created by lveeckha on 4/06/2015.
  */
 public class HumanInstructionFactory
 {
-    public static HumanInstruction createInstruction(HumanInstructionEnum instructionEnum, HumanRegister register1)
+    public static HumanInstruction createInstruction(HumanInstructionSet instructionEnum, HumanRegister register1)
     {
         HumanInstruction instruction;
         switch(instructionEnum){
@@ -40,7 +39,7 @@ public class HumanInstructionFactory
         return instruction;
     }
 
-    public static HumanInstruction createLoopInstruction(HumanInstructionEnum instructionEnum, int jumpToInstruction)
+    public static HumanInstruction createLoopInstruction(HumanInstructionSet instructionEnum, int jumpToInstruction)
     {
         HumanInstruction instruction;
         switch(instructionEnum){
@@ -59,7 +58,7 @@ public class HumanInstructionFactory
         return instruction;
     }
 
-    public static HumanInstruction createInstruction(HumanInstructionEnum instructionEnum)
+    public static HumanInstruction createInstruction(HumanInstructionSet instructionEnum)
     {
         HumanInstruction instruction;
         switch(instructionEnum){

@@ -3,7 +3,7 @@ package laboflieven.humanresource.model;
 /**
  * Created by lveeckha on 4/06/2015.
  */
-public enum HumanInstructionEnum
+public enum HumanInstructionSet
 {
     INBOX, OUTBOX, LOOP, CopyFrom, CopyTo, ADD, JumpIfZero, Sub, JumpIfNegative, BumpMin, BumpPlus;
 

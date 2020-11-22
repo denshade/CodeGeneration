@@ -1,24 +1,15 @@
 package laboflieven.humanresource;
 
-import laboflieven.InstructionMark;
-import laboflieven.Program;
 import laboflieven.ProgramResolution;
-import laboflieven.accinstructions.AccInstructionOpcodeEnum;
-import laboflieven.common.AccInstructionOpcode;
 import laboflieven.common.BestFitRegister;
 import laboflieven.common.Configuration;
 import laboflieven.common.PriorityQueueAlgos;
-import laboflieven.examiners.ProgramFitnessExaminerInterface;
 import laboflieven.humanresource.heuristics.AlwaysRecurseHeuristic;
 import laboflieven.humanresource.heuristics.HumanRecursionHeuristic;
 import laboflieven.humanresource.model.HumanInstruction;
-import laboflieven.humanresource.model.HumanInstructionEnum;
+import laboflieven.humanresource.model.HumanInstructionSet;
 import laboflieven.humanresource.model.HumanInstructionFactory;
 import laboflieven.humanresource.model.HumanRegister;
-import laboflieven.programiterators.ProgramIterator;
-import laboflieven.recursionheuristics.RecursionHeuristic;
-import laboflieven.statements.InstructionFactoryInterface;
-import laboflieven.statements.Register;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +21,7 @@ import java.util.PriorityQueue;
 public class HumanPriorityProgramIterator
 {
 
-    private HumanInstructionEnum[] enums;
+    private HumanInstructionSet[] enums;
     private HumanProgramFitnessExaminer examiner;
     PriorityQueue<HumanProgramResolution> priorityQueue = new PriorityQueue<>();
     private HumanRegister[] registers;
@@ -39,7 +30,7 @@ public class HumanPriorityProgramIterator
     private BestFitRegister<HumanProgramResolution> bestFitRegister = new BestFitRegister<>();
 
 
-    public ProgramResolution iterate(Configuration configuration, HumanInstructionEnum[] enums, HumanProgramFitnessExaminer examiner)
+    public ProgramResolution iterate(Configuration configuration, HumanInstructionSet[] enums, HumanProgramFitnessExaminer examiner)
     {
         this.enums = enums;
         this.examiner = examiner;
@@ -91,7 +82,7 @@ public class HumanPriorityProgramIterator
     }*/
 
     private void addLevel(List<HumanRegister> registerList, List<HumanInstruction> instructions, Configuration config) {
-        for (HumanInstructionEnum opcode : enums) {
+        for (HumanInstructionSet opcode : enums) {
             if (!opcode.isSingleRegister() && !opcode.isLoop()) {
                 List<HumanInstruction> marks = new ArrayList<>(instructions);
                 marks.add(instructionFactory.createInstruction(opcode));

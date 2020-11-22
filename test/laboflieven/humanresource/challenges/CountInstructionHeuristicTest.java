@@ -16,7 +16,7 @@ class CountInstructionHeuristicTest {
     @Test
     public void test()
     {
-        var map = new HashMap<Class, Integer>();
+        var map = new HashMap<Class<?>, Integer>();
         map.put(Add.class,1);
         var counter = new CountInstructionHeuristic(map);
         assertTrue(counter.shouldRecurse(List.of(new Add(new HumanRegister("r1")))));
@@ -27,7 +27,7 @@ class CountInstructionHeuristicTest {
     @Test
     public void testMultipleCounts()
     {
-        var map = new HashMap<Class, Integer>();
+        var map = new HashMap<Class<?>, Integer>();
         map.put(Add.class,1);
         map.put(Jump.class,1);
 

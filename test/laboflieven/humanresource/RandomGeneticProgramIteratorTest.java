@@ -1,14 +1,11 @@
 package laboflieven.humanresource;
 
-import laboflieven.humanresource.RandomGeneticProgramIterator;
-import laboflieven.humanresource.model.HumanInstructionEnum;
+import laboflieven.humanresource.model.HumanInstructionSet;
 import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
-import static org.junit.Assert.*;
 
 public class RandomGeneticProgramIteratorTest
 {
@@ -43,16 +40,16 @@ public class RandomGeneticProgramIteratorTest
         inout.output = outbox;
 
         RandomGeneticProgramIterator it  = new RandomGeneticProgramIterator(new HumanProgramFitnessExaminer(Arrays.asList(inout),82),
-                new HumanInstructionEnum[] {
-                        HumanInstructionEnum.INBOX,
-                        HumanInstructionEnum.OUTBOX,
-                        HumanInstructionEnum.LOOP,
-                        HumanInstructionEnum.BumpMin,
-                        HumanInstructionEnum.BumpPlus,
-                        HumanInstructionEnum.JumpIfZero,
-                        HumanInstructionEnum.JumpIfNegative,
-                        HumanInstructionEnum.CopyFrom,
-                        HumanInstructionEnum.CopyTo,
+                new HumanInstructionSet[] {
+                        HumanInstructionSet.INBOX,
+                        HumanInstructionSet.OUTBOX,
+                        HumanInstructionSet.LOOP,
+                        HumanInstructionSet.BumpMin,
+                        HumanInstructionSet.BumpPlus,
+                        HumanInstructionSet.JumpIfZero,
+                        HumanInstructionSet.JumpIfNegative,
+                        HumanInstructionSet.CopyFrom,
+                        HumanInstructionSet.CopyTo,
                 },
                 1000,1000,1000
         );

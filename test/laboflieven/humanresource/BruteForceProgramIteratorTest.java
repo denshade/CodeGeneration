@@ -1,11 +1,7 @@
 package laboflieven.humanresource;
 
 
-import laboflieven.humanresource.instructions.Inbox;
-import laboflieven.humanresource.instructions.Jump;
-import laboflieven.humanresource.instructions.Outbox;
-import laboflieven.humanresource.model.HumanInstruction;
-import laboflieven.humanresource.model.HumanInstructionEnum;
+import laboflieven.humanresource.model.HumanInstructionSet;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -32,7 +28,7 @@ public class BruteForceProgramIteratorTest
         inout.input = inbox;
         inout.output = outbox;
 
-        BruteForceProgramIterator it  = new BruteForceProgramIterator(new HumanProgramFitnessExaminer(Arrays.asList(inout),3), new HumanInstructionEnum[] {HumanInstructionEnum.INBOX, HumanInstructionEnum.OUTBOX, HumanInstructionEnum.LOOP});
+        BruteForceProgramIterator it  = new BruteForceProgramIterator(new HumanProgramFitnessExaminer(Arrays.asList(inout),3), new HumanInstructionSet[] {HumanInstructionSet.INBOX, HumanInstructionSet.OUTBOX, HumanInstructionSet.LOOP});
         it.iterate(0, 3);
     }
 
@@ -65,14 +61,14 @@ public class BruteForceProgramIteratorTest
         inout.output = outbox;
 
         BruteForceProgramIterator it  = new BruteForceProgramIterator(new HumanProgramFitnessExaminer(Arrays.asList(inout),82),
-                new HumanInstructionEnum[] {
-                        HumanInstructionEnum.INBOX,
-                        HumanInstructionEnum.OUTBOX,
-                        HumanInstructionEnum.LOOP,
-                        HumanInstructionEnum.BumpMin,
-                        HumanInstructionEnum.BumpPlus,
-                        HumanInstructionEnum.JumpIfZero,
-                        HumanInstructionEnum.JumpIfNegative
+                new HumanInstructionSet[] {
+                        HumanInstructionSet.INBOX,
+                        HumanInstructionSet.OUTBOX,
+                        HumanInstructionSet.LOOP,
+                        HumanInstructionSet.BumpMin,
+                        HumanInstructionSet.BumpPlus,
+                        HumanInstructionSet.JumpIfZero,
+                        HumanInstructionSet.JumpIfNegative
                 }
         );
         it.iterate(1, 10);
@@ -123,14 +119,14 @@ public class BruteForceProgramIteratorTest
         solutions.add(inout1);
         solutions.add(inout2);
 
-        BruteForceProgramIterator it  = new BruteForceProgramIterator(new HumanProgramFitnessExaminer(solutions,26), new HumanInstructionEnum[]{
-                HumanInstructionEnum.INBOX,
-                HumanInstructionEnum.LOOP,
-                HumanInstructionEnum.CopyFrom,
-                HumanInstructionEnum.CopyTo,
-                HumanInstructionEnum.JumpIfZero,
-                HumanInstructionEnum.OUTBOX,
-                HumanInstructionEnum.Sub,
+        BruteForceProgramIterator it  = new BruteForceProgramIterator(new HumanProgramFitnessExaminer(solutions,26), new HumanInstructionSet[]{
+                HumanInstructionSet.INBOX,
+                HumanInstructionSet.LOOP,
+                HumanInstructionSet.CopyFrom,
+                HumanInstructionSet.CopyTo,
+                HumanInstructionSet.JumpIfZero,
+                HumanInstructionSet.OUTBOX,
+                HumanInstructionSet.Sub,
         });
         it.iterate(1, 10);
     }
