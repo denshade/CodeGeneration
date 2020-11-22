@@ -40,10 +40,11 @@ public class RandomGeneticProgramIteratorTest
         inout.output = outbox;
 
         RandomGeneticProgramIterator it  = new RandomGeneticProgramIterator(new HumanProgramFitnessExaminer(Arrays.asList(inout),82),
+
                 new HumanInstructionSet[] {
                         HumanInstructionSet.INBOX,
                         HumanInstructionSet.OUTBOX,
-                        HumanInstructionSet.LOOP,
+                        HumanInstructionSet.JUMP,
                         HumanInstructionSet.BumpMin,
                         HumanInstructionSet.BumpPlus,
                         HumanInstructionSet.JumpIfZero,

@@ -16,7 +16,7 @@ public class Level11 {
         input.output = List.of(0,0,0,0);
         var evaluator = new HumanProgramFitnessExaminer(List.of(input)
                 ,100);
-        var iterator = new BruteForceProgramIterator(evaluator, List.of(HumanInstructionSet.INBOX, HumanInstructionSet.OUTBOX, HumanInstructionSet.JumpIfZero, HumanInstructionSet.LOOP, HumanInstructionSet.Sub).toArray(new HumanInstructionSet[0]));
+        var iterator = new BruteForceProgramIterator(evaluator, List.of(HumanInstructionSet.INBOX, HumanInstructionSet.OUTBOX, HumanInstructionSet.JumpIfZero, HumanInstructionSet.JUMP, HumanInstructionSet.Sub).toArray(new HumanInstructionSet[0]));
         iterator.iterate(1, 5);
     }
 }

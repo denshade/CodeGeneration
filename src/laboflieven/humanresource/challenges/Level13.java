@@ -37,7 +37,7 @@ public class Level13 {
                         HumanInstructionSet.INBOX,
                         HumanInstructionSet.OUTBOX,
                         HumanInstructionSet.JumpIfZero,
-                        HumanInstructionSet.LOOP,
+                        HumanInstructionSet.JUMP,
                         HumanInstructionSet.CopyTo,
                         HumanInstructionSet.CopyFrom,
                         HumanInstructionSet.Sub

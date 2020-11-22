@@ -28,7 +28,7 @@ public class BruteForceProgramIteratorTest
         inout.input = inbox;
         inout.output = outbox;
 
-        BruteForceProgramIterator it  = new BruteForceProgramIterator(new HumanProgramFitnessExaminer(Arrays.asList(inout),3), new HumanInstructionSet[] {HumanInstructionSet.INBOX, HumanInstructionSet.OUTBOX, HumanInstructionSet.LOOP});
+        BruteForceProgramIterator it  = new BruteForceProgramIterator(new HumanProgramFitnessExaminer(Arrays.asList(inout),3), new HumanInstructionSet[] {HumanInstructionSet.INBOX, HumanInstructionSet.OUTBOX, HumanInstructionSet.JUMP});
         it.iterate(0, 3);
     }
 
@@ -64,7 +64,7 @@ public class BruteForceProgramIteratorTest
                 new HumanInstructionSet[] {
                         HumanInstructionSet.INBOX,
                         HumanInstructionSet.OUTBOX,
-                        HumanInstructionSet.LOOP,
+                        HumanInstructionSet.JUMP,
                         HumanInstructionSet.BumpMin,
                         HumanInstructionSet.BumpPlus,
                         HumanInstructionSet.JumpIfZero,
@@ -119,9 +119,10 @@ public class BruteForceProgramIteratorTest
         solutions.add(inout1);
         solutions.add(inout2);
 
+
         BruteForceProgramIterator it  = new BruteForceProgramIterator(new HumanProgramFitnessExaminer(solutions,26), new HumanInstructionSet[]{
                 HumanInstructionSet.INBOX,
-                HumanInstructionSet.LOOP,
+                HumanInstructionSet.JUMP,
                 HumanInstructionSet.CopyFrom,
                 HumanInstructionSet.CopyTo,
                 HumanInstructionSet.JumpIfZero,

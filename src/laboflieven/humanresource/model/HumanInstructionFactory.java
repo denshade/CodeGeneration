@@ -43,7 +43,7 @@ public class HumanInstructionFactory
     {
         HumanInstruction instruction;
         switch(instructionEnum){
-            case LOOP:
+            case JUMP:
                 instruction = new Jump(jumpToInstruction);
                 break;
             case JumpIfZero:

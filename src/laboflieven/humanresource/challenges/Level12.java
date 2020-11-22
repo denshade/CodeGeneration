@@ -35,7 +35,7 @@ public class Level12 {
         var heuristic = new StartInboxOutboxLoopCountInstructionHeuristic(map, maxNr);
 
         var iterator = new BruteForceProgramIterator(evaluator,
-                List.of(HumanInstructionSet.INBOX, HumanInstructionSet.OUTBOX, HumanInstructionSet.CopyTo, HumanInstructionSet.LOOP, HumanInstructionSet.ADD).toArray(new HumanInstructionSet[0]),
+                List.of(HumanInstructionSet.INBOX, HumanInstructionSet.OUTBOX, HumanInstructionSet.CopyTo, HumanInstructionSet.JUMP, HumanInstructionSet.ADD).toArray(new HumanInstructionSet[0]),
                 heuristic);
         iterator.iterate(2, maxNr);
 
@@ -44,7 +44,7 @@ public class Level12 {
         registers.add(r0);
         /*var iterator = new HumanPriorityProgramIterator();
         Configuration config = new Configuration();
-        iterator.iterate(config, List.of(HumanInstructionEnum.INBOX, HumanInstructionEnum.OUTBOX, HumanInstructionEnum.CopyTo, HumanInstructionEnum.LOOP, HumanInstructionEnum.ADD).toArray(new HumanInstructionEnum[0]),
+        iterator.iterate(config, List.of(HumanInstructionSet.INBOX, HumanInstructionSet.OUTBOX, HumanInstructionSet.CopyTo, HumanInstructionSet.LOOP, HumanInstructionSet.ADD).toArray(new HumanInstructionSet[0]),
                 evaluator);*/
         HumanRegister r1 = new HumanRegister("r0");
         registers.add(r0);
