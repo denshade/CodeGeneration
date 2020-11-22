@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Queue;
+import java.util.logging.Logger;
 
 /**
  * Created by lveeckha on 31/05/2015.
@@ -15,6 +16,7 @@ public class HumanStatementRunner {
 
     public int MAXINSTRUCT = 100;
     private final Map<String, Integer> initialRegisterValues;
+    private static Logger LOGGER = Logger.getLogger(HumanStatementRunner.class.getName());
 
 
     public HumanStatementRunner()
@@ -51,13 +53,15 @@ public class HumanStatementRunner {
             instructionsRun++;
             if (instructionsRun > MAXINSTRUCT)
             {
-                //System.out.println("MAX INSTRUCT " + MAXINSTRUCT + " reached.");
+                LOGGER.warning("MAX INSTRUCT " + MAXINSTRUCT + " reached.");
                 break;
             }
             HumanInstruction instruction = instructions.get(ip);
             if (instruction instanceof Inbox && incomingQ.size() == 0)
                 break;
+            LOGGER.info(instruction.toString());
             Integer pointer = instruction.execute(incomingQ, outgoingQ, guy);
+            LOGGER.info("Guy: " + guy + " "+ incomingQ + " " + outgoingQ);
             if (pointer != null)
             {
                 ip = pointer;

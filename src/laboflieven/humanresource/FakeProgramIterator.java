@@ -5,10 +5,11 @@ import laboflieven.humanresource.heuristics.HumanRecursionHeuristic;
 import laboflieven.humanresource.instructions.Inbox;
 import laboflieven.humanresource.instructions.Outbox;
 import laboflieven.humanresource.model.HumanInstruction;
-import laboflieven.humanresource.model.HumanInstructionSet;
 import laboflieven.humanresource.model.HumanInstructionFactory;
+import laboflieven.humanresource.model.HumanInstructionSet;
 import laboflieven.humanresource.model.HumanRegister;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -17,27 +18,23 @@ import java.util.logging.Logger;
 /**
  * Created by lveeckha on 31/05/2015.
  */
-public class BruteForceProgramIterator
+public class FakeProgramIterator
 {
     public int maximumInstructions;
     public long counter = 0;
     public long secondsSinceEpochStart = System.currentTimeMillis() / 1000;
-    private static Logger LOGGER = Logger.getLogger(BruteForceProgramIterator.class.getName());
+    private static Logger LOGGER = Logger.getLogger(FakeProgramIterator.class.getName());
     public List<List<HumanInstruction>> positiveSolutions = new ArrayList<>();
     private HumanProgramFitnessExaminer evaluator;
     private HumanInstructionSet[] instructionEnums;
+    private List<HumanInstruction> solution;
     private HumanRecursionHeuristic heuristic = new AlwaysRecurseHeuristic();
 
-    public BruteForceProgramIterator(HumanProgramFitnessExaminer evaluator, HumanInstructionSet[] instructions, HumanRecursionHeuristic heuristic)
+    public FakeProgramIterator(HumanProgramFitnessExaminer evaluator, List<HumanInstruction> solution, HumanRecursionHeuristic heuristic)
     {
         this.evaluator = evaluator;
-        instructionEnums = instructions;
+        this.solution = solution;
         this.heuristic = heuristic;
-    }
-    public BruteForceProgramIterator(HumanProgramFitnessExaminer evaluator, HumanInstructionSet[] instructions)
-    {
-        this.evaluator = evaluator;
-        instructionEnums = instructions;
     }
 
 
@@ -48,7 +45,15 @@ public class BruteForceProgramIterator
         for (int i = 0; i <  registers.length; i++){
             registers[i] = new HumanRegister("r"+i);
         }
-        recurse(new ArrayList<>(), registers);
+        List<HumanInstruction> solutionSoFar = new ArrayList<>();
+        for (HumanInstruction s : solution) {
+            solutionSoFar.add(s);
+            if (!heuristic.shouldRecurse(solutionSoFar)) {
+                LOGGER.warning("Not recursing on " + solutionSoFar);
+            } else {
+                eval(solutionSoFar, Arrays.asList(registers));
+            }
+        }
     }
 
     private void recurse(List<HumanInstruction> instructions, HumanRegister[] registers)

@@ -23,6 +23,9 @@ public class Jump extends HumanInstruction
         return gotoInstruction;
     }
 
+    public Integer getGotoInstruction() {
+        return gotoInstruction;
+    }
     @Override
     public String toString() {
         return "Jump to " + gotoInstruction;
