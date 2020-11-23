@@ -15,6 +15,8 @@ import java.util.Map;
  */
 public class AccStatementRunner implements StatementRunner {
 
+    public static final String LEFT_ACC_NAME = "AL";
+    public static final String RIGHT_ACC_NAME = "AR";
     public int MAXINSTRUCT;
     public boolean verbose = false;
 
@@ -37,8 +39,8 @@ public class AccStatementRunner implements StatementRunner {
     {
         program.initializeRegisters(registerValues);
         List<InstructionMark> instructions = program.getInstructions();
-        Register left = new Register("AL");
-        Register right = new Register("AR");
+        Register left = new Register(LEFT_ACC_NAME);
+        Register right = new Register(RIGHT_ACC_NAME);
         int ip = 0;
         int instructionsRun = 0;
         int size = instructions.size();

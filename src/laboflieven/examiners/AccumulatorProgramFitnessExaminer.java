@@ -55,36 +55,20 @@ public class AccumulatorProgramFitnessExaminer implements ProgramFitnessExaminer
         Program program = new Program(instructions, registers);
         double noFitAtAll = Configuration.getInstance().getMaxError(Double.POSITIVE_INFINITY);
         double err = 0.0;
-        total:
         for(InOutParameters parameter : conditions)
         {
-            runner.execute(program, parameter.input);
+            Map<String, Double> results = runner.execute(program, parameter.input);
             Map<String, Double> expectedOutput = parameter.expectedOutput;
-            expectedOutput.get(registers.get(0).name);
+            Double value = results.get(AccStatementRunner.LEFT_ACC_NAME);
 
-            int foundExpectedRegisters = 0;
-            for (Register register : program.getRegisters())
+            if (Double.isNaN(value) || Double.isInfinite(value))
             {
-                if (Double.isNaN(register.value) || Double.isInfinite(register.value))
-                {
-                    err = noFitAtAll;
-                    break total;
-                } else
-                {
-                    //expect R0 to contain the solution.
-                    expectedOutput.get(registers.get(0).name);
-                    if (expectedOutput.containsKey(register.name))
-                    {
-                        foundExpectedRegisters++;
-                        err += Math.abs(expectedOutput.get(register.name) - register.value);
-                        if (err >= noFitAtAll){
-                            return noFitAtAll;
-                        }
-                        if (foundExpectedRegisters == expectedOutput.size()) break;
-                    }
-                }
+                err = noFitAtAll;
+                break;
+            } else
+            {
+                err += Math.abs(expectedOutput.get(registers.get(0).name) - value);
             }
-            //Should also check that expected values are actually compared. eg. R3 doesn't exist => OK.(wrong)
         }
         for(FitnessLogger logger : loggers)
         {

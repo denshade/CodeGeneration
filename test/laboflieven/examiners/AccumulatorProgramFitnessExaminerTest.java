@@ -2,8 +2,7 @@ package laboflieven.examiners;
 
 import laboflieven.InOutParameters;
 import laboflieven.InstructionMark;
-import laboflieven.accinstructions.LoadIntoLeftAcc;
-import laboflieven.accinstructions.Nand;
+import laboflieven.accinstructions.*;
 import laboflieven.challenges.TestCases;
 import laboflieven.challenges.XorFinder;
 import laboflieven.runners.AccStatementRunner;
@@ -12,6 +11,8 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static junit.framework.Assert.assertEquals;
 
 class AccumulatorProgramFitnessExaminerTest {
 
@@ -22,11 +23,11 @@ class AccumulatorProgramFitnessExaminerTest {
         points.add(new double[] { 0,1});
         points.add(new double[] { 1,0});
         points.add(new double[] { 1,1});
-        var registers = Register.createRegisters(1, "r");
-        List<InstructionMark> instructions = List.of(new LoadIntoLeftAcc(registers.get(0)), new Nand());
+        var registers = Register.createRegisters(2, "R");
+        List<InstructionMark> instructions = List.of(new LoadIntoLeftAcc(registers.get(0)),new LoadIntoRightAcc(registers.get(1)), new Log(), new Mul(), new Nand()); //Log R2, Mul R2 -> R1, Nand R1 -> R1
         List<InOutParameters> collection = TestCases.getTestCases(new XorFinder(), points.toArray(new double[0][0]),2);
 
         var f = new AccumulatorProgramFitnessExaminer(collection, new AccStatementRunner());
-        f.calculateFitness(instructions, registers);
+        assertEquals(1.0,f.calculateFitness(instructions, registers));
     }
 }
