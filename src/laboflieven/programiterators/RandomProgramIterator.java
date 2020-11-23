@@ -2,8 +2,8 @@ package laboflieven.programiterators;
 
 import laboflieven.InstructionMark;
 import laboflieven.ProgramResolution;
-import laboflieven.accinstructions.AccLeftPull;
-import laboflieven.accinstructions.AccLeftPush;
+import laboflieven.accinstructions.LoadAccLeftIntoRegister;
+import laboflieven.accinstructions.LoadIntoLeftAcc;
 import laboflieven.common.BestFitRegister;
 import laboflieven.common.Configuration;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
@@ -48,13 +48,13 @@ public class RandomProgramIterator implements ProgramIterator {
 
     public void loop() {
         var instructions = new ArrayList<InstructionMark>();
-        instructions.add(new AccLeftPush(registers[0]));
+        instructions.add(new LoadIntoLeftAcc(registers[0]));
         for (int i = 0; i < maximumInstructions - 2; i++)
         {
             InstructionMark actualInstruction = instructionFactory.generateRandomInstruction(Arrays.asList(registers));
             instructions.add(actualInstruction);
         }
-        instructions.add(new AccLeftPull(registers[0]));
+        instructions.add(new LoadAccLeftIntoRegister(registers[0]));
         eval(instructions, Arrays.asList(registers));
     }
     private void eval(List<InstructionMark> instructions, List<Register> registers) {

@@ -10,13 +10,24 @@ import laboflieven.humanresource.model.HumanInstructionSet;
 import laboflieven.humanresource.model.HumanRegister;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.logging.Handler;
+import java.util.logging.Level;
+import java.util.logging.LogManager;
+import java.util.logging.Logger;
 
 public class Level19 {
 
     public static void main(String[] args)
     {
+        Level l = Level.WARNING;
+        Logger rootLogger = LogManager.getLogManager().getLogger("");
+        rootLogger.setLevel(l);
+        for (Handler h : rootLogger.getHandlers()) {
+            h.setLevel(l);
+        }
         int maxNr = 12;
         var input = new HumanInOutput();
         input.input = List.of(5,-3,0);
@@ -46,7 +57,13 @@ public class Level19 {
         maxMap.put(BumpPlus.class, 1);
 
 
-        var heuristic = new CountInstructionWithJumpsHeuristic(maxMap);
+        var heuristic = new CountInstructionWithJumpsHeuristic(maxMap, Arrays.asList(
+                "Outbox, Outbox",
+                "BumpMin r0, BumpPlus r0",
+                "BumpPlus r0, BumpMin r0",
+                "CopyTo r0, CopyFrom r0",
+                "CopyFrom r0, CopyTo r0"
+        ));
 
         var evaluator = new HumanProgramFitnessExaminer(List.of(input)
                 ,300, new HumanStatementRunner());

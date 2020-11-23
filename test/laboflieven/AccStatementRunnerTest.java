@@ -24,10 +24,10 @@ public class AccStatementRunnerTest {
         List<InstructionMark> instructions = new ArrayList<>();
         instructions.add(new Cos());
         instructions.add(new Add());
-        instructions.add(new AccLeftPull(r0));
+        instructions.add(new LoadAccLeftIntoRegister(r0));
         instructions.add(new Add());
-        instructions.add(new AccRightPush(r0));
-        instructions.add(new AccLeftPull(r0));
+        instructions.add(new LoadIntoRightAcc(r0));
+        instructions.add(new LoadAccLeftIntoRegister(r0));
         instructions.add(new Nand());
         instructions.add(new Add());
         instructions.add(new JumpIfLteStart());

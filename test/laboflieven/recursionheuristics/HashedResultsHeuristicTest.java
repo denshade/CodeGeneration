@@ -58,15 +58,15 @@ class HashedResultsHeuristicTest {
     void shouldNotRecurseIfSmallerProgramExistsCaseStudy() {
         List<Register> registerList = Register.createRegisters(2, "r");
         List<InstructionMark> instructs = new ArrayList<>();
-        instructs.add(new AccLeftPush(registerList.get(0)));
-        instructs.add(new AccRightPush(registerList.get(0)));
+        instructs.add(new LoadIntoLeftAcc(registerList.get(0)));
+        instructs.add(new LoadIntoRightAcc(registerList.get(0)));
         instructs.add(new Add());
         Program p = new Program(instructs, registerList);
         HashedResultsHeuristic h = new HashedResultsHeuristic( getExampleParameters(), new AccStatementRunner(100));
         assertTrue(h.shouldRecurse(p,2));
         List<InstructionMark> instructs2 = new ArrayList<>();
-        instructs2.add(new AccRightPush(registerList.get(0)));
-        instructs2.add(new AccLeftPush(registerList.get(0)));
+        instructs2.add(new LoadIntoRightAcc(registerList.get(0)));
+        instructs2.add(new LoadIntoLeftAcc(registerList.get(0)));
         instructs2.add(new Add());
         Program p2 = new Program(instructs2, registerList);
         assertFalse(h.shouldRecurse(p2,2));

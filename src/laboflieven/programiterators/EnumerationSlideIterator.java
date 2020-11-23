@@ -2,18 +2,14 @@ package laboflieven.programiterators;
 
 import laboflieven.ProgramEnumerator;
 import laboflieven.ProgramResolution;
-import laboflieven.accinstructions.AccInstructionOpcodeEnum;
-import laboflieven.accinstructions.AccLeftPull;
-import laboflieven.common.AccInstructionOpcode;
+import laboflieven.accinstructions.LoadAccLeftIntoRegister;
 import laboflieven.common.BestFitRegister;
 import laboflieven.common.InstructionOpcode;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
-import laboflieven.recursionheuristics.AlwaysRecursionHeuristic;
 import laboflieven.statements.InstructionFactoryInterface;
 import laboflieven.statements.Register;
 
 import java.math.BigInteger;
-import java.util.ArrayList;
 import java.util.List;
 
 public class EnumerationSlideIterator {
@@ -40,7 +36,7 @@ public class EnumerationSlideIterator {
         for (int i = 0; i < maxVal - 1; i++)
         {
             var instructions = enumerator.convertToInstructions(current, instructionFactoryInterface);
-            instructions.add(new AccLeftPull(registers.get(0)));
+            instructions.add(new LoadAccLeftIntoRegister(registers.get(0)));
             double bestScore = evaluator.calculateFitness(instructions, registers);
             System.out.println(current + " " + bestScore);
             bestFit.register(bestScore,

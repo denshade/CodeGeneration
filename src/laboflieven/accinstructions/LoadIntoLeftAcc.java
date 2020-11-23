@@ -3,26 +3,25 @@ package laboflieven.accinstructions;
 import laboflieven.common.InstructionOpcode;
 import laboflieven.statements.Register;
 
-public class AccRightPull extends SingleRegisterInstruction
+public class LoadIntoLeftAcc extends SingleRegisterInstruction
 {
-
-    public AccRightPull(Register register)
+    public LoadIntoLeftAcc(Register register)
     {
         this.register = register;
     }
 
     public Integer execute(Register left, Register right, int ip)
     {
-        register.value = right.value;
+        left.value = register.value;
         return null;
     }
 
     @Override
     public String toString() {
-        return  register.name + " = right";
+        return " left = " +  register.name;
     }
     @Override
     public InstructionOpcode getInstructionOpcode() {
-        return new laboflieven.common.AccInstructionOpcode(AccInstructionOpcodeEnum.AccRightPull);
+        return new laboflieven.common.AccInstructionOpcode(AccInstructionOpcodeEnum.AccLeftPush);
     }
 }

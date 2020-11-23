@@ -14,21 +14,21 @@ public class AccHeuristic implements RecursionHeuristic
         int size = instructions.size();
         if (size == 0) return true;
         AccRegisterInstruction lastInstruction = instructions.get(size - 1);
-        if (size == 1 && !(lastInstruction instanceof AccLeftPush ||lastInstruction instanceof AccRightPush))
+        if (size == 1 && !(lastInstruction instanceof LoadIntoLeftAcc ||lastInstruction instanceof LoadIntoRightAcc))
             return false;
         //Finish must be a push to a register.
         //if (instructions.size() == maximumInstructions - 1 && isAccPushPull)
         //    return false;
         //Don't use pull from right/left before a push.
-        if (size == maximumInstructions && (lastInstruction instanceof AccLeftPush || lastInstruction instanceof AccRightPush ))
+        if (size == maximumInstructions && (lastInstruction instanceof LoadIntoLeftAcc || lastInstruction instanceof LoadIntoRightAcc))
             return false;
-        if (size == maximumInstructions && !(lastInstruction instanceof AccLeftPull || lastInstruction instanceof AccRightPull ))
+        if (size == maximumInstructions && !(lastInstruction instanceof LoadAccLeftIntoRegister || lastInstruction instanceof LoadAccRightIntoRegister))
             return false;
-        if (lastInstruction instanceof AccLeftPull)
+        if (lastInstruction instanceof LoadAccLeftIntoRegister)
         {
             if (!hasAccLeftPush(instructions)) return false;
         }
-        if (lastInstruction instanceof AccRightPull)
+        if (lastInstruction instanceof LoadAccRightIntoRegister)
         {
             if (!hasAccRightPush(instructions)) return false;
         }
@@ -37,11 +37,11 @@ public class AccHeuristic implements RecursionHeuristic
         {
             AccRegisterInstruction prevInstruction = instructions.get(size - 2);
             //Two pull lefts overwrite each other.
-            if (lastInstruction instanceof AccLeftPush && prevInstruction instanceof AccLeftPush) {
+            if (lastInstruction instanceof LoadIntoLeftAcc && prevInstruction instanceof LoadIntoLeftAcc) {
                return false;
             }
             //Two pull rights overwrite each other.
-            if (lastInstruction instanceof AccRightPush && prevInstruction instanceof AccRightPush) {
+            if (lastInstruction instanceof LoadIntoRightAcc && prevInstruction instanceof LoadIntoRightAcc) {
                 return false;
             }
             if (lastInstruction instanceof Add && prevInstruction instanceof Sub) {
@@ -60,7 +60,7 @@ public class AccHeuristic implements RecursionHeuristic
                 return false;
             }
             //if pullLeft overwrite the result of operations.
-            if (lastInstruction instanceof AccLeftPush && !(prevInstruction instanceof Swap || prevInstruction instanceof AccLeftPush)) {
+            if (lastInstruction instanceof LoadIntoLeftAcc && !(prevInstruction instanceof Swap || prevInstruction instanceof LoadIntoLeftAcc)) {
                 return false;
             }
         }
@@ -70,7 +70,7 @@ public class AccHeuristic implements RecursionHeuristic
     private boolean hasAccLeftPush(List<AccRegisterInstruction> instructions) {
         for ( AccRegisterInstruction instructionI: instructions)
         {
-            if (instructionI instanceof AccLeftPush) {
+            if (instructionI instanceof LoadIntoLeftAcc) {
                 return true;
             }
         }
@@ -80,7 +80,7 @@ public class AccHeuristic implements RecursionHeuristic
     private boolean hasAccRightPush(List<AccRegisterInstruction> instructions) {
         for ( AccRegisterInstruction instructionI: instructions)
         {
-            if (instructionI instanceof AccRightPush) {
+            if (instructionI instanceof LoadIntoRightAcc) {
                 return true;
             }
         }

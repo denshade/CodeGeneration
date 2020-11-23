@@ -149,29 +149,29 @@ public class AccRandomGeneticProgramIterator {
     {
         List<InstructionMark> instructions = program.getInstructions();
         //First instruction must be a push
-        if (instructions.size() == 0 && !(instruction instanceof AccLeftPush ||instruction instanceof AccRightPush))
+        if (instructions.size() == 0 && !(instruction instanceof LoadIntoLeftAcc ||instruction instanceof LoadIntoRightAcc))
             return true;
         //Finish must be a push to a register.
-        if (instructions.size() == maximumInstructions - 1 && !(instruction instanceof AccLeftPull ||instruction instanceof  AccRightPull))
+        if (instructions.size() == maximumInstructions - 1 && !(instruction instanceof LoadAccLeftIntoRegister ||instruction instanceof LoadAccRightIntoRegister))
             return true;
         //Don't use pull from right/left before a push.
-        if (instruction instanceof AccLeftPull)
+        if (instruction instanceof LoadAccLeftIntoRegister)
         {
             boolean used = false;
             for ( InstructionMark instructionI: instructions)
             {
-                if (instructionI instanceof AccLeftPush) {
+                if (instructionI instanceof LoadIntoLeftAcc) {
                     used = true;
                 }
             }
             if (!used)return true;
         }
-        if (instruction instanceof AccRightPull)
+        if (instruction instanceof LoadAccRightIntoRegister)
         {
             boolean used = false;
             for ( InstructionMark instructionI: instructions)
             {
-                if (instructionI instanceof AccRightPush) {
+                if (instructionI instanceof LoadIntoRightAcc) {
                     used = true;
                 }
             }
