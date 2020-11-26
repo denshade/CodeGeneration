@@ -1,7 +1,6 @@
 package laboflieven;
 
 import laboflieven.statements.DualRegisterInstruction;
-import laboflieven.statements.Instruction;
 import laboflieven.statements.Register;
 import laboflieven.statements.SingleRegisterInstruction;
 
@@ -57,11 +56,18 @@ public class Program
         {
             for (Register reg : registers)
             {
-                if (instr instanceof SingleRegisterInstruction)
+                if (instr instanceof laboflieven.statements.SingleRegisterInstruction)
                 {
 
                     if (((SingleRegisterInstruction) instr).destination.name.equals(reg.name) && !((SingleRegisterInstruction) instr).destination.equals(reg)){
                         ((SingleRegisterInstruction) instr).destination = reg;
+                    }
+                }
+                if (instr instanceof laboflieven.accinstructions.SingleRegisterInstruction)
+                {
+
+                    if (((laboflieven.accinstructions.SingleRegisterInstruction) instr).getRegister().name.equals(reg.name) && !((laboflieven.accinstructions.SingleRegisterInstruction) instr).getRegister().equals(reg)){
+                        ((laboflieven.accinstructions.SingleRegisterInstruction) instr).setRegister(reg);
                     }
                 }
                 if (instr instanceof DualRegisterInstruction)

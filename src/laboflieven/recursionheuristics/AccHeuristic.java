@@ -24,14 +24,6 @@ public class AccHeuristic implements RecursionHeuristic
             return false;
         if (size == maximumInstructions && !(lastInstruction instanceof LoadAccLeftIntoRegister || lastInstruction instanceof LoadAccRightIntoRegister))
             return false;
-        if (lastInstruction instanceof LoadAccLeftIntoRegister)
-        {
-            if (!hasAccLeftPush(instructions)) return false;
-        }
-        if (lastInstruction instanceof LoadAccRightIntoRegister)
-        {
-            if (!hasAccRightPush(instructions)) return false;
-        }
 
         if (size - 2 >= 0)
         {

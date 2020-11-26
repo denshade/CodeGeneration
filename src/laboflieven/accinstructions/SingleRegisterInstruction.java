@@ -12,4 +12,8 @@ public abstract class SingleRegisterInstruction extends AccRegisterInstruction
     }
 
     protected Register register;
+
+    public void setRegister(Register reg) {
+        register = reg;
+    }
 }
