@@ -107,16 +107,16 @@ public class InstructionFactory implements InstructionFactoryInterface {
     public AccRegisterInstruction createInstructionP(AccInstructionOpcodeEnum accInstructionOpcodeEnum, Register register1) {
         AccRegisterInstruction instruction;
         switch (accInstructionOpcodeEnum) {
-            case AccLeftPull:
+            case LoadAccLeftIntoRegister:
                 instruction = new LoadAccLeftIntoRegister(register1);
                 break;
-            case AccLeftPush:
+            case LoadIntoLeftAcc:
                 instruction = new LoadIntoLeftAcc(register1);
                 break;
-            case AccRightPush:
+            case LoadIntoRightAcc:
                 instruction = new LoadIntoRightAcc(register1);
                 break;
-            case AccRightPull:
+            case LoadAccRightIntoRegister:
                 instruction = new LoadAccRightIntoRegister(register1);
                 break;
             /*case JumpIfGte:

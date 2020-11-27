@@ -8,10 +8,7 @@ import laboflieven.examiners.AccumulatorProgramFitnessExaminer;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
 import laboflieven.loggers.RandomSysOutAccFitnessLogger;
 import laboflieven.programiterators.AccPriorityProgramIterator;
-import laboflieven.programiterators.FakeProgramIterator;
-import laboflieven.programiterators.GeneralBruteForceProgramIterator;
 import laboflieven.recursionheuristics.AccHeuristic;
-import laboflieven.recursionheuristics.AlwaysRecursionHeuristic;
 import laboflieven.runners.AccStatementRunner;
 import laboflieven.statements.Register;
 
@@ -64,13 +61,13 @@ public class SigmoidChallenge implements ProgramTemplate
 
         conf.setRandomAdded(false);
         conf.setAccOperations(new AccInstructionOpcodeEnum[]{
-                AccInstructionOpcodeEnum.AccLeftPull,
+                AccInstructionOpcodeEnum.LoadAccLeftIntoRegister,
                 AccInstructionOpcodeEnum.E,
                 AccInstructionOpcodeEnum.Inc,
                 AccInstructionOpcodeEnum.Div,
                 AccInstructionOpcodeEnum.Pow,
                 AccInstructionOpcodeEnum.Swap,
-                AccInstructionOpcodeEnum.AccLeftPush,
+                AccInstructionOpcodeEnum.LoadIntoLeftAcc,
         });
         conf.setCutPopulationAtMax(Integer.MAX_VALUE);
         //var v = new FakeProgramIterator(evaluator, solution, conf.getHeuristic(new AlwaysRecursionHeuristic()));

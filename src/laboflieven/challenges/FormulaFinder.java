@@ -265,10 +265,10 @@ public class FormulaFinder {
         AccInstructionOpcodeEnum[] enums = new AccInstructionOpcodeEnum[] {
                 AccInstructionOpcodeEnum.Log,
                 AccInstructionOpcodeEnum.Div,
-                AccInstructionOpcodeEnum.AccLeftPull,
-                AccInstructionOpcodeEnum.AccRightPull,
-                AccInstructionOpcodeEnum.AccLeftPush,
-                AccInstructionOpcodeEnum.AccRightPush
+                AccInstructionOpcodeEnum.LoadAccLeftIntoRegister,
+                AccInstructionOpcodeEnum.LoadAccRightIntoRegister,
+                AccInstructionOpcodeEnum.LoadIntoLeftAcc,
+                AccInstructionOpcodeEnum.LoadIntoRightAcc
         };
         //enums = new InstructionEnum[]{InstructionEnum.Add, InstructionEnum.Sub, InstructionEnum.Mul, InstructionEnum.Div, InstructionEnum.Log};
         ProgramFitnessExaminer evaluator = new ProgramFitnessExaminer(collection, new AccStatementRunner());

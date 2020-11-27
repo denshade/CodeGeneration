@@ -1,7 +1,6 @@
 package laboflieven.challenges;
 
 import laboflieven.InOutParameters;
-import laboflieven.InstructionMark;
 import laboflieven.accinstructions.*;
 import laboflieven.common.Configuration;
 import laboflieven.examiners.ProgramFitnessExaminer;
@@ -9,18 +8,10 @@ import laboflieven.examiners.ProgramFitnessExaminerInterface;
 import laboflieven.loggers.TimingAccFitnessLogger;
 import laboflieven.programiterators.*;
 import laboflieven.recursionheuristics.AlwaysRecursionHeuristic;
-import laboflieven.recursionheuristics.HashedResultsHeuristic;
-import laboflieven.recursionheuristics.NoInvertedHeuristic;
 import laboflieven.runners.AccStatementRunner;
-import laboflieven.runners.RegularStatementRunner;
-import laboflieven.statements.Register;
 
-import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 public class CosAltFinder implements ProgramTemplate
 {
@@ -51,10 +42,10 @@ public class CosAltFinder implements ProgramTemplate
                         AccInstructionOpcodeEnum.Swap,
                         AccInstructionOpcodeEnum.PI,
                         AccInstructionOpcodeEnum.Div,
-                        AccInstructionOpcodeEnum.AccRightPush,
+                        AccInstructionOpcodeEnum.LoadIntoRightAcc,
                         AccInstructionOpcodeEnum.Sub,
                         AccInstructionOpcodeEnum.Sin,
-                        AccInstructionOpcodeEnum.AccLeftPull,
+                        AccInstructionOpcodeEnum.LoadAccLeftIntoRegister,
                 }
         );
         /*List<Register> registers = new ArrayList<>();

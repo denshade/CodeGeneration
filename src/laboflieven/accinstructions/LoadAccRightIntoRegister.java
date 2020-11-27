@@ -23,6 +23,6 @@ public class LoadAccRightIntoRegister extends SingleRegisterInstruction
     }
     @Override
     public InstructionOpcode getInstructionOpcode() {
-        return new laboflieven.common.AccInstructionOpcode(AccInstructionOpcodeEnum.AccRightPull);
+        return new laboflieven.common.AccInstructionOpcode(AccInstructionOpcodeEnum.LoadAccRightIntoRegister);
     }
 }

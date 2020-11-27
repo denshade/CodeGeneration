@@ -14,17 +14,18 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.PriorityQueue;
 import java.util.Random;
+import java.util.logging.Logger;
 
 /**
  * Created by Lieven on 11-6-2016.
  */
 public class AccPriorityProgramIterator  implements ProgramIterator
 {
-
+    private Logger LOGGER = Logger.getLogger(AccPriorityProgramIterator.class.getName());
     private ProgramFitnessExaminerInterface evaluator;
     private AccInstructionOpcodeEnum[] enums;
     PriorityQueue<ProgramResolution> priorityQueue = new PriorityQueue<>();
-    private Register[] registers;
+    private List<Register> registers;
     private RecursionHeuristic heuristic = new AlwaysRecursionHeuristic();
     private InstructionFactoryInterface instructionFactory;
     private BestFitRegister<ProgramResolution> bestFitRegister = new BestFitRegister<>();
@@ -35,36 +36,31 @@ public class AccPriorityProgramIterator  implements ProgramIterator
         this.evaluator = configuration.getFitnessExaminer();
         this.enums = configuration.getAccOperations();
         this.instructionFactory = configuration.getInstructionFactory();
-        List<Register> registerList = Register.createRegisters(configuration.getNumberOfRegisters(2), "R");
-        this.registers = registerList.toArray(new Register[0]);
+        if (instructionFactory == null) throw new IllegalArgumentException("Instruction Factory shouldn't be empty");
+        registers = Register.createRegisters(configuration.getNumberOfRegisters(2), "R");
         int CUT_POPULATION_AT_MAX = configuration.getCutPopulationAtMax(150000);
         int CUT_POPULATION_TO = configuration.getCutPopulationTo(100000);
         boolean addRandom = configuration.getRandomAdded(true);
-        addLevel(registerList, new ArrayList<>());
+        addLevel(registers, new ArrayList<>());
         while (priorityQueue.size() > 0)
         {
             ProgramResolution res = priorityQueue.poll();
             List<InstructionMark> instructions = res.instructions;
             if (instructions.size() < configuration.getMaxNrInstructions(10)) {
-                Program prog = new Program(instructions, registerList);
-                ProgramResolution score = eval(instructions, registerList);
+                ProgramResolution score = eval(instructions, registers);
                 if (score.weight < 1000000) {
-                    if (heuristic.shouldRecurse(prog, configuration.getMaxNrInstructions(10))) {
-                        addLevel(registerList, instructions);
-                    } else {
-                        System.out.println("Skipped level of " + instructions);
-                    }
+                    addLevel(registers, instructions);
                 }
             } else {
                 if (priorityQueue.size() > CUT_POPULATION_AT_MAX)
                 {
-                    System.out.println("Cutting population");
+                    LOGGER.warning("Cutting population");
                     priorityQueue = PriorityQueueAlgos.cutPopulation(CUT_POPULATION_TO, priorityQueue);
                 }
             }
             if (addRandom)
             {
-                createRandom(registerList, res);
+                createRandom(registers, res);
             }
         }
         return null;
@@ -86,23 +82,26 @@ public class AccPriorityProgramIterator  implements ProgramIterator
         for (AccInstructionOpcodeEnum opcode : enums) {
             AccInstructionOpcode opcodeR = new AccInstructionOpcode(opcode);
             if (opcodeR.getNrRegisters() == 0) {
-                List<InstructionMark> marks = new ArrayList<>(instructions);
-                marks.add(instructionFactory.createInstruction(opcodeR));
-                priorityQueue.add(eval(marks, registerList));
+                addToPriorityQueue(instructions, instructionFactory.createInstruction(opcodeR), registerList);
             } else {
                 for (Register r : registers) {
-                    List<InstructionMark> marks = new ArrayList<>(instructions);
-                    marks.add(instructionFactory.createInstruction(opcodeR, r));
-                    priorityQueue.add(eval(marks, registerList));
+                    addToPriorityQueue(instructions, instructionFactory.createInstruction(opcodeR, r), registerList);
                 }
             }
         }
     }
 
+    private void addToPriorityQueue(List<InstructionMark> instructions, InstructionMark instruction, List<Register> registerList) {
+        List<InstructionMark> marks = new ArrayList<>(instructions);
+        marks.add(instruction);
+        priorityQueue.add(eval(marks, registerList));
+    }
+
     private ProgramResolution eval(List<InstructionMark> instructions, List<Register> registers) {
-        double val =  evaluator.calculateFitness(instructions, registers);
-        bestFitRegister.register(val,  new ProgramResolution(new ArrayList<>(instructions), val));
-        return new ProgramResolution(new ArrayList<>(instructions), val);
+        double val = evaluator.calculateFitness(instructions, registers);
+        var resolution = new ProgramResolution(new ArrayList<>(instructions), val);
+        bestFitRegister.register(val,  resolution);
+        return resolution;
     }
 
 }

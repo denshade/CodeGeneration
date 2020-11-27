@@ -184,9 +184,9 @@ public class AccRandomGeneticProgramIterator {
     private AccInstructionOpcodeEnum pickRandomPush(Random r) {
         AccInstructionOpcodeEnum instruction;
         if (r.nextBoolean()) {
-            instruction = AccInstructionOpcodeEnum.AccLeftPush;
+            instruction = AccInstructionOpcodeEnum.LoadIntoLeftAcc;
         } else {
-            instruction = AccInstructionOpcodeEnum.AccRightPush;
+            instruction = AccInstructionOpcodeEnum.LoadIntoRightAcc;
         }
         return instruction;
     }

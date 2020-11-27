@@ -5,11 +5,8 @@ import laboflieven.accinstructions.AccInstructionOpcodeEnum;
 import laboflieven.common.Configuration;
 import laboflieven.examiners.ProgramFitnessExaminer;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
-import laboflieven.programiterators.BruteForceProgramIterator;
 import laboflieven.programiterators.GeneralBruteForceProgramIterator;
-import laboflieven.recursionheuristics.NoInvertedHeuristic;
 import laboflieven.runners.AccStatementRunner;
-import laboflieven.runners.RegularStatementRunner;
 
 import java.io.File;
 import java.io.IOException;
@@ -37,8 +34,8 @@ public class CosDifferenceFinder implements ProgramTemplate
         conf.setFitnessExaminer(evaluator);
         conf.setNumberOfRegisters(curMaxRegisters);
         conf.setAccOperations( new AccInstructionOpcodeEnum[] {
-                AccInstructionOpcodeEnum.AccLeftPull,
-                AccInstructionOpcodeEnum.AccLeftPush,
+                AccInstructionOpcodeEnum.LoadAccLeftIntoRegister,
+                AccInstructionOpcodeEnum.LoadIntoLeftAcc,
                 AccInstructionOpcodeEnum.Cos,
         });
 

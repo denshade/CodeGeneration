@@ -10,10 +10,7 @@ import laboflieven.programiterators.AccRandomGeneticProgramIterator;
 import laboflieven.programiterators.GeneralBruteForceProgramIterator;
 import laboflieven.programiterators.GeneralRandomGeneticProgramIterator;
 import laboflieven.recursionheuristics.AccHeuristic;
-import laboflieven.recursionheuristics.CombinedHeuristic;
-import laboflieven.recursionheuristics.ResultsNoDataAfterFiveHeuristic;
 import laboflieven.runners.AccStatementRunner;
-import laboflieven.statements.Register;
 import org.junit.Test;
 
 import java.util.*;
@@ -35,10 +32,10 @@ public class FormulaFinderTest {
         AccInstructionOpcodeEnum[] enums = new AccInstructionOpcodeEnum[] {
                 AccInstructionOpcodeEnum.Log,
                 AccInstructionOpcodeEnum.Div,
-                AccInstructionOpcodeEnum.AccLeftPull,
-                AccInstructionOpcodeEnum.AccRightPull,
-                AccInstructionOpcodeEnum.AccLeftPush,
-                AccInstructionOpcodeEnum.AccRightPush,
+                AccInstructionOpcodeEnum.LoadAccLeftIntoRegister,
+                AccInstructionOpcodeEnum.LoadAccRightIntoRegister,
+                AccInstructionOpcodeEnum.LoadIntoLeftAcc,
+                AccInstructionOpcodeEnum.LoadIntoRightAcc,
                 AccInstructionOpcodeEnum.Swap
         };
         //enums = new InstructionEnum[]{InstructionEnum.Add, InstructionEnum.Sub, InstructionEnum.Mul, InstructionEnum.Div, InstructionEnum.Log};
@@ -64,10 +61,10 @@ public class FormulaFinderTest {
         AccInstructionOpcodeEnum[] enums = new AccInstructionOpcodeEnum[] {
                 AccInstructionOpcodeEnum.Log,
                 AccInstructionOpcodeEnum.Div,
-                AccInstructionOpcodeEnum.AccLeftPull,
-                AccInstructionOpcodeEnum.AccRightPull,
-                AccInstructionOpcodeEnum.AccLeftPush,
-                AccInstructionOpcodeEnum.AccRightPush,
+                AccInstructionOpcodeEnum.LoadAccLeftIntoRegister,
+                AccInstructionOpcodeEnum.LoadAccRightIntoRegister,
+                AccInstructionOpcodeEnum.LoadIntoLeftAcc,
+                AccInstructionOpcodeEnum.LoadIntoRightAcc,
                 AccInstructionOpcodeEnum.Swap
         };
         //enums = new InstructionEnum[]{InstructionEnum.Add, InstructionEnum.Sub, InstructionEnum.Mul, InstructionEnum.Div, InstructionEnum.Log};
@@ -92,8 +89,8 @@ public class FormulaFinderTest {
         //laboflieven.accinstructions.InstructionEnum[] enums = laboflieven.accinstructions.InstructionEnum.values();
         AccInstructionOpcodeEnum[] enums = new AccInstructionOpcodeEnum[] {
                 AccInstructionOpcodeEnum.Add, AccInstructionOpcodeEnum.Div, AccInstructionOpcodeEnum.Invert, AccInstructionOpcodeEnum.Mul, AccInstructionOpcodeEnum.Sqrt,
-                AccInstructionOpcodeEnum.Sub,  AccInstructionOpcodeEnum.Cos, AccInstructionOpcodeEnum.Mod, AccInstructionOpcodeEnum.Nand, AccInstructionOpcodeEnum.Log, AccInstructionOpcodeEnum.AccLeftPull,
-                AccInstructionOpcodeEnum.AccLeftPush, AccInstructionOpcodeEnum.AccRightPush, AccInstructionOpcodeEnum.AccRightPull, AccInstructionOpcodeEnum.JumpIfLteStart, AccInstructionOpcodeEnum.JumpIfGteStart
+                AccInstructionOpcodeEnum.Sub,  AccInstructionOpcodeEnum.Cos, AccInstructionOpcodeEnum.Mod, AccInstructionOpcodeEnum.Nand, AccInstructionOpcodeEnum.Log, AccInstructionOpcodeEnum.LoadAccLeftIntoRegister,
+                AccInstructionOpcodeEnum.LoadIntoLeftAcc, AccInstructionOpcodeEnum.LoadIntoRightAcc, AccInstructionOpcodeEnum.LoadAccRightIntoRegister, AccInstructionOpcodeEnum.JumpIfLteStart, AccInstructionOpcodeEnum.JumpIfGteStart
         };
         //enums = new InstructionEnum[]{InstructionEnum.Add, InstructionEnum.Sub, InstructionEnum.Mul, InstructionEnum.Div, InstructionEnum.Log};
         ProgramFitnessExaminerInterface evaluator = new ProgramFitnessExaminer(collection,new AccStatementRunner());
@@ -131,10 +128,10 @@ public class FormulaFinderTest {
                 AccInstructionOpcodeEnum.Cos,
                 AccInstructionOpcodeEnum.JumpIfGteStart,
                 AccInstructionOpcodeEnum.JumpIfLteStart,
-                AccInstructionOpcodeEnum.AccLeftPull,
-                AccInstructionOpcodeEnum.AccRightPull,
-                AccInstructionOpcodeEnum.AccLeftPush,
-                AccInstructionOpcodeEnum.AccRightPush
+                AccInstructionOpcodeEnum.LoadAccLeftIntoRegister,
+                AccInstructionOpcodeEnum.LoadAccRightIntoRegister,
+                AccInstructionOpcodeEnum.LoadIntoLeftAcc,
+                AccInstructionOpcodeEnum.LoadIntoRightAcc
         };
         //enums = new InstructionEnum[]{InstructionEnum.Add, InstructionEnum.Sub, InstructionEnum.Mul, InstructionEnum.Div, InstructionEnum.Log};
         ProgramFitnessExaminer evaluator = new ProgramFitnessExaminer(collection,new AccStatementRunner());
@@ -166,10 +163,10 @@ public class FormulaFinderTest {
                 AccInstructionOpcodeEnum.Sub,
                 AccInstructionOpcodeEnum.Mul,
                 AccInstructionOpcodeEnum.Div,
-                AccInstructionOpcodeEnum.AccLeftPull,
-                AccInstructionOpcodeEnum.AccRightPull,
-                AccInstructionOpcodeEnum.AccLeftPush,
-                AccInstructionOpcodeEnum.AccRightPush
+                AccInstructionOpcodeEnum.LoadAccLeftIntoRegister,
+                AccInstructionOpcodeEnum.LoadAccRightIntoRegister,
+                AccInstructionOpcodeEnum.LoadIntoLeftAcc,
+                AccInstructionOpcodeEnum.LoadIntoRightAcc
         };
         //enums = new InstructionEnum[]{InstructionEnum.Add, InstructionEnum.Sub, InstructionEnum.Mul, InstructionEnum.Div, InstructionEnum.Log};
         ProgramFitnessExaminer evaluator = new ProgramFitnessExaminer(collection,new AccStatementRunner());

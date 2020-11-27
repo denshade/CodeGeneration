@@ -9,7 +9,6 @@ import laboflieven.programiterators.GeneralBruteForceProgramIterator;
 import laboflieven.recursionheuristics.AccHeuristic;
 import laboflieven.runners.AccStatementRunner;
 
-import java.io.IOException;
 import java.util.*;
 
 public class P1 implements ProgramTemplate
@@ -32,7 +31,7 @@ Found a program: [R3 /= R1, Mod R2 -> R1, Mod R3 -> R2, Nand R2 -> R1]
         List<InOutParameters> collection = TestCases.getTestCases(new P1(), points.toArray(new double[0][0]),curMaxRegisters);
         ProgramFitnessExaminer evaluator = new ProgramFitnessExaminer(collection,new AccStatementRunner());
         AccInstructionOpcodeEnum[] instructions = new AccInstructionOpcodeEnum[] {
-                AccInstructionOpcodeEnum.AccRightPush, AccInstructionOpcodeEnum.AccRightPush, AccInstructionOpcodeEnum.AccRightPull, AccInstructionOpcodeEnum.AccLeftPull, AccInstructionOpcodeEnum.Mod, AccInstructionOpcodeEnum.Mod,
+                AccInstructionOpcodeEnum.LoadIntoRightAcc, AccInstructionOpcodeEnum.LoadIntoRightAcc, AccInstructionOpcodeEnum.LoadAccRightIntoRegister, AccInstructionOpcodeEnum.LoadAccLeftIntoRegister, AccInstructionOpcodeEnum.Mod, AccInstructionOpcodeEnum.Mod,
                 AccInstructionOpcodeEnum.Nand
         };
         evaluator.addListener(new AccPctBruteForceFitnessLogger(instructions, 10000, curMaxRegisters));
