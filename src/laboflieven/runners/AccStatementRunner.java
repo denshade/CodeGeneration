@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * Created by lveeckha on 31/05/2015.
@@ -37,6 +38,11 @@ public class AccStatementRunner implements StatementRunner {
      */
     public Map<String, Double> execute(Program program, Map<String, Double> registerValues)
     {
+        if (verbose){
+            System.out.println("__________");
+            System.out.println("INIT");
+            System.out.println("__________");
+        }
         program.initializeRegisters(registerValues);
         List<InstructionMark> instructions = program.getInstructions();
         Register left = new Register(LEFT_ACC_NAME);
@@ -58,7 +64,8 @@ public class AccStatementRunner implements StatementRunner {
             Integer pointer = instruction.execute(left, right, ip);
             if (verbose) {
                 System.out.println(pointer);
-                System.out.println(registerValues);
+                System.out.println(program.getRegisters().stream().map(e -> e.name+ "="+ e.value+ ",").collect(Collectors.joining()));
+                System.out.println("left " + left.value + " right " + right.value);
             }
 
             if (pointer != null && pointer >= 0)
