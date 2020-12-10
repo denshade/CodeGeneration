@@ -2,6 +2,7 @@ package laboflieven.examiners;
 
 import laboflieven.InstructionMark;
 import laboflieven.Program;
+import laboflieven.TestcaseInOutParameters;
 import laboflieven.loggers.FitnessLogger;
 import laboflieven.statements.Register;
 
@@ -9,6 +10,10 @@ import java.util.List;
 
 public interface ProgramFitnessExaminerInterface {
     int NO_FIT_AT_ALL = 100000;
+
+    List<TestcaseInOutParameters> getTestcases();
+    void setTestcases(List<TestcaseInOutParameters> parameters);
+
 
     void addListener(FitnessLogger logger);
 

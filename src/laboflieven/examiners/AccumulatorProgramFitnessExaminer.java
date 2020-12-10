@@ -19,10 +19,16 @@ import java.util.Map;
  * Created by Lieven on 14/06/2015.
  */
 public class AccumulatorProgramFitnessExaminer implements ProgramFitnessExaminerInterface {
-    private final List<TestcaseInOutParameters> conditions;
+    private List<TestcaseInOutParameters> conditions;
     private final double closeEnough = 0.00001;
     private final List<FitnessLogger> loggers = new ArrayList<>();
     StatementRunner runner;
+    public List<TestcaseInOutParameters> getTestcases() {
+        return conditions;
+    }
+    public void setTestcases(List<TestcaseInOutParameters> parameters){
+        this.conditions = parameters;
+    }
 
     /**
      * @param conditions Conditions that define the input parameters & the expected outcome.

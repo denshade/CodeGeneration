@@ -10,8 +10,10 @@ public class SelectorProgramFinder
 {
     public List<InstructionMark> findSolutions(Configuration configuration)
     {
+        var clonedConfiguration = new Configuration();
+        clonedConfiguration.getFitnessExaminer();
         var generalBruteForceProgramIterator = new GeneralBruteForceProgramIterator();
-        var programResolution = generalBruteForceProgramIterator.iterate(configuration);
+        var programResolution = generalBruteForceProgramIterator.iterate(clonedConfiguration);
         return programResolution.instructions;
     }
 }
