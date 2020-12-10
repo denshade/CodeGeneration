@@ -11,6 +11,7 @@ class GenericSolutionFinderTest {
     @Test
     void findSolution() {
         TestcaseSource source = new XorFinder();
-        source.getTestCases()
+        GenericSolutionFinder finder = new GenericSolutionFinder();
+        finder.findSolution(source.getTestCases());
     }
 }
