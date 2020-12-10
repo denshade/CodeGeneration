@@ -12,6 +12,8 @@ class GenericSolutionFinderTest {
     void findSolution() {
         TestcaseSource source = new XorFinder();
         GenericSolutionFinder finder = new GenericSolutionFinder();
-        finder.findSolution(source.getTestCases());
+        assertNotNull(finder.findSolution(source.getTestCases()));
+        assertTrue(finder.findSolution(source.getTestCases()).programSelector.size() > 0);
+
     }
 }

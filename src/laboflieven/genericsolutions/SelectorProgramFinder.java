@@ -21,7 +21,7 @@ public class SelectorProgramFinder
         var generalBruteForceProgramIterator = new GeneralBruteForceProgramIterator();
         var programResolution = new ProgramResolution(new ArrayList<>(), 400);
         int nrInstructs = 1;
-        while (programResolution == null || programResolution.weight > 0.001){
+        while (programResolution == null || programResolution.weight > 0.001) {
             clonedConfiguration.setMaxNrInstructions(nrInstructs++);
             programResolution = generalBruteForceProgramIterator.iterate(clonedConfiguration);
         }
