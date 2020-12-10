@@ -18,7 +18,7 @@ class SelectorProgramFinderTest {
         var evaluator = new ProgramFitnessExaminer(source.getTestCases(), new AccStatementRunner());
         var configuration = new Configuration();
         configuration.setFitnessExaminer(evaluator);
-        var prog = selector.findSolutions(source.getTestCases(), configuration);
+        var prog = selector.findSolutions(configuration);
         assertNotNull(prog);
 
     }
