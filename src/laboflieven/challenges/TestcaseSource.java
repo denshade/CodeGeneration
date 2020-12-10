@@ -1,8 +1,8 @@
 package laboflieven.challenges;
 
-import laboflieven.InOutParameters;
+import laboflieven.TestcaseInOutParameters;
 import java.util.List;
 
 public interface TestcaseSource {
-    List<InOutParameters> getTestCases();
+    List<TestcaseInOutParameters> getTestCases();
 }

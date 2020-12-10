@@ -1,6 +1,6 @@
 package laboflieven.challenges;
 
-import laboflieven.InOutParameters;
+import laboflieven.TestcaseInOutParameters;
 import laboflieven.accinstructions.AccInstructionOpcodeEnum;
 import laboflieven.common.Configuration;
 import laboflieven.examiners.ProgramFitnessExaminer;
@@ -24,7 +24,7 @@ public class CosDifferenceFinder implements ProgramTemplate
 
     public static void main(String[] args) throws IOException {
         int curMaxRegisters = 1;
-        List<InOutParameters> collection = TestCases.getTestCases(new CosDifferenceFinder(), TestCases.getExampleInput1D(3,.01),curMaxRegisters);
+        List<TestcaseInOutParameters> collection = TestCases.getTestCases(new CosDifferenceFinder(), TestCases.getExampleInput1D(3,.01),curMaxRegisters);
         collection = differentiate(collection);
 
         File f = new File("c:\\temp\\test.csv");
@@ -54,12 +54,12 @@ public class CosDifferenceFinder implements ProgramTemplate
 
     }
 
-    private static List<InOutParameters> differentiate(List<InOutParameters> collection) {
-        List<InOutParameters> result = new ArrayList<>();
+    private static List<TestcaseInOutParameters> differentiate(List<TestcaseInOutParameters> collection) {
+        List<TestcaseInOutParameters> result = new ArrayList<>();
 
         for (int i = 0; i < collection.size() - 1; i++)
         {
-            InOutParameters param = new  InOutParameters();
+            TestcaseInOutParameters param = new TestcaseInOutParameters();
             param.input =  collection.get(i).input;
             Map<String, Double> stringDoubleMap = new HashMap<String, Double>();
             Map<String, Double> currentValues = collection.get(i).expectedOutput;

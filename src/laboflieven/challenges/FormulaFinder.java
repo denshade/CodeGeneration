@@ -49,7 +49,7 @@ public class FormulaFinder {
         for (int curMaxRegisters = 3; curMaxRegisters < 4; curMaxRegisters++)
         {
 
-            List<InOutParameters> collection = getInOutParameters(curMaxRegisters, doubles);
+            List<TestcaseInOutParameters> collection = getInOutParameters(curMaxRegisters, doubles);
 
 
             ProgramFitnessExaminerInterface evaluator = new ProgramFitnessExaminer(collection, new RegularStatementRunner());
@@ -113,12 +113,12 @@ public class FormulaFinder {
         return result;
     }
 
-    private static InOutParameters createParameter(double[] doubles, double result)
+    private static TestcaseInOutParameters createParameter(double[] doubles, double result)
     {
         Map<String, Double> startParameters  = getMap(doubles);
         Map<String, Double> endParameters = new HashMap<>(1);
         endParameters.put("R1", result);
-        InOutParameters parameters = new InOutParameters();
+        TestcaseInOutParameters parameters = new TestcaseInOutParameters();
         parameters.input = startParameters;
         parameters.expectedOutput = endParameters;
         return parameters;
@@ -143,7 +143,7 @@ public class FormulaFinder {
                 new double[]{ 1000, 50, 1}, new double[]{ 1000, 1, 50}, new double[]{ 50, 1, 1000},
                 new double[]{ 10000, 50, 10}, new double[]{ 10000, -1, 50}, new double[]{ -10000, -100, 1000}
         };
-        List<InOutParameters> collection = getInOutParameters(curMaxRegisters, doubles);
+        List<TestcaseInOutParameters> collection = getInOutParameters(curMaxRegisters, doubles);
 
         ProgramFitnessExaminerInterface evaluator = new ProgramFitnessExaminer(collection, new RegularStatementRunner());
 
@@ -168,7 +168,7 @@ public class FormulaFinder {
                 new double[]{ 10000, 50, 10}, new double[]{ 10000, -1, 50}, new double[]{ -10000, -100, 1000}
 
         };
-        List<InOutParameters> collection = getInOutParameters(curMaxRegisters, doubles);
+        List<TestcaseInOutParameters> collection = getInOutParameters(curMaxRegisters, doubles);
 
         ProgramFitnessExaminerInterface evaluator = new ProgramFitnessExaminer(collection, new RegularStatementRunner());
         var logger = new FileFitnessLogger(new File("logs.csv"));
@@ -181,8 +181,8 @@ public class FormulaFinder {
         logger.finish();
     }
 
-    private static List<InOutParameters> getInOutParameters(int curMaxRegisters, double[][] doubles) {
-        List<InOutParameters> collection = new ArrayList<>();
+    private static List<TestcaseInOutParameters> getInOutParameters(int curMaxRegisters, double[][] doubles) {
+        List<TestcaseInOutParameters> collection = new ArrayList<>();
         for (double[] doubleRow : doubles) {
             if (!Double.isNaN(simulateFormula(doubleRow)))
                 collection.add(createParameter(fillDoubleArray(doubleRow, curMaxRegisters), simulateFormula(doubleRow)));
@@ -199,7 +199,7 @@ public class FormulaFinder {
                 new double[]{ 10000, 50, 10}, new double[]{ 10000, -1, 50}, new double[]{ -10000, -100, 1000}
 
         };
-        List<InOutParameters> collection = getInOutParameters(curMaxRegisters, doubles);
+        List<TestcaseInOutParameters> collection = getInOutParameters(curMaxRegisters, doubles);
 
         ProgramFitnessExaminerInterface evaluator = new ProgramFitnessExaminer(collection, new RegularStatementRunner());
         BruteForceProgramIterator iter = new BruteForceProgramIterator(evaluator, new RegularInstructionOpcodeEnum[]{RegularInstructionOpcodeEnum.Add, RegularInstructionOpcodeEnum.Sub, RegularInstructionOpcodeEnum.Mul, RegularInstructionOpcodeEnum.Div, RegularInstructionOpcodeEnum.Sqrt, RegularInstructionOpcodeEnum.Move, RegularInstructionOpcodeEnum.Log});
@@ -222,7 +222,7 @@ public class FormulaFinder {
 
         };
 
-        List<InOutParameters> collection = new ArrayList<>();
+        List<TestcaseInOutParameters> collection = new ArrayList<>();
         for (double[] doubleRow : doubles)
         {
             if (!Double.isNaN(simulateFormula(doubleRow)) && !Double.isInfinite(simulateFormula(doubleRow)))
@@ -255,7 +255,7 @@ public class FormulaFinder {
 
         };
 
-        List<InOutParameters> collection = new ArrayList<>();
+        List<TestcaseInOutParameters> collection = new ArrayList<>();
         for (double[] doubleRow : doubles)
         {
             if (!Double.isNaN(simulateFormula(doubleRow)) && !Double.isInfinite(simulateFormula(doubleRow)))

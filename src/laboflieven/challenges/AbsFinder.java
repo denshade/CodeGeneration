@@ -1,6 +1,6 @@
 package laboflieven.challenges;
 
-import laboflieven.InOutParameters;
+import laboflieven.TestcaseInOutParameters;
 import laboflieven.examiners.ProgramFitnessExaminer;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
 import laboflieven.programiterators.BruteForceProgramIterator;
@@ -30,7 +30,7 @@ public class AbsFinder {
             System.exit(1);
         }
         int nrSolutions = Integer.parseInt(args[0]);
-        List<InOutParameters> collection = new ArrayList<>();
+        List<TestcaseInOutParameters> collection = new ArrayList<>();
         collection.add(createParameter(2.0, 2.0));
         collection.add(createParameter(-15.0, 15.0));
         collection.add(createParameter(0.0, 0.0));
@@ -41,7 +41,7 @@ public class AbsFinder {
         //34242100000
     }
 
-    private static InOutParameters createParameter(double a, double result)
+    private static TestcaseInOutParameters createParameter(double a, double result)
     {
         Map<String, Double> startParameters  = new HashMap<>();
         startParameters.put("r0", a);
@@ -49,7 +49,7 @@ public class AbsFinder {
         Map<String, Double> endParameters = new HashMap<>(1);
         endParameters.put("r0", result);
 
-        InOutParameters parameters = new InOutParameters();
+        TestcaseInOutParameters parameters = new TestcaseInOutParameters();
         parameters.input = startParameters;
         parameters.expectedOutput = endParameters;
         return parameters;

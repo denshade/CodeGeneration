@@ -21,7 +21,7 @@ public class DistanceFinder {
     public static void main(String[] args)
     {
         int curMaxRegisters = 4;
-        List<InOutParameters> collection = new ArrayList<>();
+        List<TestcaseInOutParameters> collection = new ArrayList<>();
         collection.add(createParameter(fillDoubleArray(new double [] {0.0,0.0,0.0,0.0}, curMaxRegisters), 0.0));
         collection.add(createParameter(fillDoubleArray(new double [] {1.0,1.0,1.0,1.0}, curMaxRegisters), 0.0));
         collection.add(createParameter(fillDoubleArray(new double [] {1.0,1.0,1.0,1.0}, curMaxRegisters), 0.0));
@@ -54,7 +54,7 @@ public class DistanceFinder {
         for (int curMaxRegisters = 4; curMaxRegisters < 5; curMaxRegisters++)
         {
 
-            List<InOutParameters> collection = new ArrayList<>();
+            List<TestcaseInOutParameters> collection = new ArrayList<>();
             collection.add(createParameter(fillDoubleArray(new double [] {0.0,0.0,0.0,0.0}, curMaxRegisters), 0.0));
             collection.add(createParameter(fillDoubleArray(new double [] {1.0,1.0,1.0,1.0}, curMaxRegisters), 0.0));
             collection.add(createParameter(fillDoubleArray(new double [] {1.0,1.0,1.0,1.0}, curMaxRegisters), 0.0));
@@ -108,12 +108,12 @@ public class DistanceFinder {
         return result;
     }
 
-    private static InOutParameters createParameter(double[] doubles, double result)
+    private static TestcaseInOutParameters createParameter(double[] doubles, double result)
     {
         Map<String, Double> startParameters  = getMap(doubles);
         Map<String, Double> endParameters = new HashMap<>(1);
         endParameters.put("r3", result);
-        InOutParameters parameters = new InOutParameters();
+        TestcaseInOutParameters parameters = new TestcaseInOutParameters();
         parameters.input = startParameters;
         parameters.expectedOutput = endParameters;
         return parameters;

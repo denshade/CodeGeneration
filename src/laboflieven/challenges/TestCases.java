@@ -1,12 +1,11 @@
 package laboflieven.challenges;
 
-import laboflieven.InOutParameters;
+import laboflieven.TestcaseInOutParameters;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.function.Function;
 
 public class TestCases
 {
@@ -98,12 +97,12 @@ public class TestCases
     }
 
 
-    public static InOutParameters createParameter(double[] doubles, double result)
+    public static TestcaseInOutParameters createParameter(double[] doubles, double result)
     {
         Map<String, Double> startParameters  = getMap(doubles);
         Map<String, Double> endParameters = new HashMap<>(1);
         endParameters.put("R1", result);
-        InOutParameters parameters = new InOutParameters();
+        TestcaseInOutParameters parameters = new TestcaseInOutParameters();
         parameters.input = startParameters;
         parameters.expectedOutput = endParameters;
         return parameters;
@@ -125,13 +124,13 @@ public class TestCases
         return result;
     }
 
-    public static List<InOutParameters> getTestCases(ProgramTemplate template, double[][] doubles, int curMaxRegisters)
+    public static List<TestcaseInOutParameters> getTestCases(ProgramTemplate template, double[][] doubles, int curMaxRegisters)
     {
         if (template == null) {
             throw new IllegalArgumentException("Template must not be null");
         }
 
-        List<InOutParameters> collection = new ArrayList<>();
+        List<TestcaseInOutParameters> collection = new ArrayList<>();
         for (double[] doubleRow : doubles)
         {
             double solution = template.run(doubleRow);

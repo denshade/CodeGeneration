@@ -63,7 +63,7 @@ public class ProgramSelector
         JButton button = new JButton("start");
         button.addActionListener(e -> {
             TextToCriteria converter = new TextToCriteria();
-            java.util.List<InOutParameters> collection;
+            java.util.List<TestcaseInOutParameters> collection;
             try {
                 collection = converter.parseMultipleStrings(boundariesTextArea.getText());
             } catch (Exception e1) {

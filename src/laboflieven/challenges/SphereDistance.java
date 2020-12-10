@@ -1,6 +1,6 @@
 package laboflieven.challenges;
 
-import laboflieven.InOutParameters;
+import laboflieven.TestcaseInOutParameters;
 import laboflieven.examiners.ProgramFitnessExaminer;
 import laboflieven.loggers.FileFitnessLogger;
 import laboflieven.programiterators.ReverseProgramIterator;
@@ -26,9 +26,9 @@ public class SphereDistance implements ProgramTemplate
 
 
     public static void main(String[] args) throws IOException {
-        InOutParameters io = new InOutParameters();
+        TestcaseInOutParameters io = new TestcaseInOutParameters();
         int curMaxRegisters = 4;
-        List<InOutParameters> collection = TestCases.getTestCases(new SphereDistance(), TestCases.getExampleInput4D(50,10),4);
+        List<TestcaseInOutParameters> collection = TestCases.getTestCases(new SphereDistance(), TestCases.getExampleInput4D(50,10),4);
 
 
         File f = new File("c:\\temp\\test.csv");

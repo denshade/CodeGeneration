@@ -24,7 +24,7 @@ public class AdderFinder implements ProgramTemplate{
      */
     public static void main(String[] args)
     {
-        List<InOutParameters> collection = new ArrayList<>();
+        List<TestcaseInOutParameters> collection = new ArrayList<>();
         collection.add(createParameter(fillDoubleArray(new double [] {0.0, 0.0, 0.0}, 3), new double[] {0.0,0.0}));
         collection.add(createParameter(fillDoubleArray(new double [] {0.0, 0.0, 1.0}, 3), new double[] {0.0,1.0}));
         collection.add(createParameter(fillDoubleArray(new double [] {0.0, 1.0, 0.0}, 3), new double[] {0.0,1.0}));
@@ -49,11 +49,11 @@ public class AdderFinder implements ProgramTemplate{
         return result;
     }
 
-    private static InOutParameters createParameter(double[] doubles, double[] results)
+    private static TestcaseInOutParameters createParameter(double[] doubles, double[] results)
     {
         Map<String, Double> startParameters  = getMap(doubles);
         Map<String, Double> endParameters = getMap(results);
-        InOutParameters parameters = new InOutParameters();
+        TestcaseInOutParameters parameters = new TestcaseInOutParameters();
         parameters.input = startParameters;
         parameters.expectedOutput = endParameters;
         return parameters;

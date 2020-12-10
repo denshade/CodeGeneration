@@ -1,6 +1,6 @@
 package laboflieven.challenges;
 
-import laboflieven.InOutParameters;
+import laboflieven.TestcaseInOutParameters;
 import laboflieven.accinstructions.*;
 import laboflieven.common.Configuration;
 import laboflieven.examiners.ProgramFitnessExaminer;
@@ -23,7 +23,7 @@ public class CosAltFinder implements ProgramTemplate
 
     public static void main(String[] args) throws IOException {
         int curMaxRegisters = 1;
-        List<InOutParameters> collection = TestCases.getTestCases(new CosAltFinder(), TestCases.getExampleInput1D(50,10),curMaxRegisters);
+        List<TestcaseInOutParameters> collection = TestCases.getTestCases(new CosAltFinder(), TestCases.getExampleInput1D(50,10),curMaxRegisters);
 
         Configuration configuration = new Configuration();
         ProgramFitnessExaminerInterface evaluator = new ProgramFitnessExaminer(collection, new AccStatementRunner());

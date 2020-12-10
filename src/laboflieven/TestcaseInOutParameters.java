@@ -7,24 +7,24 @@ import java.util.Map;
 /**
  * Created by Lieven on 14/06/2015.
  */
-public class InOutParameters
+public class TestcaseInOutParameters
 {
-    public InOutParameters() {
+    public TestcaseInOutParameters() {
         input = new HashMap<>();
         expectedOutput = new HashMap<>();
     }
 
-    public static InOutParameters createParameter(double[] doubles, double result, int expectedOutputRegister)
+    public static TestcaseInOutParameters createParameter(double[] doubles, double result, int expectedOutputRegister)
     {
         return createParameter(doubles, result, expectedOutputRegister, "R");
     }
 
-    public static InOutParameters createParameter(double[] doubles, double result, int expectedOutputRegister, String registerPrefix)
+    public static TestcaseInOutParameters createParameter(double[] doubles, double result, int expectedOutputRegister, String registerPrefix)
     {
         Map<String, Double> startParameters  = getMap(doubles, registerPrefix);
         Map<String, Double> endParameters = new HashMap<>(1);
         endParameters.put(registerPrefix+expectedOutputRegister, result);
-        InOutParameters parameters = new InOutParameters();
+        TestcaseInOutParameters parameters = new TestcaseInOutParameters();
         parameters.input = startParameters;
         parameters.expectedOutput = endParameters;
         return parameters;

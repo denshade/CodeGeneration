@@ -1,9 +1,7 @@
 package laboflieven.challenges;
 
-import laboflieven.InOutParameters;
+import laboflieven.TestcaseInOutParameters;
 import laboflieven.accinstructions.AccInstructionOpcodeEnum;
-import laboflieven.accinstructions.Cos;
-import laboflieven.common.AccInstructionOpcode;
 import laboflieven.common.CommandLineConfigLoader;
 import laboflieven.common.Configuration;
 import laboflieven.examiners.ProgramFitnessExaminer;
@@ -11,11 +9,9 @@ import laboflieven.examiners.ProgramFitnessExaminerInterface;
 import laboflieven.loggers.TimingAccFitnessLogger;
 import laboflieven.programiterators.ProgramIterator;
 import laboflieven.programiterators.RandomProgramIterator;
-import laboflieven.runners.AccStatementRunner;
 import laboflieven.runners.SumSeriesAccStatementRunner;
 
 import java.util.List;
-import java.util.Set;
 
 /**
  * MAX_NR_OF_INSTRUCTIONS=10 INSTRUCTION_FACTORY=Acc DATA_PROVIDER=laboflieven.challenges.EllipseFinder PROGRAM_ITERATOR=random
@@ -38,7 +34,7 @@ public class SeriesGeneralFinder
         Configuration config = loader.loadFromCommandLine(args);
         int curMaxRegisters = config.getNumberOfRegisters(2);
         config.setAccOperations(AccInstructionOpcodeEnum.noGeo());
-        List<InOutParameters> collection = TestCases.getTestCases(config.getDataProvider(), TestCases.getExampleInput1D(1,0.01), curMaxRegisters);
+        List<TestcaseInOutParameters> collection = TestCases.getTestCases(config.getDataProvider(), TestCases.getExampleInput1D(1,0.01), curMaxRegisters);
 
         ProgramFitnessExaminerInterface evaluator = new ProgramFitnessExaminer(collection, new SumSeriesAccStatementRunner());
         evaluator.addListener(new TimingAccFitnessLogger(10000));

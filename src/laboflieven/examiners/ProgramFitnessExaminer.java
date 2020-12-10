@@ -1,6 +1,6 @@
 package laboflieven.examiners;
 
-import laboflieven.InOutParameters;
+import laboflieven.TestcaseInOutParameters;
 import laboflieven.InstructionMark;
 import laboflieven.Program;
 import laboflieven.common.Configuration;
@@ -18,7 +18,7 @@ import java.util.Map;
  * Created by Lieven on 14/06/2015.
  */
 public class ProgramFitnessExaminer implements ProgramFitnessExaminerInterface {
-    private final List<InOutParameters> conditions;
+    private final List<TestcaseInOutParameters> conditions;
     private final double closeEnough = 0.00001;
     private final List<FitnessLogger> loggers = new ArrayList<>();
     StatementRunner runner;
@@ -26,7 +26,7 @@ public class ProgramFitnessExaminer implements ProgramFitnessExaminerInterface {
     /**
      * @param conditions Conditions that define the input parameters & the expected outcome.
      */
-    public ProgramFitnessExaminer(List<InOutParameters> conditions, StatementRunner runner)
+    public ProgramFitnessExaminer(List<TestcaseInOutParameters> conditions, StatementRunner runner)
     {
         this.conditions = conditions;
         this.runner = runner;
@@ -55,7 +55,7 @@ public class ProgramFitnessExaminer implements ProgramFitnessExaminerInterface {
         double noFitAtAll = Configuration.getInstance().getMaxError(Double.POSITIVE_INFINITY);
         double err = 0.0;
         total:
-        for(InOutParameters parameter : conditions)
+        for(TestcaseInOutParameters parameter : conditions)
         {
             runner.execute(program, parameter.input);
             int foundExpectedRegisters = 0;
@@ -94,7 +94,7 @@ public class ProgramFitnessExaminer implements ProgramFitnessExaminerInterface {
     {
         StatementRunner runner = new RegularStatementRunner();
         double result = 0.0;
-        for(InOutParameters parameter : conditions)
+        for(TestcaseInOutParameters parameter : conditions)
         {
             runner.execute(program, parameter.input);
             for (Register register : program.getRegisters())

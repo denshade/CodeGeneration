@@ -1,6 +1,6 @@
 package laboflieven.challenges;
 
-import laboflieven.InOutParameters;
+import laboflieven.TestcaseInOutParameters;
 import laboflieven.common.CommandLineConfigLoader;
 import laboflieven.common.Configuration;
 import laboflieven.examiners.ProgramFitnessExaminer;
@@ -8,7 +8,6 @@ import laboflieven.examiners.ProgramFitnessExaminerInterface;
 import laboflieven.loggers.TimingAccFitnessLogger;
 import laboflieven.programiterators.GeneralBruteForceProgramIterator;
 import laboflieven.programiterators.ProgramIterator;
-import laboflieven.programiterators.RandomProgramIterator;
 import laboflieven.runners.AccStatementRunner;
 
 import java.util.List;
@@ -29,7 +28,7 @@ public class EllipseFinder implements ProgramTemplate
         Configuration config = loader.loadFromCommandLine(args);
         System.out.println(distance(100,300));
         int curMaxRegisters = config.getNumberOfRegisters(2);
-        List<InOutParameters> collection = TestCases.getTestCases(new EllipseFinder(), TestCases.getExampleInput2D(10000,100), curMaxRegisters);
+        List<TestcaseInOutParameters> collection = TestCases.getTestCases(new EllipseFinder(), TestCases.getExampleInput2D(10000,100), curMaxRegisters);
 
         ProgramFitnessExaminerInterface evaluator = new ProgramFitnessExaminer(collection, new AccStatementRunner());
         evaluator.addListener(new TimingAccFitnessLogger(10000));

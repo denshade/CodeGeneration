@@ -1,6 +1,6 @@
 package laboflieven.ui;
 
-import laboflieven.InOutParameters;
+import laboflieven.TestcaseInOutParameters;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,8 +10,8 @@ import java.util.List;
  */
 public class TextToCriteria
 {
-    public List<InOutParameters> parseMultipleStrings(String newLineSeparatedStrings) throws Exception {
-        List<InOutParameters> list = new ArrayList<>();
+    public List<TestcaseInOutParameters> parseMultipleStrings(String newLineSeparatedStrings) throws Exception {
+        List<TestcaseInOutParameters> list = new ArrayList<>();
         for (String line : newLineSeparatedStrings.split("\n"))
         {
             list.add(createFromString(line));
@@ -19,8 +19,8 @@ public class TextToCriteria
         return list;
     }
 
-    public InOutParameters createFromString(String line) throws Exception {
-        InOutParameters parameters = new InOutParameters();
+    public TestcaseInOutParameters createFromString(String line) throws Exception {
+        TestcaseInOutParameters parameters = new TestcaseInOutParameters();
         if (line.split(";").length != 2) {
             throw new Exception("line has a valid ; format " + line);
         }

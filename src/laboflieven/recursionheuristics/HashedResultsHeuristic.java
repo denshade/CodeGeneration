@@ -1,22 +1,18 @@
 package laboflieven.recursionheuristics;
 
-import laboflieven.InOutParameters;
-import laboflieven.InstructionMark;
+import laboflieven.TestcaseInOutParameters;
 import laboflieven.Program;
-import laboflieven.accinstructions.*;
-import laboflieven.runners.AccStatementRunner;
 import laboflieven.runners.StatementRunner;
-import laboflieven.statements.Register;
 
 import java.util.*;
 
 public class HashedResultsHeuristic implements RecursionHeuristic
 {
-    private final List<InOutParameters> challenges;
+    private final List<TestcaseInOutParameters> challenges;
     private final StatementRunner runner;
     private Map<String, Integer> hashMinInstructionMap = new HashMap<>();
 
-    public HashedResultsHeuristic(List<InOutParameters> challenges, StatementRunner runner)
+    public HashedResultsHeuristic(List<TestcaseInOutParameters> challenges, StatementRunner runner)
     {
         this.challenges = challenges;
         this.runner = runner;
@@ -25,7 +21,7 @@ public class HashedResultsHeuristic implements RecursionHeuristic
     @Override
     public boolean shouldRecurse(Program program, int maximumInstructions) {
         StringBuilder hash = new StringBuilder();
-        for (InOutParameters challenge: challenges)
+        for (TestcaseInOutParameters challenge: challenges)
         {
             Map<String, Double> values =  runner.execute(program, challenge.input);
             hash.append(getHash(values));

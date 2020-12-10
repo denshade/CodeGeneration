@@ -1,6 +1,6 @@
 package laboflieven.challenges;
 
-import laboflieven.InOutParameters;
+import laboflieven.TestcaseInOutParameters;
 import laboflieven.common.Configuration;
 
 import java.util.ArrayList;
@@ -31,7 +31,7 @@ public class XorFinder implements TestcaseSource, ProgramTemplate
         }
 
         @Override
-        public List<InOutParameters> getTestCases() {
+        public List<TestcaseInOutParameters> getTestCases() {
             List<double[]> points = new ArrayList<>();
             points.add(new double[] { 0,0});
             points.add(new double[] { 0,1});

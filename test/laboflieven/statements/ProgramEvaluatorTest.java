@@ -17,8 +17,8 @@ import java.util.List;
 public class ProgramEvaluatorTest extends TestCase {
 
     public void testEvaluateTrue() throws Exception {
-        List<InOutParameters> parameters = new ArrayList<>();
-        InOutParameters parameter1 = new InOutParameters();
+        List<TestcaseInOutParameters> parameters = new ArrayList<>();
+        TestcaseInOutParameters parameter1 = new TestcaseInOutParameters();
         parameter1.input.put("R1", 1.0);
         parameter1.expectedOutput.put("R1", 2.0);
         parameters.add(parameter1);
@@ -32,8 +32,8 @@ public class ProgramEvaluatorTest extends TestCase {
 
     }
     public void testEvaluateFalse() throws Exception {
-        List<InOutParameters> parameters = new ArrayList<>();
-        InOutParameters parameter1 = new InOutParameters();
+        List<TestcaseInOutParameters> parameters = new ArrayList<>();
+        TestcaseInOutParameters parameter1 = new TestcaseInOutParameters();
         parameter1.input.put("R1", 1.0);
         parameter1.expectedOutput.put("R1", 1.0);
         parameters.add(parameter1);

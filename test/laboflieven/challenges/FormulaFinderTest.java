@@ -23,7 +23,7 @@ public class FormulaFinderTest {
     public void mainBruteAccLog() {
         int curMaxRegisters = 2;
         double[][] doubles = TestCases.getExampleInput2D();
-        List<InOutParameters> collection = TestCases.getTestCases(args -> {
+        List<TestcaseInOutParameters> collection = TestCases.getTestCases(args -> {
             double a = args[0];
             double b = args[1];
             return Math.log(a)/Math.log(b);
@@ -52,7 +52,7 @@ public class FormulaFinderTest {
     public void mainGeneticAccLog() {
         int curMaxRegisters = 2;
         double[][] doubles = TestCases.getExampleInput2D();
-        List<InOutParameters> collection = TestCases.getTestCases(args -> {
+        List<TestcaseInOutParameters> collection = TestCases.getTestCases(args -> {
             double a = args[0];
             double b = args[1];
             return Math.log(a)/Math.log(b);
@@ -82,7 +82,7 @@ public class FormulaFinderTest {
     public void mainBruteSinLog() {
         int curMaxRegisters = 1;
         double[][] doubles = TestCases.getExampleInput1D();
-        List<InOutParameters> collection = TestCases.getTestCases(args -> {
+        List<TestcaseInOutParameters> collection = TestCases.getTestCases(args -> {
             double a = args[0];
             return Math.sin(a);
         }, doubles, curMaxRegisters);
@@ -108,7 +108,7 @@ public class FormulaFinderTest {
     public void mainBruteAccLogAlternative() {
         int curMaxRegisters = 1;
         double[][] doubles = TestCases.getExampleInput1D();
-        List<InOutParameters> collection = TestCases.getTestCases(new ProgramTemplate() {
+        List<TestcaseInOutParameters> collection = TestCases.getTestCases(new ProgramTemplate() {
             @Override
             public double run(double[] args) {
                 double a = args[0];
@@ -148,7 +148,7 @@ public class FormulaFinderTest {
     public void mainBruteAccBpowerm4ac() {
         int curMaxRegisters = 2;
         double[][] doubles = TestCases.getExampleInput2D();
-        List<InOutParameters> collection = TestCases.getTestCases(new ProgramTemplate() {
+        List<TestcaseInOutParameters> collection = TestCases.getTestCases(new ProgramTemplate() {
             @Override
             public double run(double[] args) {
                 double a = args[0];
@@ -183,7 +183,7 @@ public class FormulaFinderTest {
     public void mainGeneticAccBpowerm4ac() {
         int curMaxRegisters = 2;
         double[][] doubles = TestCases.getExampleInput2D();
-        List<InOutParameters> collection = TestCases.getTestCases(new ProgramTemplate() {
+        List<TestcaseInOutParameters> collection = TestCases.getTestCases(new ProgramTemplate() {
             @Override
             public double run(double[] args) {
                 double a = args[0];
@@ -215,7 +215,7 @@ public class FormulaFinderTest {
     public void mainGeneticAccSqrt() {
         int curMaxRegisters = 1;
         double[][] doubles = TestCases.getExampleInput1D();
-        List<InOutParameters> collection = TestCases.getTestCases(args -> {
+        List<TestcaseInOutParameters> collection = TestCases.getTestCases(args -> {
             double a = args[0];
             return Math.sqrt(a);
         }, doubles, curMaxRegisters);
@@ -234,7 +234,7 @@ public class FormulaFinderTest {
     public void mainGeneticAccPI() {
         int curMaxRegisters = 1;
         double[][] doubles = TestCases.getExampleInput1D();
-        List<InOutParameters> collection = TestCases.getTestCases(args -> {
+        List<TestcaseInOutParameters> collection = TestCases.getTestCases(args -> {
             double a = args[0];
             return Math.PI;
         }, doubles, curMaxRegisters);
@@ -255,7 +255,7 @@ public class FormulaFinderTest {
     public void mainGeneticAccSqrtRegular() {
         int curMaxRegisters = 1;
         double[][] doubles = TestCases.getExampleInput1D();
-        List<InOutParameters> collection = TestCases.getTestCases(args -> {
+        List<TestcaseInOutParameters> collection = TestCases.getTestCases(args -> {
             double a = args[0];
             return Math.sqrt(a);
         }, doubles, curMaxRegisters);

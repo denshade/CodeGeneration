@@ -25,12 +25,12 @@ public class AtanFinder
         return result;
     }
 
-    private static InOutParameters createParameter(double[] doubles, double result)
+    private static TestcaseInOutParameters createParameter(double[] doubles, double result)
     {
         Map<String, Double> startParameters  = getMap(doubles);
         Map<String, Double> endParameters = new HashMap<>(1);
         endParameters.put("r3", result);
-        InOutParameters parameters = new InOutParameters();
+        TestcaseInOutParameters parameters = new TestcaseInOutParameters();
         parameters.input = startParameters;
         parameters.expectedOutput = endParameters;
         return parameters;
@@ -50,7 +50,7 @@ public class AtanFinder
     public static void main(String[] args)
     {
         int curMaxRegisters = 4;
-        List<InOutParameters> collection = new ArrayList<>();
+        List<TestcaseInOutParameters> collection = new ArrayList<>();
         for (double x = Math.PI/2 * -1; x < Math.PI/2; x += 0.1)
         {
             for (double y = Math.PI/2 * -1; y < Math.PI/2; y += 0.1)

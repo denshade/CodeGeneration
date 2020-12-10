@@ -1,7 +1,7 @@
 package laboflieven.statements;
 
 import junit.framework.TestCase;
-import laboflieven.InOutParameters;
+import laboflieven.TestcaseInOutParameters;
 import laboflieven.examiners.ProgramFitnessExaminer;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
 import laboflieven.programiterators.ReverseProgramIterator;
@@ -15,7 +15,7 @@ import java.util.*;
 public class ReverseProgramIteratorTest extends TestCase {
 
     public void testMainHard() throws Exception {
-        List<InOutParameters> collection = new ArrayList<>();
+        List<TestcaseInOutParameters> collection = new ArrayList<>();
         collection.add(createParameter(2.0,-8.0,-24.0,0.0, 6.0));
         collection.add(createParameter(1.0, 2.0, 1.0, 0.0, -1.0));
         collection.add(createParameter(1.0, -1, -56, 0.0, 8));
@@ -28,12 +28,12 @@ public class ReverseProgramIteratorTest extends TestCase {
         //34242100000
     }
 
-    private static InOutParameters createParameter(double a, double b, double c, double d, double result)
+    private static TestcaseInOutParameters createParameter(double a, double b, double c, double d, double result)
     {
         Map<String, Double> startParameters  = getMap(a,b,c,d);
         Map<String, Double> endParameters = new HashMap<>(1);
         endParameters.put("r3", result);
-        InOutParameters parameters = new InOutParameters();
+        TestcaseInOutParameters parameters = new TestcaseInOutParameters();
         parameters.input = startParameters;
         parameters.expectedOutput = endParameters;
         return parameters;
@@ -56,14 +56,14 @@ public class ReverseProgramIteratorTest extends TestCase {
         assertEquals(1, iterator.positiveSolutions.size());
     }
 
-    private static InOutParameters createParameterSimple(double a, double b, double result)
+    private static TestcaseInOutParameters createParameterSimple(double a, double b, double result)
     {
         Map<String, Double> startParameters = new HashMap<>();
         startParameters.put("R1", a);
         startParameters.put("R2", b);
         Map<String, Double> endParameters = new HashMap<>(1);
         endParameters.put("R1", result);
-        InOutParameters parameters = new InOutParameters();
+        TestcaseInOutParameters parameters = new TestcaseInOutParameters();
         parameters.input = startParameters;
         parameters.expectedOutput = endParameters;
         return parameters;

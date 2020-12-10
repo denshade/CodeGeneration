@@ -3,5 +3,5 @@ package laboflieven;
 import java.util.List;
 
 public interface InOutParameterSource {
-    public List<InOutParameters> getInOutParameters(int curMaxRegisters);
+    public List<TestcaseInOutParameters> getInOutParameters(int curMaxRegisters);
 }

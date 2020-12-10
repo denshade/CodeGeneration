@@ -1,6 +1,6 @@
 package laboflieven.challenges;
 
-import laboflieven.InOutParameters;
+import laboflieven.TestcaseInOutParameters;
 import laboflieven.common.CommandLineConfigLoader;
 import laboflieven.common.Configuration;
 import laboflieven.examiners.ProgramFitnessExaminer;
@@ -8,7 +8,6 @@ import laboflieven.examiners.ProgramFitnessExaminerInterface;
 import laboflieven.loggers.TimingAccFitnessLogger;
 import laboflieven.programiterators.ProgramIterator;
 import laboflieven.programiterators.RandomProgramIterator;
-import laboflieven.recursionheuristics.AlwaysRecursionHeuristic;
 import laboflieven.recursionheuristics.HashedResultsHeuristic;
 import laboflieven.runners.AccStatementRunner;
 
@@ -35,7 +34,7 @@ public class GeneralFinder
         Configuration config = loader.loadFromCommandLine(args);
         int curMaxRegisters = config.getNumberOfRegisters(2);
 
-        List<InOutParameters> collection = TestCases.getTestCases(config.getDataProvider(), TestCases.getExampleInput2D(1000,100, 10), curMaxRegisters);
+        List<TestcaseInOutParameters> collection = TestCases.getTestCases(config.getDataProvider(), TestCases.getExampleInput2D(1000,100, 10), curMaxRegisters);
         config.setHeuristic(new HashedResultsHeuristic(collection, new AccStatementRunner()));
 
         ProgramFitnessExaminerInterface evaluator = new ProgramFitnessExaminer(collection, new AccStatementRunner());

@@ -20,7 +20,7 @@ public class CosPlusFinder implements ProgramTemplate
 
     public static void main(String[] args) throws IOException {
         int curMaxRegisters = 2;
-        List<InOutParameters> collection = TestCases.getTestCases(new CosPlusFinder(), TestCases.getExampleInput2D(50,10),curMaxRegisters);
+        List<TestcaseInOutParameters> collection = TestCases.getTestCases(new CosPlusFinder(), TestCases.getExampleInput2D(50,10),curMaxRegisters);
 
 
         File f = new File("c:\\temp\\test.csv");

@@ -37,7 +37,7 @@ public class ProgramFitnessExaminerTest {
                 new double[]{ 10000, 50, 10}, new double[]{ 10000, -1, 50}, new double[]{ -10000, -100, 1000}
 
         };
-        List<InOutParameters> collection = new ArrayList<>();
+        List<TestcaseInOutParameters> collection = new ArrayList<>();
         for (double[] doubleRow : doubles)
         {
             if (!Double.isNaN(calcQuad(doubleRow)))
@@ -74,7 +74,7 @@ public class ProgramFitnessExaminerTest {
         points.add(new double[] { 1,0});
         points.add(new double[] { 1,1});
 
-        List<InOutParameters> collection = TestCases.getTestCases(new XorFinder(), points.toArray(new double[0][0]),2);
+        List<TestcaseInOutParameters> collection = TestCases.getTestCases(new XorFinder(), points.toArray(new double[0][0]),2);
         ProgramFitnessExaminerInterface evaluator = new ProgramFitnessExaminer(collection,new RegularStatementRunner());
         evaluator.calculateFitness(instructions, Register.createRegisters(2, "R"));
     }
@@ -87,12 +87,12 @@ public class ProgramFitnessExaminerTest {
     }
 
 
-    private static InOutParameters createParameter(double[] doubles, double result)
+    private static TestcaseInOutParameters createParameter(double[] doubles, double result)
     {
         Map<String, Double> startParameters  = getMap(doubles);
         Map<String, Double> endParameters = new HashMap<>(1);
         endParameters.put("r0", result);
-        InOutParameters parameters = new InOutParameters();
+        TestcaseInOutParameters parameters = new TestcaseInOutParameters();
         parameters.input = startParameters;
         parameters.expectedOutput = endParameters;
         return parameters;

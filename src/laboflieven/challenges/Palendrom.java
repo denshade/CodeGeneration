@@ -1,6 +1,6 @@
 package laboflieven.challenges;
 
-import laboflieven.InOutParameters;
+import laboflieven.TestcaseInOutParameters;
 import laboflieven.StoppedByUserException;
 import laboflieven.accinstructions.*;
 import laboflieven.common.Configuration;
@@ -32,14 +32,14 @@ public class Palendrom implements ProgramTemplate
         for (int i = 0; i < 100; i++)
             points.add(new double[]{random.nextInt(99999999)});
 
-        List<InOutParameters> collection = TestCases.getTestCases(new Palendrom(), points.toArray(new double[0][0]),curMaxRegisters);
+        List<TestcaseInOutParameters> collection = TestCases.getTestCases(new Palendrom(), points.toArray(new double[0][0]),curMaxRegisters);
         for (int i = 0; i < 10; i++)
         {
             runIteration(nrInstructions, curMaxRegisters, collection);
         }
     }
 
-    private static void runIteration(int nrInstructions, int curMaxRegisters, List<InOutParameters> collection) {
+    private static void runIteration(int nrInstructions, int curMaxRegisters, List<TestcaseInOutParameters> collection) {
         System.out.println("Running at #instructions: " + nrInstructions + " #nrRegisters:" + curMaxRegisters);
 
         var evaluator = new ProgramFitnessExaminer(collection, new AccStatementRunner());

@@ -37,7 +37,7 @@ public class QuadraticFinder implements InOutParameterSource, ProgramTemplate
 
     public static void main(String[] args) {//[r1 /= r2, Move r1 -> r4, r4 -= r3, Mul r4 -> r4, Invert r1, Sqrt r4, Sqrt r2, Sqrt r4, r3 -= r4, r3 /= r1, r1 += r4]
         List<InstructionMark> instructions = ProgramParser.parse("[r4 += r3, Mul r4 -> r1, Mul r3 -> r1, Mul r2 -> r3, r4 += r1, Sqrt r4, Invert r2, r2 += r1, Sqrt r4, r2 /= r4, r1 /= r2]"); //2.847396575786049
-        List<InOutParameters> collection =  new QuadraticFinder().getInOutParameters(4);
+        List<TestcaseInOutParameters> collection =  new QuadraticFinder().getInOutParameters(4);
 
         Register[] registers = Register.createRegisters(4, "R").toArray(new Register[0]);
         ProgramFitnessExaminerInterface evaluator = new ProgramFitnessExaminer(collection, new RegularStatementRunner());
@@ -47,14 +47,14 @@ public class QuadraticFinder implements InOutParameterSource, ProgramTemplate
     }
     public static void reverseIterator(){
         int curMaxRegisters = 4;
-        List<InOutParameters> collection = new QuadraticFinder().getInOutParameters(curMaxRegisters);
+        List<TestcaseInOutParameters> collection = new QuadraticFinder().getInOutParameters(curMaxRegisters);
         ProgramFitnessExaminerInterface evaluator = new ProgramFitnessExaminer(collection, new RegularStatementRunner());
 
         ReverseProgramIterator iter = new ReverseProgramIterator(evaluator, new RegularInstructionOpcodeEnum[]{RegularInstructionOpcodeEnum.Add, RegularInstructionOpcodeEnum.Sub, RegularInstructionOpcodeEnum.Mul, RegularInstructionOpcodeEnum.Div, RegularInstructionOpcodeEnum.Sqrt, RegularInstructionOpcodeEnum.Move, RegularInstructionOpcodeEnum.Zero, RegularInstructionOpcodeEnum.One});
         iter.iterate(curMaxRegisters, 14);
     }
 
-    public List<InOutParameters> getInOutParameters(int curMaxRegisters) {
+    public List<TestcaseInOutParameters> getInOutParameters(int curMaxRegisters) {
         return TestCases.getTestCases(this, TestCases.getExampleInput4D(100,50),  4);
     }
 

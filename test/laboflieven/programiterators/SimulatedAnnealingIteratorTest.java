@@ -1,6 +1,6 @@
 package laboflieven.programiterators;
 
-import laboflieven.InOutParameters;
+import laboflieven.TestcaseInOutParameters;
 import laboflieven.accinstructions.InstructionFactory;
 import laboflieven.challenges.P1;
 import laboflieven.challenges.TestCases;
@@ -24,7 +24,7 @@ class SimulatedAnnealingIteratorTest {
         for (int i = 1; i < 40; i++) {
             points.add(new double[] { i,3,5, 0});
         }
-        List<InOutParameters> collection = TestCases.getTestCases(new P1(), points.toArray(new double[0][0]),curMaxRegisters);
+        List<TestcaseInOutParameters> collection = TestCases.getTestCases(new P1(), points.toArray(new double[0][0]),curMaxRegisters);
         ProgramFitnessExaminerInterface evaluator = new ProgramFitnessExaminer(collection,new AccStatementRunner());
         SimulatedAnnealingIterator it = new SimulatedAnnealingIterator(new InstructionFactory(), 10000, 1);
         it.iterate(100000, 10, Register.createRegisters(2, "R"), evaluator);

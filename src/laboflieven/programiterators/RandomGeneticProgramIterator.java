@@ -47,7 +47,7 @@ public class RandomGeneticProgramIterator {
         for (int maxSizePopulation = startPopulation; maxSizePopulation < maxPopulation; maxSizePopulation += 10000) {
             for (double curpopularParents = minPopularParents; curpopularParents < maxPopularParents; curpopularParents += 0.2) {
                 for (int curMaxRegisters = minRegisters; curMaxRegisters < maxRegisters; curMaxRegisters++) {
-                    List<InOutParameters> collection = source.getInOutParameters(curMaxRegisters);
+                    List<TestcaseInOutParameters> collection = source.getInOutParameters(curMaxRegisters);
 
                     ProgramFitnessExaminerInterface evaluator = new ProgramFitnessExaminer(collection, new RegularStatementRunner());
 

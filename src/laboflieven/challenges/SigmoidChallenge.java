@@ -1,6 +1,6 @@
 package laboflieven.challenges;
 
-import laboflieven.InOutParameters;
+import laboflieven.TestcaseInOutParameters;
 import laboflieven.InstructionMark;
 import laboflieven.accinstructions.*;
 import laboflieven.common.Configuration;
@@ -20,6 +20,7 @@ import java.util.List;
 //20 left = left * right,  Jump if left = 0 goto this + 2,  Jump if left >= right goto this + 2, swap = left, left = right, right = swap, left = left % right, left = left * right, left = left + right, left = sqrt(left), left = PI,  right = R1, left = log(left), left = -left, left++, left = left - right, left = left % right, left = left + right, left = left + right, R1 = right, left = left % right, left = left / right
 //30 4.8 right = R1, left = -left,  Jump if left >= right goto this + 2,  right = R1, left = -left, left = log(left), left = left * right, left = sqrt(left),  Jump if left >= right goto this + 2,  Jump to start if L >= R , R1 = right,  Jump if left >= right goto this + 2, left = nand(left, right), left = -left, left = log(left), left = -left, left = nand(left, right), left = sin(left), left = left - right, left = sin(left), left = left / right, left = cos(left), left = cos(left), R1 = right, left = PI, left = left ^ right,  Jump to start if L >= R ,  Jump if left >= right goto this + 2, R1 = left,  if left <=  R then goto 0 ] vs. Infinity: [ Jump if left <= right goto this + 2, R1 = left, left = sin(left), left = left % right,  Jump to start if L >= R , left = left ^ right, left = left - right,  Jump if left >= right goto this + 2, left = log(left),  Jump if left = 0 goto this + 2, left = left / right,  Jump if left >= right goto this + 2, left = sin(left), left = sin(left), swap = left, left = right, right = swap, left = PI, left = PI, left = left ^ right, left = sin(left), left = left + right, R1 = left, R1 = right,  Jump if left >= right goto this + 2,  Jump to start if L >= R ,  if left <=  R then goto 0 , left = left - right, left = left - right,  Jump if left = 0 goto this + 2, swap = left, left = right, right = swap, swap = left, left = right, right = swap]
 //left = R1, swap = left, left = right, right = swap, left = E, left = left ^ right, R1 = left, left++, swap = left, left = right, right = swap,  left = R1, left = left / right
+//left = R1, swap = left, left = right, right = swap, left = E, left = left ^ right, R1 = left, left++, swap = left, left = right, right = swap,  left = R1, left = left / right
 public class SigmoidChallenge implements ProgramTemplate
 {
     public static void main(String[] args) {
@@ -29,7 +30,7 @@ public class SigmoidChallenge implements ProgramTemplate
         for (double i = -6; i < 6; i += 0.1) {
             points.add(new double[] { i });
         }
-        List<InOutParameters> collection = TestCases.getTestCases(new SigmoidChallenge(), points.toArray(new double[0][0]),curMaxRegisters);
+        List<TestcaseInOutParameters> collection = TestCases.getTestCases(new SigmoidChallenge(), points.toArray(new double[0][0]),curMaxRegisters);
         ProgramFitnessExaminerInterface evaluator = new AccumulatorProgramFitnessExaminer(collection, new AccStatementRunner());
         evaluator.addListener(new RandomSysOutAccFitnessLogger(10000));
         var conf = new Configuration();

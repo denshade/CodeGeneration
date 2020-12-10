@@ -1,6 +1,6 @@
 package laboflieven.recursionheuristics;
 
-import laboflieven.InOutParameters;
+import laboflieven.TestcaseInOutParameters;
 import laboflieven.InstructionMark;
 import laboflieven.Program;
 import laboflieven.accinstructions.*;
@@ -29,7 +29,7 @@ class HashedResultsHeuristicTest {
 
     @Test
     void shouldNotRecurseIfSmallerProgramExists() {
-        List<InOutParameters> solutions = getExampleParameters();
+        List<TestcaseInOutParameters> solutions = getExampleParameters();
         List<InstructionMark> instructs = new ArrayList<>();
         instructs.add(new Add()); //L + R = 0
         Program p = new Program(instructs, Register.createRegisters(2, "r"));
@@ -39,17 +39,17 @@ class HashedResultsHeuristicTest {
         assertFalse(h.shouldRecurse(p,2));
     }
 
-    private List<InOutParameters> getExampleParameters() {
-        InOutParameters param = getInOutParameter(2);
-        InOutParameters param2 = getInOutParameter(3);
+    private List<TestcaseInOutParameters> getExampleParameters() {
+        TestcaseInOutParameters param = getInOutParameter(2);
+        TestcaseInOutParameters param2 = getInOutParameter(3);
         return List.of(param, param2);
     }
 
-    private InOutParameters getInOutParameter(double val) {
+    private TestcaseInOutParameters getInOutParameter(double val) {
         Map<String, Double> k = new HashMap<>();
         k.put("r1", val);
         k.put("r2", val + 1);
-        InOutParameters param = new InOutParameters();
+        TestcaseInOutParameters param = new TestcaseInOutParameters();
         param.input = k;
         return param;
     }

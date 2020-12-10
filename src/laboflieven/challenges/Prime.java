@@ -3,11 +3,10 @@ package laboflieven.challenges;
 import laboflieven.examiners.ProgramFitnessExaminer;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
 import laboflieven.programiterators.AccRandomGeneticProgramIterator;
-import laboflieven.InOutParameters;
+import laboflieven.TestcaseInOutParameters;
 import laboflieven.accinstructions.AccInstructionOpcodeEnum;
 import laboflieven.runners.AccStatementRunner;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -23,7 +22,7 @@ public class Prime implements ProgramTemplate
         for (int i = 2; i < 40; i++) {
             points.add(new double[] { i, isPrime(i)});
         }
-        List<InOutParameters> collection = TestCases.getTestCases(new Prime(), points.toArray(new double[0][0]),curMaxRegisters);
+        List<TestcaseInOutParameters> collection = TestCases.getTestCases(new Prime(), points.toArray(new double[0][0]),curMaxRegisters);
         ProgramFitnessExaminerInterface evaluator = new ProgramFitnessExaminer(collection,new AccStatementRunner());
         AccRandomGeneticProgramIterator iter = new AccRandomGeneticProgramIterator(evaluator,  AccInstructionOpcodeEnum.anyExcept(Set.of(AccInstructionOpcodeEnum.Sqrt, AccInstructionOpcodeEnum.JumpIfGteStart, AccInstructionOpcodeEnum.JumpIfLteStart,
                 AccInstructionOpcodeEnum.Log)), 1000,1.2,0.4);

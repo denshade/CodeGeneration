@@ -1,13 +1,11 @@
 package laboflieven.challenges;
 
-import laboflieven.InOutParameters;
+import laboflieven.TestcaseInOutParameters;
 import laboflieven.InstructionMark;
 import laboflieven.accinstructions.*;
 import laboflieven.examiners.AccumulatorProgramFitnessExaminer;
-import laboflieven.examiners.ProgramFitnessExaminer;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
 import laboflieven.runners.AccStatementRunner;
-import laboflieven.runners.RegularStatementRunner;
 import laboflieven.statements.Register;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +19,7 @@ public class B22AFinder implements ProgramTemplate
 
     public static void main(String[] args)  {
         int curMaxRegisters = 2;
-        List<InOutParameters> collection = TestCases.getTestCases(new B22AFinder(), TestCases.getExampleInput2D(50,10),curMaxRegisters);
+        List<TestcaseInOutParameters> collection = TestCases.getTestCases(new B22AFinder(), TestCases.getExampleInput2D(50,10),curMaxRegisters);
 
         ProgramFitnessExaminerInterface evaluator = new AccumulatorProgramFitnessExaminer(collection, new AccStatementRunner());
         List<Register> registers = Register.createRegisters(2, "R");
