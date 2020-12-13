@@ -13,14 +13,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Logger;
 
-public class SelectorProgramFinder
+public class EnumerationProgramFinder
 {
     private Logger logger = Logger.getLogger(GenericSolutionFinder.class.getName());
 
     public List<InstructionMark> findSolutions(Configuration configuration)
     {
         var clonedConfiguration = new Configuration();
-        clonedConfiguration.setFitnessExaminer(new ProgramFitnessExaminer(adjustTestcases(configuration.getFitnessExaminer().getTestcases()), new AccStatementRunner()));
+        var adjuster = new TestCaseEnumerationAdjuster();
+        clonedConfiguration.setFitnessExaminer(new ProgramFitnessExaminer(adjuster.adjustTestcases(configuration.getFitnessExaminer().getTestcases()), new AccStatementRunner()));
         clonedConfiguration.setNumberOfRegisters(configuration.getNumberOfRegisters(1));
         var generalBruteForceProgramIterator = new GeneralBruteForceProgramIterator();
         var programResolution = new ProgramResolution(new ArrayList<>(), 400);
@@ -31,17 +32,5 @@ public class SelectorProgramFinder
             programResolution = generalBruteForceProgramIterator.iterate(clonedConfiguration);
         }
         return programResolution.instructions;
-    }
-
-    public List<TestcaseInOutParameters> adjustTestcases(List<TestcaseInOutParameters> testcases) {
-        var parameters = new ArrayList<TestcaseInOutParameters>();
-        int counter = 0;
-        for (TestcaseInOutParameters param : testcases) {
-            var scenario = new TestcaseInOutParameters();
-            scenario.expectedOutput.put("R1", (double) counter++);
-            scenario.input = new HashMap<>(param.input);
-            parameters.add(scenario);
-        }
-        return parameters;
     }
 }

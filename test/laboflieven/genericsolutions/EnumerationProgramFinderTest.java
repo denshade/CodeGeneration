@@ -9,27 +9,17 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class SelectorProgramFinderTest {
+class EnumerationProgramFinderTest {
 
     @Test
     void findSolutions() {
         TestcaseSource source = new XorFinder();
-        var  selector = new SelectorProgramFinder();
+        var  selector = new EnumerationProgramFinder();
         var evaluator = new ProgramFitnessExaminer(source.getTestCases(), new AccStatementRunner());
         var configuration = new Configuration();
         configuration.setFitnessExaminer(evaluator);
         var prog = selector.findSolutions(configuration);
         assertNotNull(prog);
     }
-    @Test
-    void getTestCases()
-    {
-        TestcaseSource source = new XorFinder();
-        var selector = new SelectorProgramFinder();
-        var testcases = selector.adjustTestcases(source.getTestCases());
-        assertEquals(0, testcases.get(0).expectedOutput.get("R1"));
-        assertEquals(1, testcases.get(1).expectedOutput.get("R1"));
-        assertEquals(2, testcases.get(2).expectedOutput.get("R1"));
 
-    }
 }
