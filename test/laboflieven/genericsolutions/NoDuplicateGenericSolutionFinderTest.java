@@ -20,7 +20,7 @@ class NoDuplicateGenericSolutionFinderTest {
         assertNotNull(finder.findSolution(testcases));
         var solution = finder.findSolution(testcases);
         assertTrue(solution.programSelector.size() > 0);
-        assertEquals(2, solution.programs.size());
+        assertEquals(3, solution.programs.size());
         System.out.println(solution);
         GenericSolutionAccRunner runner = new GenericSolutionAccRunner();
         for (int i = 0; i < testcases.size(); i++) {
