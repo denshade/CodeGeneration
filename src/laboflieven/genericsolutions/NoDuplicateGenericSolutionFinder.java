@@ -8,6 +8,7 @@ import laboflieven.examiners.ProgramFitnessExaminer;
 import laboflieven.programiterators.GeneralBruteForceProgramIterator;
 import laboflieven.runners.AccStatementRunner;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -21,11 +22,10 @@ public class NoDuplicateGenericSolutionFinder
         var clonedConfiguration = new Configuration();
         clonedConfiguration.setFitnessExaminer(new ProgramFitnessExaminer(testcases, new AccStatementRunner()));
         clonedConfiguration.setNumberOfRegisters(testcases.get(0).input.keySet().size());
-        EnumerationProgramFinder finder  = new EnumerationProgramFinder();
-        var selectorProgram = finder.findSolutions(clonedConfiguration);
         // generate SelectorProgram
         List<List<InstructionMark>> programs = new ArrayList<>();
         int k = 0;
+        List<Integer> programIdMap = new ArrayList<>();
         for(TestcaseInOutParameters t : testcases) {
             var bfpi = new GeneralBruteForceProgramIterator();
             clonedConfiguration.setFitnessExaminer(new ProgramFitnessExaminer(List.of(t), new AccStatementRunner()));
@@ -36,14 +36,28 @@ public class NoDuplicateGenericSolutionFinder
                 clonedConfiguration.setMaxNrInstructions(nrInstructions++);
                 res = bfpi.iterate(clonedConfiguration);
             }
-            programs.add(res.instructions);
+            int index = findIndexOfProgram(programs, programIdMap, res);
+            if (index == -1) {
+                programs.add(res.instructions);
+            }
+            index = findIndexOfProgram(programs, programIdMap, res);
+            programIdMap.add(index);
         }
+        EnumerationProgramFinder finder  = new EnumerationProgramFinder();
+        var selectorProgram = finder.findSolutions(clonedConfiguration, programIdMap);
 
-        // for each single input, generate a program.
-        //    //
         var genericSolution = new GenericSolution();
         genericSolution.programSelector = selectorProgram;
         genericSolution.programs = programs;
         return genericSolution;
+    }
+
+    private int findIndexOfProgram(List<List<InstructionMark>> programs, List<Integer> programIdMap, ProgramResolution res) {
+        for (int i = 0; i < programs.size(); i++) {
+            if (programs.get(i).toString().equals(res.instructions.toString())) {
+                return i;
+            }
+        }
+        return -1;
     }
 }

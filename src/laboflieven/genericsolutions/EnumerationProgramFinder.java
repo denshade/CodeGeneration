@@ -33,4 +33,22 @@ public class EnumerationProgramFinder
         }
         return programResolution.instructions;
     }
+
+    public List<InstructionMark> findSolutions(Configuration configuration, List<Integer> idmap)
+    {
+        var clonedConfiguration = new Configuration();
+        var adjuster = new TestCaseEnumerationAdjuster();
+        clonedConfiguration.setFitnessExaminer(new ProgramFitnessExaminer(adjuster.adjustTestcases(configuration.getFitnessExaminer().getTestcases(), idmap), new AccStatementRunner()));
+        clonedConfiguration.setNumberOfRegisters(configuration.getNumberOfRegisters(1));
+        var generalBruteForceProgramIterator = new GeneralBruteForceProgramIterator();
+        var programResolution = new ProgramResolution(new ArrayList<>(), 400);
+        int nrInstructs = 1;
+        while (programResolution == null || programResolution.weight > 0.001) {
+            logger.info("Searching selector with #" + nrInstructs);
+            clonedConfiguration.setMaxNrInstructions(nrInstructs++);
+            programResolution = generalBruteForceProgramIterator.iterate(clonedConfiguration);
+        }
+        return programResolution.instructions;
+    }
+
 }

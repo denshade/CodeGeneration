@@ -20,7 +20,7 @@ class TestCaseEnumerationAdjusterTest {
         assertEquals(1, testcases.get(1).expectedOutput.get("R1"));
         assertEquals(2, testcases.get(2).expectedOutput.get("R1"));
     }
-    
+
     @Test
     void adjustTestcases() {
         TestcaseSource source = new XorFinder();
