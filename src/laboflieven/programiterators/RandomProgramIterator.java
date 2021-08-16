@@ -4,6 +4,7 @@ import laboflieven.InstructionMark;
 import laboflieven.ProgramResolution;
 import laboflieven.accinstructions.LoadAccLeftIntoRegister;
 import laboflieven.accinstructions.LoadIntoLeftAcc;
+import laboflieven.common.ArrayListBestFitRegister;
 import laboflieven.common.BestFitRegister;
 import laboflieven.common.Configuration;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
@@ -24,7 +25,7 @@ public class RandomProgramIterator implements ProgramIterator {
     private int maxExecutionTimeSeconds = 3600 * 12;
     private RegularInstructionOpcodeEnum[] enums;
     private Register[] registers;
-    private BestFitRegister<List<InstructionMark>> bestFit = new BestFitRegister<>();
+    private ArrayListBestFitRegister bestFit = new ArrayListBestFitRegister();
     private int numberOfRegisters;
     public InstructionFactoryInterface instructionFactory = new InstructionFactory();
 

@@ -1,6 +1,7 @@
 package laboflieven.loggers;
 
 import laboflieven.InstructionMark;
+import laboflieven.common.ArrayListBestFitRegister;
 import laboflieven.common.BestFitRegister;
 
 import java.util.List;
@@ -9,7 +10,7 @@ public class TimingAccFitnessLogger implements FitnessLogger
 {
     private final int nrMillis;
     private long previousTiming = 0;
-    private final BestFitRegister<List<InstructionMark>> bestFit = new BestFitRegister<>();
+    private final ArrayListBestFitRegister bestFit = new ArrayListBestFitRegister();
 
 
     public TimingAccFitnessLogger(int nrMillis)

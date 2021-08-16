@@ -1,6 +1,7 @@
 package laboflieven.programiterators;
 
 import laboflieven.InstructionMark;
+import laboflieven.common.ArrayListBestFitRegister;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
 import laboflieven.ProgramResolution;
 import laboflieven.common.BestFitRegister;
@@ -15,7 +16,7 @@ public class SimulatedAnnealingIterator
 {
     private double saturatedMax = 10000;
     private final InstructionFactoryInterface factoryInterface;
-    private BestFitRegister<List<InstructionMark>> bestFit = new BestFitRegister<>();
+    private ArrayListBestFitRegister bestFit = new ArrayListBestFitRegister();
     private int temperatureRaiser = 100;
 
     SimulatedAnnealingIterator(InstructionFactoryInterface factoryInterface, double saturatedMax, int tempRaiser)

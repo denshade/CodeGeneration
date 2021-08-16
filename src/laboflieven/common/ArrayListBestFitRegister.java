@@ -1,30 +1,31 @@
 package laboflieven.common;
 
 import java.util.ArrayList;
+import java.util.List;
 
-public class BestFitRegister<T>
-{
-    private T best;
+public class ArrayListBestFitRegister {
+    private List best;
     private Double bestScore;
 
 
-    public boolean register(double bestScore, T bestObject)
+    public boolean register(double bestScore, List bestObject)
     {
         boolean updated = false;
         if (this.bestScore == null || this.bestScore > bestScore) {
             this.bestScore = bestScore;
-            best = bestObject;
+            best = new ArrayList(bestObject);
             updated = true;
             System.out.println(bestScore);
         }
         return updated;
     }
 
-    public T getBest() {
+    public List getBest() {
         return best;
     }
 
     public Double getBestScore() {
         return bestScore;
     }
+
 }
