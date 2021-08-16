@@ -10,6 +10,7 @@ import laboflieven.examiners.ProgramFitnessExaminerInterface;
 import laboflieven.loggers.TimingAccFitnessLogger;
 import laboflieven.programiterators.BruteForceProgramIterator;
 import laboflieven.programiterators.GeneralBruteForceProgramIterator;
+import laboflieven.programiterators.GeneralRandomGeneticProgramIterator;
 import laboflieven.programiterators.RandomProgramIterator;
 import laboflieven.recursionheuristics.NoInvertedHeuristic;
 import laboflieven.recursionheuristics.RecursionHeuristic;
@@ -53,7 +54,11 @@ public class N3P1Finder {
         conf.setNumberOfRegisters(1);
         conf.setAccOperations( AccInstructionOpcodeEnum.values());
 
-        RandomProgramIterator iterator = new RandomProgramIterator();
+        conf.setMaxPopulation(10000);
+        conf.setMaxOverflow(4);
+        conf.setPopularParents(0.01);
+
+        GeneralRandomGeneticProgramIterator iterator = new GeneralRandomGeneticProgramIterator();
         iterator.iterate(conf);
         //No solutions for 2 -> 5.
         //34242100000
