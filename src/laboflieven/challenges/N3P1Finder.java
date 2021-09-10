@@ -5,6 +5,7 @@ import laboflieven.accinstructions.AccInstructionOpcodeEnum;
 import laboflieven.accinstructions.InstructionFactory;
 import laboflieven.common.Configuration;
 import laboflieven.examiners.AccumulatorProgramFitnessExaminer;
+import laboflieven.examiners.ItemAccumulatorProgramFitnessExaminer;
 import laboflieven.examiners.ProgramFitnessExaminer;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
 import laboflieven.loggers.TimingAccFitnessLogger;
@@ -41,7 +42,7 @@ public class N3P1Finder {
         }
         int maxInstructions = Integer.parseInt(args[0]);
         List<TestcaseInOutParameters> collection = new ArrayList<>();
-        for (int i = 1; i < 100; i++) {
+        for (int i = 1; i < 10; i++) {
             collection.add(createParameter(i, func(i)));
         }
         ProgramFitnessExaminerInterface evaluator = new AccumulatorProgramFitnessExaminer(collection, new AccStatementRunner());
@@ -55,17 +56,22 @@ public class N3P1Finder {
         conf.setAccOperations( AccInstructionOpcodeEnum.values());
 
         conf.setMaxPopulation(10000);
-        conf.setMaxOverflow(4);
+        conf.setMaxOverflow(2);
         conf.setPopularParents(0.01);
 
-        GeneralRandomGeneticProgramIterator iterator = new GeneralRandomGeneticProgramIterator();
+        GeneralBruteForceProgramIterator iterator = new GeneralBruteForceProgramIterator();
+
+        //GeneralRandomGeneticProgramIterator iterator = new GeneralRandomGeneticProgramIterator();
+        //RandomProgramIterator iterator = new RandomProgramIterator();
+
         iterator.iterate(conf);
         //No solutions for 2 -> 5.
         //34242100000
     }
 
     private static double func(int x) {
-        int cur = x;
+        return 3*x+1;
+        /*int cur = x;
         int counter = 0;
         while ( cur > 1) {
             counter++;
@@ -74,7 +80,7 @@ public class N3P1Finder {
                 cur = cur * 3 + 1;
             }
         }
-        return counter;
+        return counter;*/
     }
 
     private static TestcaseInOutParameters createParameter(double a, double result)

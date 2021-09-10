@@ -3,6 +3,7 @@ package laboflieven.examiners;
 import laboflieven.TestcaseInOutParameters;
 import laboflieven.InstructionMark;
 import laboflieven.accinstructions.*;
+import laboflieven.challenges.ProgramTemplate;
 import laboflieven.challenges.TestCases;
 import laboflieven.challenges.XorFinder;
 import laboflieven.runners.AccStatementRunner;
@@ -30,4 +31,19 @@ class AccumulatorProgramFitnessExaminerTest {
         var f = new AccumulatorProgramFitnessExaminer(collection, new AccStatementRunner());
         assertEquals(1.0,f.calculateFitness(instructions, registers));
     }
+
+    @Test
+    void calculateFitness3NP1() {
+        List<double[]> points = new ArrayList<>();
+        for (int i = 1; i < 100; i++) {
+            points.add(new double[] { i });
+        }
+        var registers = Register.createRegisters(1, "R");
+        List<InstructionMark> instructions = List.of(new Add(),new LoadIntoRightAcc(registers.get(0)), new Add(), new JumpIfLteStart(), new Inc()); //Log R2, Mul R2 -> R1, Nand R1 -> R1
+        List<TestcaseInOutParameters> collection = TestCases.getTestCases(args -> 3*args[0]+1, points.toArray(new double[0][0]), 1);
+
+        var f = new AccumulatorProgramFitnessExaminer(collection, new AccStatementRunner());
+        assertEquals(0.0, f.calculateFitness(instructions, registers));
+    }
+
 }
