@@ -39,7 +39,7 @@ class AccumulatorProgramFitnessExaminerTest {
             points.add(new double[] { i });
         }
         var registers = Register.createRegisters(1, "R");
-        List<InstructionMark> instructions = List.of(new Add(),new LoadIntoRightAcc(registers.get(0)), new Add(), new JumpIfLteStart(), new Inc()); //Log R2, Mul R2 -> R1, Nand R1 -> R1
+        List<InstructionMark> instructions = List.of(new Add(),new LoadIntoRightAcc(registers.get(0)), new Add(), new JumpIfLteStart(), new Inc());
         List<TestcaseInOutParameters> collection = TestCases.getTestCases(args -> 3*args[0]+1, points.toArray(new double[0][0]), 1);
 
         var f = new AccumulatorProgramFitnessExaminer(collection, new AccStatementRunner());
