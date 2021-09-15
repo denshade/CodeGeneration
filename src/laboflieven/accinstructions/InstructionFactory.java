@@ -98,8 +98,11 @@ public class InstructionFactory implements InstructionFactoryInterface {
             case Inc:
                 instruction = new Inc();
                 break;
+            case Custom:
+                instruction = new Custom();
+                break;
             default:
-                throw new IllegalArgumentException("invalid instruction " + accInstructionOpcodeEnum.toString());
+                throw new IllegalArgumentException("invalid instruction " + accInstructionOpcodeEnum);
         }
         return instruction;
     }

@@ -70,8 +70,7 @@ public class N3P1Finder {
     }
 
     private static double func(int x) {
-        return 3*x+1;
-        /*int cur = x;
+        int cur = x;
         int counter = 0;
         while ( cur > 1) {
             counter++;
@@ -80,7 +79,7 @@ public class N3P1Finder {
                 cur = cur * 3 + 1;
             }
         }
-        return counter;*/
+        return counter;
     }
 
     private static TestcaseInOutParameters createParameter(double a, double result)
