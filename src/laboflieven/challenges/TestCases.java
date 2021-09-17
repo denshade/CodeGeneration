@@ -2,13 +2,30 @@ package laboflieven.challenges;
 
 import laboflieven.TestcaseInOutParameters;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class TestCases
 {
+    public static List<TestcaseInOutParameters> loadFromCsvString(String csvData, int columnToPredict) {
+        List<TestcaseInOutParameters> collection = new ArrayList<>();
+        String[] lines = csvData.split("\n");
+        boolean isFirstLine = true;
+        for (String line : lines)
+        {
+            if (isFirstLine) {
+                isFirstLine = false;
+                continue;
+            }
+            String[] parts = line.split(",");
+            double[] points = new double[parts.length-1];
+            for (int k = 0; k < parts.length -1; k++)
+            {
+                points[k] = Double.parseDouble(parts[k]);
+            }
+            collection.add(TestCases.createParameter(points, Double.parseDouble(parts[parts.length -1])));
+        }
+        return collection;
+    }
 
     public static double[][] getExampleInput2D()
     {
