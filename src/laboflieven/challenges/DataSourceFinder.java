@@ -14,40 +14,34 @@ import laboflieven.recursionheuristics.AccHeuristic;
 import laboflieven.runners.AccStatementRunner;
 import laboflieven.statements.Register;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class DataSourceFinder {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 
         int curMaxRegisters = 1;
         List<double[]> points = new ArrayList<>();
-        List<TestcaseInOutParameters> collection = TestCases.loadFromCsvString("3.723333333,3.53,9.80665\n" +
-                "3.513333333,3.53,9.80665\n" +
-                "3.563333333,3.53,9.80665\n" +
-                "3.753333333,3.53,9.80665\n" +
-                "3.643333333,3.53,9.80665\n" +
-                "3.639333333,3.53,9.80665\n" +
-                "3.5475,3.53,9.80665\n" +
-                "3.555,3.53,9.80665\n" +
-                "3.5375,3.53,9.80665\n" +
-                "3.495,3.53,9.80665\n" +
-                "3.45,3.53,9.80665\n" +
-                "3.786,3.53,9.80665\n" +
-                "3.68,3.53,9.80665\n" +
-                "3.812,3.53,9.80665", 2);
+        String lines = String.join("\n", Files.readAllLines(new File("pendule.csv").toPath()));
+        List<TestcaseInOutParameters> collection = TestCases.loadFromCsvString(lines, 2);
+
+        // left = R1, left = nand(left, right), left = sin(left), left = 3n+1, R1 = left
         AccStatementRunner runner = new AccStatementRunner();
         ProgramFitnessExaminerInterface evaluator = new AccumulatorProgramFitnessExaminer(collection, runner);
         evaluator.addListener(new RandomSysOutAccFitnessLogger(10000));
         var conf = new Configuration();
         conf.setInstructionFactory(new InstructionFactory());
         conf.setNumberOfRegisters(2);
-        conf.setMaxNrInstructions(5)
+        conf.setMaxNrInstructions(7)
                 .setFitnessExaminer(evaluator).setNumberOfRegisters(curMaxRegisters).setAccOperations(AccInstructionOpcodeEnum.values())
                 .setHeuristic( new AccHeuristic()
                 );
         Register.createRegisters(2, "R");
-        conf.setErrorTolerance(0.073);
+        conf.setErrorTolerance(0.1);
         var v = new GeneralBruteForceProgramIterator();
         ProgramResolution res = v.iterate(conf);
         List<Register> registers = Register.createRegisters(2, "R");
