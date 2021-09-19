@@ -8,6 +8,7 @@ import laboflieven.examiners.AccumulatorProgramFitnessExaminer;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
 import laboflieven.loggers.RandomSysOutAccFitnessLogger;
 import laboflieven.programiterators.AccPriorityProgramIterator;
+import laboflieven.programiterators.GeneralBruteForceProgramIterator;
 import laboflieven.recursionheuristics.AccHeuristic;
 import laboflieven.runners.AccStatementRunner;
 import laboflieven.statements.Register;
@@ -20,52 +21,31 @@ public class DataSourceFinder {
 
         int curMaxRegisters = 1;
         List<double[]> points = new ArrayList<>();
-        for (double i = -6; i < 6; i += 0.1) {
-            points.add(new double[] { i });
-        }
-        List<TestcaseInOutParameters> collection = TestCases.getTestCases(new SigmoidChallenge(), points.toArray(new double[0][0]),curMaxRegisters);
+        List<TestcaseInOutParameters> collection = TestCases.loadFromCsvString("3.723333333,3.53,9.80665\n" +
+                "3.513333333,3.53,9.80665\n" +
+                "3.563333333,3.53,9.80665\n" +
+                "3.753333333,3.53,9.80665\n" +
+                "3.643333333,3.53,9.80665\n" +
+                "3.639333333,3.53,9.80665\n" +
+                "3.5475,3.53,9.80665\n" +
+                "3.555,3.53,9.80665\n" +
+                "3.5375,3.53,9.80665\n" +
+                "3.495,3.53,9.80665\n" +
+                "3.45,3.53,9.80665\n" +
+                "3.786,3.53,9.80665\n" +
+                "3.68,3.53,9.80665\n" +
+                "3.812,3.53,9.80665", 2);
         ProgramFitnessExaminerInterface evaluator = new AccumulatorProgramFitnessExaminer(collection, new AccStatementRunner());
         evaluator.addListener(new RandomSysOutAccFitnessLogger(10000));
         var conf = new Configuration();
         conf.setInstructionFactory(new InstructionFactory());
-        conf.setMaxNrInstructions(9)
+        conf.setNumberOfRegisters(2);
+        conf.setMaxNrInstructions(7)
                 .setFitnessExaminer(evaluator).setNumberOfRegisters(curMaxRegisters).setAccOperations(AccInstructionOpcodeEnum.values())
                 .setHeuristic( new AccHeuristic()
-                /*new CombinedHeuristic(List.of(
-                new ResultsNoDataAfterFiveHeuristic(
-                        new AccStatementRunner(),
-                        evaluator,
-                        Register.createRegisters(curMaxRegisters, "R")
-                )
-                ,
-                new AccHeuristic()
-        ))*/);
-        var registers = new ArrayList<Register>();
-        registers.add(new Register("R1"));
-        var solution = new ArrayList<InstructionMark>();
-        solution.add(new LoadIntoRightAcc(registers.get(0))); //e^x / (e^x + 1)
-        solution.add(new E()); //e^x / (e^x + 1)
-        solution.add(new Pow()); //left = e^x //  / (e^x + 1)
-        solution.add(new LoadAccLeftIntoRegister(registers.get(0)));
-        solution.add(new LoadIntoRightAcc(registers.get(0)));//e^x
-        solution.add(new Inc()); //left = e^x + 1, right = e^x;
-        solution.add(new Swap());//left = e^x, right = e^x + 1;
-        solution.add(new Div());//left = e^x, right = e^x + 1;
-        solution.add(new LoadAccLeftIntoRegister(registers.get(0)));
-
-        conf.setRandomAdded(false);
-        conf.setAccOperations(new AccInstructionOpcodeEnum[]{
-                AccInstructionOpcodeEnum.LoadAccLeftIntoRegister,
-                AccInstructionOpcodeEnum.E,
-                AccInstructionOpcodeEnum.Inc,
-                AccInstructionOpcodeEnum.Div,
-                AccInstructionOpcodeEnum.Pow,
-                AccInstructionOpcodeEnum.Swap,
-                AccInstructionOpcodeEnum.LoadIntoLeftAcc,
-        });
-        conf.setCutPopulationAtMax(Integer.MAX_VALUE);
-        //var v = new FakeProgramIterator(evaluator, solution, conf.getHeuristic(new AlwaysRecursionHeuristic()));
-        var v = new AccPriorityProgramIterator();
+                );
+        Register.createRegisters(2, "R");
+        var v = new GeneralBruteForceProgramIterator();
         v.iterate(conf);
         //GeneralBruteForceProgramIterator iter = new GeneralBruteForceProgramIterator();
         //long start = System.currentTimeMillis();

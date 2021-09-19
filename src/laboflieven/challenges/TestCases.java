@@ -18,11 +18,13 @@ public class TestCases
             }
             String[] parts = line.split(",");
             double[] points = new double[parts.length-1];
-            for (int k = 0; k < parts.length -1; k++)
+            int counter = 0;
+            for (int k = 0; k < parts.length; k++)
             {
-                points[k] = Double.parseDouble(parts[k]);
+                if (k == columnToPredict - 1) continue;
+                points[counter++] = Double.parseDouble(parts[k]);
             }
-            collection.add(TestCases.createParameter(points, Double.parseDouble(parts[parts.length -1])));
+            collection.add(TestCases.createParameter(points, Double.parseDouble(parts[columnToPredict - 1])));
         }
         return collection;
     }
