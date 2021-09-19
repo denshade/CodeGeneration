@@ -1,6 +1,7 @@
 package laboflieven.challenges;
 
 import laboflieven.InstructionMark;
+import laboflieven.ProgramResolution;
 import laboflieven.TestcaseInOutParameters;
 import laboflieven.accinstructions.*;
 import laboflieven.common.Configuration;
@@ -35,18 +36,24 @@ public class DataSourceFinder {
                 "3.786,3.53,9.80665\n" +
                 "3.68,3.53,9.80665\n" +
                 "3.812,3.53,9.80665", 2);
-        ProgramFitnessExaminerInterface evaluator = new AccumulatorProgramFitnessExaminer(collection, new AccStatementRunner());
+        AccStatementRunner runner = new AccStatementRunner();
+        ProgramFitnessExaminerInterface evaluator = new AccumulatorProgramFitnessExaminer(collection, runner);
         evaluator.addListener(new RandomSysOutAccFitnessLogger(10000));
         var conf = new Configuration();
         conf.setInstructionFactory(new InstructionFactory());
         conf.setNumberOfRegisters(2);
-        conf.setMaxNrInstructions(7)
+        conf.setMaxNrInstructions(5)
                 .setFitnessExaminer(evaluator).setNumberOfRegisters(curMaxRegisters).setAccOperations(AccInstructionOpcodeEnum.values())
                 .setHeuristic( new AccHeuristic()
                 );
         Register.createRegisters(2, "R");
+        conf.setErrorTolerance(0.073);
         var v = new GeneralBruteForceProgramIterator();
-        v.iterate(conf);
+        ProgramResolution res = v.iterate(conf);
+        List<Register> registers = Register.createRegisters(2, "R");
+        registers.get(0).value = 3.812;
+        runner.verbose = true;
+        evaluator.calculateFitness(res.instructions, registers);
         //GeneralBruteForceProgramIterator iter = new GeneralBruteForceProgramIterator();
         //long start = System.currentTimeMillis();
         //System.out.println(iter.iterate(conf));

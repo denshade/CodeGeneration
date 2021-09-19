@@ -63,9 +63,10 @@ public class AccStatementRunner implements StatementRunner {
             }
             Integer pointer = instruction.execute(left, right, ip);
             if (verbose) {
-                System.out.println(pointer);
-                System.out.println(program.getRegisters().stream().map(e -> e.name+ "="+ e.value+ ",").collect(Collectors.joining()));
-                System.out.println("left " + left.value + " right " + right.value);
+                System.out.print("Pointer:" + pointer+" ");
+                System.out.print(program.getRegisters().stream().map(e -> e.name+ "="+ e.value+ ",").collect(Collectors.joining()));
+                System.out.print("left " + left.value + " right " + right.value);
+                System.out.println();
             }
 
             if (pointer != null && pointer >= 0)

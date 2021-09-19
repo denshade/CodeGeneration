@@ -144,6 +144,7 @@ public class Configuration {
         ACC_OPERATIONS(new AccOperationsParser()),
         CUT_POPULATION_AT_MAX(new IntParser()),
         CUT_POPULATION_TO(new IntParser()), RND_ADDED(new BoolParser()),
+        ERROR_TOLERANCE(new DoubleParser()),
         DATA_SOURCE(new DataSourceParser());
 
         public Parser parser;
@@ -336,6 +337,19 @@ public class Configuration {
         configurationSettings.put(ConfigurationKey.RECURSION_HEURISTIC, heuristic);
         return this;
     }
+
+
+    public double getErrorTolerance(double defaultErrorTolerance) {
+        if (!configurationSettings.containsKey(ConfigurationKey.ERROR_TOLERANCE)) {
+            return defaultErrorTolerance;
+        }
+        return (double) configurationSettings.get(ConfigurationKey.ERROR_TOLERANCE);
+    }
+    public Configuration setErrorTolerance(double v) {
+        configurationSettings.put(ConfigurationKey.ERROR_TOLERANCE, v);
+        return this;
+    }
+
 
 
 }

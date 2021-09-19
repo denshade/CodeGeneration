@@ -31,6 +31,7 @@ public class GeneralBruteForceProgramIterator implements ProgramIterator
     public boolean onlyEvaluateAtLastInstruction = true;
     public InstructionFactoryInterface instructionFactory = new InstructionFactory();
     private List<Register> registers;
+    private double errorTolerance = 0.0;
 
     public GeneralBruteForceProgramIterator()
     {
@@ -40,6 +41,7 @@ public class GeneralBruteForceProgramIterator implements ProgramIterator
         this.evaluator = configuration.getFitnessExaminer();
         this.accInstructionOpcodeEnums = configuration.getAccOperations();
         this.heuristic = configuration.getHeuristic(new AlwaysRecursionHeuristic());
+        this.errorTolerance = configuration.getErrorTolerance(0.0);
         var instructions = runWithParams(configuration.getNumberOfRegisters(2), configuration.getMaxNrInstructions(10));
         if (instructions.size() > 0) {
             return new ProgramResolution(instructions.get(0), 0);
@@ -104,7 +106,7 @@ public class GeneralBruteForceProgramIterator implements ProgramIterator
         } else {
             counter++;
             double err = evaluator.calculateFitness(instructions, registers);
-            if (err < 0.001){
+            if (err <= errorTolerance){
                 System.out.println("Found a program: " + instructions);
                 positiveSolutions.add(new ArrayList<>(instructions));
                 if (stopAtFirstSolution) {
