@@ -27,7 +27,7 @@ public class DataSourceFinder {
         int curMaxRegisters = 1;
         List<double[]> points = new ArrayList<>();
         String lines = String.join("\n", Files.readAllLines(new File("pendule.csv").toPath()));
-        List<TestcaseInOutParameters> collection = TestCases.loadFromCsvString(lines, 2);
+        List<TestcaseInOutParameters> collection = TestCases.loadFromCsvString(lines, 1);
 
         // left = R1, left = nand(left, right), left = sin(left), left = 3n+1, R1 = left
         AccStatementRunner runner = new AccStatementRunner();
