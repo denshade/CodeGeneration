@@ -10,7 +10,7 @@ import java.util.Set;
 public enum RegularInstructionOpcodeEnum
 {
     Add(2), Div(2), Invert(1), Move(2), Mul(2), Sqrt(1), Sub(2),
-    Sin(1), Cos(1), Mod(2), Nand(2), Log(1), JmpIfZero(1),
+    Sin(1), Cos(1), Mod(2), Nand(2), Log(1), JmpIfZero(2),
     JmpIfZeroBegin(1), JmpIfZeroEnd(1), PI(0), Zero(0), One(0),
     JmpIfNotZeroBegin(1), JmpIfNotZeroEnd(1), JmpIfRegister2Steps(1);
 

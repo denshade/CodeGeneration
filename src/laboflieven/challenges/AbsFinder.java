@@ -44,10 +44,10 @@ public class AbsFinder {
     private static TestcaseInOutParameters createParameter(double a, double result)
     {
         Map<String, Double> startParameters  = new HashMap<>();
-        startParameters.put("r0", a);
+        startParameters.put("R1", a);
 
         Map<String, Double> endParameters = new HashMap<>(1);
-        endParameters.put("r0", result);
+        endParameters.put("R1", result);
 
         TestcaseInOutParameters parameters = new TestcaseInOutParameters();
         parameters.input = startParameters;
