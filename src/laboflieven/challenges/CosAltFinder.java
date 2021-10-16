@@ -36,17 +36,14 @@ public class CosAltFinder implements ProgramTemplate
         configuration.setInstructionFactory(new InstructionFactory());
         //configuration.setHeuristic(new HashedResultsHeuristic(collection, new AccStatementRunner()));
         configuration.setHeuristic(new AlwaysRecursionHeuristic());
-        configuration.setAccOperations(
-                new AccInstructionOpcodeEnum[] {
-                AccInstructionOpcodeEnum.Inc,
-                        AccInstructionOpcodeEnum.Swap,
-                        AccInstructionOpcodeEnum.PI,
-                        AccInstructionOpcodeEnum.Div,
-                        AccInstructionOpcodeEnum.LoadIntoRightAcc,
-                        AccInstructionOpcodeEnum.Sub,
-                        AccInstructionOpcodeEnum.Sin,
-                        AccInstructionOpcodeEnum.LoadAccLeftIntoRegister,
-                }
+        configuration.setAccOperations(AccInstructionOpcodeEnumBuilder.make().with(AccInstructionOpcodeEnum.Inc,
+                AccInstructionOpcodeEnum.Swap,
+                AccInstructionOpcodeEnum.PI,
+                AccInstructionOpcodeEnum.Div,
+                AccInstructionOpcodeEnum.LoadIntoRightAcc,
+                AccInstructionOpcodeEnum.Sub,
+                AccInstructionOpcodeEnum.Sin,
+                AccInstructionOpcodeEnum.LoadAccLeftIntoRegister).build()
         );
         /*List<Register> registers = new ArrayList<>();
         registers.add(new Register("R1"));

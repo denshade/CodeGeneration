@@ -28,23 +28,4 @@ public enum AccInstructionOpcodeEnum
     public boolean isSingleRegister() {
         return this.nrRegisters == 1;
     }
-
-    public static AccInstructionOpcodeEnum[] noGeo() {
-        return anyExcept(Set.of(LoadAccRightIntoRegister, LoadIntoRightAcc, JumpIfLteStart, JumpIfGteStart, Cos, Sin));
-    }
-    public static AccInstructionOpcodeEnum[] getMinimal() {
-        return anyExcept(Set.of(LoadAccRightIntoRegister, LoadIntoRightAcc, JumpIfLteStart, JumpIfGteStart));
-    }
-
-
-    public static AccInstructionOpcodeEnum[] allInstructionsExcept(AccInstructionOpcodeEnum except)
-    {
-        return anyExcept(Set.of(except));
-    }
-
-    public static AccInstructionOpcodeEnum[] anyExcept(Set<AccInstructionOpcodeEnum> eq)
-    {
-        ArrayOperations<AccInstructionOpcodeEnum> ops = new ArrayOperations<>();
-        return ops.anyExcept(eq, AccInstructionOpcodeEnum.values()).toArray(new AccInstructionOpcodeEnum[0]);
-    }
 }

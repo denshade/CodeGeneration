@@ -1,6 +1,7 @@
 package laboflieven.common;
 
 import laboflieven.accinstructions.AccInstructionOpcodeEnum;
+import laboflieven.accinstructions.AccInstructionOpcodeEnumBuilder;
 import laboflieven.accinstructions.InstructionFactory;
 import laboflieven.challenges.ProgramTemplate;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
@@ -99,7 +100,7 @@ public class Configuration {
         public AccInstructionOpcodeEnum[] parse(String s) {
             switch(s)
             {
-                case "nobranch": return AccInstructionOpcodeEnum.anyExcept(
+                case "nobranch": return AccInstructionOpcodeEnumBuilder.make().anyExcept(
                         Set.of(
                             new AccInstructionOpcodeEnum[]{
                                     AccInstructionOpcodeEnum.JumpIfGteStart,
@@ -109,7 +110,7 @@ public class Configuration {
                                     AccInstructionOpcodeEnum.Jump2IfLte,
                                     AccInstructionOpcodeEnum.Jump2IfNeq,
                                     AccInstructionOpcodeEnum.Jump2IfZero,
-                            }));
+                            })).build();
                 case "all":
                 default: return AccInstructionOpcodeEnum.values();
             }

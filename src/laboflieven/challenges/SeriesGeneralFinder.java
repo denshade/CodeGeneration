@@ -2,6 +2,7 @@ package laboflieven.challenges;
 
 import laboflieven.TestcaseInOutParameters;
 import laboflieven.accinstructions.AccInstructionOpcodeEnum;
+import laboflieven.accinstructions.AccInstructionOpcodeEnumBuilder;
 import laboflieven.common.CommandLineConfigLoader;
 import laboflieven.common.Configuration;
 import laboflieven.examiners.ProgramFitnessExaminer;
@@ -33,7 +34,7 @@ public class SeriesGeneralFinder
         CommandLineConfigLoader loader = new CommandLineConfigLoader();
         Configuration config = loader.loadFromCommandLine(args);
         int curMaxRegisters = config.getNumberOfRegisters(2);
-        config.setAccOperations(AccInstructionOpcodeEnum.noGeo());
+        config.setAccOperations(AccInstructionOpcodeEnumBuilder.make().noGeo().build());
         List<TestcaseInOutParameters> collection = TestCases.getTestCases(config.getDataProvider(), TestCases.getExampleInput1D(1,0.01), curMaxRegisters);
 
         ProgramFitnessExaminerInterface evaluator = new ProgramFitnessExaminer(collection, new SumSeriesAccStatementRunner());

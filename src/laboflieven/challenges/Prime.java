@@ -1,5 +1,6 @@
 package laboflieven.challenges;
 
+import laboflieven.accinstructions.AccInstructionOpcodeEnumBuilder;
 import laboflieven.examiners.ProgramFitnessExaminer;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
 import laboflieven.programiterators.AccRandomGeneticProgramIterator;
@@ -24,8 +25,9 @@ public class Prime implements ProgramTemplate
         }
         List<TestcaseInOutParameters> collection = TestCases.getTestCases(new Prime(), points.toArray(new double[0][0]),curMaxRegisters);
         ProgramFitnessExaminerInterface evaluator = new ProgramFitnessExaminer(collection,new AccStatementRunner());
-        AccRandomGeneticProgramIterator iter = new AccRandomGeneticProgramIterator(evaluator,  AccInstructionOpcodeEnum.anyExcept(Set.of(AccInstructionOpcodeEnum.Sqrt, AccInstructionOpcodeEnum.JumpIfGteStart, AccInstructionOpcodeEnum.JumpIfLteStart,
-                AccInstructionOpcodeEnum.Log)), 1000,1.2,0.4);
+        AccRandomGeneticProgramIterator iter = new AccRandomGeneticProgramIterator(evaluator,
+                AccInstructionOpcodeEnumBuilder.make().anyExcept(Set.of(AccInstructionOpcodeEnum.Sqrt, AccInstructionOpcodeEnum.JumpIfGteStart, AccInstructionOpcodeEnum.JumpIfLteStart,
+                AccInstructionOpcodeEnum.Log)).build(), 1000,1.2,0.4);
         long start = System.currentTimeMillis();
         System.out.println(iter.iterate(curMaxRegisters, 20));
         //evaluator.writeAndClose();
