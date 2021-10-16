@@ -27,24 +27,7 @@ public class AtanFinder
 
     private static TestcaseInOutParameters createParameter(double[] doubles, double result)
     {
-        Map<String, Double> startParameters  = getMap(doubles);
-        Map<String, Double> endParameters = new HashMap<>(1);
-        endParameters.put("r3", result);
-        TestcaseInOutParameters parameters = new TestcaseInOutParameters();
-        parameters.input = startParameters;
-        parameters.expectedOutput = endParameters;
-        return parameters;
-    }
-
-
-    private static Map<String, Double> getMap(double[] doubles)
-    {
-        Map<String, Double> results = new HashMap<>();
-        for (int l = 0; l < doubles.length; l++)
-        {
-            results.put("r"+l, doubles[l]);
-        }
-        return results;
+        return TestcaseInOutParameters.createParameter(doubles, result, 1);
     }
 
     public static void main(String[] args)
@@ -59,23 +42,7 @@ public class AtanFinder
             }
 
         }
-
-        /*        collection.add(createParameter(fillDoubleArray(new double [] {1.0, 2.0, 1.0,0}, curMaxRegisters), distance(1.0, 2.0, 1.0,0)));// -1
-        collection.add(createParameter(fillDoubleArray(new double [] {1.0, 2.0, -3.0,0}, curMaxRegisters), distance(1.0, 2.0, -3.0,0)));
-        collection.add(createParameter(fillDoubleArray(new double [] {1.0, -1, -56,0}, curMaxRegisters), distance(1.0, -1, -56,0)));
-        collection.add(createParameter(fillDoubleArray(new double [] {1.0, 2, -15,0}, curMaxRegisters), distance(1.0, 2.0, -15,0)));
-        collection.add(createParameter(fillDoubleArray(new double [] {1.0, -100, 2500,0}, curMaxRegisters), distance(1.0, -100, 2500,0)));
-        collection.add(createParameter(fillDoubleArray(new double [] {1.0, -200, 10000,0}, curMaxRegisters), distance(1.0, -200, 10000,0)));
-        collection.add(createParameter(fillDoubleArray(new double [] {1.0, -400, 40000,0}, curMaxRegisters), distance(1.0, -400, 40000,0)));
-        collection.add(createParameter(fillDoubleArray(new double [] {1.0, 500, 0,0}, curMaxRegisters), distance(1.0, 500, 0,0)));
-        collection.add(createParameter(fillDoubleArray(new double [] {1.0, 15000, 0,0}, curMaxRegisters), distance(1.0, 15000, 0,0)));
-        collection.add(createParameter(fillDoubleArray(new double [] {-1.0, 15000, 0,0}, curMaxRegisters), distance(-1.0, 15000, 0,0)));
-        collection.add(createParameter(fillDoubleArray(new double [] {2.0, 1000, 0,0}, curMaxRegisters), distance(2.0, 1000, 0,0)));
-*/
-
         ProgramFitnessExaminerInterface evaluator = new ProgramFitnessExaminer(collection, new RegularStatementRunner());
-
-        //ReverseProgramIterator iter = new ReverseProgramIterator(evaluator, new InstructionEnum[]{InstructionEnum.Add, InstructionEnum.Sub, InstructionEnum.Mul, InstructionEnum.Div, InstructionEnum.Sqrt, InstructionEnum.Move, InstructionEnum.Sin, InstructionEnum.Cos});
         RandomGeneticProgramIterator iter = new RandomGeneticProgramIterator(evaluator, RegularInstructionOpcodeEnum.values(),
                 10000, 1.3, 0.4);
 

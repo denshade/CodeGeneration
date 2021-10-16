@@ -18,7 +18,6 @@ import java.util.Map;
 public class AdderFinder implements ProgramTemplate{
 
     /**
-     * //No solutions for 2 -> 5.
      *
      * @param args
      */
@@ -41,6 +40,7 @@ public class AdderFinder implements ProgramTemplate{
 
     private static double[] fillDoubleArray(double[] original, int newSize)
     {
+
         double[] result = new double[newSize];
         for (int i = 0; i < original.length; i++)
         {
@@ -63,9 +63,9 @@ public class AdderFinder implements ProgramTemplate{
     private static Map<String, Double> getMap(double[] doubles)
     {
         Map<String, Double> results = new HashMap<>();
-        for (int l = 0; l < doubles.length; l++)
+        for (int l = 1; l < doubles.length + 1; l++)
         {
-            results.put("r"+l, doubles[l]);
+            results.put("R"+l, doubles[l - 1]);
         }
         return results;
     }
