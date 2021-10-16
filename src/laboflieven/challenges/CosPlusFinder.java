@@ -27,7 +27,7 @@ public class CosPlusFinder implements ProgramTemplate
         ProgramFitnessExaminerInterface evaluator = new ProgramFitnessExaminer(collection, new RegularStatementRunner());
         BruteForceProgramIterator iter = new BruteForceProgramIterator(evaluator, new NoInvertedHeuristic());
         long start = System.currentTimeMillis();
-        iter.iterate(curMaxRegisters, 5);
+        iter.iterate(curMaxRegisters, 3);
         //evaluator.writeAndClose();
         System.out.println(System.currentTimeMillis() - start + "ms");
 

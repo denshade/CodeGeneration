@@ -8,10 +8,7 @@ import laboflieven.programiterators.RandomGeneticProgramIterator;
 import laboflieven.runners.RegularStatementRunner;
 import laboflieven.statements.RegularInstructionOpcodeEnum;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by Lieven on 8/07/2015.
@@ -35,7 +32,7 @@ public class DistanceFinder {
         ProgramFitnessExaminerInterface evaluator = new ProgramFitnessExaminer(collection, new RegularStatementRunner());
 
         BruteForceProgramIterator iterator = new BruteForceProgramIterator(evaluator);
-       iterator.iterate(4, 6);
+        iterator.iterate(4, 6);
     }
     /**
      * //No solutions for 2 -> 5.
@@ -93,41 +90,15 @@ public class DistanceFinder {
 
         }
         System.out.println(winner + " with " + winnerOfTheWorldWeight);
-
-        //No solutions for 2 -> 5.
-        //34242100000
     }
 
     private static double[] fillDoubleArray(double[] original, int newSize)
     {
-        double[] result = new double[newSize];
-        for (int i = 0; i < original.length; i++)
-        {
-            result[i] = original[i];
-        }
-        return result;
+        return Arrays.copyOf(original, original.length);
     }
 
     private static TestcaseInOutParameters createParameter(double[] doubles, double result)
     {
-        Map<String, Double> startParameters  = getMap(doubles);
-        Map<String, Double> endParameters = new HashMap<>(1);
-        endParameters.put("r3", result);
-        TestcaseInOutParameters parameters = new TestcaseInOutParameters();
-        parameters.input = startParameters;
-        parameters.expectedOutput = endParameters;
-        return parameters;
+        return TestcaseInOutParameters.createParameter(doubles, result, 1);
     }
-
-
-    private static Map<String, Double> getMap(double[] doubles)
-    {
-        Map<String, Double> results = new HashMap<>();
-        for (int l = 0; l < doubles.length; l++)
-        {
-            results.put("r"+l, doubles[l]);
-        }
-        return results;
-    }
-
 }
