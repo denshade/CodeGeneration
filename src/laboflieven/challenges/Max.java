@@ -3,10 +3,13 @@ package laboflieven.challenges;
 import laboflieven.*;
 import laboflieven.common.Configuration;
 import laboflieven.examiners.ProgramFitnessExaminer;
+import laboflieven.loggers.BitmapFitnessLogger;
 import laboflieven.loggers.RandomSysOutAccFitnessLogger;
 import laboflieven.programiterators.GeneralBruteForceProgramIterator;
 import laboflieven.runners.AccStatementRunner;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,11 +28,18 @@ Found a program: [left = R1,  right = R2,  Jump to start if L >= R , R1 = right]
         List<TestcaseInOutParameters> collection = TestCases.getTestCases(new Max(), points.toArray(new double[0][0]),curMaxRegisters);
         ProgramFitnessExaminer evaluator = new ProgramFitnessExaminer(collection, new AccStatementRunner());
         evaluator.addListener(new RandomSysOutAccFitnessLogger(10000));
+        BitmapFitnessLogger bmpLogger = new BitmapFitnessLogger(new File("c:\\temp\\test.bmp"), 4, 2);
+        evaluator.addListener(bmpLogger);
         var conf = new Configuration();
         conf.setMaxNrInstructions(4).setFitnessExaminer(evaluator).setNumberOfRegisters(curMaxRegisters);
         GeneralBruteForceProgramIterator iter = new GeneralBruteForceProgramIterator();
         long start = System.currentTimeMillis();
         var p = iter.iterate(conf);
+        try {
+            bmpLogger.finish();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         System.out.println(System.currentTimeMillis() - start + "ms");
         System.out.println(p);
     }

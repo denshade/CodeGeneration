@@ -1,6 +1,8 @@
 package laboflieven.loggers;
 
 import laboflieven.InstructionMark;
+import laboflieven.accinstructions.AccRegisterInstruction;
+import laboflieven.common.AccInstructionOpcode;
 import laboflieven.statements.DualRegisterInstruction;
 import laboflieven.statements.Instruction;
 import laboflieven.statements.SingleRegisterInstruction;
@@ -11,6 +13,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.math.BigInteger;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -46,15 +49,24 @@ public class BitmapFitnessLogger implements FitnessLogger
     public void finish() throws IOException {
 
         final BufferedImage res = new BufferedImage( maxX + 1, maxY + 1, BufferedImage.TYPE_INT_RGB );
-
+        double max = elements.values().stream().filter(Double::isFinite).max(Comparator.naturalOrder()).get();
         for (Entry<Point, Double> el : elements.entrySet())
         {
             Point p = el.getKey();
             if (el.getValue() < 1){
                 res.setRGB(p.x, p.y, Color.WHITE.getRGB());
             }else {
-                float relative = (float)(Math.min(1.0, (el.getValue() / 5000)));
-                res.setRGB(p.x, p.y, new Color(1-relative, 0, 0).getRGB());
+                //float relative = (float)(el.getValue() / max) * 255;
+                double value = el.getValue();
+                double relative = 255;
+                if (Double.isFinite(value)) {
+                    //relative = (float)Math.log10(el.getValue());
+                    relative = Math.min(255, el.getValue());
+                }
+                res.setRGB(p.x, p.y, new Color((int)(255-relative), 0, 0).getRGB());
+                if (el.getValue() < 1) {
+                    res.setRGB(p.x, p.y, new Color(255, 255, 255).getRGB());
+                }
                 //res.setRGB(p.x, p.y, new Color(1-relative, 0, relative).getRGB());
             }
         }
@@ -72,21 +84,26 @@ public class BitmapFitnessLogger implements FitnessLogger
         for (InstructionMark instruction : instructions)
         {
             int instructNr;
-            switch(instruction.getClass().getSimpleName())
+            if (instruction.getInstructionOpcode() instanceof AccInstructionOpcode)
             {
-                case "Add" : instructNr = 1; break;
-                case "Cos" : instructNr = 2; break;
-                case "Div" : instructNr = 3; break;
-                case "Invert" : instructNr = 4; break;
-                case "Log" : instructNr = 5; break;
-                case "Mod" : instructNr = 6; break;
-                case "Move" : instructNr = 7; break;
-                case "Mul" : instructNr = 8; break;
-                case "Nand" : instructNr = 9; break;
-                case "Sin" : instructNr = 10; break;
-                case "Sqrt" : instructNr = 11; break;
-                case "Sub" : instructNr = 12; break;
-                default: throw new RuntimeException("Unknown class " + instruction.getClass().toString());
+                instructNr = ((AccInstructionOpcode)instruction.getInstructionOpcode()).getEnumer().ordinal() + 1;
+            } else {
+                switch(instruction.getClass().getSimpleName())
+                {
+                    case "Add" : instructNr = 1; break;
+                    case "Cos" : instructNr = 2; break;
+                    case "Div" : instructNr = 3; break;
+                    case "Invert" : instructNr = 4; break;
+                    case "Log" : instructNr = 5; break;
+                    case "Mod" : instructNr = 6; break;
+                    case "Move" : instructNr = 7; break;
+                    case "Mul" : instructNr = 8; break;
+                    case "Nand" : instructNr = 9; break;
+                    case "Sin" : instructNr = 10; break;
+                    case "Sqrt" : instructNr = 11; break;
+                    case "Sub" : instructNr = 12; break;
+                    default: throw new RuntimeException("Unknown class " + instruction.getClass().toString());
+                }
             }
             sumInstructX = sumInstructX.add(BigInteger.valueOf(instructNr).multiply(instructionMultiplier));
             instructionMultiplier = instructionMultiplier.multiply(nrInstructionMult);
@@ -104,8 +121,17 @@ public class BitmapFitnessLogger implements FitnessLogger
                 source = ((DualRegisterInstruction) instruction).source.name;
                 dest = ((DualRegisterInstruction) instruction).destination.name;
             } else if (instruction instanceof SingleRegisterInstruction){
-                source = "r0";
+                source = "R0";
                 dest = ((SingleRegisterInstruction) instruction).destination.name;
+            }
+            else if (instruction instanceof laboflieven.accinstructions.SingleRegisterInstruction)
+            {
+                source = ((laboflieven.accinstructions.SingleRegisterInstruction) instruction).getRegister().name;
+                dest = "R0";
+            } else if (instruction instanceof AccRegisterInstruction)
+            {
+                dest = "R0";
+                source = "R0";
             }
             int sourceNr = registerToInt(source);
             int destNr = registerToInt(dest);

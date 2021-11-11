@@ -115,24 +115,7 @@ public class FormulaFinder {
 
     private static TestcaseInOutParameters createParameter(double[] doubles, double result)
     {
-        Map<String, Double> startParameters  = getMap(doubles);
-        Map<String, Double> endParameters = new HashMap<>(1);
-        endParameters.put("R1", result);
-        TestcaseInOutParameters parameters = new TestcaseInOutParameters();
-        parameters.input = startParameters;
-        parameters.expectedOutput = endParameters;
-        return parameters;
-    }
-
-
-    private static Map<String, Double> getMap(double[] doubles)
-    {
-        Map<String, Double> results = new HashMap<>();
-        for (int l = 1; l <= doubles.length; l++)
-        {
-            results.put("R"+l, doubles[l - 1]);
-        }
-        return results;
+        return TestcaseInOutParameters.createParameter(doubles, result, 1);
     }
 
     public static void mainReverseProgramIterator(String[] args)
@@ -278,7 +261,7 @@ public class FormulaFinder {
         conf.setNumberOfRegisters(curMaxRegisters);
         conf.setAccOperations(enums);
         GeneralBruteForceProgramIterator iter = new GeneralBruteForceProgramIterator();
-        iter.iterate(curMaxRegisters, 10);
+        iter.iterate(conf);
     }
 
 
