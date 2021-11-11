@@ -3,6 +3,7 @@ package laboflieven.loggers;
 import laboflieven.InstructionMark;
 import laboflieven.accinstructions.AccRegisterInstruction;
 import laboflieven.common.AccInstructionOpcode;
+import laboflieven.common.RegularInstructionOpcode;
 import laboflieven.statements.DualRegisterInstruction;
 import laboflieven.statements.Instruction;
 import laboflieven.statements.SingleRegisterInstruction;
@@ -64,9 +65,6 @@ public class BitmapFitnessLogger implements FitnessLogger
                     relative = Math.min(255, el.getValue());
                 }
                 res.setRGB(p.x, p.y, new Color((int)(255-relative), 0, 0).getRGB());
-                if (el.getValue() < 1) {
-                    res.setRGB(p.x, p.y, new Color(255, 255, 255).getRGB());
-                }
                 //res.setRGB(p.x, p.y, new Color(1-relative, 0, relative).getRGB());
             }
         }
@@ -87,23 +85,12 @@ public class BitmapFitnessLogger implements FitnessLogger
             if (instruction.getInstructionOpcode() instanceof AccInstructionOpcode)
             {
                 instructNr = ((AccInstructionOpcode)instruction.getInstructionOpcode()).getEnumer().ordinal() + 1;
-            } else {
-                switch(instruction.getClass().getSimpleName())
-                {
-                    case "Add" : instructNr = 1; break;
-                    case "Cos" : instructNr = 2; break;
-                    case "Div" : instructNr = 3; break;
-                    case "Invert" : instructNr = 4; break;
-                    case "Log" : instructNr = 5; break;
-                    case "Mod" : instructNr = 6; break;
-                    case "Move" : instructNr = 7; break;
-                    case "Mul" : instructNr = 8; break;
-                    case "Nand" : instructNr = 9; break;
-                    case "Sin" : instructNr = 10; break;
-                    case "Sqrt" : instructNr = 11; break;
-                    case "Sub" : instructNr = 12; break;
-                    default: throw new RuntimeException("Unknown class " + instruction.getClass().toString());
-                }
+            } else if (instruction.getInstructionOpcode() instanceof RegularInstructionOpcode)
+            {
+                instructNr = ((RegularInstructionOpcode)instruction.getInstructionOpcode()).getEnumer().ordinal() + 1;
+            }
+            else {
+             throw new RuntimeException("Unknown class " + instruction.getClass().toString());
             }
             sumInstructX = sumInstructX.add(BigInteger.valueOf(instructNr).multiply(instructionMultiplier));
             instructionMultiplier = instructionMultiplier.multiply(nrInstructionMult);
