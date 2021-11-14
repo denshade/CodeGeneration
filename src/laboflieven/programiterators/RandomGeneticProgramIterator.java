@@ -36,6 +36,7 @@ public class RandomGeneticProgramIterator {
         POPULATION_MAX = maxPopulation;
         this.maxOverflow = maxOverflow;
         enums = RegularInstructionOpcodeEnum.values();
+        chosenSolutions = new ArrayList<>();
     }
 
 
@@ -91,6 +92,7 @@ public class RandomGeneticProgramIterator {
         this.maxPopulation = maxPopulation;
         this.maxOverflow = maxOverflow;
         this.popularParents = popularParents;
+        chosenSolutions = new ArrayList<>();
     }
 
     public ProgramResolution iterate(int numberOfRegisters, int maximumInstructions) {
