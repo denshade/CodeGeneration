@@ -1,6 +1,7 @@
 package laboflieven.challenges;
 
 import laboflieven.*;
+import laboflieven.accinstructions.AccInstructionOpcodeEnumBuilder;
 import laboflieven.accinstructions.AccProgramResolution;
 import laboflieven.accinstructions.AccInstructionOpcodeEnum;
 import laboflieven.common.Configuration;
@@ -11,11 +12,11 @@ import laboflieven.programiterators.GeneralBruteForceProgramIterator;
 import laboflieven.programiterators.GeneralRandomGeneticProgramIterator;
 import laboflieven.recursionheuristics.AccHeuristic;
 import laboflieven.runners.AccStatementRunner;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.*;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class FormulaFinderTest {
 
@@ -222,7 +223,7 @@ public class FormulaFinderTest {
 
         //enums = new InstructionEnum[]{InstructionEnum.Add, InstructionEnum.Sub, InstructionEnum.Mul, InstructionEnum.Div, InstructionEnum.Log};
         ProgramFitnessExaminer evaluator = new ProgramFitnessExaminer(collection, new AccStatementRunner());
-        AccRandomGeneticProgramIterator iter = new AccRandomGeneticProgramIterator(evaluator, AccInstructionOpcodeEnum.allInstructionsExcept(AccInstructionOpcodeEnum.Sqrt), 1000000, 1.2, 0.6);
+        AccRandomGeneticProgramIterator iter = new AccRandomGeneticProgramIterator(evaluator, AccInstructionOpcodeEnumBuilder.make().build(), 1000000, 1.2, 0.6);
         for (int i = 0; i< 7; i++) {
             iter.nrChildren = 10;
             iter.initialPopSize = 1000;

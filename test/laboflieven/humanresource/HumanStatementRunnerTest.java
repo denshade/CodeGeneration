@@ -5,7 +5,7 @@ import laboflieven.humanresource.model.HumanInstruction;
 import laboflieven.humanresource.model.HumanRegister;
 import laboflieven.humanresource.model.HumanResourceProgram;
 import laboflieven.humanresource.model.InvalidProgramException;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,7 +13,9 @@ import java.util.List;
 import java.util.Queue;
 import java.util.concurrent.ArrayBlockingQueue;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 
 /**
  * Created by Lieven on 2-1-2018.

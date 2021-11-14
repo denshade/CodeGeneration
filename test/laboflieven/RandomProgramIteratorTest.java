@@ -4,11 +4,12 @@ import laboflieven.programiterators.RandomProgramIterator;
 import laboflieven.statements.Cos;
 import laboflieven.statements.Move;
 import laboflieven.statements.Register;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 
 public class RandomProgramIteratorTest
 {

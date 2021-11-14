@@ -1,6 +1,5 @@
 package laboflieven.statements;
 
-import junit.framework.TestCase;
 import laboflieven.TestcaseInOutParameters;
 import laboflieven.examiners.ProgramFitnessExaminer;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
@@ -9,10 +8,14 @@ import laboflieven.runners.RegularStatementRunner;
 
 import java.util.*;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 /**
  * Created by Lieven on 28/06/2015.
  */
-public class ReverseProgramIteratorTest extends TestCase {
+public class ReverseProgramIteratorTest
+{
+
 
     public void testMainHard() throws Exception {
         List<TestcaseInOutParameters> collection = new ArrayList<>();

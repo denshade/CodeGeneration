@@ -1,6 +1,7 @@
-package laboflieven;
+package laboflieven.statements;
 
-import junit.framework.TestCase;
+import laboflieven.InstructionMark;
+import laboflieven.TestcaseInOutParameters;
 import laboflieven.examiners.ProgramFitnessExaminer;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
 import laboflieven.runners.RegularStatementRunner;
@@ -11,10 +12,13 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 /**
  * Created by Lieven on 28/06/2015.
  */
-public class ProgramEvaluatorTest extends TestCase {
+public class ProgramEvaluatorTest {
 
     public void testEvaluateTrue() throws Exception {
         List<TestcaseInOutParameters> parameters = new ArrayList<>();

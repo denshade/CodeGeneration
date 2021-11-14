@@ -101,7 +101,7 @@ public class RandomGeneticProgramIterator {
         Set<Register> availableRegisters = new HashSet<>();
         availableRegisters.add(registers[registers.length - 1]);// Add the result register.
         for (int i = 0; i < 1000; i++) {
-            recurse(new ArrayList<>());
+            createRandomInstructionRecursively(new ArrayList<>());
         }
        // System.out.println(chosenSolutions);
         PriorityQueue<ProgramResolution> solutions = new PriorityQueue<>();
@@ -173,7 +173,7 @@ public class RandomGeneticProgramIterator {
         return val;
     }
 
-    public void recurse(List<InstructionMark> instructions) {
+    public void createRandomInstructionRecursively(List<InstructionMark> instructions) {
         if (instructions.size() >= maximumInstructions)
         {
             chosenSolutions.add(new ArrayList<>(instructions));
@@ -204,7 +204,7 @@ public class RandomGeneticProgramIterator {
              */
 
         }
-        recurse(instructions);
+        createRandomInstructionRecursively(instructions);
         instructions.remove(0);
     }
 

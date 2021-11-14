@@ -4,7 +4,7 @@ import laboflieven.accinstructions.*;
 import laboflieven.challenges.TestCases;
 import laboflieven.runners.AccStatementRunner;
 import laboflieven.statements.Register;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,7 +13,7 @@ import java.util.Map;
 
 public class AccStatementRunnerTest {
 
-    @org.junit.Test
+    @Test
     public void testMyStatement()
     {
         AccStatementRunner r = new AccStatementRunner();

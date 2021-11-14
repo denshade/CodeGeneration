@@ -1,17 +1,17 @@
 package laboflieven;
 
-import junit.framework.TestCase;
-import laboflieven.statements.Instruction;
 import laboflieven.statements.Register;
 import laboflieven.statements.Sqrt;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 /**
  * Created by Lieven on 6/07/2015.
  */
-public class ProgramTest extends TestCase {
+public class ProgramTest  {
 
     public void testToString() throws Exception {
         List<InstructionMark> instructions = new ArrayList<>();

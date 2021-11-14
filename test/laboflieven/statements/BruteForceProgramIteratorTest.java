@@ -1,19 +1,20 @@
 package laboflieven.statements;
 
-import junit.framework.TestCase;
 import laboflieven.programiterators.BruteForceProgramIterator;
 import laboflieven.TestcaseInOutParameters;
 import laboflieven.examiners.ProgramFitnessExaminer;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
 import laboflieven.runners.RegularStatementRunner;
+import org.junit.jupiter.api.Test;
 
 import java.util.*;
 
 /**
  * Created by Lieven on 6/07/2015.
  */
-public class BruteForceProgramIteratorTest extends TestCase {
+public class BruteForceProgramIteratorTest  {
 
+    @Test
     public void testIterate() throws Exception {
         ProgramFitnessExaminerInterface ev = new ProgramFitnessExaminer(Collections.EMPTY_LIST, new RegularStatementRunner());
         BruteForceProgramIterator iterator = new BruteForceProgramIterator(ev);
@@ -42,6 +43,7 @@ public class BruteForceProgramIteratorTest extends TestCase {
         return results;
     }
 
+    @Test
     public void testQuadratic()
     {
         List<TestcaseInOutParameters> collection = new ArrayList<>();

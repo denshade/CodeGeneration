@@ -1,12 +1,16 @@
 package laboflieven.statements;
 
-import junit.framework.TestCase;
+
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Created by Lieven on 6/07/2015.
  */
-public class DualRegisterInstructionTest extends TestCase {
+public class DualRegisterInstructionTest  {
 
+    @Test
     public void testToString() throws Exception {
         Register eax = new Register("eax");
         Register ebx = new Register("ebx");

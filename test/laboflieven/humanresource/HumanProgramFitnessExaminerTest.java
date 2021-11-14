@@ -3,14 +3,14 @@ package laboflieven.humanresource;
 import laboflieven.humanresource.instructions.*;
 import laboflieven.humanresource.model.HumanInstruction;
 import laboflieven.humanresource.model.HumanRegister;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class HumanProgramFitnessExaminerTest
 {
