@@ -25,7 +25,7 @@ public class RandomGeneticProgramIterator {
     private Register[] registers;
     private int numberOfRegisters;
     private List<InstructionMark> bestSolution;
-    private List<List<InstructionMark>> chosenSolutions;
+    protected List<List<InstructionMark>> chosenSolutions;
 
 
     private double bestScore = 1000;
