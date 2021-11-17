@@ -4,6 +4,7 @@ import laboflieven.InstructionMark;
 import laboflieven.Program;
 import laboflieven.accinstructions.AccRegisterInstruction;
 import laboflieven.statements.Register;
+import laboflieven.statements.VectorRegister;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -18,6 +19,8 @@ public class AccStatementRunner implements StatementRunner {
 
     public static final String LEFT_ACC_NAME = "AL";
     public static final String RIGHT_ACC_NAME = "AR";
+    public static final String LEFT_ACC_NAME_VECTOR = "ALV";
+    public static final String RIGHT_ACC_NAME_VECTOR = "ARV";
     public int MAXINSTRUCT;
     public boolean verbose = false;
 
@@ -47,6 +50,8 @@ public class AccStatementRunner implements StatementRunner {
         List<InstructionMark> instructions = program.getInstructions();
         Register left = new Register(LEFT_ACC_NAME);
         Register right = new Register(RIGHT_ACC_NAME);
+        VectorRegister leftVector = new VectorRegister(LEFT_ACC_NAME_VECTOR);
+        VectorRegister rightVector = new VectorRegister(RIGHT_ACC_NAME_VECTOR);
         int ip = 0;
         int instructionsRun = 0;
         int size = instructions.size();
@@ -61,7 +66,7 @@ public class AccStatementRunner implements StatementRunner {
             if (verbose) {
                 System.out.println(instruction);
             }
-            Integer pointer = instruction.execute(left, right, ip);
+            Integer pointer = instruction.execute(left, right, leftVector, rightVector, ip);
             if (verbose) {
                 System.out.print("Pointer:" + pointer+" ");
                 System.out.print(program.getRegisters().stream().map(e -> e.name+ "="+ e.value+ ",").collect(Collectors.joining()));

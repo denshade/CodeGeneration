@@ -10,6 +10,7 @@ import laboflieven.examiners.ProgramFitnessExaminerInterface;
 import laboflieven.loggers.RandomSysOutAccFitnessLogger;
 import laboflieven.programiterators.AccPriorityProgramIterator;
 import laboflieven.programiterators.GeneralBruteForceProgramIterator;
+import laboflieven.programiterators.RandomProgramIterator;
 import laboflieven.recursionheuristics.AccHeuristic;
 import laboflieven.runners.AccStatementRunner;
 import laboflieven.statements.Register;
@@ -26,7 +27,7 @@ public class DataSourceFinder {
 
         int curMaxRegisters = 1;
         List<double[]> points = new ArrayList<>();
-        String lines = String.join("\n", Files.readAllLines(new File("pendule.csv").toPath()));
+        String lines = String.join("\n", Files.readAllLines(new File("triple.csv").toPath()));
         List<TestcaseInOutParameters> collection = TestCases.loadFromCsvString(lines, 1);
 
         // left = R1, left = nand(left, right), left = sin(left), left = 3n+1, R1 = left
@@ -35,14 +36,14 @@ public class DataSourceFinder {
         evaluator.addListener(new RandomSysOutAccFitnessLogger(10000));
         var conf = new Configuration();
         conf.setInstructionFactory(new InstructionFactory());
-        conf.setNumberOfRegisters(2);
-        conf.setMaxNrInstructions(7)
+        conf.setNumberOfRegisters(5);
+        conf.setMaxNrInstructions(20)
                 .setFitnessExaminer(evaluator).setNumberOfRegisters(curMaxRegisters).setAccOperations(AccInstructionOpcodeEnum.values())
                 .setHeuristic( new AccHeuristic()
                 );
         Register.createRegisters(2, "R");
         conf.setErrorTolerance(0.1);
-        var v = new GeneralBruteForceProgramIterator();
+        var v = new RandomProgramIterator();
         ProgramResolution res = v.iterate(conf);
         List<Register> registers = Register.createRegisters(2, "R");
         registers.get(0).value = 3.812;

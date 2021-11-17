@@ -3,10 +3,13 @@ package laboflieven.challenges;
 import laboflieven.TestcaseInOutParameters;
 import laboflieven.examiners.ProgramFitnessExaminer;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
+import laboflieven.loggers.BitmapFitnessLogger;
 import laboflieven.programiterators.BruteForceProgramIterator;
 import laboflieven.runners.RegularStatementRunner;
 
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -35,8 +38,15 @@ public class AbsFinder {
         collection.add(createParameter(-15.0, 15.0));
         collection.add(createParameter(0.0, 0.0));
         ProgramFitnessExaminerInterface evaluator = new ProgramFitnessExaminer(collection, new RegularStatementRunner());
+        BitmapFitnessLogger bmpLogger = new BitmapFitnessLogger(new File("c:\\temp\\test.bmp"), 4, 2);
+        evaluator.addListener(bmpLogger);
         BruteForceProgramIterator iterator = new BruteForceProgramIterator(evaluator);
         iterator.iterate(1, nrSolutions);
+        try {
+            bmpLogger.finish();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private static TestcaseInOutParameters createParameter(double a, double result)
