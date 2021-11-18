@@ -17,19 +17,7 @@ public class LoadAccLeftIntoVector extends AccRegisterInstruction {
     }
     @Override
     public Integer execute(Register left, Register right, VectorRegister vectorLeft, VectorRegister vectorRight, int ip) {
-        double val = right.value;
-        for (int i = 2; i < right.value; i++)
-        {
-            if (Primes.isPrime(i)) {
-                int counter = 0;
-                while(val%i == 0)
-                {
-                    counter++;
-                    val /= i;
-                }
-                vectorRight.value.add((double)counter);
-            }
-        }
+        vectorRight.value = LoadAccRightIntoVector.getVectorFromValue(right.value);
         return null;
     }
 

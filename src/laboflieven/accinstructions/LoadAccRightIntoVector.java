@@ -25,7 +25,7 @@ public class LoadAccRightIntoVector extends AccRegisterInstruction {
 
     static Vector<Double> getVectorFromValue(double val) {
         Vector<Double> values = new Vector<>();
-        for (int i = 2; i < val; i++)
+        for (int i = 2; i <= val; i++)
         {
             if (Primes.isPrime(i)) {
                 int counter = 0;
