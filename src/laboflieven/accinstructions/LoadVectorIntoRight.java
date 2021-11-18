@@ -1,5 +1,6 @@
 package laboflieven.accinstructions;
 
+import laboflieven.common.AccInstructionOpcode;
 import laboflieven.common.InstructionOpcode;
 import laboflieven.statements.Register;
 import laboflieven.statements.VectorRegister;
@@ -10,7 +11,7 @@ import java.util.Vector;
 public class LoadVectorIntoRight extends AccRegisterInstruction {
     @Override
     public InstructionOpcode getInstructionOpcode() {
-        throw new RuntimeException("Not implemented");
+        return new AccInstructionOpcode(AccInstructionOpcodeEnum.LoadVectorIntoRight);
     }
 
     @Override
@@ -41,6 +42,6 @@ public class LoadVectorIntoRight extends AccRegisterInstruction {
 
     @Override
     public String toString() {
-        return null;
+        return "right = combine(rightvector)";
     }
 }

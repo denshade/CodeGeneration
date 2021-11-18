@@ -1,5 +1,6 @@
 package laboflieven.accinstructions;
 
+import laboflieven.common.AccInstructionOpcode;
 import laboflieven.common.InstructionOpcode;
 import laboflieven.statements.Register;
 import laboflieven.statements.VectorRegister;
@@ -10,7 +11,7 @@ import java.util.Vector;
 public class LoadAccRightIntoVector extends AccRegisterInstruction {
     @Override
     public InstructionOpcode getInstructionOpcode() {
-        return null;
+        return new AccInstructionOpcode(AccInstructionOpcodeEnum.LoadAccRightIntoVector);
     }
 
     @Override
@@ -42,6 +43,6 @@ public class LoadAccRightIntoVector extends AccRegisterInstruction {
 
     @Override
     public String toString() {
-        return  "leftVector = split(left)";
+        return  "rightVector = split(right)";
     }
 }
