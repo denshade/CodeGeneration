@@ -5,7 +5,9 @@ import laboflieven.statements.Register;
 import laboflieven.statements.VectorRegister;
 import org.apache.commons.math3.primes.Primes;
 
-public class LoadAccLeftIntoVector extends AccRegisterInstruction {
+import java.util.Vector;
+
+public class LoadAccRightIntoVector extends AccRegisterInstruction {
     @Override
     public InstructionOpcode getInstructionOpcode() {
         return null;
@@ -17,20 +19,25 @@ public class LoadAccLeftIntoVector extends AccRegisterInstruction {
     }
     @Override
     public Integer execute(Register left, Register right, VectorRegister vectorLeft, VectorRegister vectorRight, int ip) {
-        double val = right.value;
-        for (int i = 2; i < right.value; i++)
+        vectorLeft.value = getVectorFromValue(left.value);
+        return null;
+    }
+
+    static Vector<Double> getVectorFromValue(double val) {
+        Vector<Double> values = new Vector<>();
+        for (int i = 2; i < val; i++)
         {
             if (Primes.isPrime(i)) {
                 int counter = 0;
-                while(val%i == 0)
+                while(val %i == 0)
                 {
                     counter++;
                     val /= i;
                 }
-                vectorRight.value.add((double)counter);
+                values.add((double)counter);
             }
         }
-        return null;
+        return values;
     }
 
     @Override

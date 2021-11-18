@@ -5,36 +5,42 @@ import laboflieven.statements.Register;
 import laboflieven.statements.VectorRegister;
 import org.apache.commons.math3.primes.Primes;
 
-public class LoadAccLeftIntoVector extends AccRegisterInstruction {
+import java.util.Vector;
+
+public class LoadVectorIntoRight extends AccRegisterInstruction {
     @Override
     public InstructionOpcode getInstructionOpcode() {
-        return null;
+        throw new RuntimeException("Not implemented");
     }
 
     @Override
     public Integer execute(Register left, Register right, int ip) {
         throw new RuntimeException("Not implemented");
     }
+
     @Override
     public Integer execute(Register left, Register right, VectorRegister vectorLeft, VectorRegister vectorRight, int ip) {
-        double val = right.value;
-        for (int i = 2; i < right.value; i++)
+        right.value = convertVectorToDouble(vectorRight.value);
+        return null;
+    }
+
+    static double convertVectorToDouble(Vector<Double> vector) {
+        double val = 1;
+        int selectedElement = 0;
+        int i = 2;
+        while (selectedElement < vector.size())
         {
             if (Primes.isPrime(i)) {
-                int counter = 0;
-                while(val%i == 0)
-                {
-                    counter++;
-                    val /= i;
-                }
-                vectorRight.value.add((double)counter);
+                val *= Math.pow(i, vector.get(selectedElement));
+                selectedElement++;
             }
+            i++;
         }
-        return null;
+        return val;
     }
 
     @Override
     public String toString() {
-        return  "leftVector = split(left)";
+        return null;
     }
 }
