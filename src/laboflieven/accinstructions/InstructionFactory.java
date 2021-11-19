@@ -6,13 +6,47 @@ import laboflieven.common.InstructionOpcode;
 import laboflieven.statements.InstructionFactoryInterface;
 import laboflieven.statements.Register;
 
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 /**
  * Created by lveeckha on 4/06/2015.
  */
 public class InstructionFactory implements InstructionFactoryInterface {
+    private static EnumMap<AccInstructionOpcodeEnum, AccRegisterInstruction> map = new EnumMap<>(AccInstructionOpcodeEnum.class) {{
+        put(AccInstructionOpcodeEnum.Add, new Add());
+        put(AccInstructionOpcodeEnum.Div, new Div());
+        put(AccInstructionOpcodeEnum.Mod, new Mod());
+        put(AccInstructionOpcodeEnum.Mul, new Mul());
+        put(AccInstructionOpcodeEnum.Sub, new Sub());
+        put(AccInstructionOpcodeEnum.Nand, new Nand());
+        put(AccInstructionOpcodeEnum.Invert, new Invert());
+        put(AccInstructionOpcodeEnum.Sqrt, new Sqrt());
+        put(AccInstructionOpcodeEnum.Sin, new Sin());
+        put(AccInstructionOpcodeEnum.Cos, new Cos());
+        put(AccInstructionOpcodeEnum.Log, new Log());
+        put(AccInstructionOpcodeEnum.JumpIfGteStart, new JumpIfGteStart());
+        put(AccInstructionOpcodeEnum.JumpIfLteStart, new JumpIfLteStart());
+        put(AccInstructionOpcodeEnum.Jump2IfGte, new Jump2IfGte());
+        put(AccInstructionOpcodeEnum.Jump2IfLte, new Jump2IfLte());
+        put(AccInstructionOpcodeEnum.Jump2IfEq, new Jump2IfEq());
+        put(AccInstructionOpcodeEnum.Jump2IfNeq, new Jump2IfNeq());
+        put(AccInstructionOpcodeEnum.Jump2IfZero, new Jump2IfZero());
+        put(AccInstructionOpcodeEnum.Quit, new Quit());
+        put(AccInstructionOpcodeEnum.Pow, new Pow());
+        put(AccInstructionOpcodeEnum.Swap, new Swap());
+        put(AccInstructionOpcodeEnum.PI, new PI());
+        put(AccInstructionOpcodeEnum.E, new E());
+        put(AccInstructionOpcodeEnum.Inc, new Inc());
+        put(AccInstructionOpcodeEnum.Custom, new Custom());
+        put(AccInstructionOpcodeEnum.LoadAccRightIntoVector, new LoadAccRightIntoVector());
+        put(AccInstructionOpcodeEnum.LoadAccLeftIntoVector, new LoadAccLeftIntoVector());
+        put(AccInstructionOpcodeEnum.LoadVectorIntoLeft, new LoadVectorIntoLeft());
+        put(AccInstructionOpcodeEnum.LoadVectorIntoRight, new LoadVectorIntoRight());
+        put(AccInstructionOpcodeEnum.LeftVectShift, new LeftVectShift());
+        put(AccInstructionOpcodeEnum.LeftVectPushExponents, new LeftVectPushExponents());
+        put(AccInstructionOpcodeEnum.Dec, new Dec());
+    }};
+
     public AccRegisterInstruction createInstruction(InstructionOpcode instructionEnum, Register... registers) {
         AccInstructionOpcodeEnum instruct = ((laboflieven.common.AccInstructionOpcode) instructionEnum).getEnumer();
         if (registers.length == 0) {
@@ -24,87 +58,7 @@ public class InstructionFactory implements InstructionFactoryInterface {
     }
 
     public AccRegisterInstruction createInstructionP(AccInstructionOpcodeEnum accInstructionOpcodeEnum) {
-        AccRegisterInstruction instruction;
-        switch (accInstructionOpcodeEnum) {
-            case Add:
-                instruction = new Add();
-                break;
-            case Div:
-                instruction = new Div();
-                break;
-            case Mod:
-                instruction = new Mod();
-                break;
-            case Mul:
-                instruction = new Mul();
-                break;
-            case Sub:
-                instruction = new Sub();
-                break;
-            case Nand:
-                instruction = new Nand();
-                break;
-            case Invert:
-                instruction = new Invert();
-                break;
-            case Sqrt:
-                instruction = new Sqrt();
-                break;
-            case Sin:
-                instruction = new Sin();
-                break;
-            case Cos:
-                instruction = new Cos();
-                break;
-            case Log:
-                instruction = new Log();
-                break;
-            case JumpIfGteStart:
-                instruction = new JumpIfGteStart();
-                break;
-            case JumpIfLteStart:
-                instruction = new JumpIfLteStart();
-                break;
-            case Jump2IfGte:
-                instruction = new Jump2IfGte();
-                break;
-            case Jump2IfLte:
-                instruction = new Jump2IfLte();
-                break;
-            case Jump2IfEq:
-                instruction = new Jump2IfEq();
-                break;
-            case Jump2IfNeq:
-                instruction = new Jump2IfNeq();
-                break;
-            case Jump2IfZero:
-                instruction = new Jump2IfZero();
-                break;
-            case Quit:
-                instruction = new Quit();
-                break;
-            case Pow:
-                instruction = new Pow();
-                break;
-            case Swap:
-                instruction = new Swap();
-                break;
-            case PI:
-                instruction = new PI();
-                break;
-            case E:
-                instruction = new E();
-                break;
-            case Inc:
-                instruction = new Inc();
-                break;
-            case Custom:
-                instruction = new Custom();
-                break;
-            default:
-                throw new IllegalArgumentException("invalid instruction " + accInstructionOpcodeEnum);
-        }
-        return instruction;
+        return map.get(accInstructionOpcodeEnum);
     }
 
     public AccRegisterInstruction createInstructionP(AccInstructionOpcodeEnum accInstructionOpcodeEnum, Register register1) {

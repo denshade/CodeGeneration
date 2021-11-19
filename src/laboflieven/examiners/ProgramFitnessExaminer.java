@@ -88,10 +88,8 @@ public class ProgramFitnessExaminer implements ProgramFitnessExaminerInterface {
             }
             //Should also check that expected values are actually compared. eg. R3 doesn't exist => OK.(wrong)
         }
-        for(FitnessLogger logger : loggers)
-        {
-            logger.addFitness(instructions, RegularInstructionOpcodeEnum.values().length, registers.size(), err);
-        }
+        final double endResult = err;
+        loggers.stream().forEach(l -> l.addFitness(instructions, RegularInstructionOpcodeEnum.values().length, registers.size(), endResult));
         return err;
     }
 

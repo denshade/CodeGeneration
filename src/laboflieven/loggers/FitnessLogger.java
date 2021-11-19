@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface FitnessLogger
 {
-    public void addFitness(List<InstructionMark> instructions, int nrInstruction, int nrRegisters, double error);
+    void addFitness(List<InstructionMark> instructions, int instructionsetSize, int nrRegisters, double error);
 }

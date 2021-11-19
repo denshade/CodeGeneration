@@ -1,5 +1,6 @@
 package laboflieven.accinstructions;
 
+import laboflieven.statements.Register;
 import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.InvocationTargetException;
@@ -15,7 +16,7 @@ class InstructionFactoryTest {
     }
 
     @Test
-    void timeInstruction() throws ClassNotFoundException, InvocationTargetException, InstantiationException, IllegalAccessException {
+    void timeInstruction() {
         InstructionFactory fact = new InstructionFactory();
         long l = System.currentTimeMillis();
         for (int i = 0; i < 1000000;i++)
@@ -23,5 +24,21 @@ class InstructionFactoryTest {
             fact.createInstruction(new laboflieven.common.AccInstructionOpcode(AccInstructionOpcodeEnum.Pow)).getClass().getCanonicalName();
         }
         System.out.println(System.currentTimeMillis() - l);
+    }
+
+    @Test
+    void tryAllInstructionEnums()
+    {
+        InstructionFactory fact = new InstructionFactory();
+        for (AccInstructionOpcodeEnum enums : AccInstructionOpcodeEnum.values())
+        {
+            if (enums.isSingleRegister())
+            {
+                assertNotNull(fact.createInstructionP(enums, new Register("R1")));
+            } else {
+                assertNotNull(fact.createInstructionP(enums));
+            }
+        }
+
     }
 }

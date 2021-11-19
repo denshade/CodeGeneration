@@ -33,9 +33,6 @@ public class GeneralBruteForceProgramIterator implements ProgramIterator
     private List<Register> registers;
     private double errorTolerance = 0.0;
 
-    public GeneralBruteForceProgramIterator()
-    {
-    }
 
     public ProgramResolution iterate(Configuration configuration) {
         this.evaluator = configuration.getFitnessExaminer();

@@ -1,7 +1,5 @@
 package laboflieven.common;
 
-import java.util.ArrayList;
-
 public class BestFitRegister<T>
 {
     private T best;

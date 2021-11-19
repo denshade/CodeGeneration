@@ -57,16 +57,6 @@ public class TestCases
         return points.toArray(new double[0][0]);
     }
 
-    public static double[][] getBooleanInput2D()
-    {
-        List<double[]> points = new ArrayList<>();
-        points.add(new double[] { 0,0});
-        points.add(new double[] { 0,1});
-        points.add(new double[] { 1,0});
-        points.add(new double[] { 1,1});
-        return points.toArray(new double[0][0]);
-    }
-
     public static double[][] getExampleInput4D(int max, int jump)
     {
         List<double[]> points = new ArrayList<>();
@@ -106,13 +96,12 @@ public class TestCases
 
     public static double[][] getExampleInput1D()
     {
-        double[][] doubles = {new double[]{ 10}, new double[]{ 1}, new double[]{ 1},
+        return new double[][]{new double[]{ 10}, new double[]{ 1}, new double[]{ 1},
                 new double[]{ 0}, new double[]{ 1},
                 new double[]{ 1000},  new double[]{ 50},
                 new double[]{ 10000}, new double[]{ -10000}
 
         };
-        return doubles;
     }
 
 

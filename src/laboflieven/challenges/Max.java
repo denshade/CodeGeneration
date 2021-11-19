@@ -1,6 +1,8 @@
 package laboflieven.challenges;
 
 import laboflieven.*;
+import laboflieven.accinstructions.AccInstructionOpcodeEnum;
+import laboflieven.accinstructions.AccInstructionOpcodeEnumBuilder;
 import laboflieven.common.Configuration;
 import laboflieven.examiners.ProgramFitnessExaminer;
 import laboflieven.loggers.BitmapFitnessLogger;
@@ -12,6 +14,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 public class Max implements ProgramTemplate
 {
@@ -31,7 +34,13 @@ Found a program: [left = R1,  right = R2,  Jump to start if L >= R , R1 = right]
         BitmapFitnessLogger bmpLogger = new BitmapFitnessLogger(new File("c:\\temp\\test.bmp"), 4, 2);
         evaluator.addListener(bmpLogger);
         var conf = new Configuration();
-        conf.setMaxNrInstructions(4).setFitnessExaminer(evaluator).setNumberOfRegisters(curMaxRegisters);
+        AccInstructionOpcodeEnum[] opcodeEnums = AccInstructionOpcodeEnumBuilder.make().anyExcept(Set.of(
+                AccInstructionOpcodeEnum.LoadAccLeftIntoVector,
+                AccInstructionOpcodeEnum.LoadAccRightIntoVector,
+                AccInstructionOpcodeEnum.LoadVectorIntoLeft,
+                AccInstructionOpcodeEnum.LoadVectorIntoRight
+        )).build();
+        conf.setMaxNrInstructions(4).setFitnessExaminer(evaluator).setAccOperations(AccInstructionOpcodeEnum.values()).setNumberOfRegisters(curMaxRegisters);
         GeneralBruteForceProgramIterator iter = new GeneralBruteForceProgramIterator();
         long start = System.currentTimeMillis();
         var p = iter.iterate(conf);

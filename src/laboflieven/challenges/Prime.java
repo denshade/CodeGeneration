@@ -29,7 +29,7 @@ public class Prime implements ProgramTemplate
                 AccInstructionOpcodeEnumBuilder.make().anyExcept(Set.of(AccInstructionOpcodeEnum.Sqrt, AccInstructionOpcodeEnum.JumpIfGteStart, AccInstructionOpcodeEnum.JumpIfLteStart,
                 AccInstructionOpcodeEnum.Log)).build(), 1000,1.2,0.4);
         long start = System.currentTimeMillis();
-        System.out.println(iter.iterate(curMaxRegisters, 20));
+        System.out.println(iter.iterate(curMaxRegisters, 4));
         //evaluator.writeAndClose();
         System.out.println(System.currentTimeMillis() - start + "ms");
 
