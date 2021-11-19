@@ -31,16 +31,17 @@ Found a program: [left = R1,  right = R2,  Jump to start if L >= R , R1 = right]
         List<TestcaseInOutParameters> collection = TestCases.getTestCases(new Max(), points.toArray(new double[0][0]),curMaxRegisters);
         ProgramFitnessExaminer evaluator = new ProgramFitnessExaminer(collection, new AccStatementRunner());
         evaluator.addListener(new RandomSysOutAccFitnessLogger(10000));
-        BitmapFitnessLogger bmpLogger = new BitmapFitnessLogger(new File("c:\\temp\\test.bmp"), 4, 2);
-        evaluator.addListener(bmpLogger);
-        var conf = new Configuration();
-        AccInstructionOpcodeEnum[] opcodeEnums = AccInstructionOpcodeEnumBuilder.make().anyExcept(Set.of(
+        AccInstructionOpcodeEnum[] opcodeEnums = AccInstructionOpcodeEnumBuilder.make().with(AccInstructionOpcodeEnum.LoadIntoLeftAcc, AccInstructionOpcodeEnum.LoadIntoRightAcc, AccInstructionOpcodeEnum.JumpIfGteStart, AccInstructionOpcodeEnum.LoadAccRightIntoRegister).build();
+        /*        AccInstructionOpcodeEnum[] opcodeEnums = AccInstructionOpcodeEnumBuilder.make().anyExcept(Set.of(
                 AccInstructionOpcodeEnum.LoadAccLeftIntoVector,
                 AccInstructionOpcodeEnum.LoadAccRightIntoVector,
                 AccInstructionOpcodeEnum.LoadVectorIntoLeft,
                 AccInstructionOpcodeEnum.LoadVectorIntoRight
-        )).build();
-        conf.setMaxNrInstructions(4).setFitnessExaminer(evaluator).setAccOperations(AccInstructionOpcodeEnum.values()).setNumberOfRegisters(curMaxRegisters);
+        )).build();*/
+        BitmapFitnessLogger bmpLogger = new BitmapFitnessLogger(new File("c:\\temp\\test.bmp"), 2, List.of(opcodeEnums));
+        evaluator.addListener(bmpLogger);
+        var conf = new Configuration();
+        conf.setMaxNrInstructions(4).setFitnessExaminer(evaluator).setAccOperations(opcodeEnums).setNumberOfRegisters(curMaxRegisters);
         GeneralBruteForceProgramIterator iter = new GeneralBruteForceProgramIterator();
         long start = System.currentTimeMillis();
         var p = iter.iterate(conf);

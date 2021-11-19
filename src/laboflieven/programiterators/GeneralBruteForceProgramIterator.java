@@ -27,7 +27,7 @@ public class GeneralBruteForceProgramIterator implements ProgramIterator
     private ProgramFitnessExaminerInterface evaluator;
     private AccInstructionOpcodeEnum[] accInstructionOpcodeEnums = AccInstructionOpcodeEnum.values();
     private RecursionHeuristic heuristic = new AlwaysRecursionHeuristic();
-    public boolean stopAtFirstSolution = true;
+    public boolean stopAtFirstSolution = false;
     public boolean onlyEvaluateAtLastInstruction = true;
     public InstructionFactoryInterface instructionFactory = new InstructionFactory();
     private List<Register> registers;

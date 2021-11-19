@@ -80,7 +80,8 @@ public class ProgramFitnessExaminer implements ProgramFitnessExaminerInterface {
                         foundExpectedRegisters++;
                         err += Math.abs(expectedOutput.get(register.name) - register.value);
                         if (err >= noFitAtAll){
-                            return noFitAtAll;
+                            err = noFitAtAll;
+                            break total;
                         }
                         if (foundExpectedRegisters == expectedOutput.size()) break;
                     }

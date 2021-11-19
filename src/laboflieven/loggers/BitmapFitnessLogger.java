@@ -5,7 +5,6 @@ import laboflieven.accinstructions.AccRegisterInstruction;
 import laboflieven.common.AccInstructionOpcode;
 import laboflieven.common.RegularInstructionOpcode;
 import laboflieven.statements.DualRegisterInstruction;
-import laboflieven.statements.Instruction;
 import laboflieven.statements.SingleRegisterInstruction;
 
 import javax.imageio.ImageIO;
@@ -14,7 +13,6 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.math.BigInteger;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,20 +21,21 @@ import java.util.Map.Entry;
 public class BitmapFitnessLogger implements FitnessLogger
 {
     private final File file;
-    private final int nrInstruction;
     private final int nrRegisters;
+    private final List opcodes;
     int maxX = 0;
     int maxY = 0;
     Map<Point, Double> elements = new HashMap<>();
-    public BitmapFitnessLogger(File file, int nrInstruction, int nrRegisters) {
+
+    public BitmapFitnessLogger(File file, int nrRegisters, List opcodes) {
         this.file = file;
-        this.nrInstruction = nrInstruction;
         this.nrRegisters = nrRegisters;
+        this.opcodes = opcodes;
     }
 
     @Override
     public void addFitness(List<InstructionMark> instructions, int nrInstructionOld, int nrRegistersOld, double error) {
-        BigInteger[] numbers = getXandY(instructions, nrInstruction, nrRegisters);
+        BigInteger[] numbers = getXandY(instructions, nrRegisters);
         Point p = new Point();
         p.x  = numbers[0].intValue();
         p.y  = numbers[1].intValue();
@@ -44,13 +43,15 @@ public class BitmapFitnessLogger implements FitnessLogger
         if (p.y > maxY) maxY = p.y;
 
         elements.put(p, error);
-        if (error < 0.000001) System.out.println(instructions);
     }
 
     public void finish() throws IOException {
 
         final BufferedImage res = new BufferedImage( maxX + 1, maxY + 1, BufferedImage.TYPE_INT_RGB );
-        double max = elements.values().stream().filter(Double::isFinite).max(Comparator.naturalOrder()).get();
+        Graphics2D graphics = res.createGraphics();
+        graphics.setPaint(new Color(0,0,255));
+        graphics.fillRect(0,0, maxX + 1, maxY + 1);
+        //double max = elements.values().stream().filter(Double::isFinite).max(Comparator.naturalOrder()).get();
         for (Entry<Point, Double> el : elements.entrySet())
         {
             Point p = el.getKey();
@@ -73,21 +74,27 @@ public class BitmapFitnessLogger implements FitnessLogger
 
     }
 
-
-    public BigInteger[] getXandY(List<InstructionMark> instructions, int nrInstruction, int nrRegisters)
+    /**
+     * Yields an X (instruction position) and Y (register position).
+     * @param instructions
+     * @param nrRegisters
+     * @return
+     */
+    public BigInteger[] getXandY(List<InstructionMark> instructions, int nrRegisters)
     {
         BigInteger sumInstructX = BigInteger.ZERO;
         BigInteger instructionMultiplier = BigInteger.ONE;
-        BigInteger nrInstructionMult = BigInteger.valueOf(nrInstruction + 1);
+        BigInteger nrInstructionMult;
+        nrInstructionMult = BigInteger.valueOf(opcodes.size() + 1);
         for (InstructionMark instruction : instructions)
         {
             int instructNr;
             if (instruction.getInstructionOpcode() instanceof AccInstructionOpcode)
             {
-                instructNr = ((AccInstructionOpcode)instruction.getInstructionOpcode()).getEnumer().ordinal() + 1;
+                instructNr = opcodes.indexOf(((AccInstructionOpcode) instruction.getInstructionOpcode()).getEnumer()) + 1;
             } else if (instruction.getInstructionOpcode() instanceof RegularInstructionOpcode)
             {
-                instructNr = ((RegularInstructionOpcode)instruction.getInstructionOpcode()).getEnumer().ordinal() + 1;
+                instructNr = opcodes.indexOf(((RegularInstructionOpcode) instruction.getInstructionOpcode()).getEnumer()) + 1;
             }
             else {
              throw new RuntimeException("Unknown class " + instruction.getClass().toString());
@@ -124,8 +131,8 @@ public class BitmapFitnessLogger implements FitnessLogger
             int destNr = registerToInt(dest);
             sumRegister = sumRegister.add(BigInteger.valueOf(sourceNr).multiply(registerMultiplier));
             registerMultiplier = registerMultiplier.multiply(nrRegisterMult);
-            sumRegister = sumRegister.add(BigInteger.valueOf(destNr).multiply(registerMultiplier));
-            registerMultiplier = registerMultiplier.multiply(nrRegisterMult);
+            /*sumRegister = sumRegister.add(BigInteger.valueOf(destNr).multiply(registerMultiplier));
+            registerMultiplier = registerMultiplier.multiply(nrRegisterMult);*/
         }
         return new BigInteger[]{sumInstructX, sumRegister};
     }

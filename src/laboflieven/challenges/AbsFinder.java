@@ -1,11 +1,13 @@
 package laboflieven.challenges;
 
 import laboflieven.TestcaseInOutParameters;
+import laboflieven.common.RegularInstructionOpcode;
 import laboflieven.examiners.ProgramFitnessExaminer;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
 import laboflieven.loggers.BitmapFitnessLogger;
 import laboflieven.programiterators.BruteForceProgramIterator;
 import laboflieven.runners.RegularStatementRunner;
+import laboflieven.statements.RegularInstructionOpcodeEnum;
 
 
 import java.io.File;
@@ -27,18 +29,19 @@ public class AbsFinder {
      */
     public static void main(String[] args)
     {
-        if (args.length != 1)
+        /*if (args.length != 1)
         {
             System.err.println("Usage : "+AbsFinder.class+" <maxInstructions>");
             System.exit(1);
         }
-        int nrSolutions = Integer.parseInt(args[0]);
+        int nrSolutions = Integer.parseInt(args[0]);*/
+        int nrSolutions = 2;
         List<TestcaseInOutParameters> collection = new ArrayList<>();
         collection.add(createParameter(2.0, 2.0));
         collection.add(createParameter(-15.0, 15.0));
         collection.add(createParameter(0.0, 0.0));
         ProgramFitnessExaminerInterface evaluator = new ProgramFitnessExaminer(collection, new RegularStatementRunner());
-        BitmapFitnessLogger bmpLogger = new BitmapFitnessLogger(new File("c:\\temp\\test.bmp"), 4, 2);
+        BitmapFitnessLogger bmpLogger = new BitmapFitnessLogger(new File("c:\\temp\\test.bmp"), 2, List.of(RegularInstructionOpcodeEnum.values()));
         evaluator.addListener(bmpLogger);
         BruteForceProgramIterator iterator = new BruteForceProgramIterator(evaluator);
         iterator.iterate(1, nrSolutions);
