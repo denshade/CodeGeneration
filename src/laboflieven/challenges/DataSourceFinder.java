@@ -1,15 +1,13 @@
 package laboflieven.challenges;
 
-import laboflieven.InstructionMark;
 import laboflieven.ProgramResolution;
 import laboflieven.TestcaseInOutParameters;
-import laboflieven.accinstructions.*;
+import laboflieven.accinstructions.AccInstructionOpcodeEnum;
+import laboflieven.accinstructions.InstructionFactory;
 import laboflieven.common.Configuration;
 import laboflieven.examiners.AccumulatorProgramFitnessExaminer;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
 import laboflieven.loggers.RandomSysOutAccFitnessLogger;
-import laboflieven.programiterators.AccPriorityProgramIterator;
-import laboflieven.programiterators.GeneralBruteForceProgramIterator;
 import laboflieven.programiterators.RandomProgramIterator;
 import laboflieven.recursionheuristics.AccHeuristic;
 import laboflieven.runners.AccStatementRunner;
@@ -20,7 +18,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class DataSourceFinder {
     public static void main(String[] args) throws IOException {

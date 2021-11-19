@@ -1,11 +1,12 @@
 package laboflieven.challenges;
 
-import laboflieven.accinstructions.AccInstructionOpcodeEnumBuilder;
+import laboflieven.accinstructions.*;
+import laboflieven.common.Configuration;
 import laboflieven.examiners.ProgramFitnessExaminer;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
 import laboflieven.programiterators.AccRandomGeneticProgramIterator;
 import laboflieven.TestcaseInOutParameters;
-import laboflieven.accinstructions.AccInstructionOpcodeEnum;
+import laboflieven.programiterators.GeneralBruteForceProgramIterator;
 import laboflieven.runners.AccStatementRunner;
 
 import java.util.ArrayList;
@@ -17,23 +18,29 @@ public class Prime implements ProgramTemplate
 
     public static void main(String[] args) {
 
-        int curMaxRegisters = 4;
-        List<double[]> points = new ArrayList<>();
+        int curMaxRegisters = 1;
+        List<TestcaseInOutParameters> collection = new ArrayList<>();
 
         for (int i = 2; i < 40; i++) {
-            points.add(new double[] { i, isPrime(i)});
+            TestcaseInOutParameters p = new TestcaseInOutParameters();
+            p.input.put("R1", (double)i);
+            p.expectedOutput.put("R1", isPrime(i));
+            collection.add(p);
         }
-        List<TestcaseInOutParameters> collection = TestCases.getTestCases(new Prime(), points.toArray(new double[0][0]),curMaxRegisters);
         ProgramFitnessExaminerInterface evaluator = new ProgramFitnessExaminer(collection,new AccStatementRunner());
-        AccRandomGeneticProgramIterator iter = new AccRandomGeneticProgramIterator(evaluator,
-                AccInstructionOpcodeEnumBuilder.make().anyExcept(Set.of(AccInstructionOpcodeEnum.Sqrt, AccInstructionOpcodeEnum.JumpIfGteStart, AccInstructionOpcodeEnum.JumpIfLteStart,
-                AccInstructionOpcodeEnum.Log)).build(), 1000,1.2,0.4);
-        long start = System.currentTimeMillis();
-        System.out.println(iter.iterate(curMaxRegisters, 4));
-        //evaluator.writeAndClose();
-        System.out.println(System.currentTimeMillis() - start + "ms");
+        AccInstructionOpcodeEnum[] enums = AccInstructionOpcodeEnumBuilder.make().with(
+                AccInstructionOpcodeEnum.LoadIntoLeftAcc,
+                AccInstructionOpcodeEnum.LoadAccLeftIntoVector,
+                AccInstructionOpcodeEnum.LoadVectorSumIntoLeft,
+                AccInstructionOpcodeEnum.LoadAccLeftIntoRegister
+        ).build();
+        var conf = new Configuration();
+        conf.setMaxNrInstructions(6).setFitnessExaminer(evaluator).setAccOperations(enums).setNumberOfRegisters(curMaxRegisters);
 
-        //mainT(15,3);
+        GeneralBruteForceProgramIterator iter = new GeneralBruteForceProgramIterator();
+        long start = System.currentTimeMillis();
+        System.out.println(iter.iterate(conf));
+        System.out.println(System.currentTimeMillis() - start + "ms");
     }
     private static double isPrime(int i)
     {

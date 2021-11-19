@@ -1,7 +1,6 @@
 package laboflieven.loggers;
 
 import laboflieven.InstructionMark;
-import laboflieven.statements.Instruction;
 
 import java.util.List;
 

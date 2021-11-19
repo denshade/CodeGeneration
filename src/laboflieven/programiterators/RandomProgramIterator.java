@@ -2,14 +2,16 @@ package laboflieven.programiterators;
 
 import laboflieven.InstructionMark;
 import laboflieven.ProgramResolution;
+import laboflieven.StoppedByUserException;
 import laboflieven.accinstructions.LoadAccLeftIntoRegister;
 import laboflieven.accinstructions.LoadIntoLeftAcc;
 import laboflieven.common.ArrayListBestFitRegister;
-import laboflieven.common.BestFitRegister;
 import laboflieven.common.Configuration;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
-import laboflieven.StoppedByUserException;
-import laboflieven.statements.*;
+import laboflieven.statements.InstructionFactory;
+import laboflieven.statements.InstructionFactoryInterface;
+import laboflieven.statements.Register;
+import laboflieven.statements.RegularInstructionOpcodeEnum;
 
 import java.util.*;
 

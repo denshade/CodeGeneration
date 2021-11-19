@@ -1,19 +1,21 @@
 package laboflieven.programiterators;
 
-import laboflieven.*;
+import laboflieven.InstructionMark;
+import laboflieven.ProgramResolution;
 import laboflieven.accinstructions.AccInstructionOpcodeEnum;
-import laboflieven.common.*;
+import laboflieven.common.AccInstructionOpcode;
+import laboflieven.common.BestFitRegister;
+import laboflieven.common.Configuration;
+import laboflieven.common.PriorityQueueAlgos;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
 import laboflieven.recursionheuristics.AlwaysRecursionHeuristic;
 import laboflieven.recursionheuristics.RecursionHeuristic;
-import laboflieven.statements.InstructionFactory;
 import laboflieven.statements.InstructionFactoryInterface;
 import laboflieven.statements.Register;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.PriorityQueue;
-import java.util.Random;
 import java.util.logging.Logger;
 
 /**
