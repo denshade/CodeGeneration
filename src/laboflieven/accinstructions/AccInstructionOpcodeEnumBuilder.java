@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class AccInstructionOpcodeEnumBuilder
 {
@@ -17,6 +18,13 @@ public class AccInstructionOpcodeEnumBuilder
 
     public AccInstructionOpcodeEnumBuilder with(AccInstructionOpcodeEnum... enumVals) {
         enums.addAll(Arrays.asList(enumVals));
+        return this;
+    }
+
+    public AccInstructionOpcodeEnumBuilder fromString(String enumString)
+    {
+        String[] enumParts = enumString.split(",");
+        enums.addAll(Arrays.stream(enumParts).map(e -> AccInstructionOpcodeEnum.valueOf(e)).collect(Collectors.toList()));
         return this;
     }
 

@@ -118,7 +118,7 @@ public class Configuration {
                                     AccInstructionOpcodeEnum.Jump2IfZero,
                             })).build();
                 case "all":
-                default: return AccInstructionOpcodeEnum.values();
+                default: return AccInstructionOpcodeEnumBuilder.make().fromString(s).build();
             }
         }
     }

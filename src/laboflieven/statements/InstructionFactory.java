@@ -2,6 +2,7 @@ package laboflieven.statements;
 
 
 import laboflieven.InstructionMark;
+import laboflieven.accinstructions.AccInstructionOpcodeEnum;
 import laboflieven.common.InstructionOpcode;
 
 import java.util.List;
@@ -100,6 +101,23 @@ public class InstructionFactory implements InstructionFactoryInterface
         Random r = new Random();
         int enumIndex = r.nextInt(RegularInstructionOpcodeEnum.values().length);
         RegularInstructionOpcodeEnum selectedEnum = RegularInstructionOpcodeEnum.values()[enumIndex];
+        InstructionMark mark;
+        if (selectedEnum.isDualRegister()) {
+            int registerIndex1 = r.nextInt(register.size());
+            int registerIndex2 = r.nextInt(register.size());
+            mark = createInstructionP(selectedEnum, register.get(registerIndex1), register.get(registerIndex2));
+        } else {
+            int registerIndex1 = r.nextInt(register.size());
+            mark = createInstructionP(selectedEnum, register.get(registerIndex1));
+        }
+        return mark;
+    }
+
+    @Override
+    public InstructionMark generateRandomInstruction(List<Register> register, Object[] enums) {
+        Random r = new Random();
+        int enumIndex = r.nextInt(enums.length);
+        RegularInstructionOpcodeEnum selectedEnum = ((RegularInstructionOpcodeEnum[])enums)[enumIndex];
         InstructionMark mark;
         if (selectedEnum.isDualRegister()) {
             int registerIndex1 = r.nextInt(register.size());

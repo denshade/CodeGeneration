@@ -1,25 +1,19 @@
 package laboflieven.challenges;
 
 import laboflieven.ProgramResolution;
-import laboflieven.TestcaseInOutParameters;
-import laboflieven.accinstructions.AccInstructionOpcodeEnum;
-import laboflieven.accinstructions.InstructionFactory;
 import laboflieven.common.CommandLineConfigLoader;
-import laboflieven.common.Configuration;
 import laboflieven.examiners.AccumulatorProgramFitnessExaminer;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
 import laboflieven.loggers.RandomSysOutAccFitnessLogger;
 import laboflieven.programiterators.GeneralBruteForceProgramIterator;
-import laboflieven.recursionheuristics.AccHeuristic;
 import laboflieven.runners.AccStatementRunner;
-import laboflieven.runners.StatementRunner;
-import laboflieven.statements.Register;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.util.List;
 
+/**
+ * NR_REGISTERS=1 CSV_FILE=C:\Users\densh\OneDrive\Documents\GitHub\CodeGeneration\src\laboflieven\challenges\primes.csv PROGRAM_ITERATOR=random MAX_NR_OF_INSTRUCTIONS=9 ACC_OPERATIONS=LoadIntoLeftAcc,LoadVectorSumIntoLeft,LoadAccLeftIntoVector,Dec,Jump2IfLte,Inc,LoadAccLeftIntoRegister,LoadAccRightIntoRegister,Quit
+ */
 public class DataSourceFinder {
     public static void main(String[] args) throws IOException {
         CommandLineConfigLoader loader = new CommandLineConfigLoader();
@@ -30,17 +24,9 @@ public class DataSourceFinder {
         ProgramFitnessExaminerInterface evaluator = new AccumulatorProgramFitnessExaminer(TestCases.loadFromCsvFile(new File(conf.getCsvFile("test.csv"))), runner);
         evaluator.addListener(new RandomSysOutAccFitnessLogger(10000));
         conf.setFitnessExaminer(evaluator);
-        //var v = new RandomProgramIterator();
         var v = conf.getProgramIterator(new GeneralBruteForceProgramIterator());
         ProgramResolution res = v.iterate(conf);
         System.out.println(res);
-        //GeneralBruteForceProgramIterator iter = new GeneralBruteForceProgramIterator();
-        //long start = System.currentTimeMillis();
-        //System.out.println(iter.iterate(conf));
-        //evaluator.writeAndClose();*/
-        //System.out.println(System.currentTimeMillis() - start + "ms");
-
-        //mainT(15,3);
     }
 
     public double run(double[] args) {

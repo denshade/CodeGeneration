@@ -82,9 +82,14 @@ public class InstructionFactory implements InstructionFactoryInterface {
 
     @Override
     public InstructionMark generateRandomInstruction(List<Register> register) {
+        return generateRandomInstruction(register, AccInstructionOpcodeEnum.values());
+    }
+
+    @Override
+    public InstructionMark generateRandomInstruction(List<Register> register, Object[] enums) {
         Random r = new Random();
-        int enumIndex = r.nextInt(AccInstructionOpcodeEnum.values().length);
-        AccInstructionOpcodeEnum selectedEnum = AccInstructionOpcodeEnum.values()[enumIndex];
+        int enumIndex = r.nextInt(enums.length);
+        AccInstructionOpcodeEnum selectedEnum = ((AccInstructionOpcodeEnum[])enums)[enumIndex];
         InstructionMark mark;
         if (selectedEnum.isSingleRegister()) {
             int registerIndex1 = r.nextInt(register.size());

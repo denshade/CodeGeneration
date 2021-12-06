@@ -3,6 +3,7 @@ package laboflieven.programiterators;
 import laboflieven.InstructionMark;
 import laboflieven.ProgramResolution;
 import laboflieven.StoppedByUserException;
+import laboflieven.accinstructions.AccInstructionOpcodeEnum;
 import laboflieven.accinstructions.LoadAccLeftIntoRegister;
 import laboflieven.accinstructions.LoadIntoLeftAcc;
 import laboflieven.common.ArrayListBestFitRegister;
@@ -26,6 +27,7 @@ public class RandomProgramIterator implements ProgramIterator {
     private ProgramFitnessExaminerInterface evaluator;
     private int maxExecutionTimeSeconds = 3600 * 12;
     private RegularInstructionOpcodeEnum[] enums;
+    private AccInstructionOpcodeEnum[] accenums;
     private Register[] registers;
     private ArrayListBestFitRegister bestFit = new ArrayListBestFitRegister();
     private int numberOfRegisters;
@@ -39,6 +41,7 @@ public class RandomProgramIterator implements ProgramIterator {
         this.maximumInstructions = configuration.getMaxNrInstructions(6);
         this.instructionFactory = configuration.getInstructionFactory(new laboflieven.accinstructions.InstructionFactory());
         this.enums = configuration.getInstructionOpcodes();
+        this.accenums = configuration.getAccOperations();
         registers = Register.createRegisters(numberOfRegisters, "R").toArray(new Register[0]);
         long startTime = System.currentTimeMillis();
         long runTime = System.currentTimeMillis() - startTime;
@@ -54,7 +57,7 @@ public class RandomProgramIterator implements ProgramIterator {
         instructions.add(new LoadIntoLeftAcc(registers[0]));
         for (int i = 0; i < maximumInstructions - 2; i++)
         {
-            InstructionMark actualInstruction = instructionFactory.generateRandomInstruction(Arrays.asList(registers));
+            InstructionMark actualInstruction = instructionFactory.generateRandomInstruction(Arrays.asList(registers), accenums);
             instructions.add(actualInstruction);
         }
         instructions.add(new LoadAccLeftIntoRegister(registers[0]));

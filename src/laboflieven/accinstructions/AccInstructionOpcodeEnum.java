@@ -31,4 +31,8 @@ public enum AccInstructionOpcodeEnum
         return this.nrRegisters == 1;
     }
 
+    public String toString()
+    {
+        return name();
+    }
 }

@@ -4,6 +4,7 @@ import laboflieven.statements.Register;
 import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -40,6 +41,11 @@ class InstructionFactoryTest {
                 assertNotNull(fact.createInstructionP(enums));
             }
         }
-
+    }
+    @Test
+    void generateRandom()
+    {
+        InstructionFactory fact = new InstructionFactory();
+        assertNotNull(fact.generateRandomInstruction(List.of(new Register("R1"))));
     }
 }
