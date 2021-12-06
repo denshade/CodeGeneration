@@ -37,7 +37,7 @@ public class RandomProgramIterator implements ProgramIterator {
         this.evaluator = configuration.getFitnessExaminer();
         this.numberOfRegisters = configuration.getNumberOfRegisters(2);
         this.maximumInstructions = configuration.getMaxNrInstructions(6);
-        this.instructionFactory = configuration.getInstructionFactory();
+        this.instructionFactory = configuration.getInstructionFactory(new laboflieven.accinstructions.InstructionFactory());
         this.enums = configuration.getInstructionOpcodes();
         registers = Register.createRegisters(numberOfRegisters, "R").toArray(new Register[0]);
         long startTime = System.currentTimeMillis();

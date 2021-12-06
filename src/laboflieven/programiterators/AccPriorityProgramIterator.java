@@ -3,6 +3,7 @@ package laboflieven.programiterators;
 import laboflieven.InstructionMark;
 import laboflieven.ProgramResolution;
 import laboflieven.accinstructions.AccInstructionOpcodeEnum;
+import laboflieven.accinstructions.InstructionFactory;
 import laboflieven.common.AccInstructionOpcode;
 import laboflieven.common.BestFitRegister;
 import laboflieven.common.Configuration;
@@ -37,7 +38,7 @@ public class AccPriorityProgramIterator  implements ProgramIterator
     {
         this.evaluator = configuration.getFitnessExaminer();
         this.enums = configuration.getAccOperations();
-        this.instructionFactory = configuration.getInstructionFactory();
+        this.instructionFactory = configuration.getInstructionFactory(new InstructionFactory());
         if (instructionFactory == null) throw new IllegalArgumentException("Instruction Factory shouldn't be empty");
         registers = Register.createRegisters(configuration.getNumberOfRegisters(2), "R");
         int CUT_POPULATION_AT_MAX = configuration.getCutPopulationAtMax(150000);

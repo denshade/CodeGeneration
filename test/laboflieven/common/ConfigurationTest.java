@@ -22,6 +22,14 @@ class ConfigurationTest {
         assertEquals("default.csv", c.getCsvFile("default.csv"));
     }
 
+    @Test
+    void getCsvRandomIterator()
+    {
+        CommandLineConfigLoader loader = new CommandLineConfigLoader();
+        var c = loader.loadFromCommandLine(new String[]{});
+        assertEquals("default.csv", c.getCsvFile("default.csv"));
+    }
+
 
     @Test
     void getHelp() {

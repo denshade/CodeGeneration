@@ -22,31 +22,14 @@ import java.util.List;
 
 public class DataSourceFinder {
     public static void main(String[] args) throws IOException {
-        int nrInstructions = 6;
-        if (args.length > 0)
-        {
-            nrInstructions = Integer.parseInt(args[0]);
-            System.out.println("Setting nr instructions to " + nrInstructions);
-        } else {
-            System.out.println("Defaulting nr instructions to " + nrInstructions);
-        }
-        File sourceFile = new File(System.getProperty("java.io.tmpdir"), "source.csv");
-        System.out.println("Searching for " + sourceFile);
-
-        if (!sourceFile.exists()) {
-            System.out.println("Source files not found "+ sourceFile);
-            System.exit(1);
-        }
-        String lines = String.join("\n", Files.readAllLines(sourceFile.toPath()));
-        List<TestcaseInOutParameters> collection = TestCases.loadFromCsvString(lines, 1);
-        System.out.println(collection);
-
         CommandLineConfigLoader loader = new CommandLineConfigLoader();
         var conf = loader.loadFromCommandLine(args);
         // left = R1, left = nand(left, right), left = sin(left), left = 3n+1, R1 = left
         AccStatementRunner runner = new AccStatementRunner();
-        ProgramFitnessExaminerInterface evaluator = new AccumulatorProgramFitnessExaminer(collection, runner);
+
+        ProgramFitnessExaminerInterface evaluator = new AccumulatorProgramFitnessExaminer(TestCases.loadFromCsvFile(new File(conf.getCsvFile("test.csv"))), runner);
         evaluator.addListener(new RandomSysOutAccFitnessLogger(10000));
+        conf.setFitnessExaminer(evaluator);
         //var v = new RandomProgramIterator();
         var v = conf.getProgramIterator(new GeneralBruteForceProgramIterator());
         ProgramResolution res = v.iterate(conf);

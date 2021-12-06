@@ -253,9 +253,9 @@ public class Configuration {
         return this;
     }
 
-    public InstructionFactoryInterface getInstructionFactory()
+    public InstructionFactoryInterface getInstructionFactory(InstructionFactory defaultFactory)
     {
-        return (InstructionFactoryInterface) configurationSettings.get(ConfigurationKey.INSTRUCTION_FACTORY);
+        return (InstructionFactoryInterface) configurationSettings.getOrDefault(ConfigurationKey.INSTRUCTION_FACTORY, defaultFactory);
     }
 
     public void setInstructionOpcodes(RegularInstructionOpcodeEnum[] regularInstructionOpcodeEnums) {
