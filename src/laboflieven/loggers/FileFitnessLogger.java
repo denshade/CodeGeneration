@@ -1,12 +1,10 @@
 package laboflieven.loggers;
 
-import java.io.File;
-
 import laboflieven.InstructionMark;
 import laboflieven.statements.DualRegisterInstruction;
-import laboflieven.statements.Instruction;
 import laboflieven.statements.SingleRegisterInstruction;
 
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.math.BigInteger;

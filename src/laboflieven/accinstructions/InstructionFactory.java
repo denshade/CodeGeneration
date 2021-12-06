@@ -45,6 +45,8 @@ public class InstructionFactory implements InstructionFactoryInterface {
         put(AccInstructionOpcodeEnum.LeftVectShift, new LeftVectShift());
         put(AccInstructionOpcodeEnum.LeftVectPushExponents, new LeftVectPushExponents());
         put(AccInstructionOpcodeEnum.Dec, new Dec());
+        put(AccInstructionOpcodeEnum.LoadVectorSumIntoLeft, new LoadVectorSumIntoLeft());
+
     }};
 
     public AccRegisterInstruction createInstruction(InstructionOpcode instructionEnum, Register... registers) {
@@ -62,29 +64,19 @@ public class InstructionFactory implements InstructionFactoryInterface {
     }
 
     public AccRegisterInstruction createInstructionP(AccInstructionOpcodeEnum accInstructionOpcodeEnum, Register register1) {
-        AccRegisterInstruction instruction;
-        switch (accInstructionOpcodeEnum) {
-            case LoadAccLeftIntoRegister:
-                instruction = new LoadAccLeftIntoRegister(register1);
-                break;
-            case LoadIntoLeftAcc:
-                instruction = new LoadIntoLeftAcc(register1);
-                break;
-            case LoadIntoRightAcc:
-                instruction = new LoadIntoRightAcc(register1);
-                break;
-            case LoadAccRightIntoRegister:
-                instruction = new LoadAccRightIntoRegister(register1);
-                break;
+        AccRegisterInstruction instruction = switch (accInstructionOpcodeEnum) {
+            case LoadAccLeftIntoRegister -> new LoadAccLeftIntoRegister(register1);
+            case LoadIntoLeftAcc -> new LoadIntoLeftAcc(register1);
+            case LoadIntoRightAcc -> new LoadIntoRightAcc(register1);
+            case LoadAccRightIntoRegister -> new LoadAccRightIntoRegister(register1);
             /*case JumpIfGte:
                 instruction = new JumpIfGte(register1);
                 break;
             case JumpIfLte:
                 instruction = new JumpIfLte(register1);
                 break;*/
-            default:
-                throw new IllegalArgumentException("invalid instruction " + accInstructionOpcodeEnum.toString());
-        }
+            default -> throw new IllegalArgumentException("invalid instruction " + accInstructionOpcodeEnum.toString());
+        };
         return instruction;
     }
 

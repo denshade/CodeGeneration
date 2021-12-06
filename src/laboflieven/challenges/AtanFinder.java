@@ -1,6 +1,6 @@
 package laboflieven.challenges;
 
-import laboflieven.*;
+import laboflieven.TestcaseInOutParameters;
 import laboflieven.examiners.ProgramFitnessExaminer;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
 import laboflieven.programiterators.RandomGeneticProgramIterator;
@@ -8,9 +8,7 @@ import laboflieven.runners.RegularStatementRunner;
 import laboflieven.statements.RegularInstructionOpcodeEnum;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class AtanFinder
 {

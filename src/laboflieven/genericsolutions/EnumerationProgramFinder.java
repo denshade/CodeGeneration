@@ -2,14 +2,12 @@ package laboflieven.genericsolutions;
 
 import laboflieven.InstructionMark;
 import laboflieven.ProgramResolution;
-import laboflieven.TestcaseInOutParameters;
 import laboflieven.common.Configuration;
 import laboflieven.examiners.ProgramFitnessExaminer;
 import laboflieven.programiterators.GeneralBruteForceProgramIterator;
 import laboflieven.runners.AccStatementRunner;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Logger;
 

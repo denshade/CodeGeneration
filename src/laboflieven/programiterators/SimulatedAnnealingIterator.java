@@ -1,10 +1,9 @@
 package laboflieven.programiterators;
 
 import laboflieven.InstructionMark;
+import laboflieven.ProgramResolution;
 import laboflieven.common.ArrayListBestFitRegister;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
-import laboflieven.ProgramResolution;
-import laboflieven.common.BestFitRegister;
 import laboflieven.statements.InstructionFactoryInterface;
 import laboflieven.statements.Register;
 

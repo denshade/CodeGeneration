@@ -3,16 +3,17 @@ package laboflieven.programiterators;
 import laboflieven.InstructionMark;
 import laboflieven.Program;
 import laboflieven.ProgramResolution;
+import laboflieven.accinstructions.AccInstructionOpcodeEnum;
+import laboflieven.accinstructions.AccRegisterInstruction;
+import laboflieven.accinstructions.InstructionFactory;
 import laboflieven.common.Configuration;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
-import laboflieven.accinstructions.*;
 import laboflieven.recursionheuristics.AlwaysRecursionHeuristic;
 import laboflieven.recursionheuristics.RecursionHeuristic;
 import laboflieven.statements.InstructionFactoryInterface;
 import laboflieven.statements.Register;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**

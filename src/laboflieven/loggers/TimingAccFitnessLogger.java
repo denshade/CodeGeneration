@@ -2,7 +2,6 @@ package laboflieven.loggers;
 
 import laboflieven.InstructionMark;
 import laboflieven.common.ArrayListBestFitRegister;
-import laboflieven.common.BestFitRegister;
 
 import java.util.List;
 

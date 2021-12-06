@@ -3,7 +3,6 @@ package laboflieven.examiners;
 import laboflieven.InstructionMark;
 import laboflieven.Program;
 import laboflieven.TestcaseInOutParameters;
-import laboflieven.common.Configuration;
 import laboflieven.loggers.FitnessLogger;
 import laboflieven.runners.AccStatementRunner;
 import laboflieven.runners.RegularStatementRunner;

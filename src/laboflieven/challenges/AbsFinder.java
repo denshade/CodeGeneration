@@ -1,7 +1,6 @@
 package laboflieven.challenges;
 
 import laboflieven.TestcaseInOutParameters;
-import laboflieven.common.RegularInstructionOpcode;
 import laboflieven.examiners.ProgramFitnessExaminer;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
 import laboflieven.loggers.BitmapFitnessLogger;
@@ -9,13 +8,10 @@ import laboflieven.programiterators.BruteForceProgramIterator;
 import laboflieven.runners.RegularStatementRunner;
 import laboflieven.statements.RegularInstructionOpcodeEnum;
 
-
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by Lieven on 8/07/2015.
