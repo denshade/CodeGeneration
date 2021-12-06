@@ -35,6 +35,13 @@ public class Configuration {
             return Double.parseDouble(s);
         }
     }
+    private static class StringParser implements Parser {
+
+        @Override
+        public Object parse(String s) {
+            return s;
+        }
+    }
 
     private static class BoolParser implements Parser {
 
@@ -145,7 +152,8 @@ public class Configuration {
         CUT_POPULATION_AT_MAX(new IntParser()),
         CUT_POPULATION_TO(new IntParser()), RND_ADDED(new BoolParser()),
         ERROR_TOLERANCE(new DoubleParser()),
-        DATA_SOURCE(new DataSourceParser());
+        DATA_SOURCE(new DataSourceParser()),
+        CSV_FILE(new StringParser());
 
         public Parser parser;
 
@@ -159,7 +167,7 @@ public class Configuration {
     {
         var buffer = new StringBuffer();
         for (Configuration.ConfigurationKey key : Configuration.ConfigurationKey.values()) {
-            buffer.append(key.name()+" " + key.parser.getClass());
+            buffer.append(key.name()).append(" ").append(key.parser.getClass());
         }
         return buffer.toString();
     }
@@ -186,6 +194,11 @@ public class Configuration {
         return getValue(defaultValue, ConfigurationKey.MAX_NR_OF_INSTRUCTIONS);
     }
 
+    public String getCsvFile(String defaultFilePath)
+    {
+        return getValue(defaultFilePath, ConfigurationKey.CSV_FILE);
+    }
+
     public Configuration setMaxNrInstructions(int nrInstructions) {
         configurationSettings.put(ConfigurationKey.MAX_NR_OF_INSTRUCTIONS, nrInstructions);
         return this;
@@ -205,6 +218,13 @@ public class Configuration {
             return defaultValue;
         }
         return (int) configurationSettings.get(maxNrOfInstructions);
+    }
+
+    private String getValue(String defaultValue, ConfigurationKey maxNrOfInstructions) {
+        if (!configurationSettings.containsKey(maxNrOfInstructions)) {
+            return defaultValue;
+        }
+        return configurationSettings.get(maxNrOfInstructions).toString();
     }
 
     private double getValue(double defaultValue, ConfigurationKey maxNrOfInstructions) {

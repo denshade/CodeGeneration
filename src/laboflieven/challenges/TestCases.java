@@ -2,10 +2,25 @@ package laboflieven.challenges;
 
 import laboflieven.TestcaseInOutParameters;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.util.*;
 
 public class TestCases
 {
+    public static List<TestcaseInOutParameters> loadFromCsvFile(File sourceFile) throws IOException {
+
+        System.out.println("Searching for " + sourceFile);
+
+        if (!sourceFile.exists()) {
+            System.out.println("Source files not found "+ sourceFile);
+            System.exit(1);
+        }
+        String lines = String.join("\n", Files.readAllLines(sourceFile.toPath()));
+        return  TestCases.loadFromCsvString(lines, 1);
+    }
+
     public static List<TestcaseInOutParameters> loadFromCsvString(String csvData, int columnToPredict) {
         List<TestcaseInOutParameters> collection = new ArrayList<>();
         String[] lines = csvData.split("\n");
