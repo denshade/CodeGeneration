@@ -39,6 +39,7 @@ public class AccPriorityProgramIterator  implements ProgramIterator
     {
         this.evaluator = configuration.getFitnessExaminer();
         this.enums = configuration.getAccOperations();
+        this.heuristic = configuration.getHeuristic(new AlwaysRecursionHeuristic());
         this.instructionFactory = configuration.getInstructionFactory(new InstructionFactory());
         if (instructionFactory == null) throw new IllegalArgumentException("Instruction Factory shouldn't be empty");
         registers = Register.createRegisters(configuration.getNumberOfRegisters(2), "R");
@@ -87,27 +88,26 @@ public class AccPriorityProgramIterator  implements ProgramIterator
     }
 
     private void addLevel(List<Register> registerList, List<InstructionMark> instructions, int maxInstructions) {
-        Program p = new Program(instructions, registerList);
-        if (!heuristic.shouldRecurse(p, maxInstructions))
-        {
-            return;
-        }
+
         for (AccInstructionOpcodeEnum opcode : enums) {
             AccInstructionOpcode opcodeR = new AccInstructionOpcode(opcode);
             if (opcodeR.getNrRegisters() == 0) {
-                addToPriorityQueue(instructions, instructionFactory.createInstruction(opcodeR), registerList);
+                addToPriorityQueue(instructions, instructionFactory.createInstruction(opcodeR), registerList, maxInstructions);
             } else {
                 for (Register r : registers) {
-                    addToPriorityQueue(instructions, instructionFactory.createInstruction(opcodeR, r), registerList);
+                    addToPriorityQueue(instructions, instructionFactory.createInstruction(opcodeR, r), registerList, maxInstructions);
                 }
             }
         }
     }
 
-    private void addToPriorityQueue(List<InstructionMark> instructions, InstructionMark instruction, List<Register> registerList) {
+    private void addToPriorityQueue(List<InstructionMark> instructions, InstructionMark instruction, List<Register> registerList, int maxInstructions) {
         List<InstructionMark> marks = new ArrayList<>(instructions);
         marks.add(instruction);
-        priorityQueue.add(eval(marks, registerList));
+        Program p = new Program(marks, registerList);
+        if (heuristic.shouldRecurse(p, maxInstructions)) {
+            priorityQueue.add(eval(marks, registerList));
+        }
     }
 
     private ProgramResolution eval(List<InstructionMark> instructions, List<Register> registers) {
