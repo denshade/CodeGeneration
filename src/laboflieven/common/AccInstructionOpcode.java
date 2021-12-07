@@ -43,4 +43,8 @@ public class AccInstructionOpcode implements InstructionOpcode
     public int hashCode() {
         return Objects.hash(enumer);
     }
+    public String toString()
+    {
+        return getEnumer().name();
+    }
 }

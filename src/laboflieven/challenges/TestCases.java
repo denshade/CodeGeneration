@@ -18,7 +18,7 @@ public class TestCases
             System.exit(1);
         }
         String lines = String.join("\n", Files.readAllLines(sourceFile.toPath()));
-        return  TestCases.loadFromCsvString(lines, 1);
+        return TestCases.loadFromCsvString(lines, 2);
     }
 
     public static List<TestcaseInOutParameters> loadFromCsvString(String csvData, int columnToPredict) {

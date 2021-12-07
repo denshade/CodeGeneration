@@ -10,6 +10,7 @@ import laboflieven.statements.InstructionFactory;
 import laboflieven.statements.Register;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Created by lveeckha on 31/05/2015.

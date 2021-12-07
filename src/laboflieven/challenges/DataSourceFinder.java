@@ -13,6 +13,7 @@ import java.io.IOException;
 
 /**
  * NR_REGISTERS=1 CSV_FILE=C:\Users\densh\OneDrive\Documents\GitHub\CodeGeneration\src\laboflieven\challenges\primes.csv PROGRAM_ITERATOR=random MAX_NR_OF_INSTRUCTIONS=9 ACC_OPERATIONS=LoadIntoLeftAcc,LoadVectorSumIntoLeft,LoadAccLeftIntoVector,Dec,Jump2IfLte,Inc,LoadAccLeftIntoRegister,LoadAccRightIntoRegister,Quit
+ NR_REGISTERS=1 CSV_FILE=C:\Users\densh\OneDrive\Documents\GitHub\CodeGeneration\src\laboflieven\challenges\primes.csv PROGRAM_ITERATOR=brute MAX_NR_OF_INSTRUCTIONS=7 RECURSION_HEURISTIC=Acc
  */
 public class DataSourceFinder {
     public static void main(String[] args) throws IOException {
@@ -21,7 +22,9 @@ public class DataSourceFinder {
         // left = R1, left = nand(left, right), left = sin(left), left = 3n+1, R1 = left
         AccStatementRunner runner = new AccStatementRunner();
 
-        ProgramFitnessExaminerInterface evaluator = new AccumulatorProgramFitnessExaminer(TestCases.loadFromCsvFile(new File(conf.getCsvFile("test.csv"))), runner);
+        ProgramFitnessExaminerInterface evaluator = new AccumulatorProgramFitnessExaminer(
+                TestCases.loadFromCsvFile(new File(conf.getCsvFile("test.csv"))), runner,
+                "R1");
         evaluator.addListener(new RandomSysOutAccFitnessLogger(10000));
         conf.setFitnessExaminer(evaluator);
         var v = conf.getProgramIterator(new GeneralBruteForceProgramIterator());

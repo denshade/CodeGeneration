@@ -22,6 +22,7 @@ public class AccumulatorProgramFitnessExaminer implements ProgramFitnessExaminer
     private List<TestcaseInOutParameters> conditions;
     private final double closeEnough = 0.00001;
     private final List<FitnessLogger> loggers = new ArrayList<>();
+    private final String expectedResultRegister;
     StatementRunner runner;
     public List<TestcaseInOutParameters> getTestcases() {
         return conditions;
@@ -35,8 +36,17 @@ public class AccumulatorProgramFitnessExaminer implements ProgramFitnessExaminer
      */
     public AccumulatorProgramFitnessExaminer(List<TestcaseInOutParameters> conditions, AccStatementRunner runner)
     {
+        this (conditions, runner, AccStatementRunner.LEFT_ACC_NAME);
+    }
+
+    /**
+     * @param conditions Conditions that define the input parameters & the expected outcome.
+     */
+    public AccumulatorProgramFitnessExaminer(List<TestcaseInOutParameters> conditions, AccStatementRunner runner, String expectedResultRegister)
+    {
         this.conditions = conditions;
         this.runner = runner;
+        this.expectedResultRegister = expectedResultRegister;
     }
 
     @Override
@@ -65,7 +75,7 @@ public class AccumulatorProgramFitnessExaminer implements ProgramFitnessExaminer
         {
             Map<String, Double> results = runner.execute(program, parameter.input);
             Map<String, Double> expectedOutput = parameter.expectedOutput;
-            Double value = results.get(AccStatementRunner.LEFT_ACC_NAME);
+            Double value = results.get(expectedResultRegister);
 
             if (Double.isNaN(value) || Double.isInfinite(value))
             {

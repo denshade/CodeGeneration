@@ -6,6 +6,7 @@ import laboflieven.runners.AccStatementRunner;
 import laboflieven.runners.StatementRunner;
 import laboflieven.statements.Register;
 import laboflieven.statements.VectorRegister;
+import org.apache.commons.math3.primes.Primes;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -53,10 +54,11 @@ class LoadVectorSumIntoLeftTest {
                 loadIntoRegister
         ), List.of(r1));
 
-        runner.execute(p, Map.of("R1", 7.0));
-        assertEquals(p.getRegisters().get(0).value, 1);
-        runner.execute(p, Map.of("R1", 8.0));
-        assertEquals(p.getRegisters().get(0).value, 0);
+        for (int i = 2; i < 30; i++)
+        {
+            runner.execute(p, Map.of("R1", (double)i));
+            assertEquals(p.getRegisters().get(0).value, Primes.isPrime(i)?1.0:0.0);
+        }
 
     }
 

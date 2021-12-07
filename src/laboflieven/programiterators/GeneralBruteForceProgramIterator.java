@@ -15,6 +15,7 @@ import laboflieven.statements.Register;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by lveeckha on 31/05/2015.
@@ -68,11 +69,20 @@ public class GeneralBruteForceProgramIterator implements ProgramIterator
         }
         return positiveSolutions;
     }
-
+//        var jumpIfZero = new Jump2IfLte();
+//        var inc = new Inc();
+//        var loadIntoRegister = new LoadAccLeftIntoRegister(r1);
+//        var loadZeroIntoRegister = new LoadAccRightIntoRegister(r1);
+//        var quit = new Quit();
     private void recurse(List<InstructionMark> instructions)
     {
         if (instructions.size() >= maximumInstructions)
             return;
+        String h = "[LoadIntoLeftAcc, LoadAccRightIntoRegister, LoadAccLeftIntoVector, LoadVectorSumIntoLeft, Dec, Jump2IfLte, Quit, Inc";// Inc, LoadAccLeftIntoRegister
+        if (instructions.stream().map(i -> i.getInstructionOpcode().toString()).collect(Collectors.toList()).toString().contains(h))
+        {
+            System.out.println("Hi");
+        }
         for (AccInstructionOpcodeEnum instruction : accInstructionOpcodeEnums)
         {
             if (instruction.isSingleRegister()) {
