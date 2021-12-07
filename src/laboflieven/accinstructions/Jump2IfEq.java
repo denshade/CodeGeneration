@@ -16,7 +16,7 @@ public class Jump2IfEq extends AccRegisterInstruction
 
     @Override
     public String toString() {
-        return " Jump if left == right goto this + 2";
+        return "Jump if left == right goto this + 2";
     }
     @Override
     public InstructionOpcode getInstructionOpcode() {

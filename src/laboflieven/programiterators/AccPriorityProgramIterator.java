@@ -1,6 +1,7 @@
 package laboflieven.programiterators;
 
 import laboflieven.InstructionMark;
+import laboflieven.Program;
 import laboflieven.ProgramResolution;
 import laboflieven.accinstructions.AccInstructionOpcodeEnum;
 import laboflieven.accinstructions.InstructionFactory;
@@ -44,15 +45,16 @@ public class AccPriorityProgramIterator  implements ProgramIterator
         int CUT_POPULATION_AT_MAX = configuration.getCutPopulationAtMax(150000);
         int CUT_POPULATION_TO = configuration.getCutPopulationTo(100000);
         boolean addRandom = configuration.getRandomAdded(true);
-        addLevel(registers, new ArrayList<>());
+        int maxInstructions = configuration.getMaxNrInstructions(10);
+        addLevel(registers, new ArrayList<>(), maxInstructions);
         while (priorityQueue.size() > 0)
         {
             ProgramResolution res = priorityQueue.poll();
             List<InstructionMark> instructions = res.instructions;
-            if (instructions.size() < configuration.getMaxNrInstructions(10)) {
+            if (instructions.size() < maxInstructions) {
                 ProgramResolution score = eval(instructions, registers);
                 if (score.weight < 1000000) {
-                    addLevel(registers, instructions);
+                    addLevel(registers, instructions, maxInstructions);
                 }
             } else {
                 if (priorityQueue.size() > CUT_POPULATION_AT_MAX)
@@ -64,6 +66,9 @@ public class AccPriorityProgramIterator  implements ProgramIterator
             if (addRandom)
             {
                 createRandom(registers, res);
+            }
+            if (res.weight < 0.01) {
+                return res;
             }
         }
         return null;
@@ -81,7 +86,12 @@ public class AccPriorityProgramIterator  implements ProgramIterator
         }
     }
 
-    private void addLevel(List<Register> registerList, List<InstructionMark> instructions) {
+    private void addLevel(List<Register> registerList, List<InstructionMark> instructions, int maxInstructions) {
+        Program p = new Program(instructions, registerList);
+        if (!heuristic.shouldRecurse(p, maxInstructions))
+        {
+            return;
+        }
         for (AccInstructionOpcodeEnum opcode : enums) {
             AccInstructionOpcode opcodeR = new AccInstructionOpcode(opcode);
             if (opcodeR.getNrRegisters() == 0) {

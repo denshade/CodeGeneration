@@ -16,7 +16,7 @@ public class Jump2IfZero  extends AccRegisterInstruction
 
     @Override
     public String toString() {
-        return " Jump if left = 0 goto this + 2";
+        return "Jump if left = 0 goto this + 2";
     }
     @Override
     public InstructionOpcode getInstructionOpcode() {
