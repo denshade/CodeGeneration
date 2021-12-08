@@ -80,9 +80,9 @@ public class GeneralRandomGeneticProgramIterator implements ProgramIterator{
         this.maximumInstructions = configuration.getMaxNrInstructions(10);
         this.evaluator = configuration.getFitnessExaminer();
         this.enums = configuration.getAccOperations();
-        this.maxPopulation = configuration.getMaxPopulation();
-        this.maxOverflow = configuration.getMaxOverFlow();
-        this.popularParents = configuration.getPopularParents();
+        this.maxPopulation = configuration.getMaxPopulation(100000);
+        this.maxOverflow = configuration.getMaxOverFlow(1.2);
+        this.popularParents = configuration.getPopularParents(0.8);
         this.heuristic = configuration.getHeuristic(new AlwaysRecursionHeuristic());
         if (popularParents < 0 || popularParents > 1) {
             throw new IllegalArgumentException("PopularParents should be in [0,1]");

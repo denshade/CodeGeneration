@@ -278,16 +278,16 @@ public class Configuration {
         return (ProgramTemplate) configurationSettings.get(ConfigurationKey.DATA_PROVIDER);
     }
 
-    public int getMaxPopulation() {
-        return (int) configurationSettings.get(ConfigurationKey.MAX_POPULATION);
+    public int getMaxPopulation(int defaultValue) {
+        return (int) configurationSettings.getOrDefault(ConfigurationKey.MAX_POPULATION, defaultValue);
     }
 
     public void setMaxPopulation(int maxPopulation) {
         configurationSettings.put(ConfigurationKey.MAX_POPULATION, maxPopulation);
     }
 
-    public double getMaxOverFlow() {
-        return (double) configurationSettings.get(ConfigurationKey.MAX_OVERFLOW);
+    public double getMaxOverFlow(double overflow) {
+        return (double) configurationSettings.getOrDefault(ConfigurationKey.MAX_OVERFLOW, overflow);
     }
 
     public void setMaxOverflow(double maxOverflow) {
@@ -295,8 +295,8 @@ public class Configuration {
     }
 
 
-    public double getPopularParents() {
-        return (double) configurationSettings.get(ConfigurationKey.POPULAR_PARENT_PART);
+    public double getPopularParents(double popularParents) {
+        return (double) configurationSettings.getOrDefault(ConfigurationKey.POPULAR_PARENT_PART, popularParents);
     }
 
     public void setPopularParents(double popularParents) {
