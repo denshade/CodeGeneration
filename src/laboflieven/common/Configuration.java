@@ -68,13 +68,13 @@ public class Configuration {
 
         @Override
         public Object parse(String s) {
-            switch(s) {
-                case "Random" : return new RandomProgramIterator();
-                case "genetic" : return new GeneralRandomGeneticProgramIterator();
-                case "brute" : return new GeneralBruteForceProgramIterator();
-                case "priority": return new AccPriorityProgramIterator();
-                default: return new RandomProgramIterator();
-            }
+            return switch (s) {
+                case "random" -> new RandomProgramIterator();
+                case "genetic" -> new GeneralRandomGeneticProgramIterator();
+                case "brute" -> new GeneralBruteForceProgramIterator();
+                case "priority" -> new AccPriorityProgramIterator();
+                default -> new RandomProgramIterator();
+            };
         }
     }
 
@@ -92,34 +92,30 @@ public class Configuration {
     private static class HeuristicParser implements Parser {
         @Override
         public RecursionHeuristic parse(String s) {
-                switch(s)
-                {
-                    case "Acc": return new AccHeuristic();
-                    case "always":
-                    default: return new AlwaysRecursionHeuristic();
-                }
+            return switch (s) {
+                case "Acc" -> new AccHeuristic();
+                default -> new AlwaysRecursionHeuristic();
+            };
         }
     }
 
     private static class AccOperationsParser implements Parser {
         @Override
         public AccInstructionOpcodeEnum[] parse(String s) {
-            switch(s)
-            {
-                case "nobranch": return AccInstructionOpcodeEnumBuilder.make().anyExcept(
+            return switch (s) {
+                case "nobranch" -> AccInstructionOpcodeEnumBuilder.make().anyExcept(
                         Set.of(
-                            new AccInstructionOpcodeEnum[]{
-                                    AccInstructionOpcodeEnum.JumpIfGteStart,
-                                    AccInstructionOpcodeEnum.JumpIfLteStart,
-                                    AccInstructionOpcodeEnum.Jump2IfEq,
-                                    AccInstructionOpcodeEnum.Jump2IfGte,
-                                    AccInstructionOpcodeEnum.Jump2IfLte,
-                                    AccInstructionOpcodeEnum.Jump2IfNeq,
-                                    AccInstructionOpcodeEnum.Jump2IfZero,
-                            })).build();
-                case "all":
-                default: return AccInstructionOpcodeEnumBuilder.make().fromString(s).build();
-            }
+                                new AccInstructionOpcodeEnum[]{
+                                        AccInstructionOpcodeEnum.JumpIfGteStart,
+                                        AccInstructionOpcodeEnum.JumpIfLteStart,
+                                        AccInstructionOpcodeEnum.Jump2IfEq,
+                                        AccInstructionOpcodeEnum.Jump2IfGte,
+                                        AccInstructionOpcodeEnum.Jump2IfLte,
+                                        AccInstructionOpcodeEnum.Jump2IfNeq,
+                                        AccInstructionOpcodeEnum.Jump2IfZero,
+                                })).build();
+                default -> AccInstructionOpcodeEnumBuilder.make().fromString(s).build();
+            };
         }
     }
     private static class DataSourceParser implements Parser {
@@ -165,7 +161,7 @@ public class Configuration {
 
     public String getHelp()
     {
-        var buffer = new StringBuffer();
+        var buffer = new StringBuilder();
         for (Configuration.ConfigurationKey key : Configuration.ConfigurationKey.values()) {
             buffer.append(key.name()).append(" ").append(key.parser.getClass());
         }
@@ -220,18 +216,12 @@ public class Configuration {
         return (int) configurationSettings.get(maxNrOfInstructions);
     }
 
-    private String getValue(String defaultValue, ConfigurationKey maxNrOfInstructions) {
-        if (!configurationSettings.containsKey(maxNrOfInstructions)) {
-            return defaultValue;
-        }
-        return configurationSettings.get(maxNrOfInstructions).toString();
+    private String getValue(String defaultValue, ConfigurationKey key) {
+        return configurationSettings.getOrDefault(key, defaultValue).toString();
     }
 
-    private double getValue(double defaultValue, ConfigurationKey maxNrOfInstructions) {
-        if (!configurationSettings.containsKey(maxNrOfInstructions)) {
-            return defaultValue;
-        }
-        return (double) configurationSettings.get(maxNrOfInstructions);
+    private double getValue(double defaultValue, ConfigurationKey key) {
+        return (double) configurationSettings.getOrDefault(key, defaultValue);
     }
 
     public int getMaxDurationSeconds(int defaultValue) {
@@ -268,10 +258,7 @@ public class Configuration {
     }
 
     public ProgramIterator getProgramIterator(ProgramIterator defaultIterator) {
-        if (!configurationSettings.containsKey(ConfigurationKey.PROGRAM_ITERATOR)) {
-            return defaultIterator;
-        }
-        return (ProgramIterator) configurationSettings.get(ConfigurationKey.PROGRAM_ITERATOR);
+        return (ProgramIterator) configurationSettings.getOrDefault(ConfigurationKey.PROGRAM_ITERATOR, defaultIterator);
     }
 
     public ProgramTemplate getDataProvider() {
@@ -305,17 +292,11 @@ public class Configuration {
 
 
     public RecursionHeuristic getHeuristic(AlwaysRecursionHeuristic alwaysRecursionHeuristic) {
-        if (configurationSettings.containsKey(ConfigurationKey.RECURSION_HEURISTIC))
-                return (RecursionHeuristic) configurationSettings.get(ConfigurationKey.RECURSION_HEURISTIC);
-            else
-                return alwaysRecursionHeuristic;
+        return (RecursionHeuristic) configurationSettings.getOrDefault(ConfigurationKey.RECURSION_HEURISTIC, alwaysRecursionHeuristic);
     }
 
     public AccInstructionOpcodeEnum[] getAccOperations() {
-        if (configurationSettings.containsKey(ConfigurationKey.ACC_OPERATIONS))
-            return (AccInstructionOpcodeEnum[]) configurationSettings.get(ConfigurationKey.ACC_OPERATIONS);
-        else
-            return AccInstructionOpcodeEnum.values();
+        return (AccInstructionOpcodeEnum[]) configurationSettings.getOrDefault(ConfigurationKey.ACC_OPERATIONS, AccInstructionOpcodeEnum.values());
     }
     public Configuration setAccOperations(AccInstructionOpcodeEnum[] enums) {
         configurationSettings.put(ConfigurationKey.ACC_OPERATIONS, enums);
@@ -344,10 +325,7 @@ public class Configuration {
     }
 
     public boolean getRandomAdded(boolean defaultBool) {
-        if (!configurationSettings.containsKey(ConfigurationKey.RND_ADDED)) {
-            return defaultBool;
-        }
-        return (boolean) configurationSettings.get(ConfigurationKey.RND_ADDED);
+        return (boolean) configurationSettings.getOrDefault(ConfigurationKey.RND_ADDED, defaultBool);
     }
     public void setRandomAdded(boolean bool) {
          configurationSettings.put(ConfigurationKey.RND_ADDED, bool);
@@ -360,10 +338,7 @@ public class Configuration {
 
 
     public double getErrorTolerance(double defaultErrorTolerance) {
-        if (!configurationSettings.containsKey(ConfigurationKey.ERROR_TOLERANCE)) {
-            return defaultErrorTolerance;
-        }
-        return (double) configurationSettings.get(ConfigurationKey.ERROR_TOLERANCE);
+        return (double) configurationSettings.getOrDefault(ConfigurationKey.ERROR_TOLERANCE, defaultErrorTolerance);
     }
     public Configuration setErrorTolerance(double v) {
         configurationSettings.put(ConfigurationKey.ERROR_TOLERANCE, v);
