@@ -1,6 +1,10 @@
 package laboflieven.loggers;
 
 import laboflieven.InstructionMark;
+import laboflieven.accinstructions.AccInstructionOpcodeEnum;
+import laboflieven.accinstructions.AccRegisterInstruction;
+import laboflieven.common.AccInstructionOpcode;
+import laboflieven.common.RegularInstructionOpcode;
 import laboflieven.statements.DualRegisterInstruction;
 import laboflieven.statements.SingleRegisterInstruction;
 
@@ -42,6 +46,22 @@ public class FileFitnessLogger implements FitnessLogger
         for (InstructionMark instruction : instructions)
         {
             int instructNr;
+            if (instruction instanceof AccRegisterInstruction)
+            {
+                List opcodes = List.of(AccInstructionOpcodeEnum.values());
+                if (instruction.getInstructionOpcode() instanceof AccInstructionOpcode)
+                {
+                    instructNr = opcodes.indexOf(((AccInstructionOpcode) instruction.getInstructionOpcode()).getEnumer()) + 1;
+                } else if (instruction.getInstructionOpcode() instanceof RegularInstructionOpcode)
+                {
+                    instructNr = opcodes.indexOf(((RegularInstructionOpcode) instruction.getInstructionOpcode()).getEnumer()) + 1;
+                }
+                else {
+                    throw new RuntimeException("Unknown class " + instruction.getClass().toString());
+                }
+                sumInstructX = sumInstructX.add(BigInteger.valueOf(instructNr).multiply(instructionMultiplier));
+                instructionMultiplier = instructionMultiplier.multiply(nrInstructionMult);
+            } else {
             switch(instruction.getClass().getSimpleName())
             {
                 case "Add" : instructNr = 1; break;
@@ -58,6 +78,8 @@ public class FileFitnessLogger implements FitnessLogger
                 case "Sub" : instructNr = 12; break;
                 default: throw new RuntimeException("Unknown class " + instruction.getClass().toString());
             }
+            }
+
             sumInstructX = sumInstructX.add(BigInteger.valueOf(instructNr).multiply(instructionMultiplier));
             instructionMultiplier = instructionMultiplier.multiply(nrInstructionMult);
         }
@@ -74,8 +96,12 @@ public class FileFitnessLogger implements FitnessLogger
                 source = ((DualRegisterInstruction) instruction).source.name;
                 dest = ((DualRegisterInstruction) instruction).destination.name;
             } else if (instruction instanceof SingleRegisterInstruction){
-                source = "r0";
+                source = "R0";
                 dest = ((SingleRegisterInstruction) instruction).destination.name;
+            }else if (instruction instanceof AccRegisterInstruction)
+            {
+                dest = "R0";
+                source = "R0";
             }
             int sourceNr = registerToInt(source);
             int destNr = registerToInt(dest);

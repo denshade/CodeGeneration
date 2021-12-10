@@ -1,10 +1,14 @@
 package laboflieven.challenges;
 
 import laboflieven.TestcaseInOutParameters;
+import laboflieven.common.Configuration;
 import laboflieven.examiners.ProgramFitnessExaminer;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
 import laboflieven.loggers.BitmapFitnessLogger;
+import laboflieven.loggers.FileFitnessLogger;
 import laboflieven.programiterators.BruteForceProgramIterator;
+import laboflieven.programiterators.GeneralBruteForceProgramIterator;
+import laboflieven.runners.AccStatementRunner;
 import laboflieven.runners.RegularStatementRunner;
 import laboflieven.statements.RegularInstructionOpcodeEnum;
 
@@ -23,26 +27,29 @@ public class AbsFinder {
      *
      * @param args
      */
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) throws IOException {
         /*if (args.length != 1)
         {
             System.err.println("Usage : "+AbsFinder.class+" <maxInstructions>");
             System.exit(1);
         }
-        int nrSolutions = Integer.parseInt(args[0]);*/
-        int nrSolutions = 2;
+        int nrInstructions = Integer.parseInt(args[0]);*/
+        int nrInstructions = 2;
         List<TestcaseInOutParameters> collection = new ArrayList<>();
         collection.add(createParameter(2.0, 2.0));
         collection.add(createParameter(-15.0, 15.0));
         collection.add(createParameter(0.0, 0.0));
-        ProgramFitnessExaminerInterface evaluator = new ProgramFitnessExaminer(collection, new RegularStatementRunner());
-        BitmapFitnessLogger bmpLogger = new BitmapFitnessLogger(new File("c:\\temp\\test.bmp"), 2, List.of(RegularInstructionOpcodeEnum.values()));
-        evaluator.addListener(bmpLogger);
-        BruteForceProgramIterator iterator = new BruteForceProgramIterator(evaluator);
-        iterator.iterate(1, nrSolutions);
+        ProgramFitnessExaminerInterface evaluator = new ProgramFitnessExaminer(collection, new AccStatementRunner());
+        FileFitnessLogger csvLogger = new FileFitnessLogger(new File("c:\\temp\\test.csv"));
+        evaluator.addListener(csvLogger);
+        GeneralBruteForceProgramIterator iterator = new GeneralBruteForceProgramIterator();
+        var config = new Configuration();
+        config.setNumberOfRegisters(1);
+        config.setFitnessExaminer(evaluator);
+        config.setMaxNrInstructions(3);
+        iterator.iterate(config);
         try {
-            bmpLogger.finish();
+            csvLogger.finish();
         } catch (IOException e) {
             e.printStackTrace();
         }
