@@ -1,34 +1,93 @@
 package laboflieven.loggers;
 
 import laboflieven.InstructionMark;
-import laboflieven.accinstructions.AccInstructionOpcodeEnum;
-import laboflieven.accinstructions.AccRegisterInstruction;
 import laboflieven.common.AccInstructionOpcode;
-import laboflieven.common.RegularInstructionOpcode;
-import laboflieven.statements.DualRegisterInstruction;
-import laboflieven.statements.SingleRegisterInstruction;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class JsonFileFitnessLogger implements FitnessLogger
 {
-    FileWriter writer;
+    private class InstructionNode
+    {
+        InstructionNode(String name, Double error, List<InstructionNode> children) {
+            this.name = name;
+            this.error = error;
+            this.children = children;
+        }
+
+        InstructionNode(String name, Double error) {
+            this.name = name;
+            this.error = error;
+            this.children = new ArrayList<>();
+        }
+
+        String name;
+        Double error;
+        List<InstructionNode> children;
+    }
+    private FileWriter writer;
+    private InstructionNode rootParent = new InstructionNode("",0.0, new ArrayList<>());
+
     public JsonFileFitnessLogger(File file) throws IOException {
         writer = new FileWriter(file);
-
     }
 
     @Override
     public void addFitness(List<InstructionMark> instructions, int nrInstruction, int nrRegisters, double error) {
-
+        List<String> parentStream = instructions.stream()
+                .map(i -> ((AccInstructionOpcode)i.getInstructionOpcode()).getEnumer().name())
+                .collect(Collectors.toList());
+        InstructionNode currentNode = rootParent;
+        for (int curChain = 0; curChain < parentStream.size(); curChain++)
+        {
+            String chain = parentStream.get(curChain);
+            boolean foundChain = false;
+            for (InstructionNode n : currentNode.children)
+            {
+                if (n.name.equals(chain)) {
+                    foundChain = true;
+                    currentNode = n;
+                    break;
+                }
+            }
+            if (!foundChain && curChain == parentStream.size() - 1)
+            {
+                currentNode.children.add(new InstructionNode(chain, error));
+            }
+            else if (!foundChain) {
+                currentNode.children.add(new InstructionNode(chain, 0.0));
+            }
+        }
     }
 
     public void finish() throws IOException {
+        JSONObject obj = nodeToJson(rootParent, getList(rootParent.children));
+        writer.write(obj.toJSONString());
         writer.close();
+    }
+
+    private JSONArray getList(List<InstructionNode> nodelist) {
+        JSONArray list = new JSONArray();
+        for (InstructionNode node: nodelist) {
+            list.add(nodeToJson(node, getList(node.children)));
+        }
+        return list;
+    }
+
+    private JSONObject nodeToJson(InstructionNode node, JSONArray list)
+    {
+        JSONObject obj = new JSONObject();
+        obj.put("name", node.name);
+        obj.put("error", node.error);
+        obj.put("children", list);
+        return obj;
     }
 
 }
