@@ -57,14 +57,27 @@ public class JsonFileFitnessLogger implements FitnessLogger
                     break;
                 }
             }
-            if (!foundChain && curChain == parentStream.size() - 1)
-            {
-                currentNode.children.add(new InstructionNode(chain, error));
-            }
-            else if (!foundChain) {
-                currentNode.children.add(new InstructionNode(chain, 0.0));
+
+            if (foundChain && isLastPiece(parentStream, curChain) && error < currentNode.error) {
+                currentNode.error = error;
+            } else if (!foundChain && isLastPiece(parentStream, curChain)) {
+                addChildWithErrorCode(error, currentNode, chain);
+            } else if (!foundChain) {
+                addEmptyChild(currentNode, chain);
             }
         }
+    }
+
+    private void addEmptyChild(InstructionNode currentNode, String chain) {
+        currentNode.children.add(new InstructionNode(chain, 0.0));
+    }
+
+    private void addChildWithErrorCode(double error, InstructionNode currentNode, String chain) {
+        currentNode.children.add(new InstructionNode(chain, error));
+    }
+
+    private boolean isLastPiece(List<String> parentStream, int curChain) {
+        return curChain == parentStream.size() - 1;
     }
 
     public void finish() throws IOException {

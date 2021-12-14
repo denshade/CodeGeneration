@@ -22,6 +22,7 @@ class JsonFileFitnessLoggerTest {
         var logger = new JsonFileFitnessLogger(temp);
         logger.addFitness(List.of(new Add()), 3,3,1);
         logger.addFitness(List.of(new Add(), new Add()), 3,3,2);
+        logger.addFitness(List.of(new Add(), new Add()), 3,3,0);
 
         logger.finish();
         JSONParser parser = new JSONParser();
@@ -32,7 +33,7 @@ class JsonFileFitnessLoggerTest {
         assertEquals(1, ((JSONArray) obj.get("children")).size());
         JSONObject firstAddInstruction = (JSONObject) ((JSONArray) obj.get("children")).get(0);
         assertEquals(1.0, firstAddInstruction.get("error"));
-        assertEquals(2.0, ((JSONObject)((JSONArray) firstAddInstruction.get("children")).get(0)).get("error"));
+        assertEquals(0.0, ((JSONObject)((JSONArray) firstAddInstruction.get("children")).get(0)).get("error"));
 
     }
 }
