@@ -5,6 +5,7 @@ import laboflieven.common.Configuration;
 import laboflieven.examiners.ProgramFitnessExaminer;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
 import laboflieven.loggers.CsvFileFitnessLogger;
+import laboflieven.loggers.JsonFileFitnessLogger;
 import laboflieven.programiterators.GeneralBruteForceProgramIterator;
 import laboflieven.runners.AccStatementRunner;
 
@@ -36,7 +37,7 @@ public class AbsFinder {
         collection.add(createParameter(-15.0, 15.0));
         collection.add(createParameter(0.0, 0.0));
         ProgramFitnessExaminerInterface evaluator = new ProgramFitnessExaminer(collection, new AccStatementRunner());
-        CsvFileFitnessLogger csvLogger = new CsvFileFitnessLogger(new File("c:\\temp\\test.csv"));
+        JsonFileFitnessLogger csvLogger = new JsonFileFitnessLogger(new File("c:\\temp\\test.json"));
         evaluator.addListener(csvLogger);
         GeneralBruteForceProgramIterator iterator = new GeneralBruteForceProgramIterator();
         var config = new Configuration();

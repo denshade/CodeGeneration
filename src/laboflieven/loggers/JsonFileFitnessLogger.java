@@ -33,7 +33,7 @@ public class JsonFileFitnessLogger implements FitnessLogger
         List<InstructionNode> children;
     }
     private FileWriter writer;
-    private InstructionNode rootParent = new InstructionNode("",0.0, new ArrayList<>());
+    private InstructionNode rootParent = new InstructionNode("",255.0, new ArrayList<>());
 
     public JsonFileFitnessLogger(File file) throws IOException {
         writer = new FileWriter(file);
