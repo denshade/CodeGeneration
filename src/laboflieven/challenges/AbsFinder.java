@@ -4,13 +4,9 @@ import laboflieven.TestcaseInOutParameters;
 import laboflieven.common.Configuration;
 import laboflieven.examiners.ProgramFitnessExaminer;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
-import laboflieven.loggers.BitmapFitnessLogger;
-import laboflieven.loggers.FileFitnessLogger;
-import laboflieven.programiterators.BruteForceProgramIterator;
+import laboflieven.loggers.CsvFileFitnessLogger;
 import laboflieven.programiterators.GeneralBruteForceProgramIterator;
 import laboflieven.runners.AccStatementRunner;
-import laboflieven.runners.RegularStatementRunner;
-import laboflieven.statements.RegularInstructionOpcodeEnum;
 
 import java.io.File;
 import java.io.IOException;
@@ -40,7 +36,7 @@ public class AbsFinder {
         collection.add(createParameter(-15.0, 15.0));
         collection.add(createParameter(0.0, 0.0));
         ProgramFitnessExaminerInterface evaluator = new ProgramFitnessExaminer(collection, new AccStatementRunner());
-        FileFitnessLogger csvLogger = new FileFitnessLogger(new File("c:\\temp\\test.csv"));
+        CsvFileFitnessLogger csvLogger = new CsvFileFitnessLogger(new File("c:\\temp\\test.csv"));
         evaluator.addListener(csvLogger);
         GeneralBruteForceProgramIterator iterator = new GeneralBruteForceProgramIterator();
         var config = new Configuration();

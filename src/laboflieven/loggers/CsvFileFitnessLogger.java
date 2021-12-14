@@ -14,10 +14,10 @@ import java.io.IOException;
 import java.math.BigInteger;
 import java.util.List;
 
-public class FileFitnessLogger implements FitnessLogger
+public class CsvFileFitnessLogger implements FitnessLogger
 {
     FileWriter writer;
-    public FileFitnessLogger(File file) throws IOException {
+    public CsvFileFitnessLogger(File file) throws IOException {
         writer = new FileWriter(file);
 
     }

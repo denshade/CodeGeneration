@@ -6,7 +6,7 @@ import laboflieven.common.Configuration;
 import laboflieven.examiners.ProgramFitnessExaminer;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
 import laboflieven.loggers.BitmapFitnessLogger;
-import laboflieven.loggers.FileFitnessLogger;
+import laboflieven.loggers.CsvFileFitnessLogger;
 import laboflieven.loggers.FitnessLogger;
 import laboflieven.programiterators.*;
 import laboflieven.programiterators.ReverseProgramIterator;
@@ -17,9 +17,7 @@ import laboflieven.statements.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by Lieven on 8/07/2015.
@@ -154,7 +152,7 @@ public class FormulaFinder {
         List<TestcaseInOutParameters> collection = getInOutParameters(curMaxRegisters, doubles);
 
         ProgramFitnessExaminerInterface evaluator = new ProgramFitnessExaminer(collection, new RegularStatementRunner());
-        var logger = new FileFitnessLogger(new File("logs.csv"));
+        var logger = new CsvFileFitnessLogger(new File("logs.csv"));
         Configuration configuration = Configuration.getInstance();
         configuration.setMaxNrInstructions(6);
         configuration.setFitnessExaminer(evaluator);

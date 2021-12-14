@@ -1,7 +1,7 @@
 package laboflieven.challenges;
 
 import laboflieven.InstructionMark;
-import laboflieven.loggers.FileFitnessLogger;
+import laboflieven.loggers.CsvFileFitnessLogger;
 import laboflieven.statements.*;
 import org.junit.jupiter.api.Test;
 
@@ -24,14 +24,14 @@ public class FileFitnessLoggerTest {
         instructions.add(mov);
         Instruction add = new Add(r0, r1);
         instructions.add(add);
-        FileFitnessLogger l = new FileFitnessLogger(new java.io.File("f.csv"));
+        CsvFileFitnessLogger l = new CsvFileFitnessLogger(new java.io.File("f.csv"));
         assertNotNull(l.getXandY(instructions, RegularInstructionOpcodeEnum.values().length, 2));
     }
 
     @Test
     public void registerToInt() throws IOException {
         Register r = new Register("R1");
-        FileFitnessLogger l = new FileFitnessLogger(new java.io.File("f.csv"));
+        CsvFileFitnessLogger l = new CsvFileFitnessLogger(new java.io.File("f.csv"));
         assertEquals(2, l.registerToInt(r.name));
 
     }
