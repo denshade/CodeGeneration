@@ -88,8 +88,7 @@ public class BitmapFitnessLogger implements FitnessLogger
         nrInstructionMult = BigInteger.valueOf(opcodes.size() + 1);
         for (InstructionMark instruction : instructions)
         {
-            int instructNr;
-            instructNr = opcodes.indexOf(instruction.getInstructionOpcode().getEnumeration()) + 1;
+            int instructNr = opcodes.indexOf(instruction.getInstructionOpcode().getEnumeration()) + 1;
             if (instructNr == 0) {
              throw new RuntimeException("Unknown class " + instruction.getClass().toString());
             }

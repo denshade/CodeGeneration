@@ -43,20 +43,14 @@ public class CsvFileFitnessLogger implements FitnessLogger
         BigInteger sumInstructX = BigInteger.ZERO;
         BigInteger instructionMultiplier = BigInteger.ONE;
         BigInteger nrInstructionMult = BigInteger.valueOf(nrInstruction);
+        List opcodes = List.of(AccInstructionOpcodeEnum.values());
         for (InstructionMark instruction : instructions)
         {
             int instructNr;
             if (instruction instanceof AccRegisterInstruction)
             {
-                List opcodes = List.of(AccInstructionOpcodeEnum.values());
-                if (instruction.getInstructionOpcode() instanceof AccInstructionOpcode)
-                {
-                    instructNr = opcodes.indexOf(((AccInstructionOpcode) instruction.getInstructionOpcode()).getEnumer()) + 1;
-                } else if (instruction.getInstructionOpcode() instanceof RegularInstructionOpcode)
-                {
-                    instructNr = opcodes.indexOf(((RegularInstructionOpcode) instruction.getInstructionOpcode()).getEnumer()) + 1;
-                }
-                else {
+                instructNr = opcodes.indexOf(instruction.getInstructionOpcode().getEnumeration()) + 1;
+                if (instructNr == 0) {
                     throw new RuntimeException("Unknown class " + instruction.getClass().toString());
                 }
                 sumInstructX = sumInstructX.add(BigInteger.valueOf(instructNr).multiply(instructionMultiplier));
@@ -76,7 +70,7 @@ public class CsvFileFitnessLogger implements FitnessLogger
                 case "Sin" : instructNr = 10; break;
                 case "Sqrt" : instructNr = 11; break;
                 case "Sub" : instructNr = 12; break;
-                default: throw new RuntimeException("Unknown class " + instruction.getClass().toString());
+                default: throw new RuntimeException("Unknown class " + instruction.getClass());
             }
             }
 
