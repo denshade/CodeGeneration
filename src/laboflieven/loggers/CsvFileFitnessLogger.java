@@ -3,8 +3,7 @@ package laboflieven.loggers;
 import laboflieven.InstructionMark;
 import laboflieven.accinstructions.AccInstructionOpcodeEnum;
 import laboflieven.accinstructions.AccRegisterInstruction;
-import laboflieven.common.InstructionOpcode;
-import laboflieven.common.RegularInstructionOpcode;
+import laboflieven.functional.loggers.InstructionIndexPair;
 import laboflieven.functional.loggers.InstructionsBigIntegerIndex;
 import laboflieven.functional.loggers.RegistersBigIntegerIndex;
 import laboflieven.statements.RegularInstructionOpcodeEnum;
@@ -25,30 +24,17 @@ public class CsvFileFitnessLogger implements FitnessLogger
 
     @Override
     public void addFitness(List<InstructionMark> instructions, int nrInstruction, int nrRegisters, double error) {
-        BigInteger[] numbers = getXandY(instructions, nrInstruction, nrRegisters);
+        InstructionIndexPair pair = new InstructionIndexPair(instructions, nrInstruction, nrRegisters);
         try{
-            writer.write(numbers[0].toString()+";"+numbers[1].toString() + ";"+error+"\n");
+            writer.write(pair.getX().toString()+";"+pair.getY().toString() + ";"+error+"\n");
         } catch (Exception e )
         {
-            System.out.println(e.toString());
+            System.out.println(e);
         }
     }
 
     public void finish() throws IOException {
         writer.close();
     }
-
-
-    public BigInteger[] getXandY(List<InstructionMark> instructions, int nrInstruction, int nrRegisters)
-    {
-        List opcodes;
-        if (instructions.get(0) instanceof AccRegisterInstruction) {
-            opcodes = List.of(AccInstructionOpcodeEnum.values());
-        } else {
-            opcodes = List.of(RegularInstructionOpcodeEnum.values());
-        }
-        return new BigInteger[]{new InstructionsBigIntegerIndex(instructions, opcodes).getSumRegister(), new RegistersBigIntegerIndex(instructions, nrRegisters).getSumRegister()};
-    }
-
 
 }

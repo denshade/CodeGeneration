@@ -10,7 +10,7 @@ public class InstructionsBigIntegerIndex
     private BigInteger sumInstructX;
     public InstructionsBigIntegerIndex(List<InstructionMark> instructions, final List opcodes)
     {
-        BigInteger sumInstructX = BigInteger.ZERO;
+        sumInstructX = BigInteger.ZERO;
         BigInteger instructionMultiplier = BigInteger.ONE;
         BigInteger nrInstructionMult;
         nrInstructionMult = BigInteger.valueOf(opcodes.size() + 1);

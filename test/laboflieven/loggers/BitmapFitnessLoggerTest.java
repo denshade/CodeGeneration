@@ -3,17 +3,15 @@ package laboflieven.loggers;
 import laboflieven.statements.Add;
 import laboflieven.statements.Register;
 import laboflieven.statements.RegularInstructionOpcodeEnum;
-import laboflieven.statements.Sub;
 import org.junit.jupiter.api.Test;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class BitmapFitnessLoggerTest {
     @Test
