@@ -10,7 +10,7 @@ import java.util.List;
 
 public class InstructionIndexPair {
     BigInteger x, y;
-    public InstructionIndexPair(List<InstructionMark> instructions, int nrInstruction, int nrRegisters)
+    public InstructionIndexPair(List<InstructionMark> instructions, int nrRegisters)
     {
             List opcodes;
             if (instructions.get(0) instanceof AccRegisterInstruction) {

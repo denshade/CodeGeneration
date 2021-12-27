@@ -37,7 +37,7 @@ public class BitmapFitnessLogger implements FitnessLogger
 
     @Override
     public void addFitness(List<InstructionMark> instructions, int nrInstructionOld, int nrRegistersOld, double error) {
-        InstructionIndexPair pair = new InstructionIndexPair(instructions, 0, nrRegisters);
+        InstructionIndexPair pair = new InstructionIndexPair(instructions, nrRegisters);
 
         Point p = new Point();
         p.x  = pair.getX().intValue();
