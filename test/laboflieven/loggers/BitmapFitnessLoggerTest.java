@@ -23,7 +23,7 @@ class BitmapFitnessLoggerTest {
         logger.addFitness(List.of(new Add(new Register("R0"), new Register("R0"))), 2,2,3);
         logger.finish();
         final BufferedImage res = ImageIO.read(f);
-        assertEquals(-262144, res.getRGB(1,0 ));
+        assertEquals(-262144, res.getRGB(1,3 ));
 
         f.delete();
 

@@ -4,6 +4,7 @@ import laboflieven.InstructionMark;
 import laboflieven.accinstructions.AccRegisterInstruction;
 import laboflieven.common.AccInstructionOpcode;
 import laboflieven.common.RegularInstructionOpcode;
+import laboflieven.functional.loggers.RegistersBigIntegerIndex;
 import laboflieven.statements.DualRegisterInstruction;
 import laboflieven.statements.SingleRegisterInstruction;
 
@@ -95,53 +96,6 @@ public class BitmapFitnessLogger implements FitnessLogger
             sumInstructX = sumInstructX.add(BigInteger.valueOf(instructNr).multiply(instructionMultiplier));
             instructionMultiplier = instructionMultiplier.multiply(nrInstructionMult);
         }
-
-        BigInteger sumRegister = BigInteger.ZERO;
-        BigInteger registerMultiplier = BigInteger.ONE;
-        BigInteger nrRegisterMult = BigInteger.valueOf(nrRegisters);
-        for (InstructionMark instruction : instructions)
-        {
-            String source = "";
-            String dest = "";
-            if (instruction instanceof DualRegisterInstruction)
-            {
-                source = ((DualRegisterInstruction) instruction).source.name;
-                dest = ((DualRegisterInstruction) instruction).destination.name;
-            } else if (instruction instanceof SingleRegisterInstruction){
-                source = "R0";
-                dest = ((SingleRegisterInstruction) instruction).destination.name;
-            }
-            else if (instruction instanceof laboflieven.accinstructions.SingleRegisterInstruction)
-            {
-                source = ((laboflieven.accinstructions.SingleRegisterInstruction) instruction).getRegister().name;
-                dest = "R0";
-            } else if (instruction instanceof AccRegisterInstruction)
-            {
-                dest = "R0";
-                source = "R0";
-            }
-            int sourceNr = registerToInt(source);
-            int destNr = registerToInt(dest);
-            sumRegister = sumRegister.add(BigInteger.valueOf(sourceNr).multiply(registerMultiplier));
-            registerMultiplier = registerMultiplier.multiply(nrRegisterMult);
-            /*sumRegister = sumRegister.add(BigInteger.valueOf(destNr).multiply(registerMultiplier));
-            registerMultiplier = registerMultiplier.multiply(nrRegisterMult);*/
-        }
-        return new BigInteger[]{sumInstructX, sumRegister};
-    }
-
-
-    public int registerToInt(String source) {
-        int sourceNr;
-        switch(source.toUpperCase())
-        {
-            case "R0" : sourceNr = 0; break;
-            case "R1" : sourceNr = 1; break;
-            case "R2" : sourceNr = 2; break;
-            case "R3" : sourceNr = 3; break;
-            case "R4" : sourceNr = 4; break;
-            default: throw new RuntimeException("Unknown register " + source);
-        }
-        return sourceNr;
+        return new BigInteger[]{sumInstructX, new RegistersBigIntegerIndex(instructions, nrRegisters).getSumRegister()};
     }
 }

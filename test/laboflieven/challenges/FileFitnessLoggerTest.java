@@ -28,11 +28,4 @@ public class FileFitnessLoggerTest {
         assertNotNull(l.getXandY(instructions, RegularInstructionOpcodeEnum.values().length, 2));
     }
 
-    @Test
-    public void registerToInt() throws IOException {
-        Register r = new Register("R1");
-        CsvFileFitnessLogger l = new CsvFileFitnessLogger(new java.io.File("f.csv"));
-        assertEquals(2, l.registerToInt(r.name));
-
-    }
 }

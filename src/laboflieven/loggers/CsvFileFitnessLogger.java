@@ -3,10 +3,11 @@ package laboflieven.loggers;
 import laboflieven.InstructionMark;
 import laboflieven.accinstructions.AccInstructionOpcodeEnum;
 import laboflieven.accinstructions.AccRegisterInstruction;
-import laboflieven.common.AccInstructionOpcode;
+import laboflieven.common.InstructionOpcode;
 import laboflieven.common.RegularInstructionOpcode;
-import laboflieven.statements.DualRegisterInstruction;
-import laboflieven.statements.SingleRegisterInstruction;
+import laboflieven.functional.loggers.InstructionsBigIntegerIndex;
+import laboflieven.functional.loggers.RegistersBigIntegerIndex;
+import laboflieven.statements.RegularInstructionOpcodeEnum;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -40,85 +41,14 @@ public class CsvFileFitnessLogger implements FitnessLogger
 
     public BigInteger[] getXandY(List<InstructionMark> instructions, int nrInstruction, int nrRegisters)
     {
-        BigInteger sumInstructX = BigInteger.ZERO;
-        BigInteger instructionMultiplier = BigInteger.ONE;
-        BigInteger nrInstructionMult = BigInteger.valueOf(nrInstruction);
-        List opcodes = List.of(AccInstructionOpcodeEnum.values());
-        for (InstructionMark instruction : instructions)
-        {
-            int instructNr;
-            if (instruction instanceof AccRegisterInstruction)
-            {
-                instructNr = opcodes.indexOf(instruction.getInstructionOpcode().getEnumeration()) + 1;
-                if (instructNr == 0) {
-                    throw new RuntimeException("Unknown class " + instruction.getClass().toString());
-                }
-                sumInstructX = sumInstructX.add(BigInteger.valueOf(instructNr).multiply(instructionMultiplier));
-                instructionMultiplier = instructionMultiplier.multiply(nrInstructionMult);
-            } else {
-            switch(instruction.getClass().getSimpleName())
-            {
-                case "Add" : instructNr = 1; break;
-                case "Cos" : instructNr = 2; break;
-                case "Div" : instructNr = 3; break;
-                case "Invert" : instructNr = 4; break;
-                case "Log" : instructNr = 5; break;
-                case "Mod" : instructNr = 6; break;
-                case "Move" : instructNr = 7; break;
-                case "Mul" : instructNr = 8; break;
-                case "Nand" : instructNr = 9; break;
-                case "Sin" : instructNr = 10; break;
-                case "Sqrt" : instructNr = 11; break;
-                case "Sub" : instructNr = 12; break;
-                default: throw new RuntimeException("Unknown class " + instruction.getClass());
-            }
-            }
-
-            sumInstructX = sumInstructX.add(BigInteger.valueOf(instructNr).multiply(instructionMultiplier));
-            instructionMultiplier = instructionMultiplier.multiply(nrInstructionMult);
+        List opcodes;
+        if (instructions.get(0) instanceof AccRegisterInstruction) {
+            opcodes = List.of(AccInstructionOpcodeEnum.values());
+        } else {
+            opcodes = List.of(RegularInstructionOpcodeEnum.values());
         }
-
-        BigInteger sumRegister = BigInteger.ZERO;
-        BigInteger registerMultiplier = BigInteger.ONE;
-        BigInteger nrRegisterMult = BigInteger.valueOf(nrRegisters);
-        for (InstructionMark instruction : instructions)
-        {
-            String source = "";
-            String dest = "";
-            if (instruction instanceof DualRegisterInstruction)
-            {
-                source = ((DualRegisterInstruction) instruction).source.name;
-                dest = ((DualRegisterInstruction) instruction).destination.name;
-            } else if (instruction instanceof SingleRegisterInstruction){
-                source = "R0";
-                dest = ((SingleRegisterInstruction) instruction).destination.name;
-            }else if (instruction instanceof AccRegisterInstruction)
-            {
-                dest = "R0";
-                source = "R0";
-            }
-            int sourceNr = registerToInt(source);
-            int destNr = registerToInt(dest);
-            sumRegister = sumRegister.add(BigInteger.valueOf(sourceNr).multiply(registerMultiplier));
-            registerMultiplier = registerMultiplier.multiply(nrRegisterMult);
-            sumRegister = sumRegister.add(BigInteger.valueOf(destNr).multiply(registerMultiplier));
-            registerMultiplier = registerMultiplier.multiply(nrRegisterMult);
-        }
-        return new BigInteger[]{sumInstructX, sumRegister};
+        return new BigInteger[]{new InstructionsBigIntegerIndex(instructions, opcodes).getSumRegister(), new RegistersBigIntegerIndex(instructions, nrRegisters).getSumRegister()};
     }
 
 
-    public int registerToInt(String source) {
-        int sourceNr;
-        switch(source.toUpperCase())
-        {
-            case "R0" : sourceNr = 1; break;
-            case "R1" : sourceNr = 2; break;
-            case "R2" : sourceNr = 3; break;
-            case "R3" : sourceNr = 4; break;
-            case "R4" : sourceNr = 5; break;
-            default: throw new RuntimeException("Unknown register " + source);
-        }
-        return sourceNr;
-    }
 }
