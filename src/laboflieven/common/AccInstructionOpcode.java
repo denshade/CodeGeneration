@@ -27,6 +27,11 @@ public class AccInstructionOpcode implements InstructionOpcode
     }
 
     @Override
+    public Object getEnumeration(){
+        return enumer;
+    }
+
+    @Override
     public int getNrRegisters() {
         return getEnumer().getNrRegisters();
     }
@@ -35,6 +40,7 @@ public class AccInstructionOpcode implements InstructionOpcode
     public String getName() {
         return getEnumer().name();
     }
+
 
     @Override
     public boolean equals(Object o) {
