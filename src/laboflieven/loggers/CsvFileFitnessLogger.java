@@ -23,7 +23,7 @@ public class CsvFileFitnessLogger implements FitnessLogger
             writer.write(pair.getX().toString()+";"+pair.getY().toString() + ";"+error+"\n");
         } catch (Exception e )
         {
-            System.out.println(e);
+            throw new RuntimeException(e);
         }
     }
 
