@@ -1,17 +1,11 @@
 package laboflieven.loggers;
 
 import laboflieven.InstructionMark;
-import laboflieven.accinstructions.AccInstructionOpcodeEnum;
-import laboflieven.accinstructions.AccRegisterInstruction;
 import laboflieven.functional.loggers.InstructionIndexPair;
-import laboflieven.functional.loggers.InstructionsBigIntegerIndex;
-import laboflieven.functional.loggers.RegistersBigIntegerIndex;
-import laboflieven.statements.RegularInstructionOpcodeEnum;
 
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.math.BigInteger;
 import java.util.List;
 
 public class CsvFileFitnessLogger implements FitnessLogger
