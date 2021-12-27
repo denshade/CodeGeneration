@@ -42,7 +42,7 @@ public class JsonFileFitnessLogger implements FitnessLogger
     @Override
     public void addFitness(List<InstructionMark> instructions, int nrInstruction, int nrRegisters, double error) {
         List<String> parentStream = instructions.stream()
-                .map(i -> ((AccInstructionOpcode)i.getInstructionOpcode()).getEnumer().name())
+                .map(i -> i.getInstructionOpcode().getName())
                 .collect(Collectors.toList());
         InstructionNode currentNode = rootParent;
         for (int curChain = 0; curChain < parentStream.size(); curChain++)
