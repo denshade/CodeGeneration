@@ -4,6 +4,8 @@ import laboflieven.InstructionMark;
 import laboflieven.ProgramResolution;
 import laboflieven.common.ArrayListBestFitRegister;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
+import laboflieven.functional.programiterators.RandomInjectedInstructions;
+import laboflieven.functional.programiterators.SimulatedAnnealingFollowNeighbourProbability;
 import laboflieven.statements.InstructionFactoryInterface;
 import laboflieven.statements.Register;
 
@@ -34,9 +36,9 @@ public class SimulatedAnnealingIterator
         for (int k = 0; k < kMax; k++)
         {
             double t = (((double)k+1)/(double)kMax) * temperatureRaiser;
-            List<InstructionMark> neighbour = getRandomNeighbour(instructions, registers);
+            List<InstructionMark> neighbour = RandomInjectedInstructions.getRandomInjectedInstructions(factoryInterface, instructions, registers);
             double randomInterval = r.nextDouble();
-            double a = probabilityFollowNeighbour(evaluator.calculateFitness(instructions, registers), evaluator.calculateFitness(neighbour, registers), t);
+            double a = SimulatedAnnealingFollowNeighbourProbability.probabilityFollowNeighbour(evaluator.calculateFitness(instructions, registers), evaluator.calculateFitness(neighbour, registers), t, saturatedMax);
             if (a >= randomInterval) {
                 //System.out.println("followed ");
                 instructions = neighbour;
@@ -46,16 +48,6 @@ public class SimulatedAnnealingIterator
             bestFit.register(evaluator.calculateFitness(instructions, registers), instructions);
         }
         return new ProgramResolution(bestFit.getBest(), evaluator.calculateFitness(bestFit.getBest(), registers));
-    }
-
-    public double probabilityFollowNeighbour(double currentScore, double neighbourScore, double t) {
-        currentScore = Math.min(saturatedMax, currentScore);
-        neighbourScore = Math.min(saturatedMax, neighbourScore);
-        double currentHighScore = saturatedMax - currentScore; // higher scores are better.
-        double neighbourHighScore = saturatedMax - neighbourScore;
-        double exp = Math.exp(-1 * (currentHighScore - neighbourHighScore) / t);
-        //System.out.println(exp + " current: " + currentScore + " " + neighbourScore);
-        return exp;
     }
 
     private List<InstructionMark> getRandomNeighbour(List<InstructionMark> instructions, List<Register> registers) {

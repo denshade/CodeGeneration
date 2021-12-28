@@ -6,6 +6,7 @@ import laboflieven.challenges.P1;
 import laboflieven.challenges.TestCases;
 import laboflieven.examiners.ProgramFitnessExaminer;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
+import laboflieven.functional.programiterators.SimulatedAnnealingFollowNeighbourProbability;
 import laboflieven.runners.AccStatementRunner;
 import laboflieven.statements.Register;
 import org.junit.jupiter.api.Test;
@@ -32,8 +33,7 @@ class SimulatedAnnealingIteratorTest {
     }
     @Test
     void iterateNeighbour() {
-        SimulatedAnnealingIterator it = new SimulatedAnnealingIterator(new InstructionFactory(), 10000, 1);
-        assertTrue(it.probabilityFollowNeighbour(10, 1, 0.1) > 1);
-        assertTrue(it.probabilityFollowNeighbour(1, 10, 100) < 1);
+        assertTrue(SimulatedAnnealingFollowNeighbourProbability.probabilityFollowNeighbour(10, 1, 0.1, 10000) > 1);
+        assertTrue(SimulatedAnnealingFollowNeighbourProbability.probabilityFollowNeighbour(1, 10, 100, 10000) < 1);
     }
 }
