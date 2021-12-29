@@ -20,7 +20,7 @@ public class SimulatedAnnealingIterator
     private ArrayListBestFitRegister bestFit = new ArrayListBestFitRegister();
     private int temperatureRaiser = 100;
 
-    SimulatedAnnealingIterator(InstructionFactoryInterface factoryInterface, double saturatedMax, int tempRaiser)
+    public SimulatedAnnealingIterator(InstructionFactoryInterface factoryInterface, double saturatedMax, int tempRaiser)
     {
         this.factoryInterface = factoryInterface;
         this.saturatedMax = saturatedMax;
