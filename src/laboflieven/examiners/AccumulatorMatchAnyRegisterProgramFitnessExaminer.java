@@ -4,6 +4,7 @@ import laboflieven.InstructionMark;
 import laboflieven.Program;
 import laboflieven.TestcaseInOutParameters;
 import laboflieven.common.Configuration;
+import laboflieven.functional.examiners.AnyRegisterProgramTestcaseFitness;
 import laboflieven.functional.examiners.ProgramTestcaseFitness;
 import laboflieven.loggers.FitnessLogger;
 import laboflieven.runners.AccStatementRunner;
@@ -71,7 +72,7 @@ public class AccumulatorMatchAnyRegisterProgramFitnessExaminer implements Progra
     {
         Program program = new Program(instructions, registers);
         double noFitAtAll = Configuration.getInstance().getMaxError(Double.POSITIVE_INFINITY);
-        double err = conditions.stream().map(p -> ProgramTestcaseFitness.calculateError(runner, program, p, expectedResultRegister, noFitAtAll)).mapToDouble(Double::doubleValue).sum();
+        double err = conditions.stream().map(p -> AnyRegisterProgramTestcaseFitness.calculateError(runner, program, p, expectedResultRegister, noFitAtAll)).mapToDouble(Double::doubleValue).sum();
         loggers.forEach(l -> l.addFitness(instructions, RegularInstructionOpcodeEnum.values().length, registers.size(), err));
         return err;
     }

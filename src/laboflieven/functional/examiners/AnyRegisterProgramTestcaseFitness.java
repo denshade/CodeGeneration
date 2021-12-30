@@ -23,7 +23,7 @@ public class AnyRegisterProgramTestcaseFitness
             Double programValueByRegister = programOutput.get(register);
             double errForRegister = Math.abs(expectedOutputValue - programValueByRegister);
             if (!register.equals(firstRegisterName)) {
-                errForRegister += 10;
+                errForRegister += WRONG_REGISTER_ERROR;
             }
             if (errForRegister < err) {
                 err = errForRegister;
