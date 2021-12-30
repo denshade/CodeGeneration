@@ -104,8 +104,7 @@ public class AccPriorityProgramIterator  implements ProgramIterator
     private void addToPriorityQueue(List<InstructionMark> instructions, InstructionMark instruction, List<Register> registerList, int maxInstructions) {
         List<InstructionMark> marks = new ArrayList<>(instructions);
         marks.add(instruction);
-        Program p = new Program(marks, registerList);
-        if (heuristic.shouldRecurse(p, maxInstructions)) {
+        if (heuristic.shouldRecurse(new Program(marks, registerList), maxInstructions)) {
             priorityQueue.add(eval(marks, registerList));
         }
     }

@@ -4,6 +4,7 @@ import laboflieven.TestcaseInOutParameters;
 import laboflieven.InstructionMark;
 import laboflieven.Program;
 import laboflieven.common.Configuration;
+import laboflieven.functional.examiners.ProgramTestcaseFitness;
 import laboflieven.loggers.FitnessLogger;
 import laboflieven.runners.AccStatementRunner;
 import laboflieven.runners.RegularStatementRunner;
@@ -14,6 +15,7 @@ import laboflieven.statements.RegularInstructionOpcodeEnum;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * Created by Lieven on 14/06/2015.
@@ -70,22 +72,7 @@ public class AccumulatorProgramFitnessExaminer implements ProgramFitnessExaminer
     {
         Program program = new Program(instructions, registers);
         double noFitAtAll = Configuration.getInstance().getMaxError(Double.POSITIVE_INFINITY);
-        double err = 0.0;
-        for(TestcaseInOutParameters parameter : conditions)
-        {
-            Map<String, Double> results = runner.execute(program, parameter.input);
-            Map<String, Double> expectedOutput = parameter.expectedOutput;
-            Double value = results.get(expectedResultRegister);
-
-            if (Double.isNaN(value) || Double.isInfinite(value))
-            {
-                err = noFitAtAll;
-                break;
-            } else
-            {
-                err += Math.abs(expectedOutput.get(registers.get(0).name) - value);
-            }
-        }
+        double err = conditions.stream().map(p -> ProgramTestcaseFitness.calculateError(runner, program, p, expectedResultRegister, noFitAtAll)).mapToDouble(Double::doubleValue).sum();
         for(FitnessLogger logger : loggers)
         {
             logger.addFitness(instructions, RegularInstructionOpcodeEnum.values().length, registers.size(), err);
