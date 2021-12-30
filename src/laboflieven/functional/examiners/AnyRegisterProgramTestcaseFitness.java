@@ -18,20 +18,10 @@ public class AnyRegisterProgramTestcaseFitness
     {
         double err = noFitAtAll;
         Map<String, Double> expectedOutput = parameter.expectedOutput;
-        Double programOutputValue = programOutput.get(expectedResultRegister);
         double expectedOutputValue = expectedOutput.get(firstRegisterName);
-/*
-        if (Double.isNaN(programOutputValue) || Double.isInfinite(programOutputValue)) {
-            err = noFitAtAll;
-        }
-        /*else
-        {
-            err = Math.abs(expectedOutputValue - programOutputValue);
-        }*/
-
         for (String register : programOutput.keySet()) {
-            Double other = programOutput.get(register);
-            double errForRegister = Math.abs(expectedOutputValue - other);
+            Double programValueByRegister = programOutput.get(register);
+            double errForRegister = Math.abs(expectedOutputValue - programValueByRegister);
             if (!register.equals(firstRegisterName)) {
                 errForRegister += 10;
             }
