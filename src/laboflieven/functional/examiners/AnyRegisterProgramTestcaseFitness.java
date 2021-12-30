@@ -4,6 +4,7 @@ import laboflieven.Program;
 import laboflieven.TestcaseInOutParameters;
 import laboflieven.runners.StatementRunner;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class AnyRegisterProgramTestcaseFitness
@@ -11,31 +12,34 @@ public class AnyRegisterProgramTestcaseFitness
     private static double WRONG_REGISTER_ERROR = 10;
     public static double calculateError(StatementRunner runner, Program program, TestcaseInOutParameters parameter, String expectedResultRegister, double noFitAtAll)
     {
-        double err;
-        Map<String, Double> results = runner.execute(program, parameter.input);
-        Map<String, Double> expectedOutput = parameter.expectedOutput;
-        Double value = results.get(expectedResultRegister);
-
-        if (Double.isNaN(value) || Double.isInfinite(value)) {
-            err = noFitAtAll;
-        } else
-        {
-            err = Math.abs(expectedOutput.get(program.getRegisters().get(0).name) - value);
-        }
-        return err;
+        return calculateError(runner.execute(program, parameter.input), program.getRegisters().get(0).name, parameter, expectedResultRegister, noFitAtAll);
     }
-    public static double calculateError(Map<String, Double> results , String firstRegisterName, TestcaseInOutParameters parameter, String expectedResultRegister, double noFitAtAll)
+    public static double calculateError(Map<String, Double> programOutput , String firstRegisterName, TestcaseInOutParameters parameter, String expectedResultRegister, double noFitAtAll)
     {
-        double err;
+        double err = noFitAtAll;
         Map<String, Double> expectedOutput = parameter.expectedOutput;
-        Double value = results.get(expectedResultRegister);
-
-        if (Double.isNaN(value) || Double.isInfinite(value)) {
+        Double programOutputValue = programOutput.get(expectedResultRegister);
+        double expectedOutputValue = expectedOutput.get(firstRegisterName);
+/*
+        if (Double.isNaN(programOutputValue) || Double.isInfinite(programOutputValue)) {
             err = noFitAtAll;
-        } else
-        {
-            err = Math.abs(expectedOutput.get(firstRegisterName) - value);
         }
+        /*else
+        {
+            err = Math.abs(expectedOutputValue - programOutputValue);
+        }*/
+
+        for (String register : programOutput.keySet()) {
+            Double other = programOutput.get(register);
+            double errForRegister = Math.abs(expectedOutputValue - other);
+            if (!register.equals(firstRegisterName)) {
+                errForRegister += 10;
+            }
+            if (errForRegister < err) {
+                err = errForRegister;
+            }
+        }
+
         return err;
     }
 }

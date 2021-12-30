@@ -12,12 +12,31 @@ class AnyRegisterProgramTestcaseFitnessTest {
     @Test
     public void testPerfectAnswer()
     {
-        var fitness = new AnyRegisterProgramTestcaseFitness();
         HashMap<String, Double> results = new HashMap<>();
         results.put("R1", 1.0);
         var cases = new TestcaseInOutParameters();
-        cases.expectedOutput.put("R1",0.0);
-        fitness.calculateError(results, "R1", new TestcaseInOutParameters(), "R1", 1000000 );
+        cases.expectedOutput.put("R1", 1.0);
+        assertEquals(0.0, AnyRegisterProgramTestcaseFitness.calculateError(results, "R1", cases, "R1", 1000000 ));
+    }
+    @Test
+    public void testWrongAnswer()
+    {
+        HashMap<String, Double> results = new HashMap<>();
+        results.put("R1", 2.0);
+        var cases = new TestcaseInOutParameters();
+        cases.expectedOutput.put("R1", 1.0);
+        assertEquals(1.0,AnyRegisterProgramTestcaseFitness.calculateError(results, "R1", cases, "R1", 1000000 ));
+    }
+
+    @Test
+    public void testWrongRegisterAnswer()
+    {
+        HashMap<String, Double> results = new HashMap<>();
+        results.put("AL", 2.0);
+        results.put("R1", 200.0);
+        var cases = new TestcaseInOutParameters();
+        cases.expectedOutput.put("R1", 2.0);
+        assertEquals(10.0,AnyRegisterProgramTestcaseFitness.calculateError(results, "R1", cases, "R1", 1000000 ));
     }
 
 }
