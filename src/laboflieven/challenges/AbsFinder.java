@@ -1,10 +1,13 @@
 package laboflieven.challenges;
 
+import laboflieven.ProgramResolution;
 import laboflieven.TestcaseInOutParameters;
 import laboflieven.accinstructions.InstructionFactory;
 import laboflieven.common.Configuration;
+import laboflieven.examiners.AccumulatorMatchAnyRegisterProgramFitnessExaminer;
 import laboflieven.examiners.ProgramFitnessExaminer;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
+import laboflieven.functional.examiners.AnyRegisterProgramTestcaseFitness;
 import laboflieven.loggers.CsvFileFitnessLogger;
 import laboflieven.loggers.JsonFileFitnessLogger;
 import laboflieven.programiterators.AccPriorityProgramIterator;
@@ -40,21 +43,24 @@ public class AbsFinder {
         collection.add(createParameter(2.0, 2.0));
         collection.add(createParameter(-15.0, 15.0));
         collection.add(createParameter(0.0, 0.0));
-        ProgramFitnessExaminerInterface evaluator = new ProgramFitnessExaminer(collection, new AccStatementRunner());
+//        ProgramFitnessExaminerInterface evaluator = new ProgramFitnessExaminer(collection, new AccStatementRunner());
+        ProgramFitnessExaminerInterface evaluator = new AccumulatorMatchAnyRegisterProgramFitnessExaminer(collection, new AccStatementRunner());
         //JsonFileFitnessLogger csvLogger = new JsonFileFitnessLogger(new File("c:\\temp\\test.json"));
         //evaluator.addListener(csvLogger);
         //var iterator = new GeneralBruteForceProgramIterator();
-//        var iterator = new AccPriorityProgramIterator();
-        var iterator = new SimulatedAnnealingIterator(new InstructionFactory(), 100, 2);
+        var iterator = new AccPriorityProgramIterator();
+//        var iterator = new SimulatedAnnealingIterator(new InstructionFactory(), 100, 2);
 
         var config = new Configuration();
         config.setNumberOfRegisters(1);
         config.setFitnessExaminer(evaluator);
-        config.setMaxNrInstructions(3);
+        config.setMaxNrInstructions(4);
         long start = System.currentTimeMillis();
-        //iterator.iterate(config);
-        iterator.iterate(1000, 3, Register.createRegisters(1, "R"), evaluator);
+        ProgramResolution r = iterator.iterate(config);
+        //iterator.iterate(1000, 3, Register.createRegisters(1, "R"), evaluator);
         System.out.println("Timing: "+ (System.currentTimeMillis() - start));
+        System.out.println(r);
+
         /*try {
             csvLogger.finish();
         } catch (IOException e) {
