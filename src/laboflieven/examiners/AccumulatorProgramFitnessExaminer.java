@@ -73,10 +73,7 @@ public class AccumulatorProgramFitnessExaminer implements ProgramFitnessExaminer
         Program program = new Program(instructions, registers);
         double noFitAtAll = Configuration.getInstance().getMaxError(Double.POSITIVE_INFINITY);
         double err = conditions.stream().map(p -> ProgramTestcaseFitness.calculateError(runner, program, p, expectedResultRegister, noFitAtAll)).mapToDouble(Double::doubleValue).sum();
-        for(FitnessLogger logger : loggers)
-        {
-            logger.addFitness(instructions, RegularInstructionOpcodeEnum.values().length, registers.size(), err);
-        }
+        loggers.forEach(l -> l.addFitness(instructions, RegularInstructionOpcodeEnum.values().length, registers.size(), err));
         return err;
     }
 
