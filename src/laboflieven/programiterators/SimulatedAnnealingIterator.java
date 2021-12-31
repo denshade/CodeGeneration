@@ -29,10 +29,10 @@ public class SimulatedAnnealingIterator
     }
     public ProgramResolution iterate(Configuration config)
     {
-        return iterate(100000, config.getMaxNrInstructions(10), Register.createRegisters(config.getNumberOfRegisters(2), "R"), config.getFitnessExaminer());
+        return iterate(1000000, config.getMaxNrInstructions(10), Register.createRegisters(config.getNumberOfRegisters(2), "R"), config.getFitnessExaminer(), config.getStopAtSolution(true));
     }
 
-    public ProgramResolution iterate(int kMax, int nrInstructions, List<Register> registers, ProgramFitnessExaminerInterface evaluator)
+    public ProgramResolution iterate(int kMax, int nrInstructions, List<Register> registers, ProgramFitnessExaminerInterface evaluator, boolean stopAtSolution)
     {
         Random r = new Random();
         List<InstructionMark> instructions = factoryInterface.generateRandomInstruction(registers, nrInstructions);
@@ -43,14 +43,18 @@ public class SimulatedAnnealingIterator
             double randomInterval = r.nextDouble();
             double currentScore = evaluator.calculateFitness(instructions, registers);
             double neighbourScore = evaluator.calculateFitness(neighbour, registers);
-
+            if (neighbourScore < 0.0000001 && stopAtSolution) {
+                return new ProgramResolution(neighbour, neighbourScore);
+            }
             double a = SimulatedAnnealingFollowNeighbourProbability.probabilityFollowNeighbour(currentScore, neighbourScore, t, saturatedMax);
             if (a >= randomInterval) {
                 instructions = neighbour;
             } else {
                 System.out.println("not followed");
             }
+
             bestFit.register(evaluator.calculateFitness(instructions, registers), instructions);
+
         }
         return new ProgramResolution(bestFit.getBest(), evaluator.calculateFitness(bestFit.getBest(), registers));
     }
