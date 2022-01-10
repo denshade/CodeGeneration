@@ -85,6 +85,9 @@ public class InstructionFactory implements InstructionFactoryInterface {
         return generateRandomInstruction(register, AccInstructionOpcodeEnum.values());
     }
 
+
+
+
     @Override
     public InstructionMark generateRandomInstruction(List<Register> register, Object[] enums) {
         Random r = new Random();

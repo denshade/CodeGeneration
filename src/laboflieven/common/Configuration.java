@@ -147,6 +147,7 @@ public class Configuration {
         ACC_OPERATIONS(new AccOperationsParser()),
         CUT_POPULATION_AT_MAX(new IntParser()),
         CUT_POPULATION_TO(new IntParser()), RND_ADDED(new BoolParser()),
+        STOP_AT_SOLUTION(new BoolParser()),
         ERROR_TOLERANCE(new DoubleParser()),
         DATA_SOURCE(new DataSourceParser()),
         CSV_FILE(new StringParser());
@@ -331,6 +332,12 @@ public class Configuration {
          configurationSettings.put(ConfigurationKey.RND_ADDED, bool);
     }
 
+    public boolean getStopAtSolution(boolean defaultBool) {
+        return (boolean) configurationSettings.getOrDefault(ConfigurationKey.STOP_AT_SOLUTION, defaultBool);
+    }
+    public void setStopAtSolution(boolean bool) {
+        configurationSettings.put(ConfigurationKey.STOP_AT_SOLUTION, bool);
+    }
     public Configuration setHeuristic(RecursionHeuristic heuristic) {
         configurationSettings.put(ConfigurationKey.RECURSION_HEURISTIC, heuristic);
         return this;

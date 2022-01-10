@@ -25,6 +25,9 @@ public class ArrayListBestFitRegister {
     }
 
     public Double getBestScore() {
+        if (bestScore == null) {
+            return Double.POSITIVE_INFINITY;
+        }
         return bestScore;
     }
 

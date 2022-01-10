@@ -41,6 +41,7 @@ public class GeneralBruteForceProgramIterator implements ProgramIterator
         this.accInstructionOpcodeEnums = configuration.getAccOperations();
         this.heuristic = configuration.getHeuristic(new AlwaysRecursionHeuristic());
         this.errorTolerance = configuration.getErrorTolerance(0.0);
+        stopAtFirstSolution = configuration.getStopAtSolution(false);
         var instructions = runWithParams(configuration.getNumberOfRegisters(2), configuration.getMaxNrInstructions(10));
         if (instructions.size() > 0) {
             return new ProgramResolution(instructions.get(0), 0);
