@@ -10,7 +10,7 @@ import java.util.List;
 
 public class RandomIteratorOperandFinder
 {
-    public List<InstructionOpcode> find(List<TestcaseInOutParameters> collection, Configuration configuration)
+    public List<InstructionOpcode> find(Configuration configuration)
     {
         var genIterator = new RandomProgramIterator();
         var result = genIterator.iterate(configuration);

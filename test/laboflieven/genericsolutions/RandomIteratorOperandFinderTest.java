@@ -29,7 +29,7 @@ class RandomIteratorOperandFinderTest {
         config.setMaxNrInstructions(4);
         //config.setStopAtSolution(true);
 
-        var operands = finder.find(collection, config);
+        var operands = finder.find(config);
         assertEquals(4, operands.size());
     }
 
