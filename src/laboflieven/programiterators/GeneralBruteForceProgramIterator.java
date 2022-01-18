@@ -6,6 +6,7 @@ import laboflieven.ProgramResolution;
 import laboflieven.accinstructions.AccInstructionOpcodeEnum;
 import laboflieven.accinstructions.AccRegisterInstruction;
 import laboflieven.accinstructions.InstructionFactory;
+import laboflieven.common.BestFitRegister;
 import laboflieven.common.Configuration;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
 import laboflieven.recursionheuristics.AlwaysRecursionHeuristic;
@@ -34,6 +35,7 @@ public class GeneralBruteForceProgramIterator implements ProgramIterator
     public InstructionFactoryInterface instructionFactory = new InstructionFactory();
     private List<Register> registers;
     private double errorTolerance = 0.0;
+    private BestFitRegister<ProgramResolution> bestResult = new BestFitRegister<>();
 
 
     public ProgramResolution iterate(Configuration configuration) {
@@ -46,7 +48,7 @@ public class GeneralBruteForceProgramIterator implements ProgramIterator
         if (instructions.size() > 0) {
             return new ProgramResolution(instructions.get(0), 0);
         }
-        return null;
+        return bestResult.getBest();
     }
 
     public List<List<InstructionMark>> iterate(final int nrOfRegisters, int maximumInstructions)
@@ -79,11 +81,6 @@ public class GeneralBruteForceProgramIterator implements ProgramIterator
     {
         if (instructions.size() >= maximumInstructions)
             return;
-        String h = "[LoadIntoLeftAcc, LoadAccRightIntoRegister, LoadAccLeftIntoVector, LoadVectorSumIntoLeft, Dec, Jump2IfLte, Quit, Inc";// Inc, LoadAccLeftIntoRegister
-        if (instructions.stream().map(i -> i.getInstructionOpcode().toString()).collect(Collectors.toList()).toString().contains(h))
-        {
-            System.out.println("Hi");
-        }
         for (AccInstructionOpcodeEnum instruction : accInstructionOpcodeEnums)
         {
             if (instruction.isSingleRegister()) {
@@ -115,6 +112,7 @@ public class GeneralBruteForceProgramIterator implements ProgramIterator
         } else {
             counter++;
             double err = evaluator.calculateFitness(instructions, registers);
+            bestResult.register(err, new ProgramResolution(new ArrayList<>(instructions), err));
             if (err <= errorTolerance){
                 System.out.println("Found a program: " + instructions);
                 positiveSolutions.add(new ArrayList<>(instructions));

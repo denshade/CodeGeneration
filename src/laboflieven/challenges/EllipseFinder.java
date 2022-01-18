@@ -3,11 +3,11 @@ package laboflieven.challenges;
 import laboflieven.TestcaseInOutParameters;
 import laboflieven.common.CommandLineConfigLoader;
 import laboflieven.common.Configuration;
+import laboflieven.examiners.AccumulatorMatchAnyRegisterProgramFitnessExaminer;
 import laboflieven.examiners.ProgramFitnessExaminer;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
 import laboflieven.loggers.TimingAccFitnessLogger;
-import laboflieven.programiterators.GeneralBruteForceProgramIterator;
-import laboflieven.programiterators.ProgramIterator;
+import laboflieven.programiterators.*;
 import laboflieven.runners.AccStatementRunner;
 
 import java.util.List;
@@ -28,9 +28,9 @@ public class EllipseFinder implements ProgramTemplate
         Configuration config = loader.loadFromCommandLine(args);
         System.out.println(distance(100,300));
         int curMaxRegisters = config.getNumberOfRegisters(2);
-        List<TestcaseInOutParameters> collection = TestCases.getTestCases(new EllipseFinder(), TestCases.getExampleInput2D(10000,100), curMaxRegisters);
+        List<TestcaseInOutParameters> collection = TestCases.getTestCases(new EllipseFinder(), TestCases.getExampleInput2D(10000,1000), curMaxRegisters);
 
-        ProgramFitnessExaminerInterface evaluator = new ProgramFitnessExaminer(collection, new AccStatementRunner());
+        ProgramFitnessExaminerInterface evaluator = new AccumulatorMatchAnyRegisterProgramFitnessExaminer(collection, new AccStatementRunner());
         evaluator.addListener(new TimingAccFitnessLogger(10000));
 
         config.setFitnessExaminer(evaluator);
@@ -38,7 +38,8 @@ public class EllipseFinder implements ProgramTemplate
         config.setMaxNrInstructions(nrInstructions);
         config.setFitnessExaminer(evaluator);
         config.setInstructionFactory(new InstructionFactory());*/
-        ProgramIterator iter = config.getProgramIterator(new GeneralBruteForceProgramIterator());
+        config.setMaxNrInstructions(50);
+        ProgramIterator iter = new RandomProgramIterator();// config.getProgramIterator();
         long start = System.currentTimeMillis();
         iter.iterate(config);
         System.out.println(System.currentTimeMillis() - start + "ms");

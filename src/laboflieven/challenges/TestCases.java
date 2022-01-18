@@ -37,9 +37,11 @@ public class TestCases
             for (int k = 0; k < parts.length; k++)
             {
                 if (k == columnToPredict - 1) continue;
-                points[counter++] = Double.parseDouble(parts[k]);
+                String part = parts[k].replaceAll("\"", "");
+                points[counter++] = Double.parseDouble(part);
             }
-            collection.add(TestCases.createParameter(points, Double.parseDouble(parts[columnToPredict - 1])));
+            String predictedPart = parts[columnToPredict - 1].replaceAll("\"", "");
+            collection.add(TestCases.createParameter(points, Double.parseDouble(predictedPart)));
         }
         return collection;
     }

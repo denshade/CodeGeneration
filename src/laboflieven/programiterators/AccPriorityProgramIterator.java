@@ -54,9 +54,9 @@ public class AccPriorityProgramIterator  implements ProgramIterator
             List<InstructionMark> instructions = res.instructions;
             if (instructions.size() < maxInstructions) {
                 ProgramResolution score = eval(instructions, registers);
-                if (score.weight < 1000000) {
-                    addLevel(registers, instructions, maxInstructions);
-                }
+                //if (score.weight < 1000000) {
+                addLevel(registers, instructions, maxInstructions);
+                //}
             } else {
                 if (priorityQueue.size() > CUT_POPULATION_AT_MAX)
                 {
