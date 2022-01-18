@@ -229,6 +229,11 @@ public class Configuration {
         return getValue(defaultValue, ConfigurationKey.MAX_DURATION_SECONDS);
     }
 
+    public Configuration setMaxDurationSeconds(int value) {
+        configurationSettings.put(ConfigurationKey.MAX_DURATION_SECONDS, value);
+        return this;
+    }
+
     public Configuration setFitnessExaminer(ProgramFitnessExaminerInterface programFitnessExaminer)
     {
         configurationSettings.put(ConfigurationKey.FITNESS_EXAMINER, programFitnessExaminer);
