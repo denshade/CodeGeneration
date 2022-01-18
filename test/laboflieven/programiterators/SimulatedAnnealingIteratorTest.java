@@ -28,7 +28,7 @@ class SimulatedAnnealingIteratorTest {
         List<TestcaseInOutParameters> collection = TestCases.getTestCases(new P1(), points.toArray(new double[0][0]),curMaxRegisters);
         ProgramFitnessExaminerInterface evaluator = new ProgramFitnessExaminer(collection,new AccStatementRunner());
         SimulatedAnnealingIterator it = new SimulatedAnnealingIterator(new InstructionFactory(), 10000, 1);
-        it.iterate(100000, 10, Register.createRegisters(2, "R"), evaluator);
+        it.iterate(100000, 10, Register.createRegisters(2, "R"), evaluator, true);
 
     }
     @Test

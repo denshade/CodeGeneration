@@ -45,11 +45,11 @@ public class RandomProgramIterator implements ProgramIterator {
         registers = Register.createRegisters(numberOfRegisters, "R").toArray(new Register[0]);
         long startTime = System.currentTimeMillis();
         long runTime = System.currentTimeMillis() - startTime;
-        while (runTime < configuration.getMaxDurationSeconds(3600) * 1000) {
+        while (runTime < configuration.getMaxDurationSeconds(3600) * 1000 && bestFit.getBestScore() > 0.0001) {
             loop();
             runTime = System.currentTimeMillis() - startTime;
         }
-        return null;
+        return new ProgramResolution(bestFit.getBest(), bestFit.getBestScore());
     }
 
     public void loop() {
@@ -69,7 +69,6 @@ public class RandomProgramIterator implements ProgramIterator {
         if (instructions.size() == maximumInstructions && val < 0.0001) {
             positiveSolutions.add(new ArrayList<>(instructions));
             System.out.println("Found a program! " + positiveSolutions);
-            throw new StoppedByUserException();
         }
 
     }
