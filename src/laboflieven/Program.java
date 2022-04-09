@@ -14,12 +14,13 @@ import java.util.Map;
  */
 public class Program
 {
-    private List<InstructionMark> instructions = new ArrayList<InstructionMark>();
-    private List<Register> registers = new ArrayList<Register>();
-    private Map<String, Register> registerMap = new HashMap<>();
+    private List<InstructionMark> instructions;
+    private List<Register> registers;
+    private Map<String, Register> registerMap;
 
 
     public Program(List<InstructionMark> instructions, List<Register> registers) {
+        registerMap = new HashMap<>(registers.size());
         this.instructions = instructions;
         this.registers = registers;
         for(Register register : registers ) {
