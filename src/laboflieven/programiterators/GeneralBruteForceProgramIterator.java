@@ -66,7 +66,7 @@ public class GeneralBruteForceProgramIterator implements ProgramIterator
         this.maximumInstructions = maximumInstructions;
         registers =  Register.createRegisters(nrOfRegisters, "R");
         try {
-            recurse(new ArrayList<>());
+            recurse(new ArrayList<>(maximumInstructions));
         } catch (StopException ex)
         {
             //Allow quick termination.
