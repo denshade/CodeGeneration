@@ -8,6 +8,7 @@ import laboflieven.examiners.AccumulatorProgramFitnessExaminer;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
 import laboflieven.genericsolutions.RandomIteratorOperandFinder;
 import laboflieven.loggers.RandomSysOutAccFitnessLogger;
+import laboflieven.loggers.TimingAccFitnessLogger;
 import laboflieven.programiterators.GeneralBruteForceProgramIterator;
 import laboflieven.runners.AccStatementRunner;
 
@@ -35,7 +36,8 @@ public class DataSourceFinder {
                 TestCases.loadFromCsvFile(new File(conf.getCsvFile("C:\\temp\\slingersummary.csv"))), runner,
                 "R2");
         var finder = new RandomIteratorOperandFinder();
-        evaluator.addListener(new RandomSysOutAccFitnessLogger(10000));
+        //evaluator.addListener(new RandomSysOutAccFitnessLogger(100000));
+        evaluator.addListener(new TimingAccFitnessLogger(10000));
         conf.setFitnessExaminer(evaluator);
         var v = conf.getProgramIterator(new GeneralBruteForceProgramIterator());
         long start = System.currentTimeMillis();
