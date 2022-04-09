@@ -7,7 +7,7 @@ import laboflieven.statements.Register;
  * Invert the signum.
  */
 
-public class Invert extends AccRegisterInstruction
+public class Invert extends NoRegisterInstruction
 {
 
     public Invert() {

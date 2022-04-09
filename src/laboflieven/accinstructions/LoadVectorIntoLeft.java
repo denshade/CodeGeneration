@@ -6,7 +6,7 @@ import laboflieven.statements.Register;
 import laboflieven.statements.VectorRegister;
 import org.apache.commons.math3.primes.Primes;
 
-public class LoadVectorIntoLeft extends AccRegisterInstruction {
+public class LoadVectorIntoLeft extends NoRegisterInstruction {
     @Override
     public InstructionOpcode getInstructionOpcode() {
         return new AccInstructionOpcode(AccInstructionOpcodeEnum.LoadVectorIntoLeft);

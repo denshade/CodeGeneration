@@ -4,7 +4,7 @@ import laboflieven.common.InstructionOpcode;
 import laboflieven.statements.Register;
 import laboflieven.statements.VectorRegister;
 
-public class LeftVectPushExponents extends AccRegisterInstruction {
+public class LeftVectPushExponents extends NoRegisterInstruction {
 
     @Override
     public InstructionOpcode getInstructionOpcode() {

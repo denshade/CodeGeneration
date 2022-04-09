@@ -8,7 +8,7 @@ import org.apache.commons.math3.primes.Primes;
 
 import java.util.Vector;
 
-public class LoadAccRightIntoVector extends AccRegisterInstruction {
+public class LoadAccRightIntoVector extends NoRegisterInstruction {
     @Override
     public InstructionOpcode getInstructionOpcode() {
         return new AccInstructionOpcode(AccInstructionOpcodeEnum.LoadAccRightIntoVector);
