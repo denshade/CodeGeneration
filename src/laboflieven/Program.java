@@ -35,9 +35,9 @@ public class Program
         bindRegisters();
         for (Register register : getRegisters())
         {
-            if (!registerValues.containsKey(register.name)){
+            /*if (!registerValues.containsKey(register.name)){
                 throw new IllegalArgumentException("You have not specified the initial values for " + register.name);
-            }
+            }*/
             register.value = registerValues.get(register.name);
         }
     }
