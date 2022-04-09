@@ -36,10 +36,6 @@ public class Program
         return instructions;
     }
 
-    /**
-     *
-     * @param registerValues
-     */
     public void initializeRegisters(Map<String, Double> registerValues)
     {
         bindRegisters();
@@ -84,10 +80,6 @@ public class Program
 
             }
         }
-    }
-    public Register getRegisterByName(String registerName)
-    {
-        return registerMap.get(registerName);
     }
 
 
