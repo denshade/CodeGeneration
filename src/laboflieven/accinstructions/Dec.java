@@ -3,7 +3,7 @@ package laboflieven.accinstructions;
 import laboflieven.common.InstructionOpcode;
 import laboflieven.statements.Register;
 
-public class Dec extends AccRegisterInstruction {
+public class Dec extends NoRegisterInstruction {
 
     public Integer execute(Register left, Register right, int ip)
     {

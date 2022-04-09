@@ -5,7 +5,7 @@ import laboflieven.statements.Register;
 
 /**
  */
-public class Pow extends AccRegisterInstruction
+public class Pow extends NoRegisterInstruction
 {
 
     public Integer execute(Register left, Register right, int ip)

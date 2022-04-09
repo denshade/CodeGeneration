@@ -36,6 +36,7 @@ public class GeneralBruteForceProgramIterator implements ProgramIterator
     private List<Register> registers;
     private double errorTolerance = 0.0;
     private BestFitRegister<ProgramResolution> bestResult = new BestFitRegister<>();
+    private long timing;
 
 
     public ProgramResolution iterate(Configuration configuration) {
@@ -120,8 +121,13 @@ public class GeneralBruteForceProgramIterator implements ProgramIterator
                     throw new StopException();
                 }
             } else {
-                if (err < 100 && counter % 100000 == 0)
+                if (err < 100 && counter % 1000000 == 0) {
+                    long deltaTime = System.currentTimeMillis() - timing;
+                    System.out.println(counter/deltaTime);
                     System.out.println("Current fitness " + err + " " + instructions);
+                    timing = System.currentTimeMillis();
+                    counter = 0;
+                }
             }
             if (counter % 100000000 == 0) {
                 System.out.println(instructions);

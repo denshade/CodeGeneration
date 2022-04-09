@@ -1,5 +1,6 @@
 package laboflieven;
 
+import laboflieven.accinstructions.NoRegisterInstruction;
 import laboflieven.statements.DualRegisterInstruction;
 import laboflieven.statements.Register;
 import laboflieven.statements.SingleRegisterInstruction;
@@ -51,6 +52,9 @@ public class Program
     public void bindRegisters() {
         for (InstructionMark instr : instructions)
         {
+            if (instr instanceof NoRegisterInstruction){
+                continue;
+            }
             for (Register reg : registers)
             {
                 if (instr instanceof laboflieven.statements.SingleRegisterInstruction)
@@ -65,6 +69,7 @@ public class Program
 
                     if (((laboflieven.accinstructions.SingleRegisterInstruction) instr).getRegister().name.equals(reg.name) && !((laboflieven.accinstructions.SingleRegisterInstruction) instr).getRegister().equals(reg)){
                         ((laboflieven.accinstructions.SingleRegisterInstruction) instr).setRegister(reg);
+                        break; //Register found for this instruction has been found.
                     }
                 }
                 if (instr instanceof DualRegisterInstruction)

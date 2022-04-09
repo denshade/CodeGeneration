@@ -6,7 +6,7 @@ import laboflieven.statements.Register;
 /**
  * Created by lveeckha on 31/05/2015.
  */
-public class Div extends AccRegisterInstruction
+public class Div extends NoRegisterInstruction
 {
 
     public Integer execute(Register left, Register right, int ip)
