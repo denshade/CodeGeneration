@@ -72,7 +72,7 @@ public class AccPriorityProgramIterator  implements ProgramIterator
                 return res;
             }
         }
-        return null;
+        return bestFitRegister.getBest();
     }
 
     private void createRandom(List<Register> registerList, ProgramResolution res) {
@@ -105,7 +105,9 @@ public class AccPriorityProgramIterator  implements ProgramIterator
         List<InstructionMark> marks = new ArrayList<>(instructions);
         marks.add(instruction);
         if (heuristic.shouldRecurse(new Program(marks, registerList), maxInstructions)) {
-            priorityQueue.add(eval(marks, registerList));
+            ProgramResolution res = eval(marks, registerList);
+            bestFitRegister.register(res.weight, res);
+            priorityQueue.add(res);
         }
     }
 

@@ -42,8 +42,22 @@ public class DataSourceFinder {
         var v = conf.getProgramIterator(new GeneralBruteForceProgramIterator());
         long start = System.currentTimeMillis();
         conf.setMaxDurationSeconds(2);
-        List<InstructionOpcode> codes = finder.find(conf);
-        List<AccInstructionOpcodeEnum> opcodes = codes.stream().map(o -> (AccInstructionOpcodeEnum)o.getEnumeration()).collect(Collectors.toList());
+        boolean findCodes = false;
+        List<AccInstructionOpcodeEnum> opcodes = List.of(AccInstructionOpcodeEnum.values());
+        /*List<AccInstructionOpcodeEnum> opcodes = List.of(
+                AccInstructionOpcodeEnum.LoadIntoLeftAcc,
+                AccInstructionOpcodeEnum.LoadAccLeftIntoRegister,
+                AccInstructionOpcodeEnum.LoadAccRightIntoRegister,
+                AccInstructionOpcodeEnum.Inc,
+                AccInstructionOpcodeEnum.LoadIntoRightAcc,
+                AccInstructionOpcodeEnum.Div,
+                AccInstructionOpcodeEnum.Add
+                );*/
+        if (findCodes)
+        {
+            List<InstructionOpcode> codes = finder.find(conf);
+            opcodes = codes.stream().map(o -> (AccInstructionOpcodeEnum)o.getEnumeration()).collect(Collectors.toList());
+        }
         System.out.println("Setting opcodes to " + opcodes);
         conf.setAccOperations(opcodes.toArray(new AccInstructionOpcodeEnum[opcodes.size()]));
         ProgramResolution res = v.iterate(conf);
