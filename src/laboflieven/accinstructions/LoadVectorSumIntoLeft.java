@@ -5,7 +5,7 @@ import laboflieven.common.InstructionOpcode;
 import laboflieven.statements.Register;
 import laboflieven.statements.VectorRegister;
 
-public class LoadVectorSumIntoLeft extends AccRegisterInstruction {
+public class LoadVectorSumIntoLeft extends NoRegisterInstruction {
     @Override
     public InstructionOpcode getInstructionOpcode() {
         return new AccInstructionOpcode(AccInstructionOpcodeEnum.LoadVectorSumIntoLeft);

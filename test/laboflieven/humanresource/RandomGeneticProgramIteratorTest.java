@@ -1,6 +1,7 @@
 package laboflieven.humanresource;
 
 import laboflieven.humanresource.model.HumanInstructionSet;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -10,6 +11,7 @@ import java.util.List;
 public class RandomGeneticProgramIteratorTest
 {
 
+    @Disabled
     @Test
     public void testBump()
     {

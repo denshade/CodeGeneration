@@ -9,7 +9,7 @@ import java.util.*;
 
 public class TestCases
 {
-    public static List<TestcaseInOutParameters> loadFromCsvFile(File sourceFile) throws IOException {
+    public static List<TestcaseInOutParameters> loadFromCsvFile(File sourceFile, boolean skipFirstLine) throws IOException {
 
         System.out.println("Searching for " + sourceFile);
 
@@ -18,13 +18,17 @@ public class TestCases
             System.exit(1);
         }
         String lines = String.join("\n", Files.readAllLines(sourceFile.toPath()));
-        return TestCases.loadFromCsvString(lines, 2);
+        return TestCases.loadFromCsvString(lines, 2, skipFirstLine);
     }
 
-    public static List<TestcaseInOutParameters> loadFromCsvString(String csvData, int columnToPredict) {
+    public static List<TestcaseInOutParameters> loadFromCsvFile(File sourceFile) throws IOException {
+        return loadFromCsvFile(sourceFile, false);
+    }
+
+        public static List<TestcaseInOutParameters> loadFromCsvString(String csvData, int columnToPredict, boolean skipFirstLine) {
         List<TestcaseInOutParameters> collection = new ArrayList<>();
         String[] lines = csvData.split("\n");
-        boolean isFirstLine = true;
+        boolean isFirstLine = skipFirstLine;
         for (String line : lines)
         {
             if (isFirstLine) {

@@ -2,6 +2,7 @@ package laboflieven.humanresource;
 
 
 import laboflieven.humanresource.model.HumanInstructionSet;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -32,6 +33,7 @@ public class BruteForceProgramIteratorTest
         it.iterate(0, 3);
     }
 
+    @Disabled
     @Test
     public void testCountDownBruteLoopProgram()
     {

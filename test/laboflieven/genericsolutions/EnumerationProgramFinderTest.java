@@ -5,10 +5,13 @@ import laboflieven.challenges.XorFinder;
 import laboflieven.common.Configuration;
 import laboflieven.examiners.ProgramFitnessExaminer;
 import laboflieven.runners.AccStatementRunner;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+
+@Disabled
 class EnumerationProgramFinderTest {
 
     @Test

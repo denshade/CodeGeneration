@@ -4,6 +4,7 @@ import laboflieven.TestcaseInOutParameters;
 import laboflieven.challenges.*;
 import laboflieven.runners.GenericSolutionAccRunner;
 import laboflieven.statements.Register;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
@@ -13,6 +14,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class GenericSolutionFinderTest {
 
+    @Disabled
     @Test
     void findSolution() {
         TestcaseSource source = new XorFinder();

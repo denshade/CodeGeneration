@@ -1,11 +1,10 @@
 package laboflieven;
 
+import laboflieven.accinstructions.NoRegisterInstruction;
 import laboflieven.statements.DualRegisterInstruction;
 import laboflieven.statements.Register;
 import laboflieven.statements.SingleRegisterInstruction;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -14,17 +13,13 @@ import java.util.Map;
  */
 public class Program
 {
-    private List<InstructionMark> instructions = new ArrayList<InstructionMark>();
-    private List<Register> registers = new ArrayList<Register>();
-    private Map<String, Register> registerMap = new HashMap<>();
+    private List<InstructionMark> instructions;
+    private List<Register> registers;
 
 
     public Program(List<InstructionMark> instructions, List<Register> registers) {
         this.instructions = instructions;
         this.registers = registers;
-        for(Register register : registers ) {
-            registerMap.put(register.name, register);
-        }
     }
 
     public List<Register> getRegisters() {
@@ -35,18 +30,14 @@ public class Program
         return instructions;
     }
 
-    /**
-     *
-     * @param registerValues
-     */
     public void initializeRegisters(Map<String, Double> registerValues)
     {
         bindRegisters();
         for (Register register : getRegisters())
         {
-            if (!registerValues.containsKey(register.name)){
+            /*if (!registerValues.containsKey(register.name)){
                 throw new IllegalArgumentException("You have not specified the initial values for " + register.name);
-            }
+            }*/
             register.value = registerValues.get(register.name);
         }
     }
@@ -54,6 +45,9 @@ public class Program
     public void bindRegisters() {
         for (InstructionMark instr : instructions)
         {
+            if (instr instanceof NoRegisterInstruction){
+                continue;
+            }
             for (Register reg : registers)
             {
                 if (instr instanceof laboflieven.statements.SingleRegisterInstruction)
@@ -68,6 +62,7 @@ public class Program
 
                     if (((laboflieven.accinstructions.SingleRegisterInstruction) instr).getRegister().name.equals(reg.name) && !((laboflieven.accinstructions.SingleRegisterInstruction) instr).getRegister().equals(reg)){
                         ((laboflieven.accinstructions.SingleRegisterInstruction) instr).setRegister(reg);
+                        break; //Register found for this instruction has been found.
                     }
                 }
                 if (instr instanceof DualRegisterInstruction)
@@ -83,10 +78,6 @@ public class Program
 
             }
         }
-    }
-    public Register getRegisterByName(String registerName)
-    {
-        return registerMap.get(registerName);
     }
 
 

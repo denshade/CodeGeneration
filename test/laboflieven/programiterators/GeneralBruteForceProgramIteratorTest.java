@@ -23,6 +23,7 @@ class GeneralBruteForceProgramIteratorTest {
         Configuration conf = new Configuration();
         conf.setNumberOfRegisters(2);
         conf.setMaxNrInstructions(4);
+        conf.setStopAtSolution(true);
         List<TestcaseInOutParameters> collection = TestCases.getTestCases(new AdderFinder(), TestCases.getExampleInput2D(1000,100, 10), 2);
         ProgramFitnessExaminerInterface evaluator = new ProgramFitnessExaminer(collection, new AccStatementRunner());
         evaluator.addListener(new TimingAccFitnessLogger(10000));
@@ -37,6 +38,7 @@ class GeneralBruteForceProgramIteratorTest {
         Configuration conf = new Configuration();
         conf.setNumberOfRegisters(2);
         conf.setMaxNrInstructions(4);
+        conf.setStopAtSolution(true);
         List<TestcaseInOutParameters> collection = TestCases.getTestCases(new AdderFinder(), TestCases.getExampleInput2D(1000,100, 10), 2);
         conf.setHeuristic(new HashedResultsHeuristic(collection, new AccStatementRunner()));
         ProgramFitnessExaminerInterface evaluator = new ProgramFitnessExaminer(collection, new AccStatementRunner());

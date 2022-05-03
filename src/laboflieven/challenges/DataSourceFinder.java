@@ -8,6 +8,7 @@ import laboflieven.examiners.AccumulatorProgramFitnessExaminer;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
 import laboflieven.genericsolutions.RandomIteratorOperandFinder;
 import laboflieven.loggers.RandomSysOutAccFitnessLogger;
+import laboflieven.loggers.TimingAccFitnessLogger;
 import laboflieven.programiterators.GeneralBruteForceProgramIterator;
 import laboflieven.runners.AccStatementRunner;
 
@@ -35,13 +36,28 @@ public class DataSourceFinder {
                 TestCases.loadFromCsvFile(new File(conf.getCsvFile("C:\\temp\\slingersummary.csv"))), runner,
                 "R2");
         var finder = new RandomIteratorOperandFinder();
-        evaluator.addListener(new RandomSysOutAccFitnessLogger(10000));
+        //evaluator.addListener(new RandomSysOutAccFitnessLogger(100000));
+        evaluator.addListener(new TimingAccFitnessLogger(10000));
         conf.setFitnessExaminer(evaluator);
         var v = conf.getProgramIterator(new GeneralBruteForceProgramIterator());
         long start = System.currentTimeMillis();
         conf.setMaxDurationSeconds(2);
-        List<InstructionOpcode> codes = finder.find(conf);
-        List<AccInstructionOpcodeEnum> opcodes = codes.stream().map(o -> (AccInstructionOpcodeEnum)o.getEnumeration()).collect(Collectors.toList());
+        boolean findCodes = false;
+        List<AccInstructionOpcodeEnum> opcodes = List.of(AccInstructionOpcodeEnum.values());
+        /*List<AccInstructionOpcodeEnum> opcodes = List.of(
+                AccInstructionOpcodeEnum.LoadIntoLeftAcc,
+                AccInstructionOpcodeEnum.LoadAccLeftIntoRegister,
+                AccInstructionOpcodeEnum.LoadAccRightIntoRegister,
+                AccInstructionOpcodeEnum.Inc,
+                AccInstructionOpcodeEnum.LoadIntoRightAcc,
+                AccInstructionOpcodeEnum.Div,
+                AccInstructionOpcodeEnum.Add
+                );*/
+        if (findCodes)
+        {
+            List<InstructionOpcode> codes = finder.find(conf);
+            opcodes = codes.stream().map(o -> (AccInstructionOpcodeEnum)o.getEnumeration()).collect(Collectors.toList());
+        }
         System.out.println("Setting opcodes to " + opcodes);
         conf.setAccOperations(opcodes.toArray(new AccInstructionOpcodeEnum[opcodes.size()]));
         ProgramResolution res = v.iterate(conf);
