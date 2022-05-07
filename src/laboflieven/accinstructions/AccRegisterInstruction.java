@@ -14,4 +14,9 @@ public abstract class AccRegisterInstruction implements InstructionMark {
     }
 
     abstract public String toString();
+
+    @Override
+    public boolean equals(Object obj) {
+        return toString().equals(obj.toString());
+    }
 }
