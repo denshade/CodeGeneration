@@ -36,6 +36,9 @@ public class AccProgramParser {
         if (s.trim().contains("right = R")) {
             return new LoadIntoRightAcc(parseRegister(parts[1]));
         }
+        if (s.trim().contains("left = R")) {
+            return new LoadIntoLeftAcc(parseRegister(parts[1]));
+        }
         if (s.trim().contains("= left")) {
             return new LoadAccLeftIntoRegister(parseRegister(parts[0]));
         }

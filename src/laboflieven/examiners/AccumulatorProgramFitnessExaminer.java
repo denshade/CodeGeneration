@@ -81,7 +81,6 @@ public class AccumulatorProgramFitnessExaminer implements ProgramFitnessExaminer
     @Override
     public double evaluateDifference(Program program)
     {
-        StatementRunner runner = new RegularStatementRunner();
         double result = 0.0;
         for(TestcaseInOutParameters parameter : conditions)
         {

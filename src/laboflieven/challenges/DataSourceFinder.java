@@ -1,6 +1,8 @@
 package laboflieven.challenges;
 
+import laboflieven.Program;
 import laboflieven.ProgramResolution;
+import laboflieven.TestcaseInOutParameters;
 import laboflieven.accinstructions.AccInstructionOpcodeEnum;
 import laboflieven.common.CommandLineConfigLoader;
 import laboflieven.common.InstructionOpcode;
@@ -11,6 +13,7 @@ import laboflieven.loggers.RandomSysOutAccFitnessLogger;
 import laboflieven.loggers.TimingAccFitnessLogger;
 import laboflieven.programiterators.GeneralBruteForceProgramIterator;
 import laboflieven.runners.AccStatementRunner;
+import laboflieven.statements.Register;
 
 import java.io.File;
 import java.io.IOException;
@@ -32,9 +35,13 @@ public class DataSourceFinder {
         // left = R1, left = nand(left, right), left = sin(left), left = 3n+1, R1 = left
         AccStatementRunner runner = new AccStatementRunner();
 
+        List<TestcaseInOutParameters> conditions = TestCases.loadFromCsvFile(new File(conf.getCsvFile("C:\\temp\\slingersummary.csv")));
+        System.out.println("Conditions");
+        System.out.println(conditions);
         ProgramFitnessExaminerInterface evaluator = new AccumulatorProgramFitnessExaminer(
-                TestCases.loadFromCsvFile(new File(conf.getCsvFile("C:\\temp\\slingersummary.csv"))), runner,
-                "R2");
+                conditions, runner,
+                "R1");
+
         var finder = new RandomIteratorOperandFinder();
         //evaluator.addListener(new RandomSysOutAccFitnessLogger(100000));
         evaluator.addListener(new TimingAccFitnessLogger(10000));
@@ -43,8 +50,8 @@ public class DataSourceFinder {
         long start = System.currentTimeMillis();
         conf.setMaxDurationSeconds(2);
         boolean findCodes = false;
-        List<AccInstructionOpcodeEnum> opcodes = List.of(AccInstructionOpcodeEnum.values());
-        /*List<AccInstructionOpcodeEnum> opcodes = List.of(
+        //List<AccInstructionOpcodeEnum> opcodes = List.of(AccInstructionOpcodeEnum.values());
+        List<AccInstructionOpcodeEnum> opcodes = List.of(
                 AccInstructionOpcodeEnum.LoadIntoLeftAcc,
                 AccInstructionOpcodeEnum.LoadAccLeftIntoRegister,
                 AccInstructionOpcodeEnum.LoadAccRightIntoRegister,
@@ -52,16 +59,17 @@ public class DataSourceFinder {
                 AccInstructionOpcodeEnum.LoadIntoRightAcc,
                 AccInstructionOpcodeEnum.Div,
                 AccInstructionOpcodeEnum.Add
-                );*/
+                );
         if (findCodes)
         {
             List<InstructionOpcode> codes = finder.find(conf);
             opcodes = codes.stream().map(o -> (AccInstructionOpcodeEnum)o.getEnumeration()).collect(Collectors.toList());
         }
         System.out.println("Setting opcodes to " + opcodes);
-        conf.setAccOperations(opcodes.toArray(new AccInstructionOpcodeEnum[opcodes.size()]));
+        conf.setAccOperations(opcodes.toArray(new AccInstructionOpcodeEnum[0]));
         ProgramResolution res = v.iterate(conf);
         System.out.println(res);
+        System.out.println("score:"+evaluator.evaluateDifference(new Program(res.instructions, Register.createRegisters(2, "R"))));
         long stop = System.currentTimeMillis();
         System.out.println("Timing:" + (stop - start));
     }
