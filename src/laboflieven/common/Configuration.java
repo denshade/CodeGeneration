@@ -170,7 +170,7 @@ public class Configuration {
     }
 
 
-    private HashMap<ConfigurationKey, Object> configurationSettings = new HashMap<>();
+    private final HashMap<ConfigurationKey, Object> configurationSettings = new HashMap<>();
 
     private static Configuration instance;
     public static Configuration getInstance()

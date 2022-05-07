@@ -16,10 +16,10 @@ import java.util.Random;
 
 public class SimulatedAnnealingIterator
 {
-    private double saturatedMax = 10000;
+    private double saturatedMax;
     private final InstructionFactoryInterface factoryInterface;
-    private ArrayListBestFitRegister bestFit = new ArrayListBestFitRegister();
-    private int temperatureRaiser = 100;
+    private ArrayListBestFitRegister<InstructionMark> bestFit = new ArrayListBestFitRegister<>();
+    private int temperatureRaiser;
 
     public SimulatedAnnealingIterator(InstructionFactoryInterface factoryInterface, double saturatedMax, int tempRaiser)
     {

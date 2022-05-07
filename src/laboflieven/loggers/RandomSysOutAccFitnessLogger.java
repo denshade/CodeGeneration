@@ -10,7 +10,7 @@ import java.util.Random;
 public class RandomSysOutAccFitnessLogger implements FitnessLogger
 {
     private final int bound;
-    private final ArrayListBestFitRegister bestFit = new ArrayListBestFitRegister();
+    private final ArrayListBestFitRegister<InstructionMark> bestFit = new ArrayListBestFitRegister<>();
 
     public RandomSysOutAccFitnessLogger(int bound)
     {

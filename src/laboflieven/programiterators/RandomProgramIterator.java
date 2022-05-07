@@ -29,7 +29,7 @@ public class RandomProgramIterator implements ProgramIterator {
     private RegularInstructionOpcodeEnum[] enums;
     private AccInstructionOpcodeEnum[] accenums;
     private Register[] registers;
-    private ArrayListBestFitRegister bestFit = new ArrayListBestFitRegister();
+    private ArrayListBestFitRegister<InstructionMark> bestFit = new ArrayListBestFitRegister<>();
     private int numberOfRegisters;
     public InstructionFactoryInterface instructionFactory = new InstructionFactory();
 

@@ -8,8 +8,8 @@ import java.util.List;
 public class TimingAccFitnessLogger implements FitnessLogger
 {
     private final int nrMillis;
-    private long previousTiming = 0;
-    private final ArrayListBestFitRegister bestFit = new ArrayListBestFitRegister();
+    private long previousTiming;
+    private final ArrayListBestFitRegister<InstructionMark> bestFit = new ArrayListBestFitRegister<>();
 
 
     public TimingAccFitnessLogger(int nrMillis)

@@ -16,13 +16,13 @@ import java.util.*;
 public class RandomGeneticProgramIterator {
     public int POPULATION_MAX = 100;
     private double popularParents;
-    private double maxOverflow;
+    private final double maxOverflow;
     public int maximumInstructions;
     public long counter = 0;
 
     public List<List<HumanInstruction>> positiveSolutions = new ArrayList<>();
-    private HumanProgramFitnessExaminer evaluator;
-    private HumanInstructionSet[] enums;
+    private final HumanProgramFitnessExaminer evaluator;
+    private final HumanInstructionSet[] enums;
     private int maxPopulation;
     private HumanRegister[] registers;
     private int numberOfRegisters;
@@ -30,7 +30,7 @@ public class RandomGeneticProgramIterator {
     private List<List<HumanInstruction>> chosenSolutions;
 
 
-    private double bestScore = 1000;
+    private final double bestScore = 1000;
 
     public RandomGeneticProgramIterator(HumanProgramFitnessExaminer evaluator, int maxPopulation, double maxOverflow, double popularParents) {
         this.evaluator = evaluator;
@@ -124,7 +124,7 @@ public class RandomGeneticProgramIterator {
 
     private HumanProgramResolution getNthVar(PriorityQueue<HumanProgramResolution> solutions) {
         Random r = new Random();
-        int p = r.nextInt((int) (solutions.size()));
+        int p = r.nextInt(solutions.size());
         Iterator<HumanProgramResolution> it = solutions.iterator();
         HumanProgramResolution val = null;
         for (int k = 0; k <= p; k++) {
