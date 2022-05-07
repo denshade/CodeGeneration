@@ -59,7 +59,7 @@ public class BruteForceProgramIterator
     public void iterate(final int nrOfRegisters, int maximumInstructions)
     {
         this.maximumInstructions = maximumInstructions;
-        Register[] registers = Register.createRegisters(nrOfRegisters, "R").toArray(new Register[0]);
+        Register[] registers = Register.createRegisters(nrOfRegisters).toArray(new Register[0]);
         this.nrRegisters = nrOfRegisters;
         recurse(new ArrayList<>(), registers);
     }

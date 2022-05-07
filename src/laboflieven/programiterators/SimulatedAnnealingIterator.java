@@ -29,7 +29,7 @@ public class SimulatedAnnealingIterator
     }
     public ProgramResolution iterate(Configuration config)
     {
-        return iterate(1000000, config.getMaxNrInstructions(10), Register.createRegisters(config.getNumberOfRegisters(2), "R"), config.getFitnessExaminer(), config.getStopAtSolution(true));
+        return iterate(1000000, config.getMaxNrInstructions(10), Register.createRegisters(config.getNumberOfRegisters(2)), config.getFitnessExaminer(), config.getStopAtSolution(true));
     }
 
     public ProgramResolution iterate(int kMax, int nrInstructions, List<Register> registers, ProgramFitnessExaminerInterface evaluator, boolean stopAtSolution)

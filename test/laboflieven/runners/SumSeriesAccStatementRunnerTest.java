@@ -17,7 +17,7 @@ class SumSeriesAccStatementRunnerTest {
     @Test
     public void testSeries()
     {
-        var registers = Register.createRegisters(1, "R");
+        var registers = Register.createRegisters(1);
         var instructions = new ArrayList<InstructionMark>();
         var programs = new Program(instructions, registers);
         var series = new SumSeriesAccStatementRunner();

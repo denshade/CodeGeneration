@@ -76,7 +76,7 @@ public class ProgramFitnessExaminerTest {
 
         List<TestcaseInOutParameters> collection = TestCases.getTestCases(new XorFinder(), points.toArray(new double[0][0]),2);
         ProgramFitnessExaminerInterface evaluator = new ProgramFitnessExaminer(collection,new RegularStatementRunner());
-        evaluator.calculateFitness(instructions, Register.createRegisters(2, "R"));
+        evaluator.calculateFitness(instructions, Register.createRegisters(2));
     }
 
     private static double[] fillDoubleArray(double[] original, int newSize)

@@ -36,7 +36,7 @@ public class FakeProgramIterator
     public void iterate(final int nrOfRegisters, int maximumInstructions)
     {
         this.maximumInstructions = maximumInstructions;
-        List<Register> registers = Register.createRegisters(nrOfRegisters, "R");
+        List<Register> registers = Register.createRegisters(nrOfRegisters);
         List<InstructionMark> solutionSoFar = new ArrayList<>();
         for (InstructionMark s : solution) {
             solutionSoFar.add(s);

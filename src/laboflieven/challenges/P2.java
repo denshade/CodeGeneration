@@ -39,7 +39,7 @@ public class P2 implements ProgramTemplate
                 new ResultsNoDataAfterFiveHeuristic(
                         new AccStatementRunner(),
                         evaluator,
-                        Register.createRegisters(curMaxRegisters, "R")
+                        Register.createRegisters(curMaxRegisters)
                 )
                 ,
                 new AccHeuristic()

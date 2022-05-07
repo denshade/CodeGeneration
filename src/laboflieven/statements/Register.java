@@ -45,4 +45,14 @@ public class Register
         return registers;
     }
 
+    public static List<Register> createRegisters(int count)
+    {
+        List<Register> registers = new ArrayList<Register>();
+        for (int k = 1; k <= count; k++)
+        {
+            registers.add(new Register("R" + k));
+        }
+        return registers;
+    }
+
 }

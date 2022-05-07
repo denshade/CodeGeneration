@@ -64,7 +64,7 @@ public class GeneralBruteForceProgramIterator implements ProgramIterator
     private List<List<InstructionMark>> runWithParams(final int nrOfRegisters, int maximumInstructions)
     {
         this.maximumInstructions = maximumInstructions;
-        registers =  Register.createRegisters(nrOfRegisters, "R");
+        registers =  Register.createRegisters(nrOfRegisters);
         try {
             recurse(new ArrayList<>(maximumInstructions));
         } catch (StopException ex)

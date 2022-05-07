@@ -39,7 +39,7 @@ public class QuadraticFinder implements InOutParameterSource, ProgramTemplate
         List<InstructionMark> instructions = ProgramParser.parse("[r4 += r3, Mul r4 -> r1, Mul r3 -> r1, Mul r2 -> r3, r4 += r1, Sqrt r4, Invert r2, r2 += r1, Sqrt r4, r2 /= r4, r1 /= r2]"); //2.847396575786049
         List<TestcaseInOutParameters> collection =  new QuadraticFinder().getInOutParameters(4);
 
-        Register[] registers = Register.createRegisters(4, "R").toArray(new Register[0]);
+        Register[] registers = Register.createRegisters(4).toArray(new Register[0]);
         ProgramFitnessExaminerInterface evaluator = new ProgramFitnessExaminer(collection, new RegularStatementRunner());
         System.out.println(evaluator.calculateFitness(instructions, Arrays.asList(registers))); // 3.4334286175154967
 

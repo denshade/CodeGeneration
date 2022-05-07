@@ -68,7 +68,7 @@ public class AccRandomGeneticProgramIterator {
         chosenSolutions = new ArrayList<>();
         this.numberOfRegisters = numberOfRegisters;
         this.maximumInstructions = maximumInstructions;
-        registers = Register.createRegisters(numberOfRegisters, "R").toArray(new Register[0]);
+        registers = Register.createRegisters(numberOfRegisters).toArray(new Register[0]);
         IntStream.range(0,  initialPopSize).forEach(k -> recurse(new ArrayList<>()));
         // System.out.println(chosenSolutions);
         PriorityQueue<AccProgramResolution> solutions = new PriorityQueue<>();

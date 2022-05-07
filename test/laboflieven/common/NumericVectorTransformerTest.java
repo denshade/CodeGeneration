@@ -33,6 +33,17 @@ class NumericVectorTransformerTest {
     }
 
     @Test
+    void testNumericVectorToProgramTransformAndBack()
+    {
+        NumericVectorTransformer transformer = new NumericVectorTransformer();
+        List<InstructionOpcode> opcodes = List.of(new AccInstructionOpcode(AccInstructionOpcodeEnum.Add));
+        List<InstructionMark> instructions = List.of(new Add());
+        List<InstructionMark> actual = transformer.numericListToProgram(transformer.programToNumericList(instructions, opcodes), opcodes);
+        assertEquals(1, actual.size());
+        assertEquals(actual, instructions);
+    }
+
+    @Test
     void unknownOpcodeThrows()
     {
         NumericVectorTransformer transformer = new NumericVectorTransformer();

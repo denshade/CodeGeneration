@@ -22,6 +22,6 @@ public class TestData {
         ProgramFitnessExaminerInterface evaluator = new AccumulatorProgramFitnessExaminer(
                 conditions, runner,
                 "R1");
-        System.out.println(evaluator.evaluateDifference(new Program(k, Register.createRegisters(2, "R"))));
+        System.out.println(evaluator.evaluateDifference(new Program(k, Register.createRegisters(2))));
     }
 }

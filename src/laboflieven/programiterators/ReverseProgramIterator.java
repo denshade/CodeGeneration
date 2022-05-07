@@ -40,7 +40,7 @@ public class ReverseProgramIterator
     {
         this.numberOfRegisters = numberOfRegisters;
         this.maximumInstructions = maximumInstructions;
-        registers = Register.createRegisters(numberOfRegisters, "R").toArray(new Register[0]);
+        registers = Register.createRegisters(numberOfRegisters).toArray(new Register[0]);
         Set<Register> availableRegisters = new HashSet<>();
         availableRegisters.add(registers[registers.length - 1]);// Add the result register.
         recurse(new ArrayList<>(), availableRegisters);

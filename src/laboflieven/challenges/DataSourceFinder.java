@@ -69,7 +69,7 @@ public class DataSourceFinder {
         conf.setAccOperations(opcodes.toArray(new AccInstructionOpcodeEnum[0]));
         ProgramResolution res = v.iterate(conf);
         System.out.println(res);
-        System.out.println("score:"+evaluator.evaluateDifference(new Program(res.instructions, Register.createRegisters(2, "R"))));
+        System.out.println("score:"+evaluator.evaluateDifference(new Program(res.instructions, Register.createRegisters(2))));
         long stop = System.currentTimeMillis();
         System.out.println("Timing:" + (stop - start));
     }

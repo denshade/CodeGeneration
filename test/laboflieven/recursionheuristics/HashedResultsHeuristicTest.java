@@ -20,7 +20,7 @@ class HashedResultsHeuristicTest {
     @Test
     void shouldRecurseFirstTime() {
         List<InstructionMark> instructs = new ArrayList<>();
-        Program p = new Program(instructs, Register.createRegisters(2, "r"));
+        Program p = new Program(instructs, Register.createRegisters(2));
 
         HashedResultsHeuristic h = new HashedResultsHeuristic( getExampleParameters(), new AccStatementRunner(2));
         assertTrue(h.shouldRecurse(p,2));
@@ -32,7 +32,7 @@ class HashedResultsHeuristicTest {
         List<TestcaseInOutParameters> solutions = getExampleParameters();
         List<InstructionMark> instructs = new ArrayList<>();
         instructs.add(new Add()); //L + R = 0
-        Program p = new Program(instructs, Register.createRegisters(2, "r"));
+        Program p = new Program(instructs, Register.createRegisters(2));
         HashedResultsHeuristic h = new HashedResultsHeuristic(solutions, new AccStatementRunner(2));
         assertTrue(h.shouldRecurse(p,2));
         instructs.add(new Add()); //L + R = 0
@@ -56,7 +56,7 @@ class HashedResultsHeuristicTest {
 
     @Test
     void shouldNotRecurseIfSmallerProgramExistsCaseStudy() {
-        List<Register> registerList = Register.createRegisters(2, "r");
+        List<Register> registerList = Register.createRegisters(2);
         List<InstructionMark> instructs = new ArrayList<>();
         instructs.add(new LoadIntoLeftAcc(registerList.get(0)));
         instructs.add(new LoadIntoRightAcc(registerList.get(0)));

@@ -27,7 +27,7 @@ public class EnumerationSlideIterator {
 
     public ProgramResolution iterate(int nrRegisters, int nrInstructions)
     {
-        var registers = Register.createRegisters(nrRegisters, "R");
+        var registers = Register.createRegisters(nrRegisters);
         var enumerator = new ProgramEnumerator(instructions, nrRegisters);
         BigInteger maxCounter = enumerator.getMaxCounter(nrInstructions);
         int maxVal = 500;
