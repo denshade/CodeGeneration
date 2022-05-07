@@ -113,7 +113,7 @@ public class GeneralBruteForceProgramIterator implements ProgramIterator
         } else {
             counter++;
             double err = evaluator.calculateFitness(instructions, registers);
-            if (bestResult.getBestScore() != null && err < bestResult.getBestScore()) {
+            if (bestResult.getBestScore() == null || err < bestResult.getBestScore()) {
                 bestResult.register(err, new ProgramResolution(new ArrayList<>(instructions), err));
             }
             if (err <= errorTolerance){
