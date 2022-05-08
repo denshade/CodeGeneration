@@ -1,9 +1,12 @@
 package laboflieven.programiterators;
 
 import laboflieven.InstructionMark;
+import laboflieven.Program;
 import laboflieven.ProgramResolution;
+import laboflieven.accinstructions.AccInstructionOpcodeEnum;
 import laboflieven.accinstructions.InstructionFactory;
 import laboflieven.common.Configuration;
+import laboflieven.examiners.ProgramFitnessExaminerInterface;
 import laboflieven.statements.InstructionFactoryInterface;
 import laboflieven.statements.Register;
 
@@ -20,14 +23,22 @@ public class DiscreteDescentIterator implements ProgramIterator
         InstructionFactoryInterface instructionFactory = configuration.getInstructionFactory(new InstructionFactory());
         int nrRegisters = configuration.getNumberOfRegisters(2);
         List<Register> registers = Register.createRegisters(nrRegisters);
-        Object[] accenums = configuration.getAccOperations();
+        AccInstructionOpcodeEnum[] accenums = configuration.getAccOperations();
         List<InstructionMark> instructions = new ArrayList<>();
-        for (int i = 0; i < maximumInstructions - 2; i++)
+        for (int i = 0; i < maximumInstructions; i++)
         {
-            InstructionMark actualInstruction = instructionFactory.generateRandomInstruction(registers, accenums);
-            instructions.add(actualInstruction);
+            instructions.add(instructionFactory.generateRandomInstruction(registers, accenums));
         }
-
+        ProgramFitnessExaminerInterface fitnessExaminer = configuration.getFitnessExaminer();
+        double weight = fitnessExaminer.evaluateDifference(new Program(instructions, registers));
+        //for each instruction. Try to swap in for different.
+        for (int index = 0; index < instructions.size(); index++)
+        {
+            InstructionMark instructionMark = instructions.get(index);
+            //find the opcode
+            //try the one before
+            //try the one after
+        }
         return null;
     }
 }
