@@ -41,7 +41,7 @@ public class GeneralRandomGeneticProgramIterator implements ProgramIterator{
 
 
 
-    private double bestScore = 1000;
+    private final double bestScore = 1000;
     public int initialPopSize = 1000;
     public int nrChildren = 3;
 

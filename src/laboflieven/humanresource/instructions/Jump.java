@@ -10,7 +10,7 @@ import java.util.Queue;
  */
 public class Jump extends HumanInstruction
 {
-    private Integer gotoInstruction;
+    private final Integer gotoInstruction;
 
     public Jump(Integer gotoInstruction)
     {

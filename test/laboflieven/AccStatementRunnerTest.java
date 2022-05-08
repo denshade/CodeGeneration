@@ -70,8 +70,8 @@ public class AccStatementRunnerTest {
 
     public double nand(double leftvalue, double rightvalue)
     {
-        boolean sourceB = leftvalue < 0.0000001 ? false: true;
-        boolean destinationB = rightvalue < 0.0000001 ? false: true;
+        boolean sourceB = !(leftvalue < 0.0000001);
+        boolean destinationB = !(rightvalue < 0.0000001);
         boolean evaluation = !(sourceB && destinationB);
         return  evaluation?1.0:0.0;
     }

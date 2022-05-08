@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 public class AccInstructionOpcodeEnumBuilder
 {
 
-    private List<AccInstructionOpcodeEnum> enums = new ArrayList<>();
+    private final List<AccInstructionOpcodeEnum> enums = new ArrayList<>();
     public static AccInstructionOpcodeEnumBuilder make() {
         return new AccInstructionOpcodeEnumBuilder();
     }

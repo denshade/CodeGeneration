@@ -23,11 +23,11 @@ public class FakeProgramIterator
     public int maximumInstructions;
     public long counter = 0;
     public long secondsSinceEpochStart = System.currentTimeMillis() / 1000;
-    private static Logger LOGGER = Logger.getLogger(FakeProgramIterator.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(FakeProgramIterator.class.getName());
     public List<List<HumanInstruction>> positiveSolutions = new ArrayList<>();
-    private HumanProgramFitnessExaminer evaluator;
+    private final HumanProgramFitnessExaminer evaluator;
     private HumanInstructionSet[] instructionEnums;
-    private List<HumanInstruction> solution;
+    private final List<HumanInstruction> solution;
     private HumanRecursionHeuristic heuristic = new AlwaysRecurseHeuristic();
 
     public FakeProgramIterator(HumanProgramFitnessExaminer evaluator, List<HumanInstruction> solution, HumanRecursionHeuristic heuristic)

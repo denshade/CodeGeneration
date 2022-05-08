@@ -10,7 +10,7 @@ public class HashedResultsHeuristic implements RecursionHeuristic
 {
     private final List<TestcaseInOutParameters> challenges;
     private final StatementRunner runner;
-    private Map<String, Integer> hashMinInstructionMap = new HashMap<>();
+    private final Map<String, Integer> hashMinInstructionMap = new HashMap<>();
 
     public HashedResultsHeuristic(List<TestcaseInOutParameters> challenges, StatementRunner runner)
     {

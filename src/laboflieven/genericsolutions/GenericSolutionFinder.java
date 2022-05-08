@@ -15,7 +15,7 @@ import java.util.logging.Logger;
 
 public class GenericSolutionFinder
 {
-    private Logger logger = Logger.getLogger(GenericSolutionFinder.class.getName());
+    private final Logger logger = Logger.getLogger(GenericSolutionFinder.class.getName());
     public GenericSolution findSolution(List<TestcaseInOutParameters> testcases)
     {
         var clonedConfiguration = new Configuration();

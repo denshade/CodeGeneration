@@ -42,8 +42,8 @@ class P1Test {
     }
 
     static double nand(double left, double right) {
-        boolean sourceB = left < 0.0000001 ? false: true;
-        boolean destinationB = right < 0.0000001 ? false: true;
+        boolean sourceB = !(left < 0.0000001);
+        boolean destinationB = !(right < 0.0000001);
         boolean evaluation = !(sourceB && destinationB);
         return evaluation?1.0:0.0;
     }

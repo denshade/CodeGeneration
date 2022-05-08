@@ -34,7 +34,7 @@ public class HumanInstructionFactory
                 break;
 
             default:
-                throw new IllegalArgumentException("invalid instruction " + instructionEnum.toString());
+                throw new IllegalArgumentException("invalid instruction " + instructionEnum);
         }
         return instruction;
     }
@@ -53,7 +53,7 @@ public class HumanInstructionFactory
                 instruction = new JumpIfNegative(jumpToInstruction);
                 break;
             default:
-                throw new IllegalArgumentException("invalid instruction " + instructionEnum.toString());
+                throw new IllegalArgumentException("invalid instruction " + instructionEnum);
         }
         return instruction;
     }
@@ -69,7 +69,7 @@ public class HumanInstructionFactory
                 instruction = new Outbox();
                 break;
             default:
-                throw new IllegalArgumentException("invalid instruction " + instructionEnum.toString());
+                throw new IllegalArgumentException("invalid instruction " + instructionEnum);
         }
         return instruction;
     }

@@ -14,9 +14,9 @@ public class RealRandomProgramIterator {
     public long counter = 0;
 
     public List<List<InstructionMark>> positiveSolutions = new ArrayList<>();
-    private RegularInstructionOpcodeEnum[] enums;
+    private final RegularInstructionOpcodeEnum[] enums;
     private Register[] registers;
-    private InstructionFactoryInterface instructionFactory = new InstructionFactory();
+    private final InstructionFactoryInterface instructionFactory = new InstructionFactory();
 
     public RealRandomProgramIterator() {
         enums = RegularInstructionOpcodeEnum.values();

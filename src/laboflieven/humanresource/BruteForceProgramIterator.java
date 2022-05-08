@@ -22,10 +22,10 @@ public class BruteForceProgramIterator
     public int maximumInstructions;
     public long counter = 0;
     public long secondsSinceEpochStart = System.currentTimeMillis() / 1000;
-    private static Logger LOGGER = Logger.getLogger(BruteForceProgramIterator.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(BruteForceProgramIterator.class.getName());
     public List<List<HumanInstruction>> positiveSolutions = new ArrayList<>();
-    private HumanProgramFitnessExaminer evaluator;
-    private HumanInstructionSet[] instructionEnums;
+    private final HumanProgramFitnessExaminer evaluator;
+    private final HumanInstructionSet[] instructionEnums;
     private HumanRecursionHeuristic heuristic = new AlwaysRecurseHeuristic();
 
     public BruteForceProgramIterator(HumanProgramFitnessExaminer evaluator, HumanInstructionSet[] instructions, HumanRecursionHeuristic heuristic)

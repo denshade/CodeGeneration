@@ -16,7 +16,7 @@ public class EnumerationSlideIterator {
     private final ProgramFitnessExaminerInterface evaluator;
     private final List<InstructionOpcode> instructions;
     private final InstructionFactoryInterface instructionFactoryInterface;
-    private BestFitRegister<ProgramResolution> bestFit = new BestFitRegister<>();
+    private final BestFitRegister<ProgramResolution> bestFit = new BestFitRegister<>();
 
     public EnumerationSlideIterator(ProgramFitnessExaminerInterface evaluator, List<InstructionOpcode> instructions, InstructionFactoryInterface instructionFactoryInterface)
     {

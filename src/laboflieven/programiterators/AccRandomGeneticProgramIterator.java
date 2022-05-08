@@ -20,22 +20,22 @@ public class AccRandomGeneticProgramIterator {
     public static final int BEST_SOLUTION_CYCLE = 10000000;
     public int POPULATION_MAX = 1000;
     private double popularParents;
-    private double maxOverflow;
+    private final double maxOverflow;
     public int maximumInstructions;
     public long counter = 0;
 
     public List<List<AccRegisterInstruction>> positiveSolutions = new ArrayList<>();
-    private ProgramFitnessExaminerInterface evaluator;
-    private AccInstructionOpcodeEnum[] enums;
+    private final ProgramFitnessExaminerInterface evaluator;
+    private final AccInstructionOpcodeEnum[] enums;
     private int maxPopulation;
     private Register[] registers;
     private int numberOfRegisters;
     private List<InstructionMark> bestSolution;
     private List<List<InstructionMark>> chosenSolutions;
-    private InstructionFactoryInterface instructionFactory = new InstructionFactory();
+    private final InstructionFactoryInterface instructionFactory = new InstructionFactory();
 
 
-    private double bestScore = 1000;
+    private final double bestScore = 1000;
     public int initialPopSize = 1000;
     public int nrChildren = 3;
 
@@ -175,7 +175,7 @@ public class AccRandomGeneticProgramIterator {
                     used = true;
                 }
             }
-            if (!used)return true;
+            return !used;
         }
         return false;
     }

@@ -9,7 +9,7 @@ import java.util.Map;
 
 public class AnyRegisterProgramTestcaseFitness
 {
-    private static double WRONG_REGISTER_ERROR = 10;
+    private static final double WRONG_REGISTER_ERROR = 10;
     public static double calculateError(StatementRunner runner, Program program, TestcaseInOutParameters parameter, String expectedResultRegister, double noFitAtAll)
     {
         return calculateError(runner.execute(program, parameter.input), program.getRegisters().get(0).name, parameter, expectedResultRegister, noFitAtAll);

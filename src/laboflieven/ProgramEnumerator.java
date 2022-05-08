@@ -9,8 +9,8 @@ import java.util.List;
 public class ProgramEnumerator
 {
     private final List<InstructionOpcode> options;
-    private long actualNrOptionsWithRegs;
-    private int nrRegisters;
+    private final long actualNrOptionsWithRegs;
+    private final int nrRegisters;
 
     public ProgramEnumerator(List<InstructionOpcode> options, int nrRegisters)
     {
@@ -97,10 +97,7 @@ public class ProgramEnumerator
     private long getIndexForInstruction(InstructionMark currentInstruction) {
         int k = 0;
         for (InstructionOpcode currentOption : options) {
-            boolean match = false;
-            if (currentOption.equals(currentInstruction.getInstructionOpcode())) {
-                match = true;
-            }
+            boolean match = currentOption.equals(currentInstruction.getInstructionOpcode());
 
             if (currentOption.getNrRegisters() == 2) {
                 if (match) {

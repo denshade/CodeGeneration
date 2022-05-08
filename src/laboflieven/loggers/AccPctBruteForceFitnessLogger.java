@@ -14,8 +14,8 @@ public class AccPctBruteForceFitnessLogger implements FitnessLogger
     private final AccInstructionOpcodeEnum[] availableInstructions;
     private final int refreshRateInMs;
     private final int nrRegisters;
-    private List<InstructionMark> exampleInstructions;
-    private InstructionFactoryInterface instructionFactory = new InstructionFactory();
+    private final List<InstructionMark> exampleInstructions;
+    private final InstructionFactoryInterface instructionFactory = new InstructionFactory();
 
     private long lastPrint;
 

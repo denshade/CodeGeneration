@@ -32,8 +32,8 @@ public class JsonFileFitnessLogger implements FitnessLogger
         Double error;
         List<InstructionNode> children;
     }
-    private FileWriter writer;
-    private InstructionNode rootParent = new InstructionNode("",255.0, new ArrayList<>());
+    private final FileWriter writer;
+    private final InstructionNode rootParent = new InstructionNode("",255.0, new ArrayList<>());
 
     public JsonFileFitnessLogger(File file) throws IOException {
         writer = new FileWriter(file);

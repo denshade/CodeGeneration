@@ -13,7 +13,7 @@ import java.util.logging.Logger;
 
 public class EnumerationProgramFinder
 {
-    private Logger logger = Logger.getLogger(GenericSolutionFinder.class.getName());
+    private final Logger logger = Logger.getLogger(GenericSolutionFinder.class.getName());
 
     public List<InstructionMark> findSolutions(Configuration configuration)
     {

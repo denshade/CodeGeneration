@@ -25,14 +25,14 @@ import java.util.logging.Logger;
  */
 public class AccPriorityProgramIterator  implements ProgramIterator
 {
-    private Logger LOGGER = Logger.getLogger(AccPriorityProgramIterator.class.getName());
+    private final Logger LOGGER = Logger.getLogger(AccPriorityProgramIterator.class.getName());
     private ProgramFitnessExaminerInterface evaluator;
     private AccInstructionOpcodeEnum[] enums;
     PriorityQueue<ProgramResolution> priorityQueue = new PriorityQueue<>();
     private List<Register> registers;
     private RecursionHeuristic heuristic = new AlwaysRecursionHeuristic();
     private InstructionFactoryInterface instructionFactory;
-    private BestFitRegister<ProgramResolution> bestFitRegister = new BestFitRegister<>();
+    private final BestFitRegister<ProgramResolution> bestFitRegister = new BestFitRegister<>();
 
 
     public ProgramResolution iterate(Configuration configuration)

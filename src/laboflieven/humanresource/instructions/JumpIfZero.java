@@ -11,7 +11,7 @@ import java.util.Queue;
  */
 public class JumpIfZero extends HumanInstruction
 {
-    private Integer gotoInstruction;
+    private final Integer gotoInstruction;
 
     public JumpIfZero(Integer gotoInstruction)
     {

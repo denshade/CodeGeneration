@@ -14,10 +14,10 @@ import java.awt.image.BufferedImage;
 public class ProgramRenderPanel extends JPanel {
 
 
-    private BufferedImage canvas;
+    private final BufferedImage canvas;
 
-    private int width;
-    private int height;
+    private final int width;
+    private final int height;
 
 
     public ProgramRenderPanel(int width, int height) {

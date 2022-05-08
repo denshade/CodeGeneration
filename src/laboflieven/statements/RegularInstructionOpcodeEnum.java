@@ -16,7 +16,7 @@ public enum RegularInstructionOpcodeEnum
 
     private final int nrRegisters;
 
-    private RegularInstructionOpcodeEnum(int nrRegisters)
+    RegularInstructionOpcodeEnum(int nrRegisters)
     {
         this.nrRegisters = nrRegisters;
     }

@@ -10,8 +10,8 @@ public class Nand extends DualRegisterInstruction {
 
     @Override
     public Integer execute(int current) {
-        boolean sourceB = source.value < 0.0000001 ? false: true;
-        boolean destinationB = destination.value < 0.0000001 ? false: true;
+        boolean sourceB = !(source.value < 0.0000001);
+        boolean destinationB = !(destination.value < 0.0000001);
         boolean evaluation = !(sourceB && destinationB);
         destination.value = evaluation?1.0:0.0;
         return null;

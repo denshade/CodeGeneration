@@ -18,11 +18,11 @@ public class FakeProgramIterator
     public int maximumInstructions;
     public long counter = 0;
     public long secondsSinceEpochStart = System.currentTimeMillis() / 1000;
-    private static Logger LOGGER = Logger.getLogger(FakeProgramIterator.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(FakeProgramIterator.class.getName());
     public List<List<InstructionMark>> positiveSolutions = new ArrayList<>();
-    private ProgramFitnessExaminerInterface evaluator;
+    private final ProgramFitnessExaminerInterface evaluator;
     private AccInstructionOpcodeEnum[] instructionEnums;
-    private List<InstructionMark> solution;
+    private final List<InstructionMark> solution;
     private RecursionHeuristic heuristic = new AlwaysRecursionHeuristic();
 
     public FakeProgramIterator(ProgramFitnessExaminerInterface evaluator, List<InstructionMark> solution, RecursionHeuristic heuristic)
