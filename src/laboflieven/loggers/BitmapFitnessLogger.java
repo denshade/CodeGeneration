@@ -23,32 +23,18 @@ import java.util.Map.Entry;
 public class BitmapFitnessLogger implements FitnessLogger
 {
     private final File file;
-    private final Optional<Integer> usedRegistersByInstructions;
-    private final List<InstructionOpcode> opcodes;
     int maxX = 0;
     int maxY = 0;
-    Map<Point, Double> elements = new HashMap<>();
+    private InstructionIndexPairContainer container;
 
     public BitmapFitnessLogger(File file, List<InstructionOpcode> opcodes) {
         this.file = file;
-        this.usedRegistersByInstructions = opcodes.stream().map(InstructionOpcode::getNrRegisters).max(Integer::compareTo);
-        this.opcodes = opcodes;
+        container = new InstructionIndexPairContainer(opcodes);
     }
 
     @Override
     public void addFitness(List<InstructionMark> instructions, int nrInstructionOld, int nrRegistersOld, double error) {
-        InstructionIndexPair pair = new InstructionIndexPair(instructions, nrRegistersOld, opcodes);
-
-        Point p = new Point();
-        p.x  = pair.getX().intValue();
-        p.y  = pair.getY().intValue();
-        if (p.x > maxX) maxX = p.x;
-        if (p.y > maxY) maxY = p.y;
-        if (elements.containsKey(p)) {
-            System.out.println("Duplicate key!!" + p);
-        } else {
-            elements.put(p, error);
-        }
+        container.addFitness(instructions, nrRegistersOld, error);
     }
 
     public void finish() throws IOException {
@@ -57,6 +43,7 @@ public class BitmapFitnessLogger implements FitnessLogger
         Graphics2D graphics = res.createGraphics();
         graphics.setPaint(new Color(0, 0, 255));
         graphics.fillRect(0, 0, maxX + 1, maxY + 1);
+        Map<Point, Double> elements = container.getElements();
         double max = elements.values().stream().filter(Double::isFinite).max(Comparator.naturalOrder()).get();
         for (Entry<Point, Double> el : elements.entrySet()) {
             Point p = el.getKey();
