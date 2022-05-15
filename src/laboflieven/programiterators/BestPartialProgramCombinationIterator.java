@@ -21,10 +21,10 @@ public class BestPartialProgramCombinationIterator implements ProgramIterator {
 
     public List<List<InstructionMark>> positiveSolutions = new ArrayList<>();
     private ProgramFitnessExaminerInterface evaluator;
-    private int maxExecutionTimeSeconds = 3600 * 12;
+    private final int maxExecutionTimeSeconds = 3600 * 12;
     private RegularInstructionOpcodeEnum[] enums;
     private Register[] registers;
-    private BestFitRegister<List<InstructionMark>> bestFit = new BestFitRegister<>();
+    private final BestFitRegister<List<InstructionMark>> bestFit = new BestFitRegister<>();
     private int numberOfRegisters;
     public InstructionFactoryInterface instructionFactory = new InstructionFactory();
 

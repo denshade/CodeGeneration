@@ -11,7 +11,7 @@ import java.util.Queue;
  */
 public class JumpIfNegative extends HumanInstruction
 {
-    private Integer gotoInstruction;
+    private final Integer gotoInstruction;
 
     public JumpIfNegative(Integer gotoInstruction)
     {

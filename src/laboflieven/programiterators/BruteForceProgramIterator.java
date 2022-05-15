@@ -21,9 +21,9 @@ public class BruteForceProgramIterator
     public long counter = 0;
 
     public List<List<InstructionMark>> positiveSolutions = new ArrayList<>();
-    private ProgramFitnessExaminerInterface evaluator;
-    private RegularInstructionOpcodeEnum[] regularInstructionOpcodeEnums;
-    private RecursionHeuristic recursionHeuristic;
+    private final ProgramFitnessExaminerInterface evaluator;
+    private final RegularInstructionOpcodeEnum[] regularInstructionOpcodeEnums;
+    private final RecursionHeuristic recursionHeuristic;
     private int nrRegisters;
     InstructionFactory instructionFactory = new InstructionFactory();
 

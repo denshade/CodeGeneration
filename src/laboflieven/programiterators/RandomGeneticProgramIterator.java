@@ -14,13 +14,13 @@ import java.util.*;
 public class RandomGeneticProgramIterator {
     public int POPULATION_MAX = 1000;
     private double popularParents;
-    private double maxOverflow;
+    private final double maxOverflow;
     public int maximumInstructions;
     public long counter = 0;
 
     public List<List<InstructionMark>> positiveSolutions = new ArrayList<>();
-    private ProgramFitnessExaminerInterface evaluator;
-    private RegularInstructionOpcodeEnum[] enums;
+    private final ProgramFitnessExaminerInterface evaluator;
+    private final RegularInstructionOpcodeEnum[] enums;
     private int maxPopulation;
     private Register[] registers;
     private int numberOfRegisters;
@@ -28,8 +28,8 @@ public class RandomGeneticProgramIterator {
     protected List<List<InstructionMark>> chosenSolutions;
 
 
-    private double bestScore = 1000;
-    private InstructionFactoryInterface instructionFactory = new InstructionFactory();
+    private final double bestScore = 1000;
+    private final InstructionFactoryInterface instructionFactory = new InstructionFactory();
 
     public RandomGeneticProgramIterator(ProgramFitnessExaminerInterface evaluator, int maxPopulation, double maxOverflow, double popularParents) {
         this.evaluator = evaluator;

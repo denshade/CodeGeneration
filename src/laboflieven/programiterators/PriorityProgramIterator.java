@@ -20,7 +20,7 @@ public class PriorityProgramIterator
     private final RegularInstructionOpcodeEnum[] enums;
     PriorityQueue<ComparableProgram> priorityQueue = new PriorityQueue<>();
     private Register[] registers;
-    private InstructionFactoryInterface instructionFactory = new InstructionFactory();
+    private final InstructionFactoryInterface instructionFactory = new InstructionFactory();
 
     public PriorityProgramIterator(ProgramFitnessExaminerInterface evaluator, RegularInstructionOpcodeEnum[] enums) {
         this.evaluator = evaluator;

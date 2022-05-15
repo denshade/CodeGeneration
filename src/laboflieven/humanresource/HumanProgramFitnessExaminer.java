@@ -20,9 +20,9 @@ import java.util.concurrent.ArrayBlockingQueue;
  */
 public class HumanProgramFitnessExaminer
 {
-    private List<HumanInOutput> conditions;
-    private int maxExecutions;
-    private HumanStatementRunner runner;
+    private final List<HumanInOutput> conditions;
+    private final int maxExecutions;
+    private final HumanStatementRunner runner;
 
 
     public HumanProgramFitnessExaminer(List<HumanInOutput> conditions, int maxExecutions)

@@ -52,9 +52,7 @@ public class AccHeuristic implements RecursionHeuristic
                 return false;
             }
             //if pullLeft overwrite the result of operations.
-            if (lastInstruction instanceof LoadIntoLeftAcc && !(prevInstruction instanceof Swap || prevInstruction instanceof LoadIntoLeftAcc)) {
-                return false;
-            }
+            return !(lastInstruction instanceof LoadIntoLeftAcc) || (prevInstruction instanceof Swap || prevInstruction instanceof LoadIntoLeftAcc);
         }
 
         return true;

@@ -35,7 +35,7 @@ public class GeneralBruteForceProgramIterator implements ProgramIterator
     public InstructionFactoryInterface instructionFactory = new InstructionFactory();
     private List<Register> registers;
     private double errorTolerance = 0.0;
-    private BestFitRegister<ProgramResolution> bestResult = new BestFitRegister<>();
+    private final BestFitRegister<ProgramResolution> bestResult = new BestFitRegister<>();
     private long timing;
 
 

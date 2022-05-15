@@ -23,8 +23,7 @@ public class ResultsNoDataAfterFiveHeuristic implements RecursionHeuristic
     @Override
     public boolean shouldRecurse(Program program, int maximumInstructions) {
         if (program.getInstructions().size() == 3) {
-            if (programFitnessExaminerInterface.calculateFitness(List.of(), registers) > horrible)
-                return false;
+            return !(programFitnessExaminerInterface.calculateFitness(List.of(), registers) > horrible);
         }
         return true;
     }

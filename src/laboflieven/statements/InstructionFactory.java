@@ -42,7 +42,7 @@ public class InstructionFactory implements InstructionFactoryInterface
                 instruction = new JumpIfRegister1Zero(register1, register2);
                 break;
             default:
-                throw new IllegalArgumentException("invalid instruction " + regularInstructionOpcodeEnum.toString());
+                throw new IllegalArgumentException("invalid instruction " + regularInstructionOpcodeEnum);
         }
         return instruction;
     }
@@ -91,7 +91,7 @@ public class InstructionFactory implements InstructionFactoryInterface
                 instruction = new JumpIfRegister2Steps(register1);
                 break;
             default:
-                throw new IllegalArgumentException("invalid instruction " + regularInstructionOpcodeEnum.toString());
+                throw new IllegalArgumentException("invalid instruction " + regularInstructionOpcodeEnum);
         }
         return instruction;
     }

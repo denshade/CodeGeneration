@@ -11,7 +11,7 @@ import java.util.Queue;
  * Created by Lieven on 2-1-2018.
  */
 public class CopyFrom extends HumanInstruction {
-    private HumanRegister register;
+    private final HumanRegister register;
 
     public CopyFrom(HumanRegister register)
     {

@@ -13,8 +13,8 @@ import java.util.Map;
  */
 public class Program
 {
-    private List<InstructionMark> instructions;
-    private List<Register> registers;
+    private final List<InstructionMark> instructions;
+    private final List<Register> registers;
 
 
     public Program(List<InstructionMark> instructions, List<Register> registers) {

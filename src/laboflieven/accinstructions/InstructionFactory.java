@@ -12,7 +12,7 @@ import java.util.*;
  * Created by lveeckha on 4/06/2015.
  */
 public class InstructionFactory implements InstructionFactoryInterface {
-    private static EnumMap<AccInstructionOpcodeEnum, AccRegisterInstruction> map = new EnumMap<>(AccInstructionOpcodeEnum.class) {{
+    private static final EnumMap<AccInstructionOpcodeEnum, AccRegisterInstruction> map = new EnumMap<>(AccInstructionOpcodeEnum.class) {{
         put(AccInstructionOpcodeEnum.Add, new Add());
         put(AccInstructionOpcodeEnum.Div, new Div());
         put(AccInstructionOpcodeEnum.Mod, new Mod());
@@ -75,7 +75,7 @@ public class InstructionFactory implements InstructionFactoryInterface {
             case JumpIfLte:
                 instruction = new JumpIfLte(register1);
                 break;*/
-            default -> throw new IllegalArgumentException("invalid instruction " + accInstructionOpcodeEnum.toString());
+            default -> throw new IllegalArgumentException("invalid instruction " + accInstructionOpcodeEnum);
         };
         return instruction;
     }

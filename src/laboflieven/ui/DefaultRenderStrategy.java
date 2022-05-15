@@ -11,10 +11,10 @@ import java.util.Map;
  */
 public class DefaultRenderStrategy
 {
-    private int width;
-    private int height;
-    private StatementRunner runner;
-    private Program program;
+    private final int width;
+    private final int height;
+    private final StatementRunner runner;
+    private final Program program;
 
     public DefaultRenderStrategy(int width, int height, StatementRunner runner, Program program)
     {

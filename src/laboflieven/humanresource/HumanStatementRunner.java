@@ -16,7 +16,7 @@ public class HumanStatementRunner {
 
     public int MAXINSTRUCT = 100;
     private final Map<String, Integer> initialRegisterValues;
-    private static Logger LOGGER = Logger.getLogger(HumanStatementRunner.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(HumanStatementRunner.class.getName());
 
 
     public HumanStatementRunner()

@@ -25,11 +25,11 @@ public class RandomProgramIterator implements ProgramIterator {
 
     public List<List<InstructionMark>> positiveSolutions = new ArrayList<>();
     private ProgramFitnessExaminerInterface evaluator;
-    private int maxExecutionTimeSeconds = 3600 * 12;
+    private final int maxExecutionTimeSeconds = 3600 * 12;
     private RegularInstructionOpcodeEnum[] enums;
     private AccInstructionOpcodeEnum[] accenums;
     private Register[] registers;
-    private ArrayListBestFitRegister<InstructionMark> bestFit = new ArrayListBestFitRegister<>();
+    private final ArrayListBestFitRegister<InstructionMark> bestFit = new ArrayListBestFitRegister<>();
     private int numberOfRegisters;
     public InstructionFactoryInterface instructionFactory = new InstructionFactory();
 

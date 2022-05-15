@@ -15,14 +15,14 @@ public class ReverseProgramIterator
     public long counter = 0;
 
     public List<List<InstructionMark>> positiveSolutions = new ArrayList<>();
-    private ProgramFitnessExaminerInterface evaluator;
-    private RegularInstructionOpcodeEnum[] enums;
+    private final ProgramFitnessExaminerInterface evaluator;
+    private final RegularInstructionOpcodeEnum[] enums;
     private Register[] registers;
     private int numberOfRegisters;
 
     private List<InstructionMark> bestSolution;
     private double bestScore = Double.MAX_VALUE;
-    private InstructionFactoryInterface instructionFactory = new InstructionFactory();
+    private final InstructionFactoryInterface instructionFactory = new InstructionFactory();
 
 
     public ReverseProgramIterator(ProgramFitnessExaminerInterface evaluator)

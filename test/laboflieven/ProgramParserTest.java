@@ -71,7 +71,7 @@ public class ProgramParserTest {
         List<TestcaseInOutParameters> collection = new ArrayList<>();
         List<InstructionMark> instr = ProgramParser.parse("[Move R2 -> R4, Mult R4 -> R4, Mult R1 -> R3, R3 += R3, R3 += R3, Invert R3, R3 += R4, Sqrt R3 " +
                 ", Invert R2, R1 += R1, R2 += R3, R2 /= R1, Move R2 -> R1 ]");
-        collection.add(io.createParameter(io.fillDoubleArray(new double [] {2.0,-8.0,-24.0,0}, 4), calcQuad(new double [] {2.0,-8.0,-24.0}),1, "R"));
+        collection.add(TestcaseInOutParameters.createParameter(TestcaseInOutParameters.fillDoubleArray(new double [] {2.0,-8.0,-24.0,0}, 4), calcQuad(new double [] {2.0,-8.0,-24.0}),1, "R"));
         ProgramFitnessExaminerInterface e = new ProgramFitnessExaminer(collection, new RegularStatementRunner());
         assertTrue(e.calculateFitness(instr, registers) < 0.001);
     }

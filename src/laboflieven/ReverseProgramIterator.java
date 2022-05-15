@@ -10,8 +10,8 @@ import java.util.*;
 public class ReverseProgramIterator {
     private int maximumInstructions = 12;
     public long counter = 0;
-    private int programCount;
-    private InstructionFactoryInterface instructionFactory = new InstructionFactory();
+    private final int programCount;
+    private final InstructionFactoryInterface instructionFactory = new InstructionFactory();
 
 
     public ReverseProgramIterator(int programCount)

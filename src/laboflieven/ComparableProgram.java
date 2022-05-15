@@ -11,13 +11,13 @@ public class ComparableProgram implements Comparable<ComparableProgram>
         return program;
     }
 
-    private Program program;
+    private final Program program;
 
     public double getScore() {
         return score;
     }
 
-    private double score;
+    private final double score;
 
     public ComparableProgram(Program program, ProgramFitnessExaminerInterface evaluator) {
         this.program = program;

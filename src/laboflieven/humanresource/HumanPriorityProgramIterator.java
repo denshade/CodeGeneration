@@ -25,9 +25,9 @@ public class HumanPriorityProgramIterator
     private HumanProgramFitnessExaminer examiner;
     PriorityQueue<HumanProgramResolution> priorityQueue = new PriorityQueue<>();
     private HumanRegister[] registers;
-    private HumanRecursionHeuristic heuristic = new AlwaysRecurseHeuristic();
+    private final HumanRecursionHeuristic heuristic = new AlwaysRecurseHeuristic();
     private HumanInstructionFactory instructionFactory;
-    private BestFitRegister<HumanProgramResolution> bestFitRegister = new BestFitRegister<>();
+    private final BestFitRegister<HumanProgramResolution> bestFitRegister = new BestFitRegister<>();
 
 
     public ProgramResolution iterate(Configuration configuration, HumanInstructionSet[] enums, HumanProgramFitnessExaminer examiner)
@@ -85,12 +85,12 @@ public class HumanPriorityProgramIterator
         for (HumanInstructionSet opcode : enums) {
             if (!opcode.isSingleRegister() && !opcode.isLoop()) {
                 List<HumanInstruction> marks = new ArrayList<>(instructions);
-                marks.add(instructionFactory.createInstruction(opcode));
+                marks.add(HumanInstructionFactory.createInstruction(opcode));
                 priorityQueue.add(eval(marks, registerList));
             } else if (opcode.isSingleRegister()) {
                 for (HumanRegister r : registers) {
                     List<HumanInstruction> marks = new ArrayList<>(instructions);
-                    marks.add(instructionFactory.createInstruction(opcode, r));
+                    marks.add(HumanInstructionFactory.createInstruction(opcode, r));
                     priorityQueue.add(eval(marks, registerList));
                 }
             } else if (opcode.isLoop()) {
