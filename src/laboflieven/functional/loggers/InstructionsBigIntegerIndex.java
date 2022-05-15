@@ -17,8 +17,8 @@ public class InstructionsBigIntegerIndex
         nrInstructionMult = BigInteger.valueOf(opcodes.size() + 1);
         for (InstructionMark instruction : instructions)
         {
-            int instructNr = opcodes.indexOf(instruction.getInstructionOpcode()) + 1;
-            if (instructNr == 0) {
+            int instructNr = opcodes.indexOf(instruction.getInstructionOpcode());
+            if (instructNr == -1) {
                 throw new RuntimeException("Unknown class " + instruction.getClass().toString());
             }
             sumInstructX = sumInstructX.add(BigInteger.valueOf(instructNr).multiply(instructionMultiplier));
