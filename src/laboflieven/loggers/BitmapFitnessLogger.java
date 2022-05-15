@@ -1,23 +1,16 @@
 package laboflieven.loggers;
 
 import laboflieven.InstructionMark;
-import laboflieven.accinstructions.AccRegisterInstruction;
-import laboflieven.common.AccInstructionOpcode;
 import laboflieven.common.InstructionOpcode;
-import laboflieven.common.RegularInstructionOpcode;
-import laboflieven.functional.loggers.InstructionIndexPair;
-import laboflieven.functional.loggers.RegistersBigIntegerIndex;
-import laboflieven.statements.DualRegisterInstruction;
-import laboflieven.statements.SingleRegisterInstruction;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.math.BigInteger;
-import java.util.*;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
 
 public class BitmapFitnessLogger implements FitnessLogger

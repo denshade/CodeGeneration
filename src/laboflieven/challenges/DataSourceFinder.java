@@ -11,6 +11,7 @@ import laboflieven.examiners.AccumulatorProgramFitnessExaminer;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
 import laboflieven.genericsolutions.RandomIteratorOperandFinder;
 import laboflieven.loggers.BitmapFitnessLogger;
+import laboflieven.loggers.ErrorCsvFileFitnessLogger;
 import laboflieven.loggers.TimingAccFitnessLogger;
 import laboflieven.programiterators.GeneralBruteForceProgramIterator;
 import laboflieven.runners.AccStatementRunner;
@@ -68,7 +69,7 @@ public class DataSourceFinder {
         }
         System.out.println("Setting opcodes to " + opcodes);
         conf.setAccOperations(opcodes.toArray(new AccInstructionOpcodeEnum[0]));
-        BitmapFitnessLogger logger = new BitmapFitnessLogger(new File("c:\\temp\\out.bmp"), opcodes.stream().map(AccInstructionOpcode::new).collect(Collectors.toList()));
+        ErrorCsvFileFitnessLogger logger = new ErrorCsvFileFitnessLogger(new File("c:\\temp\\out.csv"), opcodes.stream().map(AccInstructionOpcode::new).collect(Collectors.toList()));
         evaluator.addListener(logger);
         ProgramResolution res = v.iterate(conf);
         System.out.println(res);
