@@ -3,6 +3,7 @@ package laboflieven.loggers;
 import laboflieven.InstructionMark;
 import laboflieven.accinstructions.AccRegisterInstruction;
 import laboflieven.common.AccInstructionOpcode;
+import laboflieven.common.InstructionOpcode;
 import laboflieven.common.RegularInstructionOpcode;
 import laboflieven.functional.loggers.InstructionIndexPair;
 import laboflieven.functional.loggers.RegistersBigIntegerIndex;
@@ -29,7 +30,7 @@ public class BitmapFitnessLogger implements FitnessLogger
     int maxY = 0;
     Map<Point, Double> elements = new HashMap<>();
 
-    public BitmapFitnessLogger(File file, int nrRegisters, List opcodes) {
+    public BitmapFitnessLogger(File file, int nrRegisters, List<InstructionOpcode> opcodes) {
         this.file = file;
         this.nrRegisters = nrRegisters;
         this.opcodes = opcodes;
@@ -37,7 +38,7 @@ public class BitmapFitnessLogger implements FitnessLogger
 
     @Override
     public void addFitness(List<InstructionMark> instructions, int nrInstructionOld, int nrRegistersOld, double error) {
-        InstructionIndexPair pair = new InstructionIndexPair(instructions, nrRegisters);
+        InstructionIndexPair pair = new InstructionIndexPair(instructions, nrRegisters, opcodes);
 
         Point p = new Point();
         p.x  = pair.getX().intValue();

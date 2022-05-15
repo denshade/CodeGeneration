@@ -18,7 +18,7 @@ public class CsvFileFitnessLogger implements FitnessLogger
 
     @Override
     public void addFitness(List<InstructionMark> instructions, int nrInstruction, int nrRegisters, double error) {
-        InstructionIndexPair pair = new InstructionIndexPair(instructions, nrRegisters);
+        InstructionIndexPair pair = new InstructionIndexPair(instructions, nrRegisters, InstructionIndexPair.getDefaultOpcodes(instructions));
         try{
             writer.write(pair.getX().toString()+";"+pair.getY().toString() + ";"+error+"\n");
         } catch (Exception e )

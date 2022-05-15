@@ -1,6 +1,7 @@
 package laboflieven.functional.loggers;
 
 import laboflieven.InstructionMark;
+import laboflieven.common.InstructionOpcode;
 
 import java.math.BigInteger;
 import java.util.List;
@@ -8,7 +9,7 @@ import java.util.List;
 public class InstructionsBigIntegerIndex
 {
     private BigInteger sumInstructX;
-    public InstructionsBigIntegerIndex(List<InstructionMark> instructions, final List opcodes)
+    public InstructionsBigIntegerIndex(List<InstructionMark> instructions, final List<InstructionOpcode> opcodes)
     {
         sumInstructX = BigInteger.ZERO;
         BigInteger instructionMultiplier = BigInteger.ONE;
@@ -16,7 +17,7 @@ public class InstructionsBigIntegerIndex
         nrInstructionMult = BigInteger.valueOf(opcodes.size() + 1);
         for (InstructionMark instruction : instructions)
         {
-            int instructNr = opcodes.indexOf(instruction.getInstructionOpcode().getEnumeration()) + 1;
+            int instructNr = opcodes.indexOf(instruction.getInstructionOpcode()) + 1;
             if (instructNr == 0) {
                 throw new RuntimeException("Unknown class " + instruction.getClass().toString());
             }
