@@ -27,9 +27,13 @@ public class RegistersBigIntegerIndex
             } else if (instruction instanceof SingleRegisterInstruction){
                 source = "R0";
                 dest = ((SingleRegisterInstruction) instruction).destination.name;
-            }else if (instruction instanceof AccRegisterInstruction)
+            }else if (instruction instanceof AccRegisterInstruction && instruction.getInstructionOpcode().getNrRegisters() == 0)
             {
                 dest = "R0";
+                source = "R0";
+            }else if (instruction instanceof AccRegisterInstruction && instruction.getInstructionOpcode().getNrRegisters() == 1)
+            {
+                dest = ((laboflieven.accinstructions.SingleRegisterInstruction)instruction).getRegister().name;
                 source = "R0";
             }
             int sourceNr = registerToInt(source);
