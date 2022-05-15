@@ -14,7 +14,7 @@ public class InstructionsBigIntegerIndex
         sumInstructX = BigInteger.ZERO;
         BigInteger instructionMultiplier = BigInteger.ONE;
         BigInteger nrInstructionMult;
-        nrInstructionMult = BigInteger.valueOf(opcodes.size() + 1);
+        nrInstructionMult = BigInteger.valueOf(opcodes.size());
         for (InstructionMark instruction : instructions)
         {
             int instructNr = opcodes.indexOf(instruction.getInstructionOpcode());
