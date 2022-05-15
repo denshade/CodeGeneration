@@ -23,8 +23,6 @@ import java.util.Map.Entry;
 public class BitmapFitnessLogger implements FitnessLogger
 {
     private final File file;
-    int maxX = 0;
-    int maxY = 0;
     private InstructionIndexPairContainer container;
 
     public BitmapFitnessLogger(File file, List<InstructionOpcode> opcodes) {
@@ -38,7 +36,8 @@ public class BitmapFitnessLogger implements FitnessLogger
     }
 
     public void finish() throws IOException {
-
+        int maxX = container.getMaxX();
+        int maxY = container.getMaxY();
         final BufferedImage res = new BufferedImage(maxX + 1, maxY + 1, BufferedImage.TYPE_INT_RGB);
         Graphics2D graphics = res.createGraphics();
         graphics.setPaint(new Color(0, 0, 255));

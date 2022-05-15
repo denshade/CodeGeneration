@@ -5,17 +5,15 @@ import laboflieven.common.InstructionOpcode;
 import laboflieven.functional.loggers.InstructionIndexPair;
 
 import java.awt.*;
-import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 public class InstructionIndexPairContainer
 {
     private final List<InstructionOpcode> opcodes;
-    int maxX = 0;
-    int maxY = 0;
+    private int maxX = 0;
+    private int maxY = 0;
     private final Map<Point, Double> elements = new HashMap<>();
 
     public InstructionIndexPairContainer(List<InstructionOpcode> opcodes) {
@@ -41,5 +39,15 @@ public class InstructionIndexPairContainer
     public Map<Point, Double> getElements() {
         return elements;
     }
+
+    public int getMaxX()
+    {
+        return maxX;
+    }
+    public int getMaxY()
+    {
+        return maxY;
+    }
+
 
 }
