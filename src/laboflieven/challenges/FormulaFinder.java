@@ -215,7 +215,7 @@ public class FormulaFinder {
         RegularInstructionOpcodeEnum[] enums = RegularInstructionOpcodeEnum.values();
         //InstructionEnum[] enums = new InstructionEnum[]{InstructionEnum.Add, InstructionEnum.Sub, InstructionEnum.Mul, InstructionEnum.Div, InstructionEnum.Sqrt, InstructionEnum.Move, InstructionEnum.Log};
         //enums = new InstructionEnum[]{InstructionEnum.Add, InstructionEnum.Sub, InstructionEnum.Mul, InstructionEnum.Div, InstructionEnum.Log};
-        FitnessLogger logger = new BitmapFitnessLogger(new java.io.File("hello.bmp"), curMaxRegisters, Arrays.stream(enums).map(RegularInstructionOpcode::new).collect(Collectors.toList()));
+        FitnessLogger logger = new BitmapFitnessLogger(new java.io.File("hello.bmp"), Arrays.stream(enums).map(RegularInstructionOpcode::new).collect(Collectors.toList()));
         ProgramFitnessExaminerInterface evaluator = new ProgramFitnessExaminer(collection, new RegularStatementRunner());
         evaluator.addListener(logger);
         BruteForceProgramIterator iter = new BruteForceProgramIterator(evaluator, enums);

@@ -16,7 +16,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 public class Max implements ProgramTemplate
@@ -41,7 +40,7 @@ Found a program: [left = R1,  right = R2,  Jump to start if L >= R , R1 = right]
                 AccInstructionOpcodeEnum.LoadVectorIntoLeft,
                 AccInstructionOpcodeEnum.LoadVectorIntoRight
         )).build();*/
-        BitmapFitnessLogger bmpLogger = new BitmapFitnessLogger(new File("c:\\temp\\test.bmp"), 2, Arrays.stream(opcodeEnums).map(AccInstructionOpcode::new).collect(Collectors.toList()));
+        BitmapFitnessLogger bmpLogger = new BitmapFitnessLogger(new File("c:\\temp\\test.bmp"), Arrays.stream(opcodeEnums).map(AccInstructionOpcode::new).collect(Collectors.toList()));
         evaluator.addListener(bmpLogger);
         var conf = new Configuration();
         conf.setMaxNrInstructions(4).setFitnessExaminer(evaluator).setAccOperations(opcodeEnums).setNumberOfRegisters(curMaxRegisters);

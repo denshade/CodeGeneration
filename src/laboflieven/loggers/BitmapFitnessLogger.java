@@ -29,7 +29,7 @@ public class BitmapFitnessLogger implements FitnessLogger
     int maxY = 0;
     Map<Point, Double> elements = new HashMap<>();
 
-    public BitmapFitnessLogger(File file, int nrRegisters, List<InstructionOpcode> opcodes) {
+    public BitmapFitnessLogger(File file, List<InstructionOpcode> opcodes) {
         this.file = file;
         this.usedRegistersByInstructions = opcodes.stream().map(InstructionOpcode::getNrRegisters).max(Integer::compareTo);
         this.opcodes = opcodes;

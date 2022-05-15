@@ -20,11 +20,11 @@ class BitmapFitnessLoggerTest {
     @Test
     public void checkBitmap() throws IOException {
         File f = File.createTempFile("pref", "suff");
-        BitmapFitnessLogger logger = new BitmapFitnessLogger(f, 2, Arrays.stream(RegularInstructionOpcodeEnum.values()).map(RegularInstructionOpcode::new).collect(Collectors.toList()));
-        logger.addFitness(List.of(new Add(new Register("R0"), new Register("R0"))), 2,2,3);
+        BitmapFitnessLogger logger = new BitmapFitnessLogger(f, Arrays.stream(RegularInstructionOpcodeEnum.values()).map(RegularInstructionOpcode::new).collect(Collectors.toList()));
+        logger.addFitness(List.of(new Add(new Register("R1"), new Register("R1"))), 2,2,3);
         logger.finish();
         final BufferedImage res = ImageIO.read(f);
-        assertEquals(-262144, res.getRGB(1,3 ));
+        assertEquals(-16777216, res.getRGB(0,0 ));
 
         f.delete();
 
