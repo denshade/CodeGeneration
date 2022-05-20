@@ -6,6 +6,7 @@ import laboflieven.ProgramResolution;
 import laboflieven.accinstructions.AccInstructionOpcodeEnum;
 import laboflieven.accinstructions.AccRegisterInstruction;
 import laboflieven.accinstructions.InstructionFactory;
+import laboflieven.common.AccInstructionOpcode;
 import laboflieven.common.BestFitRegister;
 import laboflieven.common.Configuration;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
@@ -73,24 +74,21 @@ public class GeneralBruteForceProgramIterator implements ProgramIterator
         }
         return positiveSolutions;
     }
-//        var jumpIfZero = new Jump2IfLte();
-//        var inc = new Inc();
-//        var loadIntoRegister = new LoadAccLeftIntoRegister(r1);
-//        var loadZeroIntoRegister = new LoadAccRightIntoRegister(r1);
-//        var quit = new Quit();
+
     private void recurse(List<InstructionMark> instructions)
     {
         if (instructions.size() >= maximumInstructions)
             return;
         for (AccInstructionOpcodeEnum instruction : accInstructionOpcodeEnums)
         {
+            AccInstructionOpcode instructionEnum = new AccInstructionOpcode(instruction);
             if (instruction.isSingleRegister()) {
                 for (Register register1 : registers) {
-                    InstructionMark actualInstruction = instructionFactory.createInstruction(new laboflieven.common.AccInstructionOpcode(instruction), register1);
+                    InstructionMark actualInstruction = instructionFactory.createInstruction(instructionEnum, register1);
                     processInstruction(instructions, (AccRegisterInstruction) actualInstruction);
                 }
             } else {
-                InstructionMark actualInstruction = instructionFactory.createInstruction(new laboflieven.common.AccInstructionOpcode(instruction));
+                InstructionMark actualInstruction = instructionFactory.createInstruction(instructionEnum);
                 processInstruction(instructions, (AccRegisterInstruction) actualInstruction);
             }
         }
@@ -137,7 +135,7 @@ public class GeneralBruteForceProgramIterator implements ProgramIterator
         }
     }
 
-    class StopException extends RuntimeException
+    static class StopException extends RuntimeException
     {
 
     }
