@@ -3,6 +3,7 @@ package laboflieven.challenges;
 import laboflieven.*;
 import laboflieven.accinstructions.AccInstructionOpcodeEnum;
 import laboflieven.common.Configuration;
+import laboflieven.common.RegularInstructionOpcode;
 import laboflieven.examiners.ProgramFitnessExaminer;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
 import laboflieven.loggers.BitmapFitnessLogger;
@@ -17,7 +18,9 @@ import laboflieven.statements.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by Lieven on 8/07/2015.
@@ -212,7 +215,7 @@ public class FormulaFinder {
         RegularInstructionOpcodeEnum[] enums = RegularInstructionOpcodeEnum.values();
         //InstructionEnum[] enums = new InstructionEnum[]{InstructionEnum.Add, InstructionEnum.Sub, InstructionEnum.Mul, InstructionEnum.Div, InstructionEnum.Sqrt, InstructionEnum.Move, InstructionEnum.Log};
         //enums = new InstructionEnum[]{InstructionEnum.Add, InstructionEnum.Sub, InstructionEnum.Mul, InstructionEnum.Div, InstructionEnum.Log};
-        FitnessLogger logger = new BitmapFitnessLogger(new java.io.File("hello.bmp"), curMaxRegisters, List.of(enums));
+        FitnessLogger logger = new BitmapFitnessLogger(new java.io.File("hello.bmp"), Arrays.stream(enums).map(RegularInstructionOpcode::new).collect(Collectors.toList()));
         ProgramFitnessExaminerInterface evaluator = new ProgramFitnessExaminer(collection, new RegularStatementRunner());
         evaluator.addListener(logger);
         BruteForceProgramIterator iter = new BruteForceProgramIterator(evaluator, enums);

@@ -4,12 +4,14 @@ import laboflieven.Program;
 import laboflieven.ProgramResolution;
 import laboflieven.TestcaseInOutParameters;
 import laboflieven.accinstructions.AccInstructionOpcodeEnum;
+import laboflieven.common.AccInstructionOpcode;
 import laboflieven.common.CommandLineConfigLoader;
 import laboflieven.common.InstructionOpcode;
 import laboflieven.examiners.AccumulatorProgramFitnessExaminer;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
 import laboflieven.genericsolutions.RandomIteratorOperandFinder;
-import laboflieven.loggers.RandomSysOutAccFitnessLogger;
+import laboflieven.loggers.BitmapFitnessLogger;
+import laboflieven.loggers.ErrorCsvFileFitnessLogger;
 import laboflieven.loggers.TimingAccFitnessLogger;
 import laboflieven.programiterators.GeneralBruteForceProgramIterator;
 import laboflieven.runners.AccStatementRunner;
@@ -67,11 +69,14 @@ public class DataSourceFinder {
         }
         System.out.println("Setting opcodes to " + opcodes);
         conf.setAccOperations(opcodes.toArray(new AccInstructionOpcodeEnum[0]));
+        ErrorCsvFileFitnessLogger logger = new ErrorCsvFileFitnessLogger(new File("c:\\temp\\out.csv"), opcodes.stream().map(AccInstructionOpcode::new).collect(Collectors.toList()));
+        evaluator.addListener(logger);
         ProgramResolution res = v.iterate(conf);
         System.out.println(res);
         System.out.println("score:"+evaluator.evaluateDifference(new Program(res.instructions, Register.createRegisters(2))));
         long stop = System.currentTimeMillis();
         System.out.println("Timing:" + (stop - start));
+        logger.finish();
     }
 
     public double run(double[] args) {
