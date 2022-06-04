@@ -92,14 +92,4 @@ public class DataSourceFinder {
         System.out.println("Timing:" + (stop - start));
         logger.finish();
     }
-
-    public double run(double[] args) {
-        return F(args[0]);
-    }
-
-    public double F(double n)
-    {
-        Sigmoid sigmoid = new Sigmoid();
-        return sigmoid.value(n);
-    }
 }
