@@ -19,6 +19,7 @@ import laboflieven.statements.Register;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -37,7 +38,11 @@ public class DataSourceFinder {
         // left = R1, left = nand(left, right), left = sin(left), left = 3n+1, R1 = left
         AccStatementRunner runner = new AccStatementRunner();
 
-        List<TestcaseInOutParameters> conditions = TestCases.loadFromCsvFile(new File(conf.getCsvFile("C:\\temp\\slingersummary.csv")));
+        int columnToPredict = 2;
+
+        File sourceFile = new File(conf.getCsvFile("C:\\temp\\slingersummary.csv"));
+        var contents = Files.readString(sourceFile.toPath());
+        List<TestcaseInOutParameters> conditions = TestCases.loadFromCsvFile(sourceFile, false, columnToPredict);
         System.out.println("Conditions");
         System.out.println(conditions);
         ProgramFitnessExaminerInterface evaluator = new AccumulatorProgramFitnessExaminer(
@@ -60,7 +65,8 @@ public class DataSourceFinder {
                 AccInstructionOpcodeEnum.Inc,
                 AccInstructionOpcodeEnum.LoadIntoRightAcc,
                 AccInstructionOpcodeEnum.Div,
-                AccInstructionOpcodeEnum.Add
+                AccInstructionOpcodeEnum.Add,
+                AccInstructionOpcodeEnum.PI
                 );
         if (findCodes)
         {
@@ -73,8 +79,16 @@ public class DataSourceFinder {
         evaluator.addListener(logger);
         ProgramResolution res = v.iterate(conf);
         System.out.println(res);
-        System.out.println("score:"+evaluator.evaluateDifference(new Program(res.instructions, Register.createRegisters(2))));
+        double bestScore = evaluator.evaluateDifference(new Program(res.instructions, Register.createRegisters(2)));
         long stop = System.currentTimeMillis();
+        double defaultScore = TestCases.getDefaultError(conditions);
+        System.out.println(conditions);
+        System.out.println("From the csv the column "+ columnToPredict + " is predicted.");
+        System.out.println(contents);
+        System.out.println("score:"+ bestScore);
+        System.out.println("default score:"+ defaultScore);
+        System.out.println("relative score:"+ (bestScore / defaultScore) * 100 + "%");
+
         System.out.println("Timing:" + (stop - start));
         logger.finish();
     }
