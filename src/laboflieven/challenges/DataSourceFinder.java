@@ -13,6 +13,7 @@ import laboflieven.genericsolutions.RandomIteratorOperandFinder;
 import laboflieven.loggers.ErrorCsvFileFitnessLogger;
 import laboflieven.loggers.TimingAccFitnessLogger;
 import laboflieven.programiterators.AccPriorityProgramIterator;
+import laboflieven.programiterators.PredefinedStartAndEndAccPriorityProgramIterator;
 import laboflieven.runners.AccStatementRunner;
 import laboflieven.statements.Register;
 
@@ -53,14 +54,16 @@ public class DataSourceFinder {
         //evaluator.addListener(new RandomSysOutAccFitnessLogger(100000));
         evaluator.addListener(new TimingAccFitnessLogger(10000));
         conf.setFitnessExaminer(evaluator);
-        var v = conf.getProgramIterator(new AccPriorityProgramIterator());
+        //var v = conf.getProgramIterator(new PredefinedStartAndEndAccPriorityProgramIterator());
+        var v = new PredefinedStartAndEndAccPriorityProgramIterator();
         //var v = conf.getProgramIterator(new GeneralBruteForceProgramIterator());
         long start = System.currentTimeMillis();
         boolean findCodes = false;
         //List<AccInstructionOpcodeEnum> opcodes = List.of(AccInstructionOpcodeEnum.values());
-        List<AccInstructionOpcodeEnum> opcodes = Stream.concat(
-                AccInstructionOpcodeEnum.allAccLoaders().stream(),
-                AccInstructionOpcodeEnum.allMathOperators().stream()).collect(Collectors.toList());
+        List<AccInstructionOpcodeEnum> opcodes = AccInstructionOpcodeEnum.allMathOperators();
+                //Stream.concat(
+                //AccInstructionOpcodeEnum.allAccLoaders().stream(),
+                //AccInstructionOpcodeEnum.allMathOperators().stream()).collect(Collectors.toList());
 
         if (findCodes)
         {
