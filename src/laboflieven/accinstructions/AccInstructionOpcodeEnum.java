@@ -1,8 +1,6 @@
 package laboflieven.accinstructions;
 
-import laboflieven.common.ArrayOperations;
-
-import java.util.Set;
+import java.util.List;
 
 /**
  * Created by lveeckha on 4/06/2015.
@@ -34,5 +32,15 @@ public enum AccInstructionOpcodeEnum
     public String toString()
     {
         return name();
+    }
+
+    public static List<AccInstructionOpcodeEnum> allMathOperators() {
+        return List.of(Add, Div, Invert, Inc, Mul, Sqrt, Sub, Sin, Cos, Mod, Log, Pow, PI, E, Dec);
+    }
+    public static List<AccInstructionOpcodeEnum> allAccLoaders() {
+        return List.of(LoadIntoLeftAcc,
+                LoadIntoRightAcc,
+                LoadAccLeftIntoRegister,
+                LoadAccRightIntoRegister);
     }
 }

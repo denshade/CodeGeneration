@@ -10,10 +10,9 @@ import laboflieven.common.InstructionOpcode;
 import laboflieven.examiners.AccumulatorProgramFitnessExaminer;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
 import laboflieven.genericsolutions.RandomIteratorOperandFinder;
-import laboflieven.loggers.BitmapFitnessLogger;
 import laboflieven.loggers.ErrorCsvFileFitnessLogger;
 import laboflieven.loggers.TimingAccFitnessLogger;
-import laboflieven.programiterators.GeneralBruteForceProgramIterator;
+import laboflieven.programiterators.AccPriorityProgramIterator;
 import laboflieven.runners.AccStatementRunner;
 import laboflieven.statements.Register;
 
@@ -22,6 +21,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * NR_REGISTERS=1 CSV_FILE=C:\Users\densh\OneDrive\Documents\GitHub\CodeGeneration\src\laboflieven\challenges\primes.csv PROGRAM_ITERATOR=random MAX_NR_OF_INSTRUCTIONS=9 ACC_OPERATIONS=LoadIntoLeftAcc,LoadVectorSumIntoLeft,LoadAccLeftIntoVector,Dec,Jump2IfLte,Inc,LoadAccLeftIntoRegister,LoadAccRightIntoRegister,Quit
@@ -38,7 +38,7 @@ public class DataSourceFinder {
         // left = R1, left = nand(left, right), left = sin(left), left = 3n+1, R1 = left
         AccStatementRunner runner = new AccStatementRunner();
 
-        int columnToPredict = 2;
+        int columnToPredict = 3;
 
         File sourceFile = new File(conf.getCsvFile("C:\\temp\\slingersummary.csv"));
         var contents = Files.readString(sourceFile.toPath());
@@ -53,30 +53,25 @@ public class DataSourceFinder {
         //evaluator.addListener(new RandomSysOutAccFitnessLogger(100000));
         evaluator.addListener(new TimingAccFitnessLogger(10000));
         conf.setFitnessExaminer(evaluator);
-        var v = conf.getProgramIterator(new GeneralBruteForceProgramIterator());
+        var v = conf.getProgramIterator(new AccPriorityProgramIterator());
+        //var v = conf.getProgramIterator(new GeneralBruteForceProgramIterator());
         long start = System.currentTimeMillis();
-        conf.setMaxDurationSeconds(2);
         boolean findCodes = false;
         //List<AccInstructionOpcodeEnum> opcodes = List.of(AccInstructionOpcodeEnum.values());
-        List<AccInstructionOpcodeEnum> opcodes = List.of(
-                AccInstructionOpcodeEnum.LoadIntoLeftAcc,
-                AccInstructionOpcodeEnum.LoadAccLeftIntoRegister,
-                AccInstructionOpcodeEnum.LoadAccRightIntoRegister,
-                AccInstructionOpcodeEnum.Inc,
-                AccInstructionOpcodeEnum.LoadIntoRightAcc,
-                AccInstructionOpcodeEnum.Div,
-                AccInstructionOpcodeEnum.Add,
-                AccInstructionOpcodeEnum.PI
-                );
+        List<AccInstructionOpcodeEnum> opcodes = Stream.concat(
+                AccInstructionOpcodeEnum.allAccLoaders().stream(),
+                AccInstructionOpcodeEnum.allMathOperators().stream()).collect(Collectors.toList());
+
         if (findCodes)
         {
+            conf.setMaxDurationSeconds(2);
             List<InstructionOpcode> codes = finder.find(conf);
             opcodes = codes.stream().map(o -> (AccInstructionOpcodeEnum)o.getEnumeration()).collect(Collectors.toList());
         }
         System.out.println("Setting opcodes to " + opcodes);
         conf.setAccOperations(opcodes.toArray(new AccInstructionOpcodeEnum[0]));
         ErrorCsvFileFitnessLogger logger = new ErrorCsvFileFitnessLogger(new File("c:\\temp\\out.csv"), opcodes.stream().map(AccInstructionOpcode::new).collect(Collectors.toList()));
-        evaluator.addListener(logger);
+        //evaluator.addListener(logger);
         ProgramResolution res = v.iterate(conf);
         System.out.println(res);
         double bestScore = evaluator.evaluateDifference(new Program(res.instructions, Register.createRegisters(2)));
