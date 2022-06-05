@@ -74,7 +74,17 @@ public class PredefinedStartAndEndAccPriorityProgramIterator implements ProgramI
                 return res;
             }
         }
-        return bestFitRegister.getBest();
+        return prefixAndSuffix(bestFitRegister.getBest());
+    }
+
+    private ProgramResolution prefixAndSuffix(ProgramResolution best) {
+        if (best != null) {
+            best.instructions.add(0,new LoadIntoLeftAcc(new Register("R1")));
+            best.instructions.add(1,new LoadIntoRightAcc(new Register("R2")));
+            best.instructions.add(new LoadAccLeftIntoRegister(registers.get(0)));
+            best.instructions.add(new LoadAccRightIntoRegister(registers.get(1)));
+        }
+        return best;
     }
 
     private int remove2PrefixAnd2SuffixCount(int maxInstructions) {
