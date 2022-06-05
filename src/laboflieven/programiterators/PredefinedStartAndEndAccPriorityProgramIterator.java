@@ -79,8 +79,6 @@ public class PredefinedStartAndEndAccPriorityProgramIterator implements ProgramI
 
     private ProgramResolution prefixAndSuffix(ProgramResolution best) {
         if (best != null) {
-            best.instructions.add(0,new LoadIntoLeftAcc(new Register("R1")));
-            best.instructions.add(1,new LoadIntoRightAcc(new Register("R2")));
             best.instructions.add(new LoadAccLeftIntoRegister(registers.get(0)));
             best.instructions.add(new LoadAccRightIntoRegister(registers.get(1)));
         }

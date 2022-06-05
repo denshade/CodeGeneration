@@ -41,7 +41,7 @@ public class DataSourceFinder {
 
         int columnToPredict = 3;
 
-        File sourceFile = new File(conf.getCsvFile("C:\\temp\\slingersummary.csv"));
+        File sourceFile = new File(conf.getCsvFile("C:\\temp\\slinger.csv"));
         var contents = Files.readString(sourceFile.toPath());
         List<TestcaseInOutParameters> conditions = TestCases.loadFromCsvFile(sourceFile, false, columnToPredict);
         System.out.println("Conditions");
@@ -80,7 +80,8 @@ public class DataSourceFinder {
         double bestScore = evaluator.evaluateDifference(new Program(res.instructions, Register.createRegisters(2)));
         long stop = System.currentTimeMillis();
         double defaultScore = TestCases.getDefaultError(conditions);
-        System.out.println(conditions);
+        System.out.println("The following config was used");
+        System.out.println(conf);
         System.out.println("From the csv the column "+ columnToPredict + " is predicted.");
         System.out.println(contents);
         System.out.println("score:"+ bestScore);
