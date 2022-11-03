@@ -4,6 +4,7 @@ import laboflieven.TestcaseInOutParameters;
 import laboflieven.common.CommandLineConfigLoader;
 import laboflieven.common.Configuration;
 import laboflieven.examiners.AccumulatorMatchAnyRegisterProgramFitnessExaminer;
+import laboflieven.examiners.MaxCostAccumulatorMatchAnyRegisterProgramFitnessExaminer;
 import laboflieven.examiners.ProgramFitnessExaminer;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
 import laboflieven.loggers.TimingAccFitnessLogger;
@@ -21,7 +22,7 @@ public class EllipseFinder implements ProgramTemplate
         double h = ((a-b)*(a-b)) / ((a+b) * (a+b)); //
         return Math.PI * (a + b) * ( 1+ ( 3*h) / (10 + Math.sqrt(4 - 3 * h)));
     } // PI ADD MUL  A+B = h = ADD, ADD. SUB SUB. ~ 50
-
+ // 170122: left = left * right, left = left % right, left = 3n+1,  if left <=  R then goto 0 , left = 3n+1, left++,  right = R2, left = E, left = sin(left),  Jump to start if L >= R ,  right = R1, left = -left, vectleft = popfirst(vectleft), Jump if left = 0 goto this + 2, left = left ^ right, R1 = right, left++, left = sqrt(left), right = combine(rightvector), left = sum(leftV), left++, left--, left = nand(left, right), left = cos(left), left = sin(left), left = sqrt(left), Jump if left >= right goto this + 2, left = -left, left = sqrt(left),  right = R1,  Jump to start if L >= R ,  if left <=  R then goto 0 , vectleft = popfirst(vectleft), left = combine(rightleft), left = combine(rightleft), Jump if left <= right goto this + 2, left = sin(left), vectleft = popfirst(vectleft), vectleft = popfirst(vectleft), R1 = right,  right = R2,  left = R1, left = -left, leftVector = split(left), left = sin(left), Quit, leftVector = split(left), left = combine(rightleft), Quit, R2 = left
 
     public static void main(String[] args) {
         CommandLineConfigLoader loader = new CommandLineConfigLoader();
@@ -30,7 +31,7 @@ public class EllipseFinder implements ProgramTemplate
         int curMaxRegisters = config.getNumberOfRegisters(2);
         List<TestcaseInOutParameters> collection = TestCases.getTestCases(new EllipseFinder(), TestCases.getExampleInput2D(10000,1000), curMaxRegisters);
 
-        ProgramFitnessExaminerInterface evaluator = new AccumulatorMatchAnyRegisterProgramFitnessExaminer(collection, new AccStatementRunner());
+        ProgramFitnessExaminerInterface evaluator = new MaxCostAccumulatorMatchAnyRegisterProgramFitnessExaminer(collection, new AccStatementRunner());
         evaluator.addListener(new TimingAccFitnessLogger(10000));
 
         config.setFitnessExaminer(evaluator);
@@ -38,8 +39,8 @@ public class EllipseFinder implements ProgramTemplate
         config.setMaxNrInstructions(nrInstructions);
         config.setFitnessExaminer(evaluator);
         config.setInstructionFactory(new InstructionFactory());*/
-        config.setMaxNrInstructions(50);
-        ProgramIterator iter = new RandomProgramIterator();// config.getProgramIterator();
+        config.setMaxNrInstructions(20);
+        ProgramIterator iter = config.getProgramIterator(new AccPriorityProgramIterator());
         long start = System.currentTimeMillis();
         iter.iterate(config);
         System.out.println(System.currentTimeMillis() - start + "ms");

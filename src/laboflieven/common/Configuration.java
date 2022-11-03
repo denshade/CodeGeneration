@@ -150,7 +150,8 @@ public class Configuration {
         STOP_AT_SOLUTION(new BoolParser()),
         ERROR_TOLERANCE(new DoubleParser()),
         DATA_SOURCE(new DataSourceParser()),
-        CSV_FILE(new StringParser());
+        CSV_FILE(new StringParser()),
+        COST_CUT_OFF(new IntParser());
 
         public Parser parser;
 
@@ -307,6 +308,14 @@ public class Configuration {
     public Configuration setAccOperations(AccInstructionOpcodeEnum[] enums) {
         configurationSettings.put(ConfigurationKey.ACC_OPERATIONS, enums);
         return this;
+    }
+    
+    public Integer getDontEvaluateHigherThanCost(int cost) {
+        return (Integer)configurationSettings.getOrDefault(ConfigurationKey.COST_CUT_OFF, cost);
+    }
+
+    public void setDontEvaluateHigherThanCost(int cost) {
+        configurationSettings.put(ConfigurationKey.COST_CUT_OFF, cost);
     }
 
     public int getCutPopulationAtMax(int defaultNr){
