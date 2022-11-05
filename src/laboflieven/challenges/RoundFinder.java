@@ -1,18 +1,23 @@
 package laboflieven.challenges;
 
+import laboflieven.InstructionMark;
+import laboflieven.ProgramResolution;
 import laboflieven.TestcaseInOutParameters;
+import laboflieven.accinstructions.*;
+import laboflieven.common.AccInstructionOpcode;
 import laboflieven.common.CommandLineConfigLoader;
 import laboflieven.common.Configuration;
+import laboflieven.examiners.AccumulatorMatchAnyRegisterProgramFitnessExaminer;
 import laboflieven.examiners.MaxCostAccumulatorMatchAnyRegisterProgramFitnessExaminer;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
 import laboflieven.loggers.TimingAccFitnessLogger;
-import laboflieven.programiterators.AccPriorityProgramIterator;
-import laboflieven.programiterators.BruteForceProgramIterator;
-import laboflieven.programiterators.GeneralBruteForceProgramIterator;
-import laboflieven.programiterators.ProgramIterator;
+import laboflieven.programiterators.*;
+import laboflieven.recursionheuristics.AlwaysRecursionHeuristic;
 import laboflieven.runners.AccStatementRunner;
+import laboflieven.statements.Register;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * MAX_NR_OF_INSTRUCTIONS=10 INSTRUCTION_FACTORY=Acc
@@ -20,9 +25,9 @@ import java.util.List;
 public class RoundFinder implements ProgramTemplate
 {
     public static double distance(double a) {
-        return Math.round(a);
+        return Math.floor(a);
     } // PI ADD MUL  A+B = h = ADD, ADD. SUB SUB. ~ 50
- // 170122: left = left * right, left = left % right, left = 3n+1,  if left <=  R then goto 0 , left = 3n+1, left++,  right = R2, left = E, left = sin(left),  Jump to start if L >= R ,  right = R1, left = -left, vectleft = popfirst(vectleft), Jump if left = 0 goto this + 2, left = left ^ right, R1 = right, left++, left = sqrt(left), right = combine(rightvector), left = sum(leftV), left++, left--, left = nand(left, right), left = cos(left), left = sin(left), left = sqrt(left), Jump if left >= right goto this + 2, left = -left, left = sqrt(left),  right = R1,  Jump to start if L >= R ,  if left <=  R then goto 0 , vectleft = popfirst(vectleft), left = combine(rightleft), left = combine(rightleft), Jump if left <= right goto this + 2, left = sin(left), vectleft = popfirst(vectleft), vectleft = popfirst(vectleft), R1 = right,  right = R2,  left = R1, left = -left, leftVector = split(left), left = sin(left), Quit, leftVector = split(left), left = combine(rightleft), Quit, R2 = left
+ // 7.000000000000001 [ left = R1, left = left - right, Jump if left = 0 goto this + 2, right = combine(rightvector), Jump if left >= right goto this + 2, left++, R1 = left, left--, left = left ^ right, left = nand(left, right), Jump if left >= right goto this + 2, leftVector = split(left), left = E, vectleft = popfirst(vectleft), Quit,  right = R1, Jump if left >= right goto this + 2, Quit, left = 3n+1, left = PI, left = sum(leftV), left = combine(rightleft), left = sin(left), swap = left, left = right, right = swap, Jump if left = 0 goto this + 2, left = -left, rightVector = split(right),  right = R1, left = E, left = -left, left = nand(left, right),  left = R1, R1 = left, right = combine(rightvector), swap = left, left = right, right = swap, Jump if left = 0 goto this + 2,  Jump to start if L >= R , left = log(left), left = left * right, left = sin(left), vectleft = popfirst(vectleft), right = combine(rightvector), Jump if left == right goto this + 2, left = left - right, Quit, left = log(left), left = -left, right = combine(rightvector), leftVector = split(left), R1 = left]
 
     public static void main(String[] args) {
         CommandLineConfigLoader loader = new CommandLineConfigLoader();
@@ -39,11 +44,22 @@ public class RoundFinder implements ProgramTemplate
         config.setMaxNrInstructions(nrInstructions);
         config.setFitnessExaminer(evaluator);
         config.setInstructionFactory(new InstructionFactory());*/
-        config.setMaxNrInstructions(5);
+        /*config.setAccOperations(AccInstructionOpcodeEnumBuilder.make()
+                .with(AccInstructionOpcodeEnum.PI,  AccInstructionOpcodeEnum.Swap, AccInstructionOpcodeEnum.Cos,
+                        AccInstructionOpcodeEnum.Inc, AccInstructionOpcodeEnum.Div, AccInstructionOpcodeEnum.Sub
+                        )
+                .with(AccInstructionOpcodeEnum.allAccLoaders().toArray(new AccInstructionOpcodeEnum[0])).build());*/
+        var registers = Register.createRegisters(1);
+        List<InstructionMark> solution = List.of(new PI(), new Swap(), new Inc(), new Inc(), new Swap(), new Div(),
+                                new LoadIntoRightAcc(registers.get(0)), new Sub(), new Cos(), new LoadAccLeftIntoRegister(registers.get(0)));
+        //
+        config.setMaxNrInstructions(50);
+        config.setRandomAdded(false);
         config.setNumberOfRegisters(1);
-        ProgramIterator iter = config.getProgramIterator(new GeneralBruteForceProgramIterator());
+        ProgramIterator iter = config.getProgramIterator(new RandomProgramIterator());
         long start = System.currentTimeMillis();
-        iter.iterate(config);
+        ProgramResolution solutionFound = iter.iterate(config);
+        System.out.println(solution);
         System.out.println(System.currentTimeMillis() - start + "ms");
     }
 

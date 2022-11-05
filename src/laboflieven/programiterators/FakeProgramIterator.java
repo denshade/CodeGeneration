@@ -2,7 +2,9 @@ package laboflieven.programiterators;
 
 import laboflieven.InstructionMark;
 import laboflieven.Program;
+import laboflieven.ProgramResolution;
 import laboflieven.accinstructions.AccInstructionOpcodeEnum;
+import laboflieven.common.Configuration;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
 import laboflieven.recursionheuristics.AlwaysRecursionHeuristic;
 import laboflieven.recursionheuristics.RecursionHeuristic;
@@ -13,7 +15,7 @@ import java.util.List;
 import java.util.logging.Logger;
 
 
-public class FakeProgramIterator
+public class FakeProgramIterator implements ProgramIterator
 {
     public int maximumInstructions;
     public long counter = 0;
@@ -33,7 +35,7 @@ public class FakeProgramIterator
     }
 
 
-    public void iterate(final int nrOfRegisters, int maximumInstructions)
+    public ProgramResolution iterate(final int nrOfRegisters, int maximumInstructions)
     {
         this.maximumInstructions = maximumInstructions;
         List<Register> registers = Register.createRegisters(nrOfRegisters);
@@ -47,6 +49,7 @@ public class FakeProgramIterator
                 eval(solutionSoFar, registers);
             }
         }
+        return new ProgramResolution(positiveSolutions.get(0), evaluator.calculateFitness(positiveSolutions.get(0), registers));
     }
 
 
@@ -62,4 +65,8 @@ public class FakeProgramIterator
     }
 
 
+    @Override
+    public ProgramResolution iterate(Configuration configuration) {
+        return iterate(configuration.getNumberOfRegisters(2), configuration.getMaxNrInstructions(10));
+    }
 }
