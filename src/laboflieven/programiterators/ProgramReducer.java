@@ -18,6 +18,9 @@ public class ProgramReducer {
 
     public List<InstructionMark> reduce(List<InstructionMark> program, List<Register> registers)
     {
+        if (!examiner.isFit(program, registers)) {
+            throw new RuntimeException("Program is not fit.");
+        }
         for (int i = 0; i < program.size(); i++)
         {
             var copyOfList = new ArrayList<>(program);
