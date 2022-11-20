@@ -27,8 +27,9 @@ public class RoundFinder implements ProgramTemplate
     public static double distance(double a) {
         return Math.floor(a);
     } // PI ADD MUL  A+B = h = ADD, ADD. SUB SUB. ~ 50
- // 7.000000000000001 [ left = R1, left = left - right, Jump if left = 0 goto this + 2, right = combine(rightvector), Jump if left >= right goto this + 2, left++, R1 = left, left--, left = left ^ right, left = nand(left, right), Jump if left >= right goto this + 2, leftVector = split(left), left = E, vectleft = popfirst(vectleft), Quit,  right = R1, Jump if left >= right goto this + 2, Quit, left = 3n+1, left = PI, left = sum(leftV), left = combine(rightleft), left = sin(left), swap = left, left = right, right = swap, Jump if left = 0 goto this + 2, left = -left, rightVector = split(right),  right = R1, left = E, left = -left, left = nand(left, right),  left = R1, R1 = left, right = combine(rightvector), swap = left, left = right, right = swap, Jump if left = 0 goto this + 2,  Jump to start if L >= R , left = log(left), left = left * right, left = sin(left), vectleft = popfirst(vectleft), right = combine(rightvector), Jump if left == right goto this + 2, left = left - right, Quit, left = log(left), left = -left, right = combine(rightvector), leftVector = split(left), R1 = left]
-
+ //ceil = [ left = R1, swap = left, left = right, right = swap, Jump if left >= right goto this + 2, left++, swap = left, left = right, right = swap,  Jump to start if L >= R , R1 = right]
+ //[ left = R1, Jump if left == right goto this + 2, left = left % right,  right = R1, left = left - right, R1 = left,  if left <=  R then goto 0 , left = cos(left), left = sin(left), R1 = right, left = left + right, left = PI, left--, right = combine(rightvector), Jump if left = 0 goto this + 2, left++, rightVector = split(right), left = sum(leftV), Jump if left >= right goto this + 2, left = cos(left),  Jump to start if L >= R ,  if left <=  R then goto 0 ]
+ //[ left = R1, left = left - right, R1 = left, right = combine(rightvector), left = left % right, swap = left, left = right, right = swap, left = log(left), left = nand(left, right),  Jump to start if L >= R ]
     public static void main(String[] args) {
         CommandLineConfigLoader loader = new CommandLineConfigLoader();
         Configuration config = loader.loadFromCommandLine(args);
@@ -53,13 +54,15 @@ public class RoundFinder implements ProgramTemplate
         List<InstructionMark> solution = List.of(new PI(), new Swap(), new Inc(), new Inc(), new Swap(), new Div(),
                                 new LoadIntoRightAcc(registers.get(0)), new Sub(), new Cos(), new LoadAccLeftIntoRegister(registers.get(0)));
         //
-        config.setMaxNrInstructions(50);
+        config.setMaxNrInstructions(100);
         config.setRandomAdded(false);
         config.setNumberOfRegisters(1);
         ProgramIterator iter = config.getProgramIterator(new RandomProgramIterator());
         long start = System.currentTimeMillis();
         ProgramResolution solutionFound = iter.iterate(config);
-        System.out.println(solution);
+        System.out.println("Original solution "+solutionFound);
+        var p = new ProgramReducer(evaluator);
+        System.out.println(p.reduceAsFarAsPossible(solutionFound.instructions, registers));
         System.out.println(System.currentTimeMillis() - start + "ms");
     }
 

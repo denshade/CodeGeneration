@@ -1,6 +1,7 @@
 package laboflieven.challenges;
 
 import laboflieven.TestcaseInOutParameters;
+import laboflieven.accinstructions.AccInstructionOpcodeEnum;
 import laboflieven.common.CommandLineConfigLoader;
 import laboflieven.common.Configuration;
 import laboflieven.examiners.AccumulatorMatchAnyRegisterProgramFitnessExaminer;
@@ -39,8 +40,9 @@ public class EllipseFinder implements ProgramTemplate
         config.setMaxNrInstructions(nrInstructions);
         config.setFitnessExaminer(evaluator);
         config.setInstructionFactory(new InstructionFactory());*/
-        config.setMaxNrInstructions(20);
-        ProgramIterator iter = config.getProgramIterator(new AccPriorityProgramIterator());
+        config.setAccOperations(AccInstructionOpcodeEnum.allMathOperators().toArray(AccInstructionOpcodeEnum[]::new));
+        config.setMaxNrInstructions(150);
+        ProgramIterator iter = config.getProgramIterator(new RandomProgramIterator());
         long start = System.currentTimeMillis();
         iter.iterate(config);
         System.out.println(System.currentTimeMillis() - start + "ms");
