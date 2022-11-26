@@ -5,11 +5,18 @@ import java.util.List;
 
 public class TableSelection
 {
-    private final Integer selectedTable;
+    private String selectedTable;
 
     TableSelection(Integer selectedTable, List<String> tables) {
-        this.selectedTable = selectedTable;
+        if (selectedTable >= tables.size()) {
+            throw new IllegalArgumentException("selectedTable > tables size " + selectedTable + " @ " + tables);
+        }
+        this.selectedTable = tables.get(selectedTable);
     }
 
+    public String toString()
+    {
+        return selectedTable;
+    }
 
 }

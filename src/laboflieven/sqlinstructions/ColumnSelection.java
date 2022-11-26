@@ -23,7 +23,7 @@ public class ColumnSelection
 
     public String toString()
     {
-        return selectedColumnList.stream().collect(Collectors.joining(","));
+        return String.join(",", selectedColumnList);
     }
 
 }
