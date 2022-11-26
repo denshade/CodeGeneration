@@ -35,7 +35,7 @@ public class RoundFinder implements ProgramTemplate
         Configuration config = loader.loadFromCommandLine(args);
 
         int curMaxRegisters = config.getNumberOfRegisters(1);
-        List<TestcaseInOutParameters> collection = TestCases.getTestCases(new RoundFinder(), TestCases.getExampleInput1D(10,0.3), curMaxRegisters);
+        List<TestcaseInOutParameters> collection = TestCases.getTestCases(new RoundFinder(), TestCases.getExampleInput1D(30,0.3), curMaxRegisters);
 
         ProgramFitnessExaminerInterface evaluator = new MaxCostAccumulatorMatchAnyRegisterProgramFitnessExaminer(collection, new AccStatementRunner());
         evaluator.addListener(new TimingAccFitnessLogger(10000));
@@ -60,9 +60,7 @@ public class RoundFinder implements ProgramTemplate
         ProgramIterator iter = config.getProgramIterator(new RandomProgramIterator());
         long start = System.currentTimeMillis();
         ProgramResolution solutionFound = iter.iterate(config);
-        System.out.println("Original solution "+solutionFound);
-        var p = new ProgramReducer(evaluator);
-        System.out.println(p.reduceAsFarAsPossible(solutionFound.instructions, registers));
+        System.out.println(solution);
         System.out.println(System.currentTimeMillis() - start + "ms");
     }
 

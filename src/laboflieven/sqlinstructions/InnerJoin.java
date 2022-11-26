@@ -3,12 +3,9 @@ package laboflieven.sqlinstructions;
 import laboflieven.InstructionMark;
 import laboflieven.common.InstructionOpcode;
 
-public class Select implements InstructionMark {
-    public Select(ColumnSelection columnSelection){
-
-    }
+public class InnerJoin implements InstructionMark {
     @Override
     public InstructionOpcode getInstructionOpcode() {
-        return new SQLInstructionOpcode(SqlInstructionEnum.SELECT);
+        return new SQLInstructionOpcode(SqlInstructionEnum.INNER_JOIN);
     }
 }
