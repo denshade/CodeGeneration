@@ -19,7 +19,7 @@ class TableSelectionTest {
     {
         assertEquals("T1", new TableSelection(0, List.of("T1")).toString());
         assertEquals("T2", new TableSelection(1, List.of("T1", "T2")).toString());
-
     }
+
 
 }
