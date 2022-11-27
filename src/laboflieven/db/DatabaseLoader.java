@@ -30,11 +30,22 @@ public class DatabaseLoader
         }
         return results;
     }
-    public void load(Connection connection, Map<String, List<String>> tableToColumns, List<String[]> data) throws SQLException {
+    public List<String> insertSqlMap(Map<String, List<String[]>> map) {
+        var results = new ArrayList<String>();
+        for (var m: map.entrySet())
+        {
+            results.addAll(insertSqls(m.getKey(), m.getValue()));
+        }
+        return results;
+    }
+
+    public void load(Connection connection, Map<String, List<String>> tableToColumns, Map<String, List<String[]>> map) throws SQLException {
         Statement statement = connection.createStatement();
         for (String sql : createTables(tableToColumns)){
             boolean success = statement.execute(sql);
         }
-
+        for (String sql : insertSqlMap(map)){
+            boolean success = statement.execute(sql);
+        }
     }
 }
