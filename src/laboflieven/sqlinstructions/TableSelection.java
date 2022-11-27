@@ -7,7 +7,7 @@ public class TableSelection
 {
     private String selectedTable;
 
-    TableSelection(Integer selectedTable, List<String> tables) {
+    public TableSelection(Integer selectedTable, List<String> tables) {
         if (selectedTable >= tables.size()) {
             throw new IllegalArgumentException("selectedTable > tables size " + selectedTable + " @ " + tables);
         }

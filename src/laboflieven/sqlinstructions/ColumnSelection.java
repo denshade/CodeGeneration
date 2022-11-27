@@ -9,7 +9,7 @@ public class ColumnSelection
 {
     private final List<String> selectedColumnList = new ArrayList<>();
 
-    ColumnSelection(BitSet selectedColumns, List<String> columns) {
+    public ColumnSelection(BitSet selectedColumns, List<String> columns) {
         if (selectedColumns.nextSetBit(0) == -1) {
             throw new IllegalArgumentException("No selected columns for "+columns);
         }
