@@ -22,4 +22,12 @@ class DatabaseLoaderTest {
         assertTrue(result.contains("CREATE TABLE T2(B1 VARCHAR(255), B2 VARCHAR(255), B3 VARCHAR(255))"));
     }
 
+    @Test
+    void createInserts() {
+        var inserts = new DatabaseLoader().insertSqls("T1", List.of(new String[]{"A1", "A2"}, new String[]{"B1", "B2"}));
+        assertTrue(inserts.contains("INSERT INTO T1 VALUES('A1','A2')"));
+        assertTrue(inserts.contains("INSERT INTO T1 VALUES('B1','B2')"));
+
+    }
+
 }

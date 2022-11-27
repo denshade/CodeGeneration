@@ -22,6 +22,14 @@ public class DatabaseLoader
         }
         return sqlStatements;
     }
+    public List<String> insertSqls(String table, List<String[]> data) {
+        var results = new ArrayList<String>();
+        for (String[] dataRow : data) {
+            var r = List.of(dataRow).stream().map(d -> "'"+d+"'").collect(Collectors.joining(","));
+            results.add("INSERT INTO " + table + " VALUES("+r+")");
+        }
+        return results;
+    }
     public void load(Connection connection, Map<String, List<String>> tableToColumns, List<String[]> data) throws SQLException {
         Statement statement = connection.createStatement();
         for (String sql : createTables(tableToColumns)){
