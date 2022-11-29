@@ -14,15 +14,10 @@ import java.util.stream.Collectors;
 public class SqlStatementRunner
 {
     private final Connection connection;
-    public SqlStatementRunner() throws SQLException {
-        connection = DriverManager.getConnection("jdbc:hsqldb:mem:mymemdb", "SA", "");
-        Statement statement = connection.createStatement();
-        boolean success = statement.execute("CREATE TABLE A(id INTEGER, value VARCHAR(255))");
+    public SqlStatementRunner(Connection connection) throws SQLException {
+        this.connection = connection;
     }
 
-    protected void finalize() throws SQLException {
-        connection.close();
-    }
     public ResultSet execute(Program program, Map<String, Double> registerValues) throws SQLException {
         String SQLStatement = program.getInstructions().stream().map(Object::toString).collect(Collectors.joining());
         Statement statement = connection.createStatement();
@@ -31,7 +26,8 @@ public class SqlStatementRunner
 
     public static void main(String[] args) {
         try {
-            var runner = new SqlStatementRunner();
+            var connection = DriverManager.getConnection("jdbc:hsqldb:mem:mymemdb", "SA", "");
+            var runner = new SqlStatementRunner(connection);
             BitSet selectedColumns = new BitSet();
             selectedColumns.set(0);
             Select select = new Select(new ColumnSelection(selectedColumns, List.of("id")), new TableSelection(0, List.of("A")));
