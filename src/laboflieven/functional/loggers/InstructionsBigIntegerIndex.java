@@ -17,7 +17,7 @@ public class InstructionsBigIntegerIndex
         nrInstructionMult = BigInteger.valueOf(opcodes.size());
         for (InstructionMark instruction : instructions)
         {
-            int instructNr = opcodes.indexOf(instruction.getInstructionOpcode().getEnumeration());
+            int instructNr = opcodes.indexOf(instruction.getInstructionOpcode());
             if (instructNr == -1) {
                 throw new RuntimeException("Unknown class " + instruction.getClass().toString());
             }
