@@ -47,8 +47,8 @@ class HashedResultsHeuristicTest {
 
     private TestcaseInOutParameters getInOutParameter(double val) {
         Map<String, Double> k = new HashMap<>();
-        k.put("r1", val);
-        k.put("r2", val + 1);
+        k.put("R1", val);
+        k.put("R2", val + 1);
         TestcaseInOutParameters param = new TestcaseInOutParameters();
         param.input = k;
         return param;
