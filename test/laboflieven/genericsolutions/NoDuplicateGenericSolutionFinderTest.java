@@ -17,8 +17,8 @@ class NoDuplicateGenericSolutionFinderTest {
     {
         List<TestcaseInOutParameters> testcases = TestCases.getTestCases(new CosAltFinder(), TestCases.getExampleInput1D(10, 1),1);
         var finder = new NoDuplicateGenericSolutionFinder();
-        assertNotNull(finder.findSolution(testcases));
         var solution = finder.findSolution(testcases);
+        assertNotNull(solution);
         assertTrue(solution.programSelector.size() > 0);
         assertEquals(3, solution.programs.size());
         System.out.println(solution);

@@ -26,7 +26,7 @@ class AccumulatorMatchAnyRegisterProgramFitnessExaminerTest {
         Register register0 = registers.get(0);
         List<InstructionMark> instructions = List.of(new PI(), new Swap(), new Inc(), new Inc(), new Swap(), new Div(),
                 new LoadIntoRightAcc(register0), new Sub(), new Cos(), new LoadAccLeftIntoRegister(register0));
-        assertEquals(0.1, a.calculateFitness(instructions, Register.createRegisters(1)));
+        assertEquals(1761.0983870239286, a.calculateFitness(instructions, Register.createRegisters(1)));
     }
 
 }

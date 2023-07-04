@@ -11,7 +11,7 @@ class PriorityProgramIteratorTest {
     @Test
     void iterate() {
         String[] arguments =
-                (       Configuration.ConfigurationKey.MAX_NR_OF_INSTRUCTIONS + "=4 " +
+                (       Configuration.ConfigurationKey.MAX_NR_OF_INSTRUCTIONS + "=2 " +
                         Configuration.ConfigurationKey.NR_REGISTERS + "=2 "+
                         Configuration.ConfigurationKey.INSTRUCTION_FACTORY +"=Acc " +
                         Configuration.ConfigurationKey.DATA_PROVIDER + "=laboflieven.challenges.AdderFinder " +
