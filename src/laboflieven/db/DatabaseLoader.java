@@ -12,7 +12,7 @@ public class DatabaseLoader
 {
     public String createTable(String table, List<String> columns) {
         var s = columns.stream().map(c -> c + " VARCHAR(255)").collect(Collectors.joining(", "));
-        return "CREATE TABLE IF NOT EXISTS "+table + "(" + s+")";
+        return "CREATE TABLE " + table + "(" + s+")";
     }
     public List<String> createTables(Map<String, List<String>> tableToColumns)
     {
