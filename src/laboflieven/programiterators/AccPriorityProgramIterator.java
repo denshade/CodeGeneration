@@ -38,6 +38,9 @@ public class AccPriorityProgramIterator  implements ProgramIterator
     public ProgramResolution iterate(Configuration configuration)
     {
         this.evaluator = configuration.getFitnessExaminer();
+        if (evaluator == null) {
+            throw new IllegalArgumentException("Evaluator shouldn't be empty");
+        }
         this.enums = configuration.getAccOperations();
         this.heuristic = configuration.getHeuristic(new AlwaysRecursionHeuristic());
         this.instructionFactory = configuration.getInstructionFactory(new InstructionFactory());
