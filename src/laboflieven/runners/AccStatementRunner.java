@@ -52,6 +52,7 @@ public class AccStatementRunner implements StatementRunner {
         Register right = new Register(RIGHT_ACC_NAME);
         VectorRegister leftVector = new VectorRegister(LEFT_ACC_NAME_VECTOR);
         VectorRegister rightVector = new VectorRegister(RIGHT_ACC_NAME_VECTOR);
+        boolean instructionOverflow = false;
         int ip = 0;
         int instructionsRun = 0;
         int size = instructions.size();
@@ -60,6 +61,7 @@ public class AccStatementRunner implements StatementRunner {
             instructionsRun++;
             if (instructionsRun > MAXINSTRUCT)
             {
+                instructionOverflow= true;
                 break;
             }
             AccRegisterInstruction instruction = (AccRegisterInstruction) instructions.get(ip);
@@ -83,9 +85,16 @@ public class AccStatementRunner implements StatementRunner {
                 ip++;
             }
         }
-        Map<String, Double> m = getResultValueMap(program);
-        m.put(left.name, left.value);
-        m.put(right.name, right.value);
+        Map<String, Double> m ;
+        if (instructionOverflow) {
+            m = getResultNanValueMap(program);
+            m.put(left.name, Double.NaN);
+            m.put(right.name, Double.NaN);
+        } else {
+            m = getResultValueMap(program);
+            m.put(left.name, left.value);
+            m.put(right.name, right.value);
+        }
         return m;
     }
 
@@ -94,6 +103,14 @@ public class AccStatementRunner implements StatementRunner {
         for (Register registr : program.getRegisters())
         {
             m.put(registr.name, registr.value);
+        }
+        return m;
+    }
+    private Map<String, Double> getResultNanValueMap(Program program) {
+        Map<String, Double> m = new HashMap<>();
+        for (Register registr : program.getRegisters())
+        {
+            m.put(registr.name, Double.NaN);
         }
         return m;
     }

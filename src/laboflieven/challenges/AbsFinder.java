@@ -45,7 +45,8 @@ public class AbsFinder {
         collection.add(createParameter(-15.0, 15.0));
         collection.add(createParameter(0.0, 0.0));
 //        ProgramFitnessExaminerInterface evaluator = new ProgramFitnessExaminer(collection, new AccStatementRunner());
-        ProgramFitnessExaminerInterface evaluator = new AccumulatorMatchAnyRegisterProgramFitnessExaminer(collection, new AccStatementRunner());
+        AccStatementRunner runner = new AccStatementRunner();
+        ProgramFitnessExaminerInterface evaluator = new AccumulatorMatchAnyRegisterProgramFitnessExaminer(collection, runner);
         //JsonFileFitnessLogger csvLogger = new JsonFileFitnessLogger(new File("c:\\temp\\test.json"));
         //evaluator.addListener(csvLogger);
         var iterator = new GeneralBruteForceProgramIterator();
@@ -56,12 +57,15 @@ public class AbsFinder {
         config.setNumberOfRegisters(1);
         config.setFitnessExaminer(evaluator);
         config.setMaxNrInstructions(4);
-        config.setStopAtSolution(true);
+        config.setStopAtSolution(false);
         long start = System.currentTimeMillis();
         ProgramResolution r = iterator.iterate(config);
         //iterator.iterate(1000, 3, Register.createRegisters(1, "R"), evaluator);
         System.out.println("Timing: "+ (System.currentTimeMillis() - start));
         System.out.println(r);
+        runner.verbose = true;
+
+        evaluator.calculateFitness(r.instructions, Register.createRegisters(1));
 
         /*try {
             csvLogger.finish();

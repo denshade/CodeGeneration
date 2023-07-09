@@ -2,14 +2,19 @@ package laboflieven;
 
 import laboflieven.accinstructions.*;
 import laboflieven.challenges.TestCases;
+import laboflieven.humanresource.instructions.Jump;
 import laboflieven.runners.AccStatementRunner;
 import laboflieven.statements.Register;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import static junit.framework.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class AccStatementRunnerTest {
 
@@ -62,6 +67,14 @@ public class AccStatementRunnerTest {
                 return;
             }
         } while(left <= right); //JumpIfLteStart
+    }
+    @Test
+    void NanUponOverflow()
+    {
+        var runner = new AccStatementRunner();
+        var program = new Program(List.of(new JumpIfGteStart()), Register.createRegisters(1));
+        var result = runner.execute(program, Map.of("R1", 1.0));
+        Assertions.assertTrue(Double.isNaN(result.get("R1")));
     }
     private static void l(double l, double r, double r0)
     {
