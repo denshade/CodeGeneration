@@ -99,7 +99,7 @@ public class AccStatementRunner implements StatementRunner {
     }
 
     private Map<String, Double> getResultValueMap(Program program) {
-        Map<String, Double> m = new HashMap<>();
+        Map<String, Double> m = new HashMap<>(program.getRegisters().size());
         for (Register registr : program.getRegisters())
         {
             m.put(registr.name, registr.value);
@@ -107,7 +107,7 @@ public class AccStatementRunner implements StatementRunner {
         return m;
     }
     private Map<String, Double> getResultNanValueMap(Program program) {
-        Map<String, Double> m = new HashMap<>();
+        Map<String, Double> m = new HashMap<>(program.getRegisters().size());
         for (Register registr : program.getRegisters())
         {
             m.put(registr.name, Double.NaN);

@@ -63,7 +63,6 @@ public class AbsFinder {
         //iterator.iterate(1000, 3, Register.createRegisters(1, "R"), evaluator);
         System.out.println("Timing: "+ (System.currentTimeMillis() - start));
         System.out.println(r);
-        runner.verbose = true;
 
         evaluator.calculateFitness(r.instructions, Register.createRegisters(1));
 
