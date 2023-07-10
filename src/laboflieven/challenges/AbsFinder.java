@@ -46,6 +46,7 @@ public class AbsFinder {
         collection.add(createParameter(0.0, 0.0));
 //        ProgramFitnessExaminerInterface evaluator = new ProgramFitnessExaminer(collection, new AccStatementRunner());
         AccStatementRunner runner = new AccStatementRunner();
+        runner.MAXINSTRUCT = 10;
         ProgramFitnessExaminerInterface evaluator = new AccumulatorMatchAnyRegisterProgramFitnessExaminer(collection, runner);
         //JsonFileFitnessLogger csvLogger = new JsonFileFitnessLogger(new File("c:\\temp\\test.json"));
         //evaluator.addListener(csvLogger);

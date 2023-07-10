@@ -107,11 +107,6 @@ public class AccStatementRunner implements StatementRunner {
         return m;
     }
     private Map<String, Double> getResultNanValueMap(Program program) {
-        Map<String, Double> m = new HashMap<>(program.getRegisters().size());
-        for (Register registr : program.getRegisters())
-        {
-            m.put(registr.name, Double.NaN);
-        }
-        return m;
+        return new NanMap();
     }
 }
