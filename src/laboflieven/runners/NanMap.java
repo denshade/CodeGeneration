@@ -6,6 +6,10 @@ import java.util.Set;
 
 public class NanMap implements Map
 {
+    private static NanMap m = new NanMap();
+    public static NanMap instance() {
+        return m;
+    }
     @Override
     public int size() {
         return 1;

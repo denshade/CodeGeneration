@@ -88,8 +88,6 @@ public class AccStatementRunner implements StatementRunner {
         Map<String, Double> m ;
         if (instructionOverflow) {
             m = getResultNanValueMap(program);
-            m.put(left.name, Double.NaN);
-            m.put(right.name, Double.NaN);
         } else {
             m = getResultValueMap(program);
             m.put(left.name, left.value);
@@ -107,6 +105,6 @@ public class AccStatementRunner implements StatementRunner {
         return m;
     }
     private Map<String, Double> getResultNanValueMap(Program program) {
-        return new NanMap();
+        return NanMap.instance();
     }
 }
