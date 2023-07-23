@@ -58,7 +58,7 @@ public class TestcaseInOutParameters
 
     public String toString()
     {
-        return input.toString() + " = " + expectedOutput.toString();
+        return input.toString() + " => " + expectedOutput.toString();
     }
 
 }

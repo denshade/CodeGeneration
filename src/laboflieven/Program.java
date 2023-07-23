@@ -38,7 +38,7 @@ public class Program
             /*if (!registerValues.containsKey(register.name)){
                 throw new IllegalArgumentException("You have not specified the initial values for " + register.name);
             }*/
-            register.value = registerValues.get(register.name);
+            register.value = registerValues.getOrDefault(register.name, 0.0);
         }
     }
 

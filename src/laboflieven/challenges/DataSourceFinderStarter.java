@@ -4,7 +4,6 @@ import laboflieven.Program;
 import laboflieven.ProgramResolution;
 import laboflieven.TestcaseInOutParameters;
 import laboflieven.accinstructions.AccInstructionOpcodeEnum;
-import laboflieven.accinstructions.ProgramResolutionI;
 import laboflieven.common.AccInstructionOpcode;
 import laboflieven.common.CommandLineConfigLoader;
 import laboflieven.common.InstructionOpcode;
@@ -13,7 +12,7 @@ import laboflieven.examiners.ProgramFitnessExaminerInterface;
 import laboflieven.genericsolutions.RandomIteratorOperandFinder;
 import laboflieven.loggers.ErrorCsvFileFitnessLogger;
 import laboflieven.loggers.TimingAccFitnessLogger;
-import laboflieven.programiterators.*;
+import laboflieven.programiterators.PredefinedStartAndEndAccPriorityProgramIterator;
 import laboflieven.runners.AccStatementRunner;
 import laboflieven.statements.Register;
 
@@ -22,7 +21,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /**
  * NR_REGISTERS=1 CSV_FILE=C:\Users\densh\OneDrive\Documents\GitHub\CodeGeneration\src\laboflieven\challenges\primes.csv PROGRAM_ITERATOR=random MAX_NR_OF_INSTRUCTIONS=9 ACC_OPERATIONS=LoadIntoLeftAcc,LoadVectorSumIntoLeft,LoadAccLeftIntoVector,Dec,Jump2IfLte,Inc,LoadAccLeftIntoRegister,LoadAccRightIntoRegister,Quit
@@ -32,7 +30,7 @@ import java.util.stream.Stream;
  1001 NR_REGISTERS=1 CSV_FILE=C:\Users\densh\OneDrive\Documents\GitHub\CodeGeneration\src\laboflieven\challenges\primes.csv PROGRAM_ITERATOR=brute MAX_NR_OF_INSTRUCTIONS=7 RECURSION_HEURISTIC=Acc RND_ADDED=false CUT_POPULATION_AT_MAX=10000000 ACC_OPERATIONS=LoadIntoLeftAcc,LoadVectorSumIntoLeft,LoadAccLeftIntoVector,Dec,Jump2IfLte,Inc,LoadAccLeftIntoRegister,LoadAccRightIntoRegister,Quit
  NR_REGISTERS=3 CSV_FILE=C:\temp\slingersummary.csv PROGRAM_ITERATOR=brute MAX_NR_OF_INSTRUCTIONS=7 RECURSION_HEURISTIC=Acc RND_ADDED=false CUT_POPULATION_AT_MAX=10000000 ACC_OPERATIONS=LoadIntoLeftAcc,LoadVectorSumIntoLeft,LoadAccLeftIntoVector,Dec,Jump2IfLte,Inc,LoadAccLeftIntoRegister,LoadAccRightIntoRegister,Quit
  */
-public class DataSourceFinder {
+public class DataSourceFinderStarter {
     public static void main(String[] args) throws IOException {
         CommandLineConfigLoader loader = new CommandLineConfigLoader();
         var conf = loader.loadFromCommandLine(args);

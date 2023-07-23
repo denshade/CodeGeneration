@@ -8,7 +8,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
-public class AccProgramResolution  implements Comparable<AccProgramResolution> {
+public class AccProgramResolution  implements ProgramResolutionI {
     public List<InstructionMark> instructions;
     public double weight;
 
@@ -17,6 +17,7 @@ public class AccProgramResolution  implements Comparable<AccProgramResolution> {
         this.weight = weight;
     }
 
+    @Override
     public List<List<InstructionMark>> procreate(AccProgramResolution partner, int nrChildren)
     {
         List<InstructionMark> childinstructions = new ArrayList<>();
@@ -45,6 +46,11 @@ public class AccProgramResolution  implements Comparable<AccProgramResolution> {
     @Override
     public int compareTo(AccProgramResolution o) {
         return weight > o.weight? 1: -1;
+    }
+
+    @Override
+    public List<InstructionMark> getInstructions() {
+        return instructions;
     }
 
     @Override
