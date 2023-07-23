@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class DatabaseLoader
 {
@@ -23,12 +24,12 @@ public class DatabaseLoader
         return sqlStatements;
     }
     public List<String> insertSqls(String table, List<String[]> data) {
-        var results = new ArrayList<String>();
-        for (String[] dataRow : data) {
-            var r = List.of(dataRow).stream().map(d -> "'"+d+"'").collect(Collectors.joining(","));
-            results.add("INSERT INTO " + table + " VALUES("+r+")");
-        }
-        return results;
+        return data.stream()
+                .map(dataRow -> Stream.of(dataRow)
+                        .map(d -> "'" + d + "'")
+                        .collect(Collectors.joining(",")))
+                .map(values -> "INSERT INTO " + table + " VALUES(" + values + ")")
+                .collect(Collectors.toList());
     }
     public List<String> insertSqlMap(Map<String, List<String[]>> map) {
         var results = new ArrayList<String>();
