@@ -34,7 +34,7 @@ public class TestcaseInOutParameters
     {
         return Arrays.copyOf(original, newSize);
     }
-    public static Map<String, Double> getMap(double[] doubles)
+    public static Map<String, Double> getMap(double... doubles)
     {
         Map<String, Double> results = new HashMap<>();
         for (int l = 1; l <= doubles.length; l++)

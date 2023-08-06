@@ -22,7 +22,7 @@ public class StatementRunnerTest {
     @Test
     public void testExecute() {
         List<Register> registers = new NumberNamingScheme().createRegisters(4);
-        Map<String, Double> results = TestcaseInOutParameters.getMap(new double[] {2.0, 3.0, 0.0, 0.0});
+        Map<String, Double> results = TestcaseInOutParameters.getMap(2.0, 3.0, 0.0, 0.0);
 
         List<InstructionMark> instructions = new ArrayList<InstructionMark>();
 
@@ -36,7 +36,7 @@ public class StatementRunnerTest {
     @Test
     public void testExecuteQuadrant() {
         List<Register> registers = new NumberNamingScheme().createRegisters(4);
-        Map<String, Double> results = TestcaseInOutParameters.getMap(new double[] {1.0,2.0,-3.0,0.0});
+        Map<String, Double> results = TestcaseInOutParameters.getMap(1.0,2.0,-3.0,0.0);
         StatementRunner runner = new RegularStatementRunner();
 
         List<InstructionMark> instructions = getInstructionsQuadrant(
@@ -90,7 +90,7 @@ public class StatementRunnerTest {
     public void testExecuteQuadrantOther() {
         List<Register> registers = new NumberNamingScheme().createRegisters(4);
 
-        Map<String, Double> results = TestcaseInOutParameters.getMap(new double[] {2.0,-8.0,-24.0,0.0});
+        Map<String, Double> results = TestcaseInOutParameters.getMap(2.0,-8.0,-24.0,0.0);
 
         StatementRunner runner = new RegularStatementRunner();
 
