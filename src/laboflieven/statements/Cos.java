@@ -22,4 +22,8 @@ public class Cos extends SingleRegisterInstruction{
         return new laboflieven.common.RegularInstructionOpcode(RegularInstructionOpcodeEnum.Cos);
     }
 
+    public String toString(){
+        return "cos("+destination.name+")";
+    }
+
 }

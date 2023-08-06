@@ -5,6 +5,8 @@ import laboflieven.common.Configuration;
 import laboflieven.examiners.ProgramFitnessExaminer;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
 import laboflieven.programiterators.BruteForceProgramIterator;
+import laboflieven.programprinters.JavaProgramPrinter;
+import laboflieven.programprinters.ProgramPrinter;
 import laboflieven.recursionheuristics.NoInvertedHeuristic;
 import laboflieven.runners.RegularStatementRunner;
 
@@ -27,7 +29,11 @@ public class CosPlusFinder implements ProgramTemplate
         ProgramFitnessExaminerInterface evaluator = new ProgramFitnessExaminer(collection, new RegularStatementRunner());
         BruteForceProgramIterator iter = new BruteForceProgramIterator(evaluator, new NoInvertedHeuristic());
         long start = System.currentTimeMillis();
-        iter.iterate(config);
+        var results = iter.iterate(config);
+        var programPrinter = new JavaProgramPrinter();
+        for (Program result : results) {
+            System.out.println(programPrinter.toProgram(result));
+        }
         //evaluator.writeAndClose();
         System.out.println(System.currentTimeMillis() - start + "ms");
 
@@ -36,7 +42,6 @@ public class CosPlusFinder implements ProgramTemplate
         iter.iterate(curMaxRegisters, 4);
         //evaluator.writeAndClose();
         */
-        System.out.println( "19000ms");
 
     }
 

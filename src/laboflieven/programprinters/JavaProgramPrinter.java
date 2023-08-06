@@ -23,6 +23,7 @@ public class JavaProgramPrinter implements ProgramPrinter {
         {
             programCode.append(mark.toString()).append(";\n");
         }
+        programCode.append("return "+program.getRegisters().get(0).name+ ";\n");
         programCode.append("}");
         return programCode.toString();
     }

@@ -21,7 +21,7 @@ public class BruteForceProgramIterator
     public int maximumInstructions;
     public long counter = 0;
 
-    public List<List<InstructionMark>> positiveSolutions = new ArrayList<>();
+    public List<Program> positiveSolutions = new ArrayList<>();
     private final ProgramFitnessExaminerInterface evaluator;
     private final RegularInstructionOpcodeEnum[] regularInstructionOpcodeEnums;
     private final RecursionHeuristic recursionHeuristic;
@@ -57,7 +57,7 @@ public class BruteForceProgramIterator
         recursionHeuristic = new AlwaysRecursionHeuristic();
     }
 
-    public List<List<InstructionMark>> iterate(final int nrOfRegisters, int maximumInstructions)
+    public List<Program> iterate(final int nrOfRegisters, int maximumInstructions)
     {
         this.maximumInstructions = maximumInstructions;
         Register[] registers = new NumberNamingScheme().createRegisters(nrOfRegisters).toArray(new Register[0]);
@@ -66,7 +66,7 @@ public class BruteForceProgramIterator
         return positiveSolutions;
     }
 
-    public List<List<InstructionMark>> iterate(Configuration config)
+    public List<Program> iterate(Configuration config)
     {
         this.maximumInstructions = config.getMaxNrInstructions(2);
         int numberOfRegisters = config.getNumberOfRegisters(2);
@@ -116,7 +116,7 @@ public class BruteForceProgramIterator
         counter++;
         if (evaluator.isFit(instructions, registers)){
             System.out.println("Found a program: " + instructions);
-            positiveSolutions.add(new ArrayList<>(instructions));
+            positiveSolutions.add(new Program(new ArrayList<>(instructions), registers));
             evaluator.calculateFitness(instructions, registers);
         } else {
             evaluator.calculateFitness(instructions, registers);
