@@ -28,14 +28,14 @@ public class TestCases {
             System.exit(1);
         }
         String lines = String.join("\n", Files.readAllLines(sourceFile.toPath()));
-        return TestCases.loadFromCsvString(lines, columnToPredict, skipFirstLine);
+        return loadFromCsvString(lines, columnToPredict, skipFirstLine);
     }
 
     public List<TestcaseInOutParameters> loadFromCsvFile(File sourceFile) throws IOException {
         return loadFromCsvFile(sourceFile, false, 2);
     }
 
-    public static List<TestcaseInOutParameters> loadFromCsvString(String csvData, int columnToPredict, boolean skipFirstLine) {
+    public List<TestcaseInOutParameters> loadFromCsvString(String csvData, int columnToPredict, boolean skipFirstLine) {
         List<TestcaseInOutParameters> collection = new ArrayList<>();
         String[] lines = csvData.split("\n");
         boolean isFirstLine = skipFirstLine;
