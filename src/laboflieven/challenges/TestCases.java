@@ -16,6 +16,9 @@ public class TestCases {
     public TestCases(RegisterNamingScheme numberNamingScheme) {
         this.numberNamingScheme = numberNamingScheme;
     }
+    public TestCases() {
+        this.numberNamingScheme = new NumberNamingScheme();
+    }
     public static List<TestcaseInOutParameters> loadFromCsvFile(File sourceFile, boolean skipFirstLine, int columnToPredict) throws IOException {
 
         System.out.println("Searching for " + sourceFile);

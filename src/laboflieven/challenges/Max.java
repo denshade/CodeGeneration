@@ -9,6 +9,8 @@ import laboflieven.examiners.ProgramFitnessExaminer;
 import laboflieven.loggers.BitmapFitnessLogger;
 import laboflieven.loggers.RandomSysOutAccFitnessLogger;
 import laboflieven.programiterators.GeneralBruteForceProgramIterator;
+import laboflieven.programprinters.JavaProgramPrinter;
+import laboflieven.programprinters.ProgramPrinter;
 import laboflieven.runners.AccStatementRunner;
 
 import java.io.File;
@@ -30,7 +32,7 @@ Found a program: [left = R1,  right = R2,  Jump to start if L >= R , R1 = right]
         points.add(new double[] { 1, 10});
         points.add(new double[] { 10, 10});
         points.add(new double[] { 100, 10});
-        List<TestcaseInOutParameters> collection = TestCases.getTestCases(new Max(), points.toArray(new double[0][0]),curMaxRegisters);
+        List<TestcaseInOutParameters> collection = new TestCases().getAllTestCases(new Max(), points.toArray(new double[0][0]),curMaxRegisters);
         ProgramFitnessExaminer evaluator = new ProgramFitnessExaminer(collection, new AccStatementRunner());
         evaluator.addListener(new RandomSysOutAccFitnessLogger(10000));
         AccInstructionOpcodeEnum[] opcodeEnums = AccInstructionOpcodeEnumBuilder.make().with(AccInstructionOpcodeEnum.LoadIntoLeftAcc, AccInstructionOpcodeEnum.LoadIntoRightAcc, AccInstructionOpcodeEnum.JumpIfGteStart, AccInstructionOpcodeEnum.LoadAccRightIntoRegister).build();
@@ -43,7 +45,9 @@ Found a program: [left = R1,  right = R2,  Jump to start if L >= R , R1 = right]
         BitmapFitnessLogger bmpLogger = new BitmapFitnessLogger(new File("c:\\temp\\test.bmp"), Arrays.stream(opcodeEnums).map(AccInstructionOpcode::new).collect(Collectors.toList()));
         evaluator.addListener(bmpLogger);
         var conf = new Configuration();
-        conf.setMaxNrInstructions(4).setFitnessExaminer(evaluator).setAccOperations(opcodeEnums).setNumberOfRegisters(curMaxRegisters);
+        conf.setMaxNrInstructions(4).setFitnessExaminer(evaluator).setAccOperations(opcodeEnums)
+                .setNumberOfRegisters(curMaxRegisters);
+
         GeneralBruteForceProgramIterator iter = new GeneralBruteForceProgramIterator();
         long start = System.currentTimeMillis();
         var p = iter.iterate(conf);
@@ -53,7 +57,8 @@ Found a program: [left = R1,  right = R2,  Jump to start if L >= R , R1 = right]
             e.printStackTrace();
         }
         System.out.println(System.currentTimeMillis() - start + "ms");
-        System.out.println(p);
+        var printer = new JavaProgramPrinter();
+        System.out.println(printer.toProgram(new Program(p.instructions, conf.getNamingScheme().createRegisters(curMaxRegisters))));
     }
 
     @Override
