@@ -20,21 +20,6 @@ public class Register
         return name;
     }
 
-    public static List<Register> create4Registers()
-    {
-        Register r1 = new Register("r1");//a
-        Register r2 = new Register("r2");//b
-        Register r3 = new Register("r3");//c
-        Register r4 = new Register("r4");//exit
-
-        List<Register> registers = new ArrayList<Register>();
-        registers.add(r1);
-        registers.add(r2);
-        registers.add(r3);
-        registers.add(r4);
-        return registers;
-    }
-
     public static List<Register> createRegisters(int count, String prefix)
     {
         List<Register> registers = new ArrayList<Register>();

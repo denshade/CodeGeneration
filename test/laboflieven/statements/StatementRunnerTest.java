@@ -18,7 +18,7 @@ public class StatementRunnerTest {
 
     @Test
     public void testExecute() throws Exception {
-        List<Register> registers = Register.create4Registers();
+        List<Register> registers = Register.createRegisters(4);
         Map<String, Double> results = getMap(2.0, 3.0, 0.0, 0.0);
 
         List<InstructionMark> instructions = new ArrayList<InstructionMark>();
@@ -34,15 +34,15 @@ public class StatementRunnerTest {
     private static Map<String, Double> getMap(double a,double b,double c,double d)
     {
         Map<String, Double> results = new HashMap<String, Double>();
-        results.put("r1", a);
-        results.put("r2", b);
-        results.put("r3", c);
-        results.put("r4", d);
+        results.put("R1", a);
+        results.put("R2", b);
+        results.put("R3", c);
+        results.put("R4", d);
         return results;
     }
     @Test
     public void testExecuteQuadrant() throws Exception {
-        List<Register> registers = Register.create4Registers();
+        List<Register> registers = Register.createRegisters(4);
         Map<String, Double> results = getMap(1.0,2.0,-3.0,0.0);
 
         StatementRunner runner = new RegularStatementRunner();
@@ -96,7 +96,7 @@ public class StatementRunnerTest {
 
     @Test
     public void testExecuteQuadrantOther() throws Exception {
-        List<Register> registers = Register.create4Registers();
+        List<Register> registers = Register.createRegisters(4);
 
         Map<String, Double> results = getMap(2.0,-8.0,-24.0,0.0);
 
