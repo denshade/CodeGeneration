@@ -53,7 +53,7 @@ public class TestCases {
                 points[counter++] = Double.parseDouble(part);
             }
             String predictedPart = parts[columnToPredict - 1].replaceAll("\"", "");
-            collection.add(TestCases.createParameter(points, Double.parseDouble(predictedPart)));
+            collection.add(createParameters(points, Double.parseDouble(predictedPart)));
         }
         return collection;
     }
@@ -142,44 +142,12 @@ public class TestCases {
         return results;
     }
 
-
-    public static TestcaseInOutParameters createParameter(double[] doubles, double result) {
-        Map<String, Double> startParameters = getMap(doubles);
-        Map<String, Double> endParameters = new HashMap<>(1);
-        endParameters.put("R1", result);
-        TestcaseInOutParameters parameters = new TestcaseInOutParameters();
-        parameters.input = startParameters;
-        parameters.expectedOutput = endParameters;
-        return parameters;
-    }
-
-    public static Map<String, Double> getMap(double[] doubles) {
-        Map<String, Double> results = new HashMap<>();
-        for (int l = 0; l < doubles.length; l++) {
-            results.put("R" + (l + 1), doubles[l]);
-        }
-        return results;
-    }
-
     public static double[] fillDoubleArray(double[] original, int newSize) {
         double[] result = new double[newSize];
         System.arraycopy(original, 0, result, 0, original.length);
         return result;
     }
 
-    public static List<TestcaseInOutParameters> getTestCases(ProgramTemplate template, double[][] doubles, int curMaxRegisters) {
-        if (template == null) {
-            throw new IllegalArgumentException("Template must not be null");
-        }
-
-        List<TestcaseInOutParameters> collection = new ArrayList<>();
-        for (double[] doubleRow : doubles) {
-            double solution = template.run(doubleRow);
-            if (!Double.isNaN(solution) && !Double.isInfinite(solution))
-                collection.add(TestCases.createParameter(TestCases.fillDoubleArray(doubleRow, curMaxRegisters), solution));
-        }
-        return collection;
-    }
 
     public List<TestcaseInOutParameters> getAllTestCases(ProgramTemplate template, double[][] doubles, int curMaxRegisters) {
         if (template == null) {
