@@ -7,6 +7,7 @@ import laboflieven.challenges.ProgramTemplate;
 import laboflieven.challenges.TestCases;
 import laboflieven.examiners.MaxCostAccumulatorMatchAnyRegisterProgramFitnessExaminer;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
+import laboflieven.registers.NumberNamingScheme;
 import laboflieven.runners.AccStatementRunner;
 import laboflieven.registers.Register;
 import org.junit.jupiter.api.Test;
@@ -27,7 +28,7 @@ class ProgramReducerTest {
             }
         }, new double[][]{new double[]{1.0}}, 1);
         ProgramFitnessExaminerInterface evaluator = new MaxCostAccumulatorMatchAnyRegisterProgramFitnessExaminer(collection, new AccStatementRunner());
-        List<Register> registers = Register.createRegisters(1);
+        List<Register> registers = new NumberNamingScheme().createRegisters(1);
 
         var reducer = new ProgramReducer(evaluator);
         var result = reducer.reduceAsFarAsPossible(List.of(new Inc(), new Inc(), new LoadAccLeftIntoRegister(registers.get(0)), new Inc(), new Inc()), registers);

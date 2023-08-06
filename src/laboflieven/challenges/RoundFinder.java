@@ -10,6 +10,7 @@ import laboflieven.examiners.MaxCostAccumulatorMatchAnyRegisterProgramFitnessExa
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
 import laboflieven.loggers.TimingAccFitnessLogger;
 import laboflieven.programiterators.*;
+import laboflieven.registers.NumberNamingScheme;
 import laboflieven.runners.AccStatementRunner;
 import laboflieven.registers.Register;
 
@@ -46,7 +47,7 @@ public class RoundFinder implements ProgramTemplate
                         AccInstructionOpcodeEnum.Inc, AccInstructionOpcodeEnum.Div, AccInstructionOpcodeEnum.Sub
                         )
                 .with(AccInstructionOpcodeEnum.allAccLoaders().toArray(new AccInstructionOpcodeEnum[0])).build());*/
-        var registers = Register.createRegisters(1);
+        var registers = new NumberNamingScheme().createRegisters(1);
         List<InstructionMark> solution = List.of(new PI(), new Swap(), new Inc(), new Inc(), new Swap(), new Div(),
                                 new LoadIntoRightAcc(registers.get(0)), new Sub(), new Cos(), new LoadAccLeftIntoRegister(registers.get(0)));
         //

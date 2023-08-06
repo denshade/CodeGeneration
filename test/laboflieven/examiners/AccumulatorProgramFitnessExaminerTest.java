@@ -5,6 +5,7 @@ import laboflieven.InstructionMark;
 import laboflieven.accinstructions.*;
 import laboflieven.challenges.TestCases;
 import laboflieven.challenges.XorFinder;
+import laboflieven.registers.NumberNamingScheme;
 import laboflieven.runners.AccStatementRunner;
 import laboflieven.registers.Register;
 import org.junit.jupiter.api.Test;
@@ -23,7 +24,7 @@ class AccumulatorProgramFitnessExaminerTest {
         points.add(new double[] { 0,1});
         points.add(new double[] { 1,0});
         points.add(new double[] { 1,1});
-        var registers = Register.createRegisters(2);
+        var registers = new NumberNamingScheme().createRegisters(2);
         List<InstructionMark> instructions = List.of(new LoadIntoLeftAcc(registers.get(0)),new LoadIntoRightAcc(registers.get(1)), new Log(), new Mul(), new Nand()); //Log R2, Mul R2 -> R1, Nand R1 -> R1
         List<TestcaseInOutParameters> collection = TestCases.getTestCases(new XorFinder(), points.toArray(new double[0][0]),2);
 
@@ -37,7 +38,7 @@ class AccumulatorProgramFitnessExaminerTest {
         for (int i = 1; i < 100; i++) {
             points.add(new double[] { i });
         }
-        var registers = Register.createRegisters(1);
+        var registers = new NumberNamingScheme().createRegisters(1);
         List<InstructionMark> instructions = List.of(new Add(),new LoadIntoRightAcc(registers.get(0)), new Add(), new JumpIfLteStart(), new Inc());
         List<TestcaseInOutParameters> collection = TestCases.getTestCases(args -> 3*args[0]+1, points.toArray(new double[0][0]), 1);
 

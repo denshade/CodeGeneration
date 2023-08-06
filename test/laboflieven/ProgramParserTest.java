@@ -2,6 +2,7 @@ package laboflieven;
 
 import laboflieven.examiners.ProgramFitnessExaminer;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
+import laboflieven.registers.NumberNamingScheme;
 import laboflieven.registers.Register;
 import laboflieven.runners.RegularStatementRunner;
 import laboflieven.statements.*;
@@ -67,7 +68,7 @@ public class ProgramParserTest {
         // 10 R1 = R1 + R1
         // 11 R2 = R2 + R3 = -b + sqrt(b² - 4ac)
         // 12 R2 = R2 / R1 . Final.
-        List<Register> registers = Register.createRegisters(4);
+        List<Register> registers = new NumberNamingScheme().createRegisters(4);
         TestcaseInOutParameters io = new TestcaseInOutParameters();
         List<TestcaseInOutParameters> collection = new ArrayList<>();
         List<InstructionMark> instr = ProgramParser.parse("[Move R2 -> R4, Mult R4 -> R4, Mult R1 -> R3, R3 += R3, R3 += R3, Invert R3, R3 += R4, Sqrt R3 " +

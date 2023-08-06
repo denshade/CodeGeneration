@@ -3,6 +3,7 @@ package laboflieven.programiterators;
 import laboflieven.*;
 import laboflieven.examiners.ProgramFitnessExaminer;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
+import laboflieven.registers.NumberNamingScheme;
 import laboflieven.registers.Register;
 import laboflieven.runners.RegularStatementRunner;
 import laboflieven.statements.*;
@@ -100,7 +101,7 @@ public class RandomGeneticProgramIterator {
         chosenSolutions = new ArrayList<>();
         this.numberOfRegisters = numberOfRegisters;
         this.maximumInstructions = maximumInstructions;
-        registers = Register.createRegisters(numberOfRegisters).toArray(new Register[0]);
+        registers = new NumberNamingScheme().createRegisters(numberOfRegisters).toArray(new Register[0]);
         Set<Register> availableRegisters = new HashSet<>();
         availableRegisters.add(registers[registers.length - 1]);// Add the result register.
         for (int i = 0; i < 1000; i++) {

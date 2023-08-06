@@ -5,6 +5,7 @@ import laboflieven.TestcaseInOutParameters;
 import laboflieven.accinstructions.*;
 import laboflieven.challenges.RoundFinder;
 import laboflieven.challenges.TestCases;
+import laboflieven.registers.NumberNamingScheme;
 import laboflieven.runners.AccStatementRunner;
 import laboflieven.registers.Register;
 import org.junit.jupiter.api.Test;
@@ -22,11 +23,11 @@ class AccumulatorMatchAnyRegisterProgramFitnessExaminerTest {
         AccStatementRunner runner = new AccStatementRunner();
         runner.verbose = true;
         var a = new AccumulatorMatchAnyRegisterProgramFitnessExaminer(collection, runner);
-        var registers = Register.createRegisters(1);
+        var registers = new NumberNamingScheme().createRegisters(1);
         Register register0 = registers.get(0);
         List<InstructionMark> instructions = List.of(new PI(), new Swap(), new Inc(), new Inc(), new Swap(), new Div(),
                 new LoadIntoRightAcc(register0), new Sub(), new Cos(), new LoadAccLeftIntoRegister(register0));
-        assertEquals(1761.0983870239286, a.calculateFitness(instructions, Register.createRegisters(1)));
+        assertEquals(1761.0983870239286, a.calculateFitness(instructions, new NumberNamingScheme().createRegisters(1)));
     }
 
 }

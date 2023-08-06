@@ -21,7 +21,7 @@ public class DiscreteDescentIterator implements ProgramIterator
         int maximumInstructions = configuration.getMaxNrInstructions(10);
         InstructionFactoryInterface instructionFactory = configuration.getInstructionFactory(new InstructionFactory());
         int nrRegisters = configuration.getNumberOfRegisters(2);
-        List<Register> registers = Register.createRegisters(nrRegisters);
+        List<Register> registers = configuration.getNamingScheme().createRegisters(nrRegisters);
         AccInstructionOpcodeEnum[] accenums = configuration.getAccOperations();
         List<InstructionMark> instructions = new ArrayList<>();
         for (int i = 0; i < maximumInstructions; i++)

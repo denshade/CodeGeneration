@@ -9,6 +9,8 @@ import laboflieven.programiterators.*;
 import laboflieven.recursionheuristics.AccHeuristic;
 import laboflieven.recursionheuristics.AlwaysRecursionHeuristic;
 import laboflieven.recursionheuristics.RecursionHeuristic;
+import laboflieven.registers.NumberNamingScheme;
+import laboflieven.registers.RegisterNamingScheme;
 import laboflieven.statements.InstructionFactoryInterface;
 import laboflieven.statements.RegularInstructionOpcodeEnum;
 
@@ -151,7 +153,8 @@ public class Configuration {
         ERROR_TOLERANCE(new DoubleParser()),
         DATA_SOURCE(new DataSourceParser()),
         CSV_FILE(new StringParser()),
-        COST_CUT_OFF(new IntParser());
+        COST_CUT_OFF(new IntParser()),
+        REGISTER_NAMING_SCHEME(new IntParser());
 
         public Parser parser;
 
@@ -209,6 +212,10 @@ public class Configuration {
     public Configuration setNumberOfRegisters(int value) {
         configurationSettings.put(ConfigurationKey.NR_REGISTERS, value);
         return this;
+    }
+
+    public RegisterNamingScheme getNamingScheme() {
+       return (RegisterNamingScheme) configurationSettings.getOrDefault(ConfigurationKey.REGISTER_NAMING_SCHEME, new NumberNamingScheme());
     }
 
     private int getValue(int defaultValue, ConfigurationKey maxNrOfInstructions) {

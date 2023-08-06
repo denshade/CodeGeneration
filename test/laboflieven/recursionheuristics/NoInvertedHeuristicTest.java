@@ -3,6 +3,7 @@ package laboflieven.recursionheuristics;
 import laboflieven.InstructionMark;
 import laboflieven.Program;
 import laboflieven.ProgramParser;
+import laboflieven.registers.NumberNamingScheme;
 import laboflieven.statements.Invert;
 import laboflieven.registers.Register;
 import org.junit.jupiter.api.Test;
@@ -20,7 +21,7 @@ class NoInvertedHeuristicTest {
         List<InstructionMark> instructionList = new ArrayList<InstructionMark>();
         Register r1 = new Register("R1");
         Register r2 = new Register("R2");
-        Program p = new Program(instructionList, Register.createRegisters(2));
+        Program p = new Program(instructionList, new NumberNamingScheme().createRegisters(2));
 
         assertTrue(n.shouldRecurse(p,1));
         instructionList.add(new Invert(r1));
@@ -30,7 +31,7 @@ class NoInvertedHeuristicTest {
         instructionList.add(new Invert(r1));
         instructionList.add(new Invert(r2));
         assertTrue(n.shouldRecurse(p,2));
-        List<Register> r = Register.createRegisters(1);
+        List<Register> r = new NumberNamingScheme().createRegisters(1);
         assertFalse(n.shouldRecurse(new Program(ProgramParser.parse("[R1 += R1, Invert R1, Invert R1, Cos R1]"), r), 1));
         assertFalse(n.shouldRecurse(new Program(ProgramParser.parse("[R1 += R1, Mul R1 -> R1, Sqrt R1, Invert R1, Cos R1]"), r), 1));
         assertFalse(n.shouldRecurse(new Program(ProgramParser.parse("[PI R1, Mul R1 -> R1, Sqrt R1, Invert R1, Cos R1]"), r), 1));

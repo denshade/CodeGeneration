@@ -40,7 +40,7 @@ public class PredefinedStartAndEndAccPriorityProgramIterator implements ProgramI
         this.heuristic = configuration.getHeuristic(new AlwaysRecursionHeuristic());
         this.instructionFactory = configuration.getInstructionFactory(new InstructionFactory());
         if (instructionFactory == null) throw new IllegalArgumentException("Instruction Factory shouldn't be empty");
-        registers = Register.createRegisters(configuration.getNumberOfRegisters(2));
+        registers = configuration.getNamingScheme().createRegisters(configuration.getNumberOfRegisters(2));
         int CUT_POPULATION_AT_MAX = configuration.getCutPopulationAtMax(150000);
         int CUT_POPULATION_TO = configuration.getCutPopulationTo(100000);
         boolean addRandom = configuration.getRandomAdded(true);

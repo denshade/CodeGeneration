@@ -5,6 +5,7 @@ import laboflieven.examiners.ProgramFitnessExaminerInterface;
 import laboflieven.InstructionMark;
 import laboflieven.recursionheuristics.AlwaysRecursionHeuristic;
 import laboflieven.recursionheuristics.RecursionHeuristic;
+import laboflieven.registers.NumberNamingScheme;
 import laboflieven.statements.RegularInstructionOpcodeEnum;
 import laboflieven.statements.InstructionFactory;
 import laboflieven.registers.Register;
@@ -58,7 +59,7 @@ public class BruteForceProgramIterator
     public void iterate(final int nrOfRegisters, int maximumInstructions)
     {
         this.maximumInstructions = maximumInstructions;
-        Register[] registers = Register.createRegisters(nrOfRegisters).toArray(new Register[0]);
+        Register[] registers = new NumberNamingScheme().createRegisters(nrOfRegisters).toArray(new Register[0]);
         this.nrRegisters = nrOfRegisters;
         recurse(new ArrayList<>(), registers);
     }

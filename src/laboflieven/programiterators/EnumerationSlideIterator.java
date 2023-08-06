@@ -6,6 +6,7 @@ import laboflieven.accinstructions.LoadAccLeftIntoRegister;
 import laboflieven.common.BestFitRegister;
 import laboflieven.common.InstructionOpcode;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
+import laboflieven.registers.NumberNamingScheme;
 import laboflieven.statements.InstructionFactoryInterface;
 import laboflieven.registers.Register;
 
@@ -27,7 +28,7 @@ public class EnumerationSlideIterator {
 
     public ProgramResolution iterate(int nrRegisters, int nrInstructions)
     {
-        var registers = Register.createRegisters(nrRegisters);
+        var registers = new NumberNamingScheme().createRegisters(nrRegisters);
         var enumerator = new ProgramEnumerator(instructions, nrRegisters);
         BigInteger maxCounter = enumerator.getMaxCounter(nrInstructions);
         int maxVal = 500;

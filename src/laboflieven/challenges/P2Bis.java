@@ -10,6 +10,7 @@ import laboflieven.programiterators.GeneralBruteForceProgramIterator;
 import laboflieven.recursionheuristics.AccHeuristic;
 import laboflieven.recursionheuristics.CombinedHeuristic;
 import laboflieven.recursionheuristics.ResultsNoDataAfterFiveHeuristic;
+import laboflieven.registers.NumberNamingScheme;
 import laboflieven.runners.AccStatementRunner;
 import laboflieven.registers.Register;
 
@@ -41,7 +42,7 @@ public class P2Bis implements ProgramTemplate
                 new ResultsNoDataAfterFiveHeuristic(
                         new AccStatementRunner(),
                         evaluator,
-                        Register.createRegisters(curMaxRegisters)
+                        new NumberNamingScheme().createRegisters(curMaxRegisters)
                 )
                 ,
                 new AccHeuristic()

@@ -2,6 +2,7 @@ package laboflieven;
 
 import laboflieven.accinstructions.*;
 import laboflieven.challenges.TestCases;
+import laboflieven.registers.NumberNamingScheme;
 import laboflieven.runners.AccStatementRunner;
 import laboflieven.registers.Register;
 import org.junit.jupiter.api.Assertions;
@@ -71,7 +72,7 @@ public class AccStatementRunnerTest {
     void NanUponOverflow()
     {
         var runner = new AccStatementRunner();
-        var program = new Program(List.of(new JumpIfGteStart()), Register.createRegisters(1));
+        var program = new Program(List.of(new JumpIfGteStart()), new NumberNamingScheme().createRegisters(1));
         var result = runner.execute(program, Map.of("R1", 1.0));
         Assertions.assertTrue(Double.isNaN(result.get("R1")));
     }

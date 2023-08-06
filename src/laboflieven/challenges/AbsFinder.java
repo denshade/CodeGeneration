@@ -6,6 +6,7 @@ import laboflieven.common.Configuration;
 import laboflieven.examiners.AccumulatorMatchAnyRegisterProgramFitnessExaminer;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
 import laboflieven.programiterators.GeneralBruteForceProgramIterator;
+import laboflieven.registers.NumberNamingScheme;
 import laboflieven.runners.AccStatementRunner;
 import laboflieven.registers.Register;
 
@@ -56,7 +57,7 @@ public class AbsFinder {
         System.out.println("Timing: "+ (System.currentTimeMillis() - start));
         System.out.println(r);
 
-        evaluator.calculateFitness(r.instructions, Register.createRegisters(1));
+        evaluator.calculateFitness(r.instructions, new NumberNamingScheme().createRegisters(1));
 
         /*try {
             csvLogger.finish();

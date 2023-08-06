@@ -12,6 +12,7 @@ import laboflieven.common.Configuration;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
 import laboflieven.recursionheuristics.AlwaysRecursionHeuristic;
 import laboflieven.recursionheuristics.RecursionHeuristic;
+import laboflieven.registers.NumberNamingScheme;
 import laboflieven.statements.InstructionFactoryInterface;
 import laboflieven.registers.Register;
 
@@ -64,7 +65,7 @@ public class GeneralBruteForceProgramIterator implements ProgramIterator
     private List<List<InstructionMark>> runWithParams(final int nrOfRegisters, int maximumInstructions)
     {
         this.maximumInstructions = maximumInstructions;
-        registers =  Register.createRegisters(nrOfRegisters);
+        registers =  new NumberNamingScheme().createRegisters(nrOfRegisters);
         try {
             recurse(new ArrayList<>(maximumInstructions));
         } catch (StopException ex)

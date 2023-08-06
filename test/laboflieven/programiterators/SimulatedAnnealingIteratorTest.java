@@ -7,6 +7,7 @@ import laboflieven.challenges.TestCases;
 import laboflieven.examiners.ProgramFitnessExaminer;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
 import laboflieven.functional.programiterators.SimulatedAnnealingFollowNeighbourProbability;
+import laboflieven.registers.NumberNamingScheme;
 import laboflieven.runners.AccStatementRunner;
 import laboflieven.registers.Register;
 import org.junit.jupiter.api.Test;
@@ -28,7 +29,7 @@ class SimulatedAnnealingIteratorTest {
         List<TestcaseInOutParameters> collection = TestCases.getTestCases(new P1(), points.toArray(new double[0][0]),curMaxRegisters);
         ProgramFitnessExaminerInterface evaluator = new ProgramFitnessExaminer(collection,new AccStatementRunner());
         SimulatedAnnealingIterator it = new SimulatedAnnealingIterator(new InstructionFactory(), 10000, 1);
-        it.iterate(100000, 10, Register.createRegisters(2), evaluator, true);
+        it.iterate(100000, 10, new NumberNamingScheme().createRegisters(2), evaluator, true);
 
     }
     @Test

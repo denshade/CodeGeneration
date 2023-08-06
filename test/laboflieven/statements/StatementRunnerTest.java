@@ -2,6 +2,7 @@ package laboflieven.statements;
 
 import laboflieven.InstructionMark;
 import laboflieven.Program;
+import laboflieven.registers.NumberNamingScheme;
 import laboflieven.registers.Register;
 import laboflieven.runners.RegularStatementRunner;
 import laboflieven.runners.StatementRunner;
@@ -19,7 +20,7 @@ public class StatementRunnerTest {
 
     @Test
     public void testExecute() throws Exception {
-        List<Register> registers = Register.createRegisters(4);
+        List<Register> registers = new NumberNamingScheme().createRegisters(4);
         Map<String, Double> results = getMap(2.0, 3.0, 0.0, 0.0);
 
         List<InstructionMark> instructions = new ArrayList<InstructionMark>();
@@ -43,7 +44,7 @@ public class StatementRunnerTest {
     }
     @Test
     public void testExecuteQuadrant() throws Exception {
-        List<Register> registers = Register.createRegisters(4);
+        List<Register> registers = new NumberNamingScheme().createRegisters(4);
         Map<String, Double> results = getMap(1.0,2.0,-3.0,0.0);
 
         StatementRunner runner = new RegularStatementRunner();
@@ -97,7 +98,7 @@ public class StatementRunnerTest {
 
     @Test
     public void testExecuteQuadrantOther() throws Exception {
-        List<Register> registers = Register.createRegisters(4);
+        List<Register> registers = new NumberNamingScheme().createRegisters(4);
 
         Map<String, Double> results = getMap(2.0,-8.0,-24.0,0.0);
 

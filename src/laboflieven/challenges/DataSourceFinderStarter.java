@@ -13,6 +13,7 @@ import laboflieven.genericsolutions.RandomIteratorOperandFinder;
 import laboflieven.loggers.ErrorCsvFileFitnessLogger;
 import laboflieven.loggers.TimingAccFitnessLogger;
 import laboflieven.programiterators.PredefinedStartAndEndAccPriorityProgramIterator;
+import laboflieven.registers.NumberNamingScheme;
 import laboflieven.runners.AccStatementRunner;
 import laboflieven.registers.Register;
 
@@ -78,7 +79,7 @@ public class DataSourceFinderStarter {
         //evaluator.addListener(logger);
         ProgramResolution res = v.iterate(conf);
         System.out.println(res);
-        double bestScore = evaluator.evaluateDifference(new Program(res.instructions, Register.createRegisters(1)));
+        double bestScore = evaluator.evaluateDifference(new Program(res.instructions, new NumberNamingScheme().createRegisters(1)));
         long stop = System.currentTimeMillis();
         double defaultScore = TestCases.getDefaultError(conditions);
         System.out.println("The following config was used");

@@ -8,6 +8,7 @@ import laboflieven.common.Configuration;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
 import laboflieven.recursionheuristics.AlwaysRecursionHeuristic;
 import laboflieven.recursionheuristics.RecursionHeuristic;
+import laboflieven.registers.NumberNamingScheme;
 import laboflieven.registers.Register;
 
 import java.util.ArrayList;
@@ -38,7 +39,7 @@ public class FakeProgramIterator implements ProgramIterator
     public ProgramResolution iterate(final int nrOfRegisters, int maximumInstructions)
     {
         this.maximumInstructions = maximumInstructions;
-        List<Register> registers = Register.createRegisters(nrOfRegisters);
+        List<Register> registers = new NumberNamingScheme().createRegisters(nrOfRegisters);
         List<InstructionMark> solutionSoFar = new ArrayList<>();
         for (InstructionMark s : solution) {
             solutionSoFar.add(s);

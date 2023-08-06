@@ -3,6 +3,7 @@ package laboflieven;
 import laboflieven.challenges.TestCases;
 import laboflieven.examiners.AccumulatorProgramFitnessExaminer;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
+import laboflieven.registers.NumberNamingScheme;
 import laboflieven.runners.AccStatementRunner;
 import laboflieven.registers.Register;
 
@@ -22,6 +23,6 @@ public class TestData {
         ProgramFitnessExaminerInterface evaluator = new AccumulatorProgramFitnessExaminer(
                 conditions, runner,
                 "R1");
-        System.out.println(evaluator.evaluateDifference(new Program(k, Register.createRegisters(2))));
+        System.out.println(evaluator.evaluateDifference(new Program(k, new NumberNamingScheme().createRegisters(2))));
     }
 }

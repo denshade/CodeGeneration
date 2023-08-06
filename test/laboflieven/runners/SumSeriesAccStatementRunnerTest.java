@@ -3,6 +3,7 @@ package laboflieven.runners;
 import laboflieven.InstructionMark;
 import laboflieven.Program;
 import laboflieven.accinstructions.Cos;
+import laboflieven.registers.NumberNamingScheme;
 import laboflieven.registers.Register;
 import org.junit.jupiter.api.Test;
 
@@ -17,7 +18,7 @@ class SumSeriesAccStatementRunnerTest {
     @Test
     public void testSeries()
     {
-        var registers = Register.createRegisters(1);
+        var registers = new NumberNamingScheme().createRegisters(1);
         var instructions = new ArrayList<InstructionMark>();
         var programs = new Program(instructions, registers);
         var series = new SumSeriesAccStatementRunner();

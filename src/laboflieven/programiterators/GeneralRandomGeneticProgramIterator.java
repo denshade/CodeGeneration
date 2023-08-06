@@ -11,6 +11,7 @@ import laboflieven.common.BestFitRegister;
 import laboflieven.common.PriorityQueueAlgos;
 import laboflieven.recursionheuristics.AlwaysRecursionHeuristic;
 import laboflieven.recursionheuristics.RecursionHeuristic;
+import laboflieven.registers.NumberNamingScheme;
 import laboflieven.statements.InstructionFactoryInterface;
 import laboflieven.registers.Register;
 
@@ -88,7 +89,7 @@ public class GeneralRandomGeneticProgramIterator implements ProgramIterator{
             throw new IllegalArgumentException("PopularParents should be in [0,1]");
         }
 
-        registers = Register.createRegisters(numberOfRegisters).toArray(new Register[0]);
+        registers = configuration.getNamingScheme().createRegisters(numberOfRegisters).toArray(new Register[0]);
         IntStream.range(0,  initialPopSize).forEach(k -> recurse(new ArrayList<>()));
         // System.out.println(chosenSolutions);
         PriorityQueue<ProgramResolution> solutions = new PriorityQueue<>();
@@ -121,7 +122,7 @@ public class GeneralRandomGeneticProgramIterator implements ProgramIterator{
         chosenSolutions = new ArrayList<>();
         this.numberOfRegisters = numberOfRegisters;
         this.maximumInstructions = maximumInstructions;
-        registers = Register.createRegisters(numberOfRegisters).toArray(new Register[0]);
+        registers = new NumberNamingScheme().createRegisters(numberOfRegisters).toArray(new Register[0]);
         IntStream.range(0,  initialPopSize).forEach(k -> recurse(new ArrayList<>()));
         // System.out.println(chosenSolutions);
         PriorityQueue<ProgramResolution> solutions = new PriorityQueue<>();

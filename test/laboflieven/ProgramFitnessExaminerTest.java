@@ -4,6 +4,7 @@ import laboflieven.challenges.TestCases;
 import laboflieven.challenges.XorFinder;
 import laboflieven.examiners.ProgramFitnessExaminer;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
+import laboflieven.registers.NumberNamingScheme;
 import laboflieven.registers.Register;
 import laboflieven.runners.RegularStatementRunner;
 import laboflieven.statements.*;
@@ -77,7 +78,7 @@ public class ProgramFitnessExaminerTest {
 
         List<TestcaseInOutParameters> collection = TestCases.getTestCases(new XorFinder(), points.toArray(new double[0][0]),2);
         ProgramFitnessExaminerInterface evaluator = new ProgramFitnessExaminer(collection,new RegularStatementRunner());
-        evaluator.calculateFitness(instructions, Register.createRegisters(2));
+        evaluator.calculateFitness(instructions, new NumberNamingScheme().createRegisters(2));
     }
 
     private static double[] fillDoubleArray(double[] original, int newSize)
