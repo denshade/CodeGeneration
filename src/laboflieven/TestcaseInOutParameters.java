@@ -34,12 +34,12 @@ public class TestcaseInOutParameters
     {
         return Arrays.copyOf(original, newSize);
     }
-    private static Map<String, Double> getMap(double[] doubles)
+    public static Map<String, Double> getMap(double[] doubles)
     {
         Map<String, Double> results = new HashMap<>();
-        for (int l = 0; l < doubles.length; l++)
+        for (int l = 1; l <= doubles.length; l++)
         {
-            results.put("R"+l, doubles[l]);
+            results.put("R"+l, doubles[l - 1]);
         }
         return results;
     }

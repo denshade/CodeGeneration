@@ -2,6 +2,7 @@ package laboflieven.statements;
 
 import laboflieven.InstructionMark;
 import laboflieven.Program;
+import laboflieven.TestcaseInOutParameters;
 import laboflieven.registers.NumberNamingScheme;
 import laboflieven.registers.Register;
 import laboflieven.runners.RegularStatementRunner;
@@ -19,9 +20,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class StatementRunnerTest {
 
     @Test
-    public void testExecute() throws Exception {
+    public void testExecute() {
         List<Register> registers = new NumberNamingScheme().createRegisters(4);
-        Map<String, Double> results = getMap(2.0, 3.0, 0.0, 0.0);
+        Map<String, Double> results = TestcaseInOutParameters.getMap(new double[] {2.0, 3.0, 0.0, 0.0});
 
         List<InstructionMark> instructions = new ArrayList<InstructionMark>();
 
@@ -32,21 +33,10 @@ public class StatementRunnerTest {
         assertEquals(5.0, program.getRegisters().get(1).value, 0.0);
     }
 
-
-    private static Map<String, Double> getMap(double a,double b,double c,double d)
-    {
-        Map<String, Double> results = new HashMap<String, Double>();
-        results.put("R1", a);
-        results.put("R2", b);
-        results.put("R3", c);
-        results.put("R4", d);
-        return results;
-    }
     @Test
-    public void testExecuteQuadrant() throws Exception {
+    public void testExecuteQuadrant() {
         List<Register> registers = new NumberNamingScheme().createRegisters(4);
-        Map<String, Double> results = getMap(1.0,2.0,-3.0,0.0);
-
+        Map<String, Double> results = TestcaseInOutParameters.getMap(new double[] {1.0,2.0,-3.0,0.0});
         StatementRunner runner = new RegularStatementRunner();
 
         List<InstructionMark> instructions = getInstructionsQuadrant(
@@ -97,10 +87,10 @@ public class StatementRunnerTest {
     }
 
     @Test
-    public void testExecuteQuadrantOther() throws Exception {
+    public void testExecuteQuadrantOther() {
         List<Register> registers = new NumberNamingScheme().createRegisters(4);
 
-        Map<String, Double> results = getMap(2.0,-8.0,-24.0,0.0);
+        Map<String, Double> results = TestcaseInOutParameters.getMap(new double[] {2.0,-8.0,-24.0,0.0});
 
         StatementRunner runner = new RegularStatementRunner();
 
