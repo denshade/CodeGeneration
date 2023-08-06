@@ -1,6 +1,8 @@
 package laboflieven.challenges;
 
 import laboflieven.TestcaseInOutParameters;
+import laboflieven.registers.NumberNamingScheme;
+import laboflieven.registers.RegisterNamingScheme;
 
 import java.io.File;
 import java.io.IOException;
@@ -8,6 +10,12 @@ import java.nio.file.Files;
 import java.util.*;
 
 public class TestCases {
+
+    private final RegisterNamingScheme numberNamingScheme;
+
+    public TestCases(RegisterNamingScheme numberNamingScheme) {
+        this.numberNamingScheme = numberNamingScheme;
+    }
     public static List<TestcaseInOutParameters> loadFromCsvFile(File sourceFile, boolean skipFirstLine, int columnToPredict) throws IOException {
 
         System.out.println("Searching for " + sourceFile);
@@ -113,6 +121,24 @@ public class TestCases {
         };
     }
 
+    public TestcaseInOutParameters createParameters(double[] doubles, double result) {
+        Map<String, Double> startParameters = getMapResult(doubles);
+        Map<String, Double> endParameters = new HashMap<>(1);
+        endParameters.put(numberNamingScheme.getName( 1), result);
+        TestcaseInOutParameters parameters = new TestcaseInOutParameters();
+        parameters.input = startParameters;
+        parameters.expectedOutput = endParameters;
+        return parameters;
+    }
+
+    public Map<String, Double> getMapResult(double[] doubles) {
+        Map<String, Double> results = new HashMap<>();
+        for (int l = 0; l < doubles.length; l++) {
+            results.put(numberNamingScheme.getName(l + 1), doubles[l]);
+        }
+        return results;
+    }
+
 
     public static TestcaseInOutParameters createParameter(double[] doubles, double result) {
         Map<String, Double> startParameters = getMap(doubles);
@@ -148,6 +174,20 @@ public class TestCases {
             double solution = template.run(doubleRow);
             if (!Double.isNaN(solution) && !Double.isInfinite(solution))
                 collection.add(TestCases.createParameter(TestCases.fillDoubleArray(doubleRow, curMaxRegisters), solution));
+        }
+        return collection;
+    }
+
+    public List<TestcaseInOutParameters> getAllTestCases(ProgramTemplate template, double[][] doubles, int curMaxRegisters) {
+        if (template == null) {
+            throw new IllegalArgumentException("Template must not be null");
+        }
+
+        List<TestcaseInOutParameters> collection = new ArrayList<>();
+        for (double[] doubleRow : doubles) {
+            double solution = template.run(doubleRow);
+            if (!Double.isNaN(solution) && !Double.isInfinite(solution))
+                collection.add(createParameters(TestCases.fillDoubleArray(doubleRow, curMaxRegisters), solution));
         }
         return collection;
     }

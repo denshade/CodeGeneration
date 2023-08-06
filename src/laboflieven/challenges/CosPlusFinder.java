@@ -8,6 +8,7 @@ import laboflieven.programiterators.BruteForceProgramIterator;
 import laboflieven.programprinters.JavaProgramPrinter;
 import laboflieven.programprinters.ProgramPrinter;
 import laboflieven.recursionheuristics.NoInvertedHeuristic;
+import laboflieven.registers.LetterNamingScheme;
 import laboflieven.runners.RegularStatementRunner;
 
 import java.io.File;
@@ -22,11 +23,13 @@ public class CosPlusFinder implements ProgramTemplate
 
     public static void main(String[] args) throws IOException {
         var config = Configuration.getInstance();
-        config.setMaxNrInstructions(3).setNumberOfRegisters(2);
-        List<TestcaseInOutParameters> collection = TestCases.getTestCases(new CosPlusFinder(), TestCases.getExampleInput2D(50,10),2);
+        config.setMaxNrInstructions(3).setNumberOfRegisters(2)
+                .setNamingScheme(new LetterNamingScheme());
+        List<TestcaseInOutParameters> collection = new TestCases(config.getNamingScheme()).getAllTestCases(new CosPlusFinder(), TestCases.getExampleInput2D(50,10),2);
 
         ProgramFitnessExaminerInterface evaluator = new ProgramFitnessExaminer(collection, new RegularStatementRunner());
         BruteForceProgramIterator iter = new BruteForceProgramIterator(evaluator, new NoInvertedHeuristic());
+
         long start = System.currentTimeMillis();
         var results = iter.iterate(config);
         var programPrinter = new JavaProgramPrinter();

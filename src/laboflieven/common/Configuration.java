@@ -218,6 +218,11 @@ public class Configuration {
        return (RegisterNamingScheme) configurationSettings.getOrDefault(ConfigurationKey.REGISTER_NAMING_SCHEME, new NumberNamingScheme());
     }
 
+    public Configuration setNamingScheme(RegisterNamingScheme scheme) {
+        configurationSettings.put(ConfigurationKey.REGISTER_NAMING_SCHEME, scheme);
+        return this;
+    }
+
     private int getValue(int defaultValue, ConfigurationKey maxNrOfInstructions) {
         if (!configurationSettings.containsKey(maxNrOfInstructions)) {
             return defaultValue;

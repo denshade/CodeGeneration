@@ -25,4 +25,9 @@ public class NumberNamingScheme implements RegisterNamingScheme
         }
         return registers;
     }
+
+    @Override
+    public String getName(int index) {
+        return "R" + index;
+    }
 }

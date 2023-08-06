@@ -70,7 +70,7 @@ public class BruteForceProgramIterator
     {
         this.maximumInstructions = config.getMaxNrInstructions(2);
         int numberOfRegisters = config.getNumberOfRegisters(2);
-        Register[] registers = new NumberNamingScheme().createRegisters(numberOfRegisters).toArray(new Register[0]);
+        Register[] registers = config.getNamingScheme().createRegisters(numberOfRegisters).toArray(new Register[0]);
         this.nrRegisters = numberOfRegisters;
         recurse(new ArrayList<>(), registers);
         return positiveSolutions;
