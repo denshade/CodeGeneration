@@ -30,7 +30,7 @@ public class EllipseFinder implements ProgramTemplate
         Configuration config = loader.loadFromCommandLine(args);
         System.out.println(distance(100,300));
         int curMaxRegisters = config.getNumberOfRegisters(2);
-        List<TestcaseInOutParameters> collection = TestCases.getTestCases(new EllipseFinder(), TestCases.getExampleInput2D(10000,1000), curMaxRegisters);
+        List<TestcaseInOutParameters> collection = new TestCases().getAllTestCases(new EllipseFinder(), TestCases.getExampleInput2D(10000,1000), curMaxRegisters);
 
         ProgramFitnessExaminerInterface evaluator = new MaxCostAccumulatorMatchAnyRegisterProgramFitnessExaminer(collection, new AccStatementRunner());
         evaluator.addListener(new TimingAccFitnessLogger(10000));

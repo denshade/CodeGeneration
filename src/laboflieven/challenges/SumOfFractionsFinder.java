@@ -30,7 +30,7 @@ public class SumOfFractionsFinder implements ProgramTemplate
 
     public static void main(String[] args) throws IOException {
         int curMaxRegisters = 1;
-        List<TestcaseInOutParameters> collection = TestCases.getTestCases(new SumOfFractionsFinder(), TestCases.getExampleInput1D(20,1),curMaxRegisters);
+        List<TestcaseInOutParameters> collection = new TestCases().getAllTestCases(new SumOfFractionsFinder(), TestCases.getExampleInput1D(20,1),curMaxRegisters);
 
 
         ProgramFitnessExaminerInterface evaluator = new ProgramFitnessExaminer(collection, new AccStatementRunner());

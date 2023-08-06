@@ -24,7 +24,7 @@ public class CosDifferenceFinder implements ProgramTemplate
 
     public static void main(String[] args) throws IOException {
         int curMaxRegisters = 1;
-        List<TestcaseInOutParameters> collection = TestCases.getTestCases(new CosDifferenceFinder(), TestCases.getExampleInput1D(3,.01),curMaxRegisters);
+        List<TestcaseInOutParameters> collection = new TestCases().getAllTestCases(new CosDifferenceFinder(), TestCases.getExampleInput1D(3,.01),curMaxRegisters);
         collection = differentiate(collection);
 
         File f = new File("c:\\temp\\test.csv");

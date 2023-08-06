@@ -34,7 +34,7 @@ public class GeneralFinder
         Configuration config = loader.loadFromCommandLine(args);
         int curMaxRegisters = config.getNumberOfRegisters(2);
 
-        List<TestcaseInOutParameters> collection = TestCases.getTestCases(config.getDataProvider(), TestCases.getExampleInput2D(1000,100, 10), curMaxRegisters);
+        List<TestcaseInOutParameters> collection = new TestCases().getAllTestCases(config.getDataProvider(), TestCases.getExampleInput2D(1000,100, 10), curMaxRegisters);
         config.setHeuristic(new HashedResultsHeuristic(collection, new AccStatementRunner()));
 
         ProgramFitnessExaminerInterface evaluator = new ProgramFitnessExaminer(collection, new AccStatementRunner());

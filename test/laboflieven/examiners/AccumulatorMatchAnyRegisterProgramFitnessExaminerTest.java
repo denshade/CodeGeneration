@@ -19,7 +19,7 @@ class AccumulatorMatchAnyRegisterProgramFitnessExaminerTest {
     @Test
     void test()
     {
-        List<TestcaseInOutParameters> collection = TestCases.getTestCases(new RoundFinder(), TestCases.getExampleInput1D(Math.PI*2,0.01), 1);
+        List<TestcaseInOutParameters> collection = new TestCases().getAllTestCases(new RoundFinder(), TestCases.getExampleInput1D(Math.PI*2,0.01), 1);
         AccStatementRunner runner = new AccStatementRunner();
         runner.verbose = true;
         var a = new AccumulatorMatchAnyRegisterProgramFitnessExaminer(collection, runner);

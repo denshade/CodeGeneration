@@ -16,7 +16,7 @@ class NoDuplicateGenericSolutionFinderTest {
     @Test
     public void testNoDuplicates()
     {
-        List<TestcaseInOutParameters> testcases = TestCases.getTestCases(new CosAltFinder(), TestCases.getExampleInput1D(10, 1),1);
+        List<TestcaseInOutParameters> testcases = new TestCases().getAllTestCases(new CosAltFinder(), TestCases.getExampleInput1D(10, 1),1);
         var finder = new NoDuplicateGenericSolutionFinder();
         var solution = finder.findSolution(testcases);
         assertNotNull(solution);

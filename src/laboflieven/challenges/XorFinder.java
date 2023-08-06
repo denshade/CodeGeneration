@@ -37,6 +37,6 @@ public class XorFinder implements TestcaseSource, ProgramTemplate
             points.add(new double[] { 0,1});
             points.add(new double[] { 1,0});
             points.add(new double[] { 1,1});
-            return TestCases.getTestCases(new XorFinder(), points.toArray(new double[0][0]), 2);
+            return new TestCases().getAllTestCases(new XorFinder(), points.toArray(new double[0][0]), 2);
         }
     }

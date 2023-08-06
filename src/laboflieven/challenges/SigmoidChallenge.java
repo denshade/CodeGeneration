@@ -30,7 +30,7 @@ public class SigmoidChallenge implements ProgramTemplate
         for (double i = -6; i < 6; i += 0.1) {
             points.add(new double[] { i });
         }
-        List<TestcaseInOutParameters> collection = TestCases.getTestCases(new SigmoidChallenge(), points.toArray(new double[0][0]),curMaxRegisters);
+        List<TestcaseInOutParameters> collection = new TestCases().getAllTestCases(new SigmoidChallenge(), points.toArray(new double[0][0]),curMaxRegisters);
         ProgramFitnessExaminerInterface evaluator = new AccumulatorProgramFitnessExaminer(collection, new AccStatementRunner());
         evaluator.addListener(new RandomSysOutAccFitnessLogger(10000));
         var conf = new Configuration();

@@ -32,7 +32,7 @@ class GenericSolutionFinderTest {
 
     @Test
     void findCosAltSolution() {
-        List<TestcaseInOutParameters> testcases = TestCases.getTestCases(new CosAltFinder(), TestCases.getExampleInput1D(10, 1),1);
+        List<TestcaseInOutParameters> testcases = new TestCases().getAllTestCases(new CosAltFinder(), TestCases.getExampleInput1D(10, 1),1);
         GenericSolutionFinder finder = new GenericSolutionFinder();
         assertNotNull(finder.findSolution(testcases));
         var solution = finder.findSolution(testcases);

@@ -32,7 +32,7 @@ public class Palendrom implements ProgramTemplate
         for (int i = 0; i < 100; i++)
             points.add(new double[]{random.nextInt(99999999)});
 
-        List<TestcaseInOutParameters> collection = TestCases.getTestCases(new Palendrom(), points.toArray(new double[0][0]),curMaxRegisters);
+        List<TestcaseInOutParameters> collection = new TestCases().getAllTestCases(new Palendrom(), points.toArray(new double[0][0]),curMaxRegisters);
         for (int i = 0; i < 10; i++)
         {
             runIteration(nrInstructions, curMaxRegisters, collection);

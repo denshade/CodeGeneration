@@ -42,7 +42,8 @@ public class DataSourceFinder {
 
         File sourceFile = new File(conf.getCsvFile("C:\\temp\\p128.txt"));
         var contents = Files.readString(sourceFile.toPath());
-        List<TestcaseInOutParameters> conditions = new TestCases().loadFromCsvFile(sourceFile, false, columnToPredict);
+        TestCases testCases = new TestCases();
+        List<TestcaseInOutParameters> conditions = testCases.loadFromCsvFile(sourceFile, false, columnToPredict);
         System.out.println("Conditions");
         System.out.println(conditions);
         ProgramFitnessExaminerInterface evaluator = new AccumulatorProgramFitnessExaminer(
@@ -81,7 +82,7 @@ public class DataSourceFinder {
         System.out.println(res);
         double bestScore = evaluator.evaluateDifference(new Program(res.instructions, new NumberNamingScheme().createRegisters(1)));
         long stop = System.currentTimeMillis();
-        double defaultScore = TestCases.getDefaultError(conditions);
+        double defaultScore = testCases.getDefaultError(conditions);
         System.out.println("The following config was used");
         System.out.println(conf);
         System.out.println("From the csv the column "+ columnToPredict + " is predicted.");

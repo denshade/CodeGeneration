@@ -21,7 +21,7 @@ class ProgramReducerTest {
     @Test
     void test()
     {
-        List<TestcaseInOutParameters> collection = TestCases.getTestCases(new ProgramTemplate() {
+        List<TestcaseInOutParameters> collection = new TestCases().getAllTestCases(new ProgramTemplate() {
             @Override
             public double run(double[] args) {
                 return 2.0;

@@ -26,7 +26,7 @@ class AccumulatorProgramFitnessExaminerTest {
         points.add(new double[] { 1,1});
         var registers = new NumberNamingScheme().createRegisters(2);
         List<InstructionMark> instructions = List.of(new LoadIntoLeftAcc(registers.get(0)),new LoadIntoRightAcc(registers.get(1)), new Log(), new Mul(), new Nand()); //Log R2, Mul R2 -> R1, Nand R1 -> R1
-        List<TestcaseInOutParameters> collection = TestCases.getTestCases(new XorFinder(), points.toArray(new double[0][0]),2);
+        List<TestcaseInOutParameters> collection = new TestCases().getAllTestCases(new XorFinder(), points.toArray(new double[0][0]),2);
 
         var f = new AccumulatorProgramFitnessExaminer(collection, new AccStatementRunner());
         assertEquals(1.0,f.calculateFitness(instructions, registers));
@@ -40,7 +40,7 @@ class AccumulatorProgramFitnessExaminerTest {
         }
         var registers = new NumberNamingScheme().createRegisters(1);
         List<InstructionMark> instructions = List.of(new Add(),new LoadIntoRightAcc(registers.get(0)), new Add(), new JumpIfLteStart(), new Inc());
-        List<TestcaseInOutParameters> collection = TestCases.getTestCases(args -> 3*args[0]+1, points.toArray(new double[0][0]), 1);
+        List<TestcaseInOutParameters> collection = new TestCases().getAllTestCases(args -> 3*args[0]+1, points.toArray(new double[0][0]), 1);
 
         var f = new AccumulatorProgramFitnessExaminer(collection, new AccStatementRunner());
         assertEquals(0.0, f.calculateFitness(instructions, registers));

@@ -195,7 +195,7 @@ public class TestCases {
         return collection;
     }
 
-    public static double getDefaultError(List<TestcaseInOutParameters> conditions) {
+    public double getDefaultError(List<TestcaseInOutParameters> conditions) {
         double badScore = 0;
         for (TestcaseInOutParameters parameter : conditions) {
             badScore += Math.abs(parameter.expectedOutput.get("R1"));

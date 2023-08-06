@@ -28,7 +28,7 @@ Found a program: [R3 /= R1, Mod R2 -> R1, Mod R3 -> R2, Nand R2 -> R1]
         for (int i = 1; i < 40; i++) {
             points.add(new double[] { i,3,5});
         }
-        List<TestcaseInOutParameters> collection = TestCases.getTestCases(new P1(), points.toArray(new double[0][0]),curMaxRegisters);
+        List<TestcaseInOutParameters> collection = new TestCases().getAllTestCases(new P1(), points.toArray(new double[0][0]),curMaxRegisters);
         ProgramFitnessExaminer evaluator = new ProgramFitnessExaminer(collection,new AccStatementRunner());
         AccInstructionOpcodeEnum[] instructions = new AccInstructionOpcodeEnum[] {
                 AccInstructionOpcodeEnum.LoadIntoRightAcc, AccInstructionOpcodeEnum.LoadIntoRightAcc, AccInstructionOpcodeEnum.LoadAccRightIntoRegister, AccInstructionOpcodeEnum.LoadAccLeftIntoRegister, AccInstructionOpcodeEnum.Mod, AccInstructionOpcodeEnum.Mod,

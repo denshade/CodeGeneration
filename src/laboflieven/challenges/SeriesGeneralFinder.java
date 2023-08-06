@@ -34,7 +34,7 @@ public class SeriesGeneralFinder
         Configuration config = loader.loadFromCommandLine(args);
         int curMaxRegisters = config.getNumberOfRegisters(2);
         config.setAccOperations(AccInstructionOpcodeEnumBuilder.make().noGeo().build());
-        List<TestcaseInOutParameters> collection = TestCases.getTestCases(config.getDataProvider(), TestCases.getExampleInput1D(1,0.01), curMaxRegisters);
+        List<TestcaseInOutParameters> collection = new TestCases().getAllTestCases(config.getDataProvider(), TestCases.getExampleInput1D(1,0.01), curMaxRegisters);
 
         ProgramFitnessExaminerInterface evaluator = new ProgramFitnessExaminer(collection, new SumSeriesAccStatementRunner());
         evaluator.addListener(new TimingAccFitnessLogger(10000));

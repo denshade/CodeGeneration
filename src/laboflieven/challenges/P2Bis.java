@@ -30,7 +30,7 @@ public class P2Bis implements ProgramTemplate
         for (int i = 1; i < 10; i++) {
             points.add(new double[] { i, i + 1});
         }
-        List<TestcaseInOutParameters> collection = TestCases.getTestCases(new P2Bis(), points.toArray(new double[0][0]),curMaxRegisters);
+        List<TestcaseInOutParameters> collection = new TestCases().getAllTestCases(new P2Bis(), points.toArray(new double[0][0]),curMaxRegisters);
         ProgramFitnessExaminerInterface evaluator = new ProgramFitnessExaminer(collection, new AccStatementRunner());
         evaluator.addListener(new RandomSysOutAccFitnessLogger(10000));
         var conf = new Configuration();

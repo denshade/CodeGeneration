@@ -56,7 +56,7 @@ public class QuadraticFinder implements InOutParameterSource, ProgramTemplate
     }
 
     public List<TestcaseInOutParameters> getInOutParameters(int curMaxRegisters) {
-        return TestCases.getTestCases(this, TestCases.getExampleInput4D(100,50),  4);
+        return new TestCases().getAllTestCases(this, TestCases.getExampleInput4D(100,50),  4);
     }
 
     @Override

@@ -32,7 +32,7 @@ public class RoundFinder implements ProgramTemplate
         Configuration config = loader.loadFromCommandLine(args);
 
         int curMaxRegisters = config.getNumberOfRegisters(1);
-        List<TestcaseInOutParameters> collection = TestCases.getTestCases(new RoundFinder(), TestCases.getExampleInput1D(30,0.3), curMaxRegisters);
+        List<TestcaseInOutParameters> collection = new TestCases().getAllTestCases(new RoundFinder(), TestCases.getExampleInput1D(30,0.3), curMaxRegisters);
 
         ProgramFitnessExaminerInterface evaluator = new MaxCostAccumulatorMatchAnyRegisterProgramFitnessExaminer(collection, new AccStatementRunner());
         evaluator.addListener(new TimingAccFitnessLogger(10000));
