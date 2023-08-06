@@ -42,7 +42,7 @@ public class DataSourceFinder {
 
         File sourceFile = new File(conf.getCsvFile("C:\\temp\\p128.txt"));
         var contents = Files.readString(sourceFile.toPath());
-        List<TestcaseInOutParameters> conditions = TestCases.loadFromCsvFile(sourceFile, false, columnToPredict);
+        List<TestcaseInOutParameters> conditions = new TestCases().loadFromCsvFile(sourceFile, false, columnToPredict);
         System.out.println("Conditions");
         System.out.println(conditions);
         ProgramFitnessExaminerInterface evaluator = new AccumulatorProgramFitnessExaminer(

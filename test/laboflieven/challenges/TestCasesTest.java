@@ -16,7 +16,7 @@ class TestCasesTest {
         File file = new File("example.csv");
         Files.write(file.toPath(), ("data1,data2\n" +
                 "2,4").getBytes());
-        assertNotNull(TestCases.loadFromCsvFile(file, true,2));
+        assertNotNull(new TestCases().loadFromCsvFile(file, true,2));
         file.delete();
 
     }

@@ -17,7 +17,7 @@ public class TestData {
 
         String s = "[left++, R1 = left, R2 = left, R2 = left, R2 = right,  left = R1]";
         var k = AccProgramParser.parse(s);
-        List<TestcaseInOutParameters> conditions = TestCases.loadFromCsvFile(new File("C:\\temp\\slingersummary.csv"));
+        List<TestcaseInOutParameters> conditions = new TestCases().loadFromCsvFile(new File("C:\\temp\\slingersummary.csv"));
         System.out.println("Conditions");
         System.out.println(conditions);
         ProgramFitnessExaminerInterface evaluator = new AccumulatorProgramFitnessExaminer(

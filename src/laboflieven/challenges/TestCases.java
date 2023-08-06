@@ -19,7 +19,7 @@ public class TestCases {
     public TestCases() {
         this.numberNamingScheme = new NumberNamingScheme();
     }
-    public static List<TestcaseInOutParameters> loadFromCsvFile(File sourceFile, boolean skipFirstLine, int columnToPredict) throws IOException {
+    public List<TestcaseInOutParameters> loadFromCsvFile(File sourceFile, boolean skipFirstLine, int columnToPredict) throws IOException {
 
         System.out.println("Searching for " + sourceFile);
 
@@ -31,7 +31,7 @@ public class TestCases {
         return TestCases.loadFromCsvString(lines, columnToPredict, skipFirstLine);
     }
 
-    public static List<TestcaseInOutParameters> loadFromCsvFile(File sourceFile) throws IOException {
+    public List<TestcaseInOutParameters> loadFromCsvFile(File sourceFile) throws IOException {
         return loadFromCsvFile(sourceFile, false, 2);
     }
 
