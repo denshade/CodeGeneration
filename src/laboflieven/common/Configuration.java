@@ -280,6 +280,11 @@ public class Configuration {
         return (ProgramIterator) configurationSettings.getOrDefault(ConfigurationKey.PROGRAM_ITERATOR, defaultIterator);
     }
 
+    public Configuration setProgramIterator(ProgramIterator defaultIterator) {
+        configurationSettings.put(ConfigurationKey.PROGRAM_ITERATOR, defaultIterator);
+        return this;
+    }
+
     public ProgramTemplate getDataProvider() {
         return (ProgramTemplate) configurationSettings.get(ConfigurationKey.DATA_PROVIDER);
     }

@@ -35,6 +35,9 @@ public class DataSourceFinder {
     public static void main(String[] args) throws IOException {
         CommandLineConfigLoader loader = new CommandLineConfigLoader();
         var conf = loader.loadFromCommandLine(args);
+        conf.setNumberOfRegisters(2);
+        conf.setMaxNrInstructions(50);
+        conf.setProgramIterator(new RandomProgramIterator());
         // left = R1, left = nand(left, right), left = sin(left), left = 3n+1, R1 = left
         AccStatementRunner runner = new AccStatementRunner();
 
@@ -54,8 +57,7 @@ public class DataSourceFinder {
         //evaluator.addListener(new RandomSysOutAccFitnessLogger(100000));
         evaluator.addListener(new TimingAccFitnessLogger(10000));
         conf.setFitnessExaminer(evaluator);
-        conf.setNumberOfRegisters(2);
-        conf.setMaxNrInstructions(50);
+
         var v = conf.getProgramIterator(new PredefinedStartAndEndAccPriorityProgramIterator());
         //var v = new GeneralBruteForceProgramIterator();
         //var v = new AccRandomGeneticProgramIterator(evaluator,  AccInstructionOpcodeEnum.allMathOperators().toArray(new AccInstructionOpcodeEnum[0]), 1000,1.1,0.4);
