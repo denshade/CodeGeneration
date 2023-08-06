@@ -20,7 +20,6 @@ public class CosPlusFinder implements ProgramTemplate
         return Math.cos(2 * lat1+lat2) ;
     }
 
-
     public static void main(String[] args) throws IOException {
         var config = Configuration.getInstance();
         config.setMaxNrInstructions(3).setNumberOfRegisters(2);
@@ -34,15 +33,7 @@ public class CosPlusFinder implements ProgramTemplate
         for (Program result : results) {
             System.out.println(programPrinter.toProgram(result));
         }
-        //evaluator.writeAndClose();
         System.out.println(System.currentTimeMillis() - start + "ms");
-
-        /*iter = new BruteForceProgramIterator(evaluator, new AlwaysRecursionHeuristic());
-        start = System.currentTimeMillis();
-        iter.iterate(curMaxRegisters, 4);
-        //evaluator.writeAndClose();
-        */
-
     }
 
     @Override
