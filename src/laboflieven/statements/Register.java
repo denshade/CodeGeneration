@@ -40,4 +40,13 @@ public class Register
         return registers;
     }
 
+    public static List<Register> createAlphabetRegisters(int count) {
+        List<Register> registers = new ArrayList<Register>();
+        for (int k = 1; k <= count; k++)
+        {
+            registers.add(new Register(String.valueOf((char)('`'+k))));
+        }
+        return registers;
+    }
+
 }
