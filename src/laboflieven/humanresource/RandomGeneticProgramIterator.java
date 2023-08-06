@@ -6,7 +6,7 @@ import laboflieven.humanresource.model.HumanInstructionSet;
 import laboflieven.humanresource.model.HumanInstructionFactory;
 import laboflieven.humanresource.model.HumanRegister;
 import laboflieven.statements.RegularInstructionOpcodeEnum;
-import laboflieven.statements.Register;
+import laboflieven.registers.Register;
 
 import java.util.*;
 

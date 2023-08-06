@@ -8,6 +8,7 @@ import laboflieven.common.BestFitRegister;
 import laboflieven.common.Configuration;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
 import laboflieven.StoppedByUserException;
+import laboflieven.registers.Register;
 import laboflieven.statements.*;
 
 import java.util.*;

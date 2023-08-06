@@ -2,8 +2,8 @@ package laboflieven.statements;
 
 
 import laboflieven.InstructionMark;
-import laboflieven.accinstructions.AccInstructionOpcodeEnum;
 import laboflieven.common.InstructionOpcode;
+import laboflieven.registers.Register;
 
 import java.util.List;
 import java.util.Random;

@@ -3,7 +3,7 @@ package laboflieven.recursionheuristics;
 import laboflieven.Program;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
 import laboflieven.runners.StatementRunner;
-import laboflieven.statements.Register;
+import laboflieven.registers.Register;
 
 import java.util.List;
 

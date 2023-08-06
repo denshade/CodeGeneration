@@ -2,7 +2,7 @@ package laboflieven;
 
 import laboflieven.accinstructions.NoRegisterInstruction;
 import laboflieven.statements.DualRegisterInstruction;
-import laboflieven.statements.Register;
+import laboflieven.registers.Register;
 import laboflieven.statements.SingleRegisterInstruction;
 
 import java.util.List;

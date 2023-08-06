@@ -1,7 +1,7 @@
 import laboflieven.ProgramEnumerator;
 import laboflieven.common.RegularInstructionOpcode;
 import laboflieven.statements.*;
-import laboflieven.statements.Register;
+import laboflieven.registers.Register;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigInteger;

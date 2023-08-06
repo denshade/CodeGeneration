@@ -2,22 +2,13 @@ package laboflieven.challenges;
 
 import laboflieven.ProgramResolution;
 import laboflieven.TestcaseInOutParameters;
-import laboflieven.accinstructions.InstructionFactory;
 import laboflieven.common.Configuration;
 import laboflieven.examiners.AccumulatorMatchAnyRegisterProgramFitnessExaminer;
-import laboflieven.examiners.ProgramFitnessExaminer;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
-import laboflieven.functional.examiners.AnyRegisterProgramTestcaseFitness;
-import laboflieven.loggers.CsvFileFitnessLogger;
-import laboflieven.loggers.JsonFileFitnessLogger;
-import laboflieven.programiterators.AccPriorityProgramIterator;
 import laboflieven.programiterators.GeneralBruteForceProgramIterator;
-import laboflieven.programiterators.GeneralRandomGeneticProgramIterator;
-import laboflieven.programiterators.SimulatedAnnealingIterator;
 import laboflieven.runners.AccStatementRunner;
-import laboflieven.statements.Register;
+import laboflieven.registers.Register;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;

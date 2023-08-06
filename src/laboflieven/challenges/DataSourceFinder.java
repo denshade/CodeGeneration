@@ -4,7 +4,6 @@ import laboflieven.Program;
 import laboflieven.ProgramResolution;
 import laboflieven.TestcaseInOutParameters;
 import laboflieven.accinstructions.AccInstructionOpcodeEnum;
-import laboflieven.accinstructions.ProgramResolutionI;
 import laboflieven.common.AccInstructionOpcode;
 import laboflieven.common.CommandLineConfigLoader;
 import laboflieven.common.InstructionOpcode;
@@ -15,14 +14,13 @@ import laboflieven.loggers.ErrorCsvFileFitnessLogger;
 import laboflieven.loggers.TimingAccFitnessLogger;
 import laboflieven.programiterators.*;
 import laboflieven.runners.AccStatementRunner;
-import laboflieven.statements.Register;
+import laboflieven.registers.Register;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /**
  * NR_REGISTERS=1 CSV_FILE=C:\Users\densh\OneDrive\Documents\GitHub\CodeGeneration\src\laboflieven\challenges\primes.csv PROGRAM_ITERATOR=random MAX_NR_OF_INSTRUCTIONS=9 ACC_OPERATIONS=LoadIntoLeftAcc,LoadVectorSumIntoLeft,LoadAccLeftIntoVector,Dec,Jump2IfLte,Inc,LoadAccLeftIntoRegister,LoadAccRightIntoRegister,Quit

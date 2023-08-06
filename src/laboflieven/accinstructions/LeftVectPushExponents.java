@@ -1,7 +1,7 @@
 package laboflieven.accinstructions;
 
 import laboflieven.common.InstructionOpcode;
-import laboflieven.statements.Register;
+import laboflieven.registers.Register;
 import laboflieven.statements.VectorRegister;
 
 public class LeftVectPushExponents extends NoRegisterInstruction {

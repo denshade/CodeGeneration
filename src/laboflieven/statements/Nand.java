@@ -1,6 +1,7 @@
 package laboflieven.statements;
 
 import laboflieven.common.InstructionOpcode;
+import laboflieven.registers.Register;
 
 public class Nand extends DualRegisterInstruction {
 

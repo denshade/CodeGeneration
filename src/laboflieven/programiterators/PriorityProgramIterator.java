@@ -2,6 +2,7 @@ package laboflieven.programiterators;
 
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
 import laboflieven.*;
+import laboflieven.registers.Register;
 import laboflieven.statements.*;
 
 import java.util.ArrayList;

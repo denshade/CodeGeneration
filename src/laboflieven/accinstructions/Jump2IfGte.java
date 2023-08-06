@@ -1,7 +1,7 @@
 package laboflieven.accinstructions;
 
 import laboflieven.common.InstructionOpcode;
-import laboflieven.statements.Register;
+import laboflieven.registers.Register;
 
 public class Jump2IfGte extends NoRegisterInstruction
 {

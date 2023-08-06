@@ -2,6 +2,7 @@ package laboflieven;
 
 import laboflieven.examiners.ProgramFitnessExaminer;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
+import laboflieven.registers.Register;
 import laboflieven.runners.RegularStatementRunner;
 import laboflieven.statements.*;
 import laboflieven.statements.Instruction;

@@ -2,7 +2,7 @@ package laboflieven.boardmoveinstructions;
 
 import laboflieven.accinstructions.AccInstructionOpcodeEnum;
 import laboflieven.common.InstructionOpcode;
-import laboflieven.statements.Register;
+import laboflieven.registers.Register;
 
 public class MoveLeft extends BoardRegisterInstruction
 {

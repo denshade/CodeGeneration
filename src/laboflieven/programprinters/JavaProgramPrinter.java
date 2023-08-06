@@ -2,7 +2,7 @@ package laboflieven.programprinters;
 
 import laboflieven.InstructionMark;
 import laboflieven.Program;
-import laboflieven.statements.Register;
+import laboflieven.registers.Register;
 
 import java.util.ArrayList;
 

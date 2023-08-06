@@ -1,4 +1,4 @@
-package laboflieven.statements;
+package laboflieven.registers;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,6 +40,9 @@ public class Register
         return registers;
     }
 
+    public static String getName(int index) {
+        return String.valueOf((char)('`'+index));
+    }
     public static List<Register> createAlphabetRegisters(int count) {
         List<Register> registers = new ArrayList<Register>();
         for (int k = 1; k <= count; k++)

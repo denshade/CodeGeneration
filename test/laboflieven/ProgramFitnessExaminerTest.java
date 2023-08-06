@@ -4,6 +4,7 @@ import laboflieven.challenges.TestCases;
 import laboflieven.challenges.XorFinder;
 import laboflieven.examiners.ProgramFitnessExaminer;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
+import laboflieven.registers.Register;
 import laboflieven.runners.RegularStatementRunner;
 import laboflieven.statements.*;
 import org.junit.jupiter.api.Test;

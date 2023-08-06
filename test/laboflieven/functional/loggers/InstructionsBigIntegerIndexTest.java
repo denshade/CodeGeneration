@@ -4,7 +4,7 @@ import laboflieven.accinstructions.AccInstructionOpcodeEnum;
 import laboflieven.accinstructions.Add;
 import laboflieven.accinstructions.LoadIntoLeftAcc;
 import laboflieven.common.AccInstructionOpcode;
-import laboflieven.statements.Register;
+import laboflieven.registers.Register;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;

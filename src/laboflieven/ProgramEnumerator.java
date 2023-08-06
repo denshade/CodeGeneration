@@ -1,6 +1,7 @@
 package laboflieven;
 
 import laboflieven.common.InstructionOpcode;
+import laboflieven.registers.Register;
 import laboflieven.statements.*;
 import java.math.BigInteger;
 import java.util.ArrayList;

@@ -1,7 +1,7 @@
 package laboflieven.accinstructions;
 
 import laboflieven.InstructionMark;
-import laboflieven.statements.Register;
+import laboflieven.registers.Register;
 import laboflieven.statements.VectorRegister;
 
 public abstract class AccRegisterInstruction implements InstructionMark {

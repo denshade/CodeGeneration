@@ -2,7 +2,7 @@ package laboflieven.functional.programiterators;
 
 import laboflieven.InstructionMark;
 import laboflieven.statements.InstructionFactoryInterface;
-import laboflieven.statements.Register;
+import laboflieven.registers.Register;
 
 import java.util.ArrayList;
 import java.util.List;

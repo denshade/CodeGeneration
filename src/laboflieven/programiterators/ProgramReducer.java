@@ -1,9 +1,8 @@
 package laboflieven.programiterators;
 
 import laboflieven.InstructionMark;
-import laboflieven.examiners.ProgramFitnessExaminer;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
-import laboflieven.statements.Register;
+import laboflieven.registers.Register;
 
 import java.util.ArrayList;
 import java.util.List;

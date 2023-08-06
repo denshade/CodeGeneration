@@ -1,7 +1,7 @@
 package laboflieven.boardmoveinstructions;
 
 import laboflieven.common.InstructionOpcode;
-import laboflieven.statements.Register;
+import laboflieven.registers.Register;
 
 public abstract class BoardRegisterInstruction
 {

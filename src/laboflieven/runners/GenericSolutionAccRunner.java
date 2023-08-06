@@ -2,7 +2,7 @@ package laboflieven.runners;
 
 import laboflieven.Program;
 import laboflieven.genericsolutions.GenericSolution;
-import laboflieven.statements.Register;
+import laboflieven.registers.Register;
 
 import java.util.List;
 import java.util.Map;

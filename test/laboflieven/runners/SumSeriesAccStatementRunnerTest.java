@@ -3,7 +3,7 @@ package laboflieven.runners;
 import laboflieven.InstructionMark;
 import laboflieven.Program;
 import laboflieven.accinstructions.Cos;
-import laboflieven.statements.Register;
+import laboflieven.registers.Register;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;

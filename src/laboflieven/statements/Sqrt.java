@@ -1,6 +1,7 @@
 package laboflieven.statements;
 
 import laboflieven.common.InstructionOpcode;
+import laboflieven.registers.Register;
 
 /**
  * Created by lveeckha on 31/05/2015.

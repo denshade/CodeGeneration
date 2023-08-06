@@ -7,15 +7,13 @@ import laboflieven.common.Configuration;
 import laboflieven.functional.examiners.ProgramTestcaseFitness;
 import laboflieven.loggers.FitnessLogger;
 import laboflieven.runners.AccStatementRunner;
-import laboflieven.runners.RegularStatementRunner;
 import laboflieven.runners.StatementRunner;
-import laboflieven.statements.Register;
+import laboflieven.registers.Register;
 import laboflieven.statements.RegularInstructionOpcodeEnum;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 /**
  * Created by Lieven on 14/06/2015.

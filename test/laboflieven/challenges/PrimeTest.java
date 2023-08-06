@@ -4,14 +4,11 @@ import laboflieven.InstructionMark;
 import laboflieven.Program;
 import laboflieven.accinstructions.*;
 import laboflieven.runners.AccStatementRunner;
-import laboflieven.runners.StatementRunner;
-import laboflieven.statements.Register;
+import laboflieven.registers.Register;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 import java.util.Map;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class PrimeTest {
 

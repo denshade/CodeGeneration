@@ -7,10 +7,9 @@ import laboflieven.recursionheuristics.AlwaysRecursionHeuristic;
 import laboflieven.recursionheuristics.RecursionHeuristic;
 import laboflieven.statements.RegularInstructionOpcodeEnum;
 import laboflieven.statements.InstructionFactory;
-import laboflieven.statements.Register;
+import laboflieven.registers.Register;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 /**
  * Created by lveeckha on 31/05/2015.

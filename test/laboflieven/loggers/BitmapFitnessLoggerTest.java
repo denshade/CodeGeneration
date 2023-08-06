@@ -2,7 +2,7 @@ package laboflieven.loggers;
 
 import laboflieven.common.RegularInstructionOpcode;
 import laboflieven.statements.Add;
-import laboflieven.statements.Register;
+import laboflieven.registers.Register;
 import laboflieven.statements.RegularInstructionOpcodeEnum;
 import org.junit.jupiter.api.Test;
 

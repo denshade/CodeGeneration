@@ -4,20 +4,16 @@ import laboflieven.InstructionMark;
 import laboflieven.ProgramResolution;
 import laboflieven.TestcaseInOutParameters;
 import laboflieven.accinstructions.*;
-import laboflieven.common.AccInstructionOpcode;
 import laboflieven.common.CommandLineConfigLoader;
 import laboflieven.common.Configuration;
-import laboflieven.examiners.AccumulatorMatchAnyRegisterProgramFitnessExaminer;
 import laboflieven.examiners.MaxCostAccumulatorMatchAnyRegisterProgramFitnessExaminer;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
 import laboflieven.loggers.TimingAccFitnessLogger;
 import laboflieven.programiterators.*;
-import laboflieven.recursionheuristics.AlwaysRecursionHeuristic;
 import laboflieven.runners.AccStatementRunner;
-import laboflieven.statements.Register;
+import laboflieven.registers.Register;
 
 import java.util.List;
-import java.util.Set;
 
 /**
  * MAX_NR_OF_INSTRUCTIONS=10 INSTRUCTION_FACTORY=Acc

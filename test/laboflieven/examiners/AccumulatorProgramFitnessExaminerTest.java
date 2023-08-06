@@ -3,11 +3,10 @@ package laboflieven.examiners;
 import laboflieven.TestcaseInOutParameters;
 import laboflieven.InstructionMark;
 import laboflieven.accinstructions.*;
-import laboflieven.challenges.ProgramTemplate;
 import laboflieven.challenges.TestCases;
 import laboflieven.challenges.XorFinder;
 import laboflieven.runners.AccStatementRunner;
-import laboflieven.statements.Register;
+import laboflieven.registers.Register;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;

@@ -13,7 +13,7 @@ import laboflieven.examiners.ProgramFitnessExaminerInterface;
 import laboflieven.recursionheuristics.AlwaysRecursionHeuristic;
 import laboflieven.recursionheuristics.RecursionHeuristic;
 import laboflieven.statements.InstructionFactoryInterface;
-import laboflieven.statements.Register;
+import laboflieven.registers.Register;
 
 import java.util.ArrayList;
 import java.util.List;

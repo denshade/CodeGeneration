@@ -3,7 +3,7 @@ package laboflieven;
 import laboflieven.programiterators.RandomProgramIterator;
 import laboflieven.statements.Cos;
 import laboflieven.statements.Move;
-import laboflieven.statements.Register;
+import laboflieven.registers.Register;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;

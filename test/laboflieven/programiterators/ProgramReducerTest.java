@@ -1,17 +1,14 @@
 package laboflieven.programiterators;
 
-import laboflieven.ProgramResolution;
 import laboflieven.TestcaseInOutParameters;
 import laboflieven.accinstructions.Inc;
 import laboflieven.accinstructions.LoadAccLeftIntoRegister;
 import laboflieven.challenges.ProgramTemplate;
-import laboflieven.challenges.RoundFinder;
 import laboflieven.challenges.TestCases;
 import laboflieven.examiners.MaxCostAccumulatorMatchAnyRegisterProgramFitnessExaminer;
-import laboflieven.examiners.ProgramFitnessExaminer;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
 import laboflieven.runners.AccStatementRunner;
-import laboflieven.statements.Register;
+import laboflieven.registers.Register;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;

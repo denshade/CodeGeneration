@@ -5,8 +5,7 @@ import laboflieven.TestcaseInOutParameters;
 import laboflieven.examiners.ProgramFitnessExaminer;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
 import laboflieven.runners.RegularStatementRunner;
-import laboflieven.statements.Add;
-import laboflieven.statements.Register;
+import laboflieven.registers.Register;
 
 import java.util.ArrayList;
 import java.util.Collections;

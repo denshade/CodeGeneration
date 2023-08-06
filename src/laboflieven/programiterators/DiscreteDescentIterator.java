@@ -8,10 +8,9 @@ import laboflieven.accinstructions.InstructionFactory;
 import laboflieven.common.Configuration;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
 import laboflieven.statements.InstructionFactoryInterface;
-import laboflieven.statements.Register;
+import laboflieven.registers.Register;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class DiscreteDescentIterator implements ProgramIterator

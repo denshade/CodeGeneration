@@ -4,7 +4,7 @@ package laboflieven.accinstructions;
 import laboflieven.InstructionMark;
 import laboflieven.common.InstructionOpcode;
 import laboflieven.statements.InstructionFactoryInterface;
-import laboflieven.statements.Register;
+import laboflieven.registers.Register;
 
 import java.util.*;
 

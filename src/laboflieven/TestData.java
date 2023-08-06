@@ -4,7 +4,7 @@ import laboflieven.challenges.TestCases;
 import laboflieven.examiners.AccumulatorProgramFitnessExaminer;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
 import laboflieven.runners.AccStatementRunner;
-import laboflieven.statements.Register;
+import laboflieven.registers.Register;
 
 import java.io.File;
 import java.io.IOException;

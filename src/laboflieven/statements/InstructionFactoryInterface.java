@@ -2,6 +2,7 @@ package laboflieven.statements;
 
 import laboflieven.InstructionMark;
 import laboflieven.common.InstructionOpcode;
+import laboflieven.registers.Register;
 
 import java.util.ArrayList;
 import java.util.List;

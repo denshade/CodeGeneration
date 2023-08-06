@@ -8,7 +8,7 @@ import laboflieven.common.PriorityQueueAlgos;
 import laboflieven.examiners.ProgramFitnessExaminer;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
 import laboflieven.statements.InstructionFactoryInterface;
-import laboflieven.statements.Register;
+import laboflieven.registers.Register;
 
 import java.util.*;
 import java.util.stream.IntStream;

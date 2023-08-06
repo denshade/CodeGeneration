@@ -4,7 +4,7 @@ import laboflieven.TestcaseInOutParameters;
 import laboflieven.challenges.CosAltFinder;
 import laboflieven.challenges.TestCases;
 import laboflieven.runners.GenericSolutionAccRunner;
-import laboflieven.statements.Register;
+import laboflieven.registers.Register;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;

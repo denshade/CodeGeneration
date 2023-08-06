@@ -3,10 +3,9 @@ package laboflieven.runners;
 import laboflieven.InstructionMark;
 import laboflieven.Program;
 import laboflieven.accinstructions.AccRegisterInstruction;
-import laboflieven.statements.Register;
+import laboflieven.registers.Register;
 import laboflieven.statements.VectorRegister;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

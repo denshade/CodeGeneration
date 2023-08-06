@@ -11,7 +11,7 @@ import laboflieven.recursionheuristics.AccHeuristic;
 import laboflieven.recursionheuristics.CombinedHeuristic;
 import laboflieven.recursionheuristics.ResultsNoDataAfterFiveHeuristic;
 import laboflieven.runners.AccStatementRunner;
-import laboflieven.statements.Register;
+import laboflieven.registers.Register;
 
 import java.io.IOException;
 import java.util.ArrayList;

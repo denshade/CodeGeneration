@@ -10,7 +10,7 @@ import laboflieven.loggers.RandomSysOutAccFitnessLogger;
 import laboflieven.programiterators.AccPriorityProgramIterator;
 import laboflieven.recursionheuristics.AccHeuristic;
 import laboflieven.runners.AccStatementRunner;
-import laboflieven.statements.Register;
+import laboflieven.registers.Register;
 
 import java.util.ArrayList;
 import java.util.List;

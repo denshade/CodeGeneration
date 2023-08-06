@@ -4,7 +4,7 @@ import laboflieven.InstructionMark;
 import laboflieven.accinstructions.AccInstructionOpcodeEnum;
 import laboflieven.accinstructions.InstructionFactory;
 import laboflieven.statements.InstructionFactoryInterface;
-import laboflieven.statements.Register;
+import laboflieven.registers.Register;
 
 import java.util.ArrayList;
 import java.util.List;

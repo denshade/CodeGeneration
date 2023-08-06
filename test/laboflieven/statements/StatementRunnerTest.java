@@ -2,6 +2,7 @@ package laboflieven.statements;
 
 import laboflieven.InstructionMark;
 import laboflieven.Program;
+import laboflieven.registers.Register;
 import laboflieven.runners.RegularStatementRunner;
 import laboflieven.runners.StatementRunner;
 import org.junit.jupiter.api.Test;

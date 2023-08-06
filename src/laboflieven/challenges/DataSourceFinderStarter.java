@@ -14,7 +14,7 @@ import laboflieven.loggers.ErrorCsvFileFitnessLogger;
 import laboflieven.loggers.TimingAccFitnessLogger;
 import laboflieven.programiterators.PredefinedStartAndEndAccPriorityProgramIterator;
 import laboflieven.runners.AccStatementRunner;
-import laboflieven.statements.Register;
+import laboflieven.registers.Register;
 
 import java.io.File;
 import java.io.IOException;

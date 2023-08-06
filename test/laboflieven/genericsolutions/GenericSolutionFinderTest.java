@@ -3,11 +3,10 @@ package laboflieven.genericsolutions;
 import laboflieven.TestcaseInOutParameters;
 import laboflieven.challenges.*;
 import laboflieven.runners.GenericSolutionAccRunner;
-import laboflieven.statements.Register;
+import laboflieven.registers.Register;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
-import java.util.HashMap;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;

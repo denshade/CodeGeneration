@@ -1,6 +1,7 @@
 package laboflieven.statements;
 
 
+import laboflieven.registers.Register;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

@@ -3,9 +3,8 @@ package laboflieven.recursionheuristics;
 import laboflieven.InstructionMark;
 import laboflieven.Program;
 import laboflieven.ProgramParser;
-import laboflieven.statements.Instruction;
 import laboflieven.statements.Invert;
-import laboflieven.statements.Register;
+import laboflieven.registers.Register;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;

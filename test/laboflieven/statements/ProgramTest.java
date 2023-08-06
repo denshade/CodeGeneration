@@ -1,6 +1,8 @@
-package laboflieven;
+package laboflieven.statements;
 
-import laboflieven.statements.Register;
+import laboflieven.InstructionMark;
+import laboflieven.Program;
+import laboflieven.registers.Register;
 import laboflieven.statements.Sqrt;
 
 import java.util.ArrayList;

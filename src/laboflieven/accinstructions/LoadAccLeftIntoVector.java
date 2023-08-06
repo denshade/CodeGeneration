@@ -2,9 +2,8 @@ package laboflieven.accinstructions;
 
 import laboflieven.common.AccInstructionOpcode;
 import laboflieven.common.InstructionOpcode;
-import laboflieven.statements.Register;
+import laboflieven.registers.Register;
 import laboflieven.statements.VectorRegister;
-import org.apache.commons.math3.primes.Primes;
 
 public class LoadAccLeftIntoVector extends NoRegisterInstruction {
     @Override

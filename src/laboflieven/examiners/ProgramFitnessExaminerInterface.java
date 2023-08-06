@@ -4,7 +4,7 @@ import laboflieven.InstructionMark;
 import laboflieven.Program;
 import laboflieven.TestcaseInOutParameters;
 import laboflieven.loggers.FitnessLogger;
-import laboflieven.statements.Register;
+import laboflieven.registers.Register;
 
 import java.util.List;
 

@@ -1,5 +1,7 @@
 package laboflieven.statements;
 
+import laboflieven.registers.Register;
+
 /**
  * Created by lveeckha on 4/06/2015.
  */

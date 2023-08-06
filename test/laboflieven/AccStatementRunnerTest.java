@@ -2,9 +2,8 @@ package laboflieven;
 
 import laboflieven.accinstructions.*;
 import laboflieven.challenges.TestCases;
-import laboflieven.humanresource.instructions.Jump;
 import laboflieven.runners.AccStatementRunner;
-import laboflieven.statements.Register;
+import laboflieven.registers.Register;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

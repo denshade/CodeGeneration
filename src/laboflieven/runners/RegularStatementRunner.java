@@ -4,7 +4,7 @@ import laboflieven.InstructionMark;
 import laboflieven.Program;
 import laboflieven.statements.DualRegisterInstruction;
 import laboflieven.statements.Instruction;
-import laboflieven.statements.Register;
+import laboflieven.registers.Register;
 import laboflieven.statements.SingleRegisterInstruction;
 
 import java.util.HashMap;

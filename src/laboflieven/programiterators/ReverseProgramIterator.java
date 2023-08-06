@@ -2,6 +2,7 @@ package laboflieven.programiterators;
 
 import laboflieven.InstructionMark;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
+import laboflieven.registers.Register;
 import laboflieven.statements.*;
 
 import java.util.*;

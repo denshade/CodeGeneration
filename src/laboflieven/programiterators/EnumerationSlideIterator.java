@@ -7,7 +7,7 @@ import laboflieven.common.BestFitRegister;
 import laboflieven.common.InstructionOpcode;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
 import laboflieven.statements.InstructionFactoryInterface;
-import laboflieven.statements.Register;
+import laboflieven.registers.Register;
 
 import java.math.BigInteger;
 import java.util.List;
