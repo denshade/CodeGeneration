@@ -1,6 +1,7 @@
 package laboflieven.programiterators;
 
 import laboflieven.Program;
+import laboflieven.common.Configuration;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
 import laboflieven.InstructionMark;
 import laboflieven.recursionheuristics.AlwaysRecursionHeuristic;
@@ -56,12 +57,23 @@ public class BruteForceProgramIterator
         recursionHeuristic = new AlwaysRecursionHeuristic();
     }
 
-    public void iterate(final int nrOfRegisters, int maximumInstructions)
+    public List<List<InstructionMark>> iterate(final int nrOfRegisters, int maximumInstructions)
     {
         this.maximumInstructions = maximumInstructions;
         Register[] registers = new NumberNamingScheme().createRegisters(nrOfRegisters).toArray(new Register[0]);
         this.nrRegisters = nrOfRegisters;
         recurse(new ArrayList<>(), registers);
+        return positiveSolutions;
+    }
+
+    public List<List<InstructionMark>> iterate(Configuration config)
+    {
+        this.maximumInstructions = config.getMaxNrInstructions(2);
+        int numberOfRegisters = config.getNumberOfRegisters(2);
+        Register[] registers = new NumberNamingScheme().createRegisters(numberOfRegisters).toArray(new Register[0]);
+        this.nrRegisters = numberOfRegisters;
+        recurse(new ArrayList<>(), registers);
+        return positiveSolutions;
     }
 
     private void recurse(List<InstructionMark> instructions, Register[] registers)

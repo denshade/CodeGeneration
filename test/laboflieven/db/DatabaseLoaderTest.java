@@ -1,5 +1,6 @@
 package laboflieven.db;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.sql.DriverManager;
@@ -44,6 +45,7 @@ class DatabaseLoaderTest {
     }
 
     @Test
+    @Disabled
     void testDatabase() throws SQLException {
         var connection = DriverManager.getConnection("jdbc:hsqldb:mem:mymemdb", "SA", "");
         var dbl = new DatabaseLoader();

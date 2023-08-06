@@ -1,6 +1,7 @@
 package laboflieven.challenges;
 
 import laboflieven.*;
+import laboflieven.common.Configuration;
 import laboflieven.examiners.ProgramFitnessExaminer;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
 import laboflieven.programiterators.BruteForceProgramIterator;
@@ -19,15 +20,14 @@ public class CosPlusFinder implements ProgramTemplate
 
 
     public static void main(String[] args) throws IOException {
-        int curMaxRegisters = 2;
-        List<TestcaseInOutParameters> collection = TestCases.getTestCases(new CosPlusFinder(), TestCases.getExampleInput2D(50,10),curMaxRegisters);
+        var config = Configuration.getInstance();
+        config.setMaxNrInstructions(3).setNumberOfRegisters(2);
+        List<TestcaseInOutParameters> collection = TestCases.getTestCases(new CosPlusFinder(), TestCases.getExampleInput2D(50,10),2);
 
-
-        File f = new File("c:\\temp\\test.csv");
         ProgramFitnessExaminerInterface evaluator = new ProgramFitnessExaminer(collection, new RegularStatementRunner());
         BruteForceProgramIterator iter = new BruteForceProgramIterator(evaluator, new NoInvertedHeuristic());
         long start = System.currentTimeMillis();
-        iter.iterate(curMaxRegisters, 3);
+        iter.iterate(config);
         //evaluator.writeAndClose();
         System.out.println(System.currentTimeMillis() - start + "ms");
 

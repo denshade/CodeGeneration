@@ -24,7 +24,7 @@ class NoDuplicateGenericSolutionFinderTest {
         assertEquals(3, solution.programs.size());
         System.out.println(solution);
         GenericSolutionAccRunner runner = new GenericSolutionAccRunner();
-        for (int i = 0; i < testcases.size(); i++) {
+        for (int i = 1; i <= testcases.size(); i++) {
             System.out.println(i);
             assertEquals(testcases.get(i).expectedOutput.get("R1"), runner.execute(solution, testcases.get(i).input, new NumberNamingScheme().createRegisters(1)).get("R1"));
         }
