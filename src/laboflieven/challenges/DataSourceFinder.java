@@ -20,6 +20,7 @@ import laboflieven.registers.Register;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -35,15 +36,17 @@ public class DataSourceFinder {
     public static void main(String[] args) throws IOException {
         CommandLineConfigLoader loader = new CommandLineConfigLoader();
         var conf = loader.loadFromCommandLine(args);
-        conf.setNumberOfRegisters(2);
-        conf.setMaxNrInstructions(50);
-        conf.setProgramIterator(new RandomProgramIterator());
+        System.out.println(conf);
+        //conf.setNumberOfRegisters(2);
+        //conf.setMaxNrInstructions(100);
+        //conf.setProgramIterator(new RandomProgramIterator());
         // left = R1, left = nand(left, right), left = sin(left), left = 3n+1, R1 = left
         AccStatementRunner runner = new AccStatementRunner();
 
         int columnToPredict = 2;
-
-        File sourceFile = new File(conf.getCsvFile("C:\\temp\\p128.txt"));
+        String tmpdir = System.getProperty("java.io.tmpdir");
+        Path p = Path.of(tmpdir, "p128.txt");
+        File sourceFile = new File(conf.getCsvFile(p.toString()));
         var contents = Files.readString(sourceFile.toPath());
         TestCases testCases = new TestCases();
         List<TestcaseInOutParameters> conditions = testCases.loadFromCsvFile(sourceFile, false, columnToPredict);
