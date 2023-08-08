@@ -3,13 +3,13 @@ package laboflieven.accinstructions;
 import laboflieven.common.InstructionOpcode;
 import laboflieven.registers.Register;
 
-public class Jump2IfNeq  extends NoRegisterInstruction
+public class Jump2IfNeq  implements JumpInstruction
 {
-    public Integer execute(Register left, Register right, int ip)
+    public Integer execute(Register left, Register right, Register jump, int ip)
     {
         if (left.value != right.value)
         {
-            return ip + 2;
+            return ip + (int)jump.value;
         }
         return null;
     }
