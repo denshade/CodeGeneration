@@ -3,20 +3,20 @@ package laboflieven.accinstructions;
 import laboflieven.common.InstructionOpcode;
 import laboflieven.registers.Register;
 
-public class Jump2IfLte  extends NoRegisterInstruction
+public class Jump2IfLte  implements JumpInstruction
 {
-    public Integer execute(Register left, Register right, int ip)
+    public Integer execute(Register left, Register right, Register jump, int ip)
     {
         if (left.value <= right.value)
         {
-            return ip + 2;
+            return ip + (int)jump.value;
         }
         return null;
     }
 
     @Override
     public String toString() {
-        return "Jump if left <= right goto this + 2";
+        return "Jump if left <= right goto this + jump";
     }
     @Override
     public InstructionOpcode getInstructionOpcode() {
