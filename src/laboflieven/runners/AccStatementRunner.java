@@ -52,7 +52,7 @@ public class AccStatementRunner implements StatementRunner {
         List<InstructionMark> instructions = program.getInstructions();
         Register left = new Register(LEFT_ACC_NAME);
         Register right = new Register(RIGHT_ACC_NAME);
-        Register jump = new Register(JUMP_ACC_NAME);
+        Register jump = new Register(JUMP_ACC_NAME,2);
 
         VectorRegister leftVector = new VectorRegister(LEFT_ACC_NAME_VECTOR);
         VectorRegister rightVector = new VectorRegister(RIGHT_ACC_NAME_VECTOR);
@@ -68,14 +68,18 @@ public class AccStatementRunner implements StatementRunner {
                 instructionOverflow= true;
                 break;
             }
-            AccRegisterInstruction instruction = (AccRegisterInstruction) instructions.get(ip);
+            InstructionMark instruction = instructions.get(ip);
             if (verbose) {
                 System.out.println(instruction);
             }
+            Integer pointer;
             if (instruction instanceof JumpInstruction) {
-
+                pointer = ((JumpInstruction)instruction).execute(left, right, jump, ip);
+            } else if (instruction instanceof AccRegisterInstruction){
+                pointer = ((AccRegisterInstruction)instruction).execute(left, right, leftVector, rightVector, ip);
+            } else {
+                throw new IllegalArgumentException("Unsupported instruction" + instruction);
             }
-            Integer pointer = instruction.execute(left, right, leftVector, rightVector, ip);
             if (verbose) {
                 System.out.print("Pointer:" + pointer+" ");
                 System.out.print(program.getRegisters().stream().map(e -> e.name+ "="+ e.value+ ",").collect(Collectors.joining()));

@@ -12,7 +12,7 @@ import java.util.*;
  * Created by lveeckha on 4/06/2015.
  */
 public class InstructionFactory implements InstructionFactoryInterface {
-    private static final EnumMap<AccInstructionOpcodeEnum, AccRegisterInstruction> map = new EnumMap<>(AccInstructionOpcodeEnum.class) {{
+    private static final EnumMap<AccInstructionOpcodeEnum, InstructionMark> map = new EnumMap<>(AccInstructionOpcodeEnum.class) {{
         put(AccInstructionOpcodeEnum.Add, new Add());
         put(AccInstructionOpcodeEnum.Div, new Div());
         put(AccInstructionOpcodeEnum.Mod, new Mod());
@@ -49,7 +49,7 @@ public class InstructionFactory implements InstructionFactoryInterface {
 
     }};
 
-    public AccRegisterInstruction createInstruction(InstructionOpcode instructionEnum, Register... registers) {
+    public InstructionMark createInstruction(InstructionOpcode instructionEnum, Register... registers) {
         AccInstructionOpcodeEnum instruct = ((laboflieven.common.AccInstructionOpcode) instructionEnum).getEnumer();
         if (registers.length == 0) {
             return createInstructionP(instruct);
@@ -59,7 +59,7 @@ public class InstructionFactory implements InstructionFactoryInterface {
         throw new RuntimeException("Too many registers");
     }
 
-    public AccRegisterInstruction createInstructionP(AccInstructionOpcodeEnum accInstructionOpcodeEnum) {
+    public InstructionMark createInstructionP(AccInstructionOpcodeEnum accInstructionOpcodeEnum) {
         return map.get(accInstructionOpcodeEnum);
     }
 

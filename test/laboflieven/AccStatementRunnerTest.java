@@ -76,6 +76,15 @@ public class AccStatementRunnerTest {
         var result = runner.execute(program, Map.of("R1", 1.0));
         Assertions.assertTrue(Double.isNaN(result.get("R1")));
     }
+
+    @Test
+    void checkJumpInstructionWorks()
+    {
+        var runner = new AccStatementRunner();
+        var program = new Program(List.of(new Jump2IfEq(), new Add()), new NumberNamingScheme().createRegisters(1));
+        var result = runner.execute(program, Map.of("R1", 1.0, "R2", 2.0));
+        Assertions.assertEquals(1.0, result.get("R1"), 0.001);
+    }
     private static void l(double l, double r, double r0)
     {
         System.out.println(l+","+r+","+r0);
