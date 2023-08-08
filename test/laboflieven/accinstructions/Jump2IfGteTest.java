@@ -8,14 +8,12 @@ import static org.junit.jupiter.api.Assertions.*;
 class Jump2IfGteTest {
 
     @Test
-    void jump2IfGte(){
-        var kr = new Jump2IfGte();
-        var regL = new Register("L", 4);
-        var regR = new Register("R", 2);
-        var regJ = new Register("J", +5);
-
-        var ip = kr.execute(regL, regR, regJ, 1);
-        assertEquals(6, ip);
+    void check() {
+        var j = new Jump2IfGte();
+        var ip = j.execute(new Register("L", 1.0), new Register("R", 2.0), new Register("L", 3.0),0);
+        assertNull( ip );
+        ip = j.execute(new Register("L", 1.0), new Register("R", 1.0), new Register("L", 3.0),0);
+        assertEquals(3,  ip );
     }
 
 }

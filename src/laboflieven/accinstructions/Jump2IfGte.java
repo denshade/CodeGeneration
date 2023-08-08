@@ -4,7 +4,7 @@ import laboflieven.InstructionMark;
 import laboflieven.common.InstructionOpcode;
 import laboflieven.registers.Register;
 
-public class Jump2IfGte implements InstructionMark
+public class Jump2IfGte  implements JumpInstruction
 {
     public Integer execute(Register left, Register right, Register jump, int ip)
     {
@@ -17,7 +17,7 @@ public class Jump2IfGte implements InstructionMark
 
     @Override
     public String toString() {
-        return "Jump if left >= right goto this + 2";
+        return "Jump if left >= right goto this + jump";
     }
     @Override
     public InstructionOpcode getInstructionOpcode() {
