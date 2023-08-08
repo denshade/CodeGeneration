@@ -85,16 +85,16 @@ public class GeneralBruteForceProgramIterator implements ProgramIterator
             if (instruction.isSingleRegister()) {
                 for (Register register1 : registers) {
                     InstructionMark actualInstruction = instructionFactory.createInstruction(instructionEnum, register1);
-                    processInstruction(instructions, (AccRegisterInstruction) actualInstruction);
+                    processInstruction(instructions, actualInstruction);
                 }
             } else {
                 InstructionMark actualInstruction = instructionFactory.createInstruction(instructionEnum);
-                processInstruction(instructions, (AccRegisterInstruction) actualInstruction);
+                processInstruction(instructions, actualInstruction);
             }
         }
     }
 
-    private void processInstruction(List<InstructionMark> instructions, AccRegisterInstruction actualInstruction) {
+    private void processInstruction(List<InstructionMark> instructions, InstructionMark actualInstruction) {
         instructions.add(actualInstruction);
         Program p = new Program(instructions, registers);
         if (heuristic.shouldRecurse(p, maximumInstructions)) {

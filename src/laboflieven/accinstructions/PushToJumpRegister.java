@@ -3,7 +3,7 @@ package laboflieven.accinstructions;
 import laboflieven.common.InstructionOpcode;
 import laboflieven.registers.Register;
 
-public class PushToJumpRegister extends SingleRegisterInstruction
+public class PushToJumpRegister implements JumpInstruction
 {
     @Override
     public InstructionOpcode getInstructionOpcode() {
