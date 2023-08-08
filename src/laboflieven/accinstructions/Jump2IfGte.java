@@ -1,15 +1,16 @@
 package laboflieven.accinstructions;
 
+import laboflieven.InstructionMark;
 import laboflieven.common.InstructionOpcode;
 import laboflieven.registers.Register;
 
-public class Jump2IfGte extends NoRegisterInstruction
+public class Jump2IfGte implements InstructionMark
 {
-    public Integer execute(Register left, Register right, int ip)
+    public Integer execute(Register left, Register right, Register jump, int ip)
     {
         if (left.value >= right.value)
         {
-            return ip + 2;
+            return ip + (int)jump.value;
         }
         return null;
     }

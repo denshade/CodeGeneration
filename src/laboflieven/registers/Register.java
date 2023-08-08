@@ -14,6 +14,12 @@ public class Register
     {
         this.name = name;
     }
+    public Register(String name, double value)
+    {
+        this.name = name;
+        this.value = value;
+    }
+
     public double value;
     public String toString()
     {

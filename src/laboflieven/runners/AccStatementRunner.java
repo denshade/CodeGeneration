@@ -3,6 +3,7 @@ package laboflieven.runners;
 import laboflieven.InstructionMark;
 import laboflieven.Program;
 import laboflieven.accinstructions.AccRegisterInstruction;
+import laboflieven.accinstructions.JumpInstruction;
 import laboflieven.registers.Register;
 import laboflieven.statements.VectorRegister;
 
@@ -18,6 +19,8 @@ public class AccStatementRunner implements StatementRunner {
 
     public static final String LEFT_ACC_NAME = "AL";
     public static final String RIGHT_ACC_NAME = "AR";
+    public static final String JUMP_ACC_NAME = "JR";
+
     public static final String LEFT_ACC_NAME_VECTOR = "ALV";
     public static final String RIGHT_ACC_NAME_VECTOR = "ARV";
     public int MAXINSTRUCT;
@@ -49,6 +52,8 @@ public class AccStatementRunner implements StatementRunner {
         List<InstructionMark> instructions = program.getInstructions();
         Register left = new Register(LEFT_ACC_NAME);
         Register right = new Register(RIGHT_ACC_NAME);
+        Register jump = new Register(JUMP_ACC_NAME);
+
         VectorRegister leftVector = new VectorRegister(LEFT_ACC_NAME_VECTOR);
         VectorRegister rightVector = new VectorRegister(RIGHT_ACC_NAME_VECTOR);
         boolean instructionOverflow = false;
@@ -66,6 +71,9 @@ public class AccStatementRunner implements StatementRunner {
             AccRegisterInstruction instruction = (AccRegisterInstruction) instructions.get(ip);
             if (verbose) {
                 System.out.println(instruction);
+            }
+            if (instruction instanceof JumpInstruction) {
+
             }
             Integer pointer = instruction.execute(left, right, leftVector, rightVector, ip);
             if (verbose) {
