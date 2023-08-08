@@ -46,7 +46,7 @@ public class InstructionFactory implements InstructionFactoryInterface {
         put(AccInstructionOpcodeEnum.LeftVectPushExponents, new LeftVectPushExponents());
         put(AccInstructionOpcodeEnum.Dec, new Dec());
         put(AccInstructionOpcodeEnum.LoadVectorSumIntoLeft, new LoadVectorSumIntoLeft());
-
+        put(AccInstructionOpcodeEnum.PushToJumpRegister, new PushToJumpRegister());
     }};
 
     public InstructionMark createInstruction(InstructionOpcode instructionEnum, Register... registers) {

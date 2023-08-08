@@ -1,6 +1,5 @@
 package laboflieven.accinstructions;
 
-import laboflieven.InstructionMark;
 import laboflieven.common.InstructionOpcode;
 import laboflieven.registers.Register;
 
