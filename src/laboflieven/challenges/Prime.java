@@ -4,9 +4,12 @@ import laboflieven.accinstructions.*;
 import laboflieven.common.Configuration;
 import laboflieven.examiners.ProgramFitnessExaminer;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
+import laboflieven.loggers.TimingAccFitnessLogger;
+import laboflieven.programiterators.AccPriorityProgramIterator;
 import laboflieven.programiterators.AccRandomGeneticProgramIterator;
 import laboflieven.TestcaseInOutParameters;
 import laboflieven.programiterators.GeneralBruteForceProgramIterator;
+import laboflieven.programiterators.PriorityProgramIterator;
 import laboflieven.runners.AccStatementRunner;
 
 import java.util.ArrayList;
@@ -15,7 +18,7 @@ import java.util.Set;
 
 public class Prime implements ProgramTemplate
 {
-
+//left = R1, leftVector = split(left), swap = left, left = right, right = swap, left = sin(left), left = sum(leftV), R1 = right, left--, left = nand(left, right), R1 = left, R1 = left
     public static void main(String[] args) {
 
         int curMaxRegisters = 1;
@@ -28,16 +31,24 @@ public class Prime implements ProgramTemplate
             collection.add(p);
         }
         ProgramFitnessExaminerInterface evaluator = new ProgramFitnessExaminer(collection,new AccStatementRunner());
+        //AccInstructionOpcodeEnum[] enums = AccInstructionOpcodeEnumBuilder.make().all().build();
         AccInstructionOpcodeEnum[] enums = AccInstructionOpcodeEnumBuilder.make().with(
                 AccInstructionOpcodeEnum.LoadIntoLeftAcc,
                 AccInstructionOpcodeEnum.LoadAccLeftIntoVector,
                 AccInstructionOpcodeEnum.LoadVectorSumIntoLeft,
-                AccInstructionOpcodeEnum.LoadAccLeftIntoRegister
+                AccInstructionOpcodeEnum.LoadAccLeftIntoRegister,
+                AccInstructionOpcodeEnum.LoadVectorIntoLeft,
+                AccInstructionOpcodeEnum.Sin,
+                AccInstructionOpcodeEnum.Swap,
+                AccInstructionOpcodeEnum.Dec,
+                AccInstructionOpcodeEnum.Nand
         ).build();
+        evaluator.addListener(new TimingAccFitnessLogger(1000));
         var conf = new Configuration();
-        conf.setMaxNrInstructions(6).setFitnessExaminer(evaluator).setAccOperations(enums).setNumberOfRegisters(curMaxRegisters);
+        conf.setRandomAdded(false);
+        conf.setMaxNrInstructions(7).setFitnessExaminer(evaluator).setAccOperations(enums).setNumberOfRegisters(curMaxRegisters);
 
-        GeneralBruteForceProgramIterator iter = new GeneralBruteForceProgramIterator();
+        var iter = new AccPriorityProgramIterator();
         long start = System.currentTimeMillis();
         System.out.println(iter.iterate(conf));
         System.out.println(System.currentTimeMillis() - start + "ms");

@@ -46,4 +46,8 @@ public class AccInstructionOpcodeEnumBuilder
     {
         return enums.toArray(new AccInstructionOpcodeEnum[0]);
     }
+
+    public AccInstructionOpcodeEnumBuilder all() {
+        return with(AccInstructionOpcodeEnum.values());
+    }
 }

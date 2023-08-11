@@ -63,7 +63,7 @@ public class AccPriorityProgramIterator  implements ProgramIterator
             } else {
                 if (priorityQueue.size() > CUT_POPULATION_AT_MAX)
                 {
-                    LOGGER.warning("Cutting population");
+                    //LOGGER.warning("Cutting population");
                     priorityQueue = PriorityQueueAlgos.cutPopulation(CUT_POPULATION_TO, priorityQueue);
                 }
             }
