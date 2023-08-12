@@ -12,12 +12,12 @@ public class PushToJumpRegister implements JumpInstruction
 
     @Override
     public Integer execute(Register left, Register right, Register jumpRegister, int ip) {
-        jumpRegister.value = right.value;
+        jumpRegister.value = left.value;
         return null;
     }
 
     @Override
     public String toString() {
-        return "PushRightToJumpRegister";
+        return "PushLeftToJumpRegister";
     }
 }
