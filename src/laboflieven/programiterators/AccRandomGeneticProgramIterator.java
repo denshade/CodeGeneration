@@ -124,7 +124,7 @@ public class AccRandomGeneticProgramIterator {
         boolean foundProgram = false;
         while (!foundProgram) {
             AccInstructionOpcodeEnum instruction;
-            if (instructions.size() == 0) {
+            if (instructions.isEmpty()) {
                 instruction = pickRandomPush(r);
             } else {
                 instruction = pickRandomInstruction(r);
