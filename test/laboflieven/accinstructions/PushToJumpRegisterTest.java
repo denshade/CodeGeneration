@@ -14,8 +14,10 @@ class PushToJumpRegisterTest
         Register pushR = new Register("push");
         pushR.value = -5;
         Register r = new Register("r");
+        Register l = new Register("l");
         r.value = 5;
-        var ip = p.execute(null, r, pushR, 12);
+        l.value = 5;
+        var ip = p.execute(l, r, pushR, 12);
         assertEquals(5, pushR.value);
     }
 
