@@ -5,6 +5,7 @@ import laboflieven.common.Configuration;
 
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
+import java.util.logging.Logger;
 
 public class MultiThreadedProgramIterator implements ProgramIterator
 {
@@ -19,7 +20,7 @@ public class MultiThreadedProgramIterator implements ProgramIterator
         var pool = Executors.newFixedThreadPool(threads);
         for (int i = 0; i < threads; i++) {
             var iterator = new RandomProgramIterator();
-            pool.submit(() -> iterator.iterate(config));
+            pool.execute(() -> iterator.iterate(config));
         }
         try {
             Thread.sleep(3600000);

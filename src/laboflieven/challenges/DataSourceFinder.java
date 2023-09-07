@@ -45,12 +45,12 @@ public class DataSourceFinder {
 
         TestCases testCases = new TestCases();
         int columnToPredict = 2;
-        /*String tmpdir = System.getProperty("java.io.tmpdir");
+        String tmpdir = System.getProperty("java.io.tmpdir");
         Path p = Path.of(tmpdir, "number.csv");
         File sourceFile = new File(conf.getCsvFile(p.toString()));
         var contents = Files.readString(sourceFile.toPath());
-        List<TestcaseInOutParameters> conditions = testCases.loadFromCsvFile(sourceFile, false, columnToPredict);*/
-        List<TestcaseInOutParameters> conditions = List.of(testCases.createParameters(new double[]{1.0}, 10.0));
+        List<TestcaseInOutParameters> conditions = testCases.loadFromCsvFile(sourceFile, false, columnToPredict);
+        //List<TestcaseInOutParameters> conditions = List.of(testCases.createParameters(new double[]{1.0}, 10.0));
         System.out.println("Conditions");
         System.out.println(conditions);
         ProgramFitnessExaminerInterface evaluator = new AccumulatorProgramFitnessExaminer(

@@ -14,11 +14,13 @@ import laboflieven.registers.Register;
 import laboflieven.statements.RegularInstructionOpcodeEnum;
 
 import java.util.*;
+import java.util.logging.Logger;
 
 /**
  * Created by lveeckha on 31/05/2015.
  */
 public class RandomProgramIterator implements ProgramIterator {
+    private Logger logger = Logger.getLogger(MultiThreadedProgramIterator.class.getName());
     public int maximumInstructions = 12;
     public long counter = 0;
 
@@ -46,6 +48,7 @@ public class RandomProgramIterator implements ProgramIterator {
         long runTime = System.currentTimeMillis() - startTime;
         while (runTime < configuration.getMaxDurationSeconds(3600) * 1000 && bestFit.getBestScore() > 0.0001) {
             loop();
+            logger.info("HELLO");
             runTime = System.currentTimeMillis() - startTime;
         }
         return new ProgramResolution(bestFit.getBest(), bestFit.getBestScore());
