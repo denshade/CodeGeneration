@@ -82,10 +82,10 @@ public class AccumulatorProgramFitnessExaminer implements ProgramFitnessExaminer
         double result = 0.0;
         for(TestcaseInOutParameters parameter : conditions)
         {
-            runner.execute(program, parameter.input);
+            Map<String, Double> map = runner.execute(program, parameter.input);
             for (Register register : program.getRegisters())
             {
-                if (registerValueIsTooFar(register, parameter.expectedOutput))
+                //if (registerValueIsTooFar(register, parameter.expectedOutput))
                 {
                     result += Math.abs(parameter.expectedOutput.get(register.name) - register.value);
                 }

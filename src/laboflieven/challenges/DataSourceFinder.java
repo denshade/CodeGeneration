@@ -43,13 +43,14 @@ public class DataSourceFinder {
         // left = R1, left = nand(left, right), left = sin(left), left = 3n+1, R1 = left
         AccStatementRunner runner = new AccStatementRunner();
 
+        TestCases testCases = new TestCases();
         int columnToPredict = 2;
-        String tmpdir = System.getProperty("java.io.tmpdir");
-        Path p = Path.of(tmpdir, "p128.txt");
+        /*String tmpdir = System.getProperty("java.io.tmpdir");
+        Path p = Path.of(tmpdir, "number.csv");
         File sourceFile = new File(conf.getCsvFile(p.toString()));
         var contents = Files.readString(sourceFile.toPath());
-        TestCases testCases = new TestCases();
-        List<TestcaseInOutParameters> conditions = testCases.loadFromCsvFile(sourceFile, false, columnToPredict);
+        List<TestcaseInOutParameters> conditions = testCases.loadFromCsvFile(sourceFile, false, columnToPredict);*/
+        List<TestcaseInOutParameters> conditions = List.of(testCases.createParameters(new double[]{1.0}, 10.0));
         System.out.println("Conditions");
         System.out.println(conditions);
         ProgramFitnessExaminerInterface evaluator = new AccumulatorProgramFitnessExaminer(
@@ -61,8 +62,9 @@ public class DataSourceFinder {
         evaluator.addListener(new TimingAccFitnessLogger(10000));
         conf.setFitnessExaminer(evaluator);
 
-        var v = conf.getProgramIterator(new PredefinedStartAndEndAccPriorityProgramIterator());
-        //var v = new GeneralBruteForceProgramIterator();
+        //var v = conf.getProgramIterator(new PredefinedStartAndEndAccPriorityProgramIterator());
+        var v = new MultiThreadedProgramIterator(4);
+        //var v = new AccPriorityProgramIterator();
         //var v = new AccRandomGeneticProgramIterator(evaluator,  AccInstructionOpcodeEnum.allMathOperators().toArray(new AccInstructionOpcodeEnum[0]), 1000,1.1,0.4);
         //var v = conf.getProgramIterator(new GeneralBruteForceProgramIterator());
         long start = System.currentTimeMillis();
@@ -85,13 +87,14 @@ public class DataSourceFinder {
         //evaluator.addListener(logger);
         ProgramResolution res = v.iterate(conf);
         System.out.println(res);
+
         double bestScore = evaluator.evaluateDifference(new Program(res.instructions, new NumberNamingScheme().createRegisters(1)));
         long stop = System.currentTimeMillis();
         double defaultScore = testCases.getDefaultError(conditions);
         System.out.println("The following config was used");
         System.out.println(conf);
         System.out.println("From the csv the column "+ columnToPredict + " is predicted.");
-        System.out.println(contents);
+        //System.out.println(contents);
         System.out.println("score:"+ bestScore);
         System.out.println("default score:"+ defaultScore);
         System.out.println("relative score:"+ (bestScore / defaultScore) * 100 + "%");
