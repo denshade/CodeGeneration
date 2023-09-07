@@ -48,7 +48,6 @@ public class RandomProgramIterator implements ProgramIterator {
         long runTime = System.currentTimeMillis() - startTime;
         while (runTime < configuration.getMaxDurationSeconds(3600) * 1000 && bestFit.getBestScore() > 0.0001) {
             loop();
-            logger.info("HELLO");
             runTime = System.currentTimeMillis() - startTime;
         }
         return new ProgramResolution(bestFit.getBest(), bestFit.getBestScore());
