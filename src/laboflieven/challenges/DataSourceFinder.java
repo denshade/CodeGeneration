@@ -152,7 +152,7 @@ public class DataSourceFinder {
         //evaluator.addListener(logger);
         ProgramResolution res = v.iterate(conf);
         System.out.println(res);
-        double bestScore = evaluator.evaluateDifference(new Program(res.instructions, new NumberNamingScheme().createRegisters(1)));
+        double bestScore = evaluator.evaluateDifference(new Program(res.instructions, new NumberNamingScheme().createRegisters(conf.getNumberOfRegisters(2))));
         long stop = System.currentTimeMillis();
         double defaultScore = testCases.getDefaultError(conditions);
         System.out.println("The following config was used");

@@ -1,5 +1,6 @@
 package laboflieven.examiners;
 
+import laboflieven.Program;
 import laboflieven.TestcaseInOutParameters;
 import laboflieven.InstructionMark;
 import laboflieven.accinstructions.*;
@@ -44,6 +45,15 @@ class AccumulatorProgramFitnessExaminerTest {
 
         var f = new AccumulatorProgramFitnessExaminer(collection, new AccStatementRunner());
         assertEquals(0.0, f.calculateFitness(instructions, registers));
+    }
+
+    @Test
+    void canHandleUnknownExpected() {
+        var program = new Program(List.of(), Register.createRegisters(2));
+        List<TestcaseInOutParameters> collection = List.of(TestcaseInOutParameters.createParameter(new double[0], 1, 3));
+
+        var f = new AccumulatorProgramFitnessExaminer(collection, new AccStatementRunner());
+        assertEquals(0.0, f.evaluateDifference(program));
     }
 
 }

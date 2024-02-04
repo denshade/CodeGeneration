@@ -85,6 +85,7 @@ public class AccumulatorProgramFitnessExaminer implements ProgramFitnessExaminer
             Map<String, Double> map = runner.execute(program, parameter.input);
             for (Register register : program.getRegisters())
             {
+                if (!parameter.expectedOutput.containsKey(register.name)) continue;
                 //if (registerValueIsTooFar(register, parameter.expectedOutput))
                 {
                     result += Math.abs(parameter.expectedOutput.get(register.name) - register.value);
