@@ -19,8 +19,11 @@ import laboflieven.registers.Register;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.nio.file.OpenOption;
 import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -81,7 +84,7 @@ public class DataSourceFinder {
         }
         System.out.println("Setting opcodes to " + opcodes);
         conf.setAccOperations(opcodes.toArray(new AccInstructionOpcodeEnum[0]));
-        ErrorCsvFileFitnessLogger logger = new ErrorCsvFileFitnessLogger(new File("c:\\temp\\out.csv"), opcodes.stream().map(AccInstructionOpcode::new).collect(Collectors.toList()));
+        //ErrorCsvFileFitnessLogger logger = new ErrorCsvFileFitnessLogger(new File("c:\\temp\\out.csv"), opcodes.stream().map(AccInstructionOpcode::new).collect(Collectors.toList()));
         //evaluator.addListener(logger);
         ProgramResolution res = v.iterate(conf);
         System.out.println(res);
@@ -97,6 +100,67 @@ public class DataSourceFinder {
         System.out.println("relative score:"+ (bestScore / defaultScore) * 100 + "%");
 
         System.out.println("Timing:" + (stop - start));
-        logger.finish();
+        //logger.finish();
+    }
+
+    public static String runForConfig(String[] args, String body) throws IOException {
+        CommandLineConfigLoader loader = new CommandLineConfigLoader();
+        var conf = loader.loadFromCommandLine(args);
+        System.out.println(conf);
+        //conf.setNumberOfRegisters(2);
+        //conf.setMaxNrInstructions(100);
+        //conf.setProgramIterator(new RandomProgramIterator());
+        // left = R1, left = nand(left, right), left = sin(left), left = 3n+1, R1 = left
+        AccStatementRunner runner = new AccStatementRunner();
+
+        int columnToPredict = 2;
+        var file = File.createTempFile("datasource", ".csv");
+        file.deleteOnExit();
+        Files.write(file.toPath(), body.getBytes(StandardCharsets.UTF_8), StandardOpenOption.WRITE);
+
+        TestCases testCases = new TestCases();
+        List<TestcaseInOutParameters> conditions = testCases.loadFromCsvFile(file, false, columnToPredict);
+        System.out.println("Conditions");
+        System.out.println(conditions);
+        ProgramFitnessExaminerInterface evaluator = new AccumulatorProgramFitnessExaminer(
+                conditions, runner,
+                "R1");
+
+        //var finder = new RandomIteratorOperandFinder();
+        //evaluator.addListener(new RandomSysOutAccFitnessLogger(100000));
+        evaluator.addListener(new TimingAccFitnessLogger(10000));
+        conf.setFitnessExaminer(evaluator);
+
+        var v = conf.getProgramIterator(new PredefinedStartAndEndAccPriorityProgramIterator());
+        //var v = new GeneralBruteForceProgramIterator();
+        //var v = new AccRandomGeneticProgramIterator(evaluator,  AccInstructionOpcodeEnum.allMathOperators().toArray(new AccInstructionOpcodeEnum[0]), 1000,1.1,0.4);
+        //var v = conf.getProgramIterator(new GeneralBruteForceProgramIterator());
+        long start = System.currentTimeMillis();
+        boolean findCodes = false;
+        List<AccInstructionOpcodeEnum> opcodes = List.of(AccInstructionOpcodeEnum.values());
+        //List<AccInstructionOpcodeEnum> opcodes = AccInstructionOpcodeEnum.allMathOperators();
+        //Stream.concat(
+        //AccInstructionOpcodeEnum.allAccLoaders().stream(),
+        //AccInstructionOpcodeEnum.allMathOperators().stream()).collect(Collectors.toList());
+
+        System.out.println("Setting opcodes to " + opcodes);
+        //conf.setAccOperations(opcodes.toArray(new AccInstructionOpcodeEnum[0]));
+        //ErrorCsvFileFitnessLogger logger = new ErrorCsvFileFitnessLogger(new File("c:\\temp\\out.csv"), opcodes.stream().map(AccInstructionOpcode::new).collect(Collectors.toList()));
+        //evaluator.addListener(logger);
+        ProgramResolution res = v.iterate(conf);
+        System.out.println(res);
+        double bestScore = evaluator.evaluateDifference(new Program(res.instructions, new NumberNamingScheme().createRegisters(1)));
+        long stop = System.currentTimeMillis();
+        double defaultScore = testCases.getDefaultError(conditions);
+        System.out.println("The following config was used");
+        System.out.println(conf);
+        System.out.println("From the csv the column "+ columnToPredict + " is predicted.");
+        System.out.println(body);
+        System.out.println("score:"+ bestScore);
+        System.out.println("default score:"+ defaultScore);
+        System.out.println("relative score:"+ (bestScore / defaultScore) * 100 + "%");
+
+        System.out.println("Timing:" + (stop - start));
+        return "";
     }
 }

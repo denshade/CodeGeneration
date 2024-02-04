@@ -1,5 +1,6 @@
 package laboflieven.recursionheuristics;
 
+import laboflieven.InstructionMark;
 import laboflieven.Program;
 import laboflieven.accinstructions.*;
 
@@ -13,7 +14,7 @@ public class AccHeuristic implements RecursionHeuristic
         List<AccRegisterInstruction> instructions = (List<AccRegisterInstruction>)(List<?>)program.getInstructions();
         int size = instructions.size();
         if (size == 0) return true;
-        AccRegisterInstruction lastInstruction = instructions.get(size - 1);
+        InstructionMark lastInstruction = instructions.get(size - 1);
         if (size == 1 && !(lastInstruction instanceof LoadIntoLeftAcc ||lastInstruction instanceof LoadIntoRightAcc))
             return false;
         //Finish must be a push to a register.
@@ -27,7 +28,7 @@ public class AccHeuristic implements RecursionHeuristic
 
         if (size - 2 >= 0)
         {
-            AccRegisterInstruction prevInstruction = instructions.get(size - 2);
+            InstructionMark prevInstruction = instructions.get(size - 2);
             //Two pull lefts overwrite each other.
             if (lastInstruction instanceof LoadIntoLeftAcc && prevInstruction instanceof LoadIntoLeftAcc) {
                return false;
