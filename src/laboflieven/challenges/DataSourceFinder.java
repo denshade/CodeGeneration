@@ -4,27 +4,26 @@ import laboflieven.Program;
 import laboflieven.ProgramResolution;
 import laboflieven.TestcaseInOutParameters;
 import laboflieven.accinstructions.AccInstructionOpcodeEnum;
-import laboflieven.common.AccInstructionOpcode;
 import laboflieven.common.CommandLineConfigLoader;
 import laboflieven.common.InstructionOpcode;
 import laboflieven.examiners.AccumulatorProgramFitnessExaminer;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
 import laboflieven.genericsolutions.RandomIteratorOperandFinder;
-import laboflieven.loggers.ErrorCsvFileFitnessLogger;
 import laboflieven.loggers.TimingAccFitnessLogger;
-import laboflieven.programiterators.*;
+import laboflieven.programiterators.MultiThreadedProgramIterator;
+import laboflieven.programiterators.PredefinedStartAndEndAccPriorityProgramIterator;
 import laboflieven.registers.NumberNamingScheme;
 import laboflieven.runners.AccStatementRunner;
-import laboflieven.registers.Register;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
-import java.nio.file.OpenOption;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -106,7 +105,8 @@ public class DataSourceFinder {
         //logger.finish();
     }
 
-    public static String runForConfig(String[] args, String body) throws IOException {
+    public static Map<String, String> runForConfig(String[] args, String body) throws IOException {
+        var responseMap = new HashMap<String, String>();
         CommandLineConfigLoader loader = new CommandLineConfigLoader();
         var conf = loader.loadFromCommandLine(args);
         System.out.println(conf);
@@ -155,15 +155,22 @@ public class DataSourceFinder {
         double bestScore = evaluator.evaluateDifference(new Program(res.instructions, new NumberNamingScheme().createRegisters(conf.getNumberOfRegisters(2))));
         long stop = System.currentTimeMillis();
         double defaultScore = testCases.getDefaultError(conditions);
+        responseMap.put("CONFIG", conf.toString());
         System.out.println("The following config was used");
         System.out.println(conf);
         System.out.println("From the csv the column "+ columnToPredict + " is predicted.");
         System.out.println(body);
+        responseMap.put("BESTSCORE", bestScore+"");
+
         System.out.println("score:"+ bestScore);
+        responseMap.put("DEFAULTSCORE", defaultScore+"");
+
         System.out.println("default score:"+ defaultScore);
         System.out.println("relative score:"+ (bestScore / defaultScore) * 100 + "%");
+        responseMap.put("RELATIVE_SCORE", +(bestScore / defaultScore) * 100+ "%");
 
         System.out.println("Timing:" + (stop - start));
-        return "";
+        responseMap.put("TIMING", + (stop - start)+ "");
+        return responseMap;
     }
 }
