@@ -1,9 +1,9 @@
 package laboflieven.loggers;
 
 import laboflieven.InstructionMark;
-import laboflieven.accinstructions.AccInstructionOpcodeEnum;
-import laboflieven.accinstructions.InstructionFactory;
-import laboflieven.statements.InstructionFactoryInterface;
+import laboflieven.instructions.accinstructions.AccInstructionOpcodeEnum;
+import laboflieven.instructions.accinstructions.InstructionFactory;
+import laboflieven.instructions.regular.InstructionFactoryInterface;
 import laboflieven.registers.Register;
 
 import java.util.ArrayList;

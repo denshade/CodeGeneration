@@ -7,7 +7,7 @@ import laboflieven.common.Configuration;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
 import laboflieven.functional.programiterators.RandomInjectedInstructions;
 import laboflieven.functional.programiterators.SimulatedAnnealingFollowNeighbourProbability;
-import laboflieven.statements.InstructionFactoryInterface;
+import laboflieven.instructions.regular.InstructionFactoryInterface;
 import laboflieven.registers.Register;
 
 import java.util.ArrayList;

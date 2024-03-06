@@ -1,8 +1,8 @@
 package laboflieven;
 
 import laboflieven.programiterators.RandomProgramIterator;
-import laboflieven.statements.Cos;
-import laboflieven.statements.Move;
+import laboflieven.instructions.regular.Cos;
+import laboflieven.instructions.regular.Move;
 import laboflieven.registers.Register;
 import org.junit.jupiter.api.Test;
 

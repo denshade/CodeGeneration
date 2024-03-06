@@ -1,7 +1,7 @@
 package laboflieven.challenges;
 
 import laboflieven.TestcaseInOutParameters;
-import laboflieven.accinstructions.AccInstructionOpcodeEnum;
+import laboflieven.instructions.accinstructions.AccInstructionOpcodeEnum;
 import laboflieven.common.Configuration;
 import laboflieven.examiners.ProgramFitnessExaminer;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;

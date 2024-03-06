@@ -1,7 +1,8 @@
 package laboflieven.accinstructions;
 
+import laboflieven.instructions.accinstructions.LoadAccLeftIntoVector;
 import laboflieven.registers.Register;
-import laboflieven.statements.VectorRegister;
+import laboflieven.instructions.regular.VectorRegister;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

@@ -3,16 +3,16 @@ package laboflieven.challenges;
 import laboflieven.InstructionMark;
 import laboflieven.ProgramResolution;
 import laboflieven.TestcaseInOutParameters;
-import laboflieven.accinstructions.*;
+  
 import laboflieven.common.CommandLineConfigLoader;
 import laboflieven.common.Configuration;
 import laboflieven.examiners.MaxCostAccumulatorMatchAnyRegisterProgramFitnessExaminer;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
+import laboflieven.instructions.accinstructions.*;
 import laboflieven.loggers.TimingAccFitnessLogger;
 import laboflieven.programiterators.*;
 import laboflieven.registers.NumberNamingScheme;
 import laboflieven.runners.AccStatementRunner;
-import laboflieven.registers.Register;
 
 import java.util.List;
 

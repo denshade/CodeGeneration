@@ -1,8 +1,8 @@
 package laboflieven.common;
 
-import laboflieven.accinstructions.AccInstructionOpcodeEnum;
-import laboflieven.accinstructions.AccInstructionOpcodeEnumBuilder;
-import laboflieven.accinstructions.InstructionFactory;
+import laboflieven.instructions.accinstructions.AccInstructionOpcodeEnum;
+import laboflieven.instructions.accinstructions.AccInstructionOpcodeEnumBuilder;
+import laboflieven.instructions.accinstructions.InstructionFactory;
 import laboflieven.challenges.ProgramTemplate;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
 import laboflieven.programiterators.*;
@@ -11,8 +11,8 @@ import laboflieven.recursionheuristics.AlwaysRecursionHeuristic;
 import laboflieven.recursionheuristics.RecursionHeuristic;
 import laboflieven.registers.NumberNamingScheme;
 import laboflieven.registers.RegisterNamingScheme;
-import laboflieven.statements.InstructionFactoryInterface;
-import laboflieven.statements.RegularInstructionOpcodeEnum;
+import laboflieven.instructions.regular.InstructionFactoryInterface;
+import laboflieven.instructions.regular.RegularInstructionOpcodeEnum;
 
 import java.util.HashMap;
 import java.util.Set;
@@ -58,7 +58,7 @@ public class Configuration {
         @Override
         public Object parse(String s) {
             switch(s) {
-                case "Regular" : return new laboflieven.statements.InstructionFactory();
+                case "Regular" : return new laboflieven.instructions.regular.InstructionFactory();
                 case "Acc" :
                 default:
                     System.out.println("Warning: Didn't recognize instruction factory:" + s);

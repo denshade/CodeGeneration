@@ -2,9 +2,9 @@ package laboflieven.examiners;
 
 import laboflieven.InstructionMark;
 import laboflieven.TestcaseInOutParameters;
-import laboflieven.accinstructions.*;
 import laboflieven.challenges.RoundFinder;
 import laboflieven.challenges.TestCases;
+import laboflieven.instructions.accinstructions.*;
 import laboflieven.registers.NumberNamingScheme;
 import laboflieven.runners.AccStatementRunner;
 import laboflieven.registers.Register;

@@ -1,6 +1,6 @@
 package laboflieven.common;
 
-import laboflieven.accinstructions.AccInstructionOpcodeEnum;
+import laboflieven.instructions.accinstructions.AccInstructionOpcodeEnum;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,7 +1,7 @@
 package laboflieven.programiterators;
 
 import laboflieven.TestcaseInOutParameters;
-import laboflieven.accinstructions.InstructionFactory;
+import laboflieven.instructions.accinstructions.InstructionFactory;
 import laboflieven.challenges.P1;
 import laboflieven.challenges.TestCases;
 import laboflieven.examiners.ProgramFitnessExaminer;
@@ -9,7 +9,6 @@ import laboflieven.examiners.ProgramFitnessExaminerInterface;
 import laboflieven.functional.programiterators.SimulatedAnnealingFollowNeighbourProbability;
 import laboflieven.registers.NumberNamingScheme;
 import laboflieven.runners.AccStatementRunner;
-import laboflieven.registers.Register;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;

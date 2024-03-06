@@ -1,10 +1,10 @@
 package laboflieven.functional.loggers;
 
 import laboflieven.InstructionMark;
-import laboflieven.accinstructions.AccInstructionOpcodeEnum;
-import laboflieven.accinstructions.AccRegisterInstruction;
+import laboflieven.instructions.accinstructions.AccInstructionOpcodeEnum;
+import laboflieven.instructions.accinstructions.AccRegisterInstruction;
 import laboflieven.common.InstructionOpcode;
-import laboflieven.statements.RegularInstructionOpcodeEnum;
+import laboflieven.instructions.regular.RegularInstructionOpcodeEnum;
 
 import java.math.BigInteger;
 import java.util.List;

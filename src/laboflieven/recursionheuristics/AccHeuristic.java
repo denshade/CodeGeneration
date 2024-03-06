@@ -2,7 +2,8 @@ package laboflieven.recursionheuristics;
 
 import laboflieven.InstructionMark;
 import laboflieven.Program;
-import laboflieven.accinstructions.*;
+  
+import laboflieven.instructions.accinstructions.*;
 
 import java.util.List;
 

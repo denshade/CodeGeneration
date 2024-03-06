@@ -1,10 +1,13 @@
 package laboflieven.challenges;
 
 import laboflieven.TestcaseInOutParameters;
-import laboflieven.accinstructions.*;
+  
 import laboflieven.common.Configuration;
 import laboflieven.examiners.ProgramFitnessExaminer;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
+import laboflieven.instructions.accinstructions.AccInstructionOpcodeEnum;
+import laboflieven.instructions.accinstructions.AccInstructionOpcodeEnumBuilder;
+import laboflieven.instructions.accinstructions.InstructionFactory;
 import laboflieven.loggers.TimingAccFitnessLogger;
 import laboflieven.programiterators.*;
 import laboflieven.recursionheuristics.AlwaysRecursionHeuristic;

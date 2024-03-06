@@ -2,7 +2,7 @@ package laboflieven.programprinters;
 
 import laboflieven.InstructionMark;
 import laboflieven.Program;
-import laboflieven.accinstructions.LoadAccLeftIntoRegister;
+import laboflieven.instructions.accinstructions.LoadAccLeftIntoRegister;
 import laboflieven.registers.Register;
 import org.junit.jupiter.api.Test;
 

@@ -2,9 +2,10 @@ package laboflieven.challenges;
 
 import laboflieven.TestcaseInOutParameters;
 import laboflieven.StoppedByUserException;
-import laboflieven.accinstructions.*;
+  
 import laboflieven.common.Configuration;
 import laboflieven.examiners.ProgramFitnessExaminer;
+import laboflieven.instructions.accinstructions.InstructionFactory;
 import laboflieven.programiterators.ProgramIterator;
 import laboflieven.programiterators.RandomProgramIterator;
 import laboflieven.runners.AccStatementRunner;

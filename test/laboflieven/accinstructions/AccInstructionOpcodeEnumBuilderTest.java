@@ -1,6 +1,7 @@
 package laboflieven.accinstructions;
 
-import laboflieven.common.AccInstructionOpcode;
+import laboflieven.instructions.accinstructions.AccInstructionOpcodeEnum;
+import laboflieven.instructions.accinstructions.AccInstructionOpcodeEnumBuilder;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

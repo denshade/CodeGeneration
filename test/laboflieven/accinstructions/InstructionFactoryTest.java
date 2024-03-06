@@ -1,5 +1,7 @@
 package laboflieven.accinstructions;
 
+import laboflieven.instructions.accinstructions.AccInstructionOpcodeEnum;
+import laboflieven.instructions.accinstructions.InstructionFactory;
 import laboflieven.registers.Register;
 import org.junit.jupiter.api.Test;
 

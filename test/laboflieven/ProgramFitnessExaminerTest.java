@@ -4,10 +4,13 @@ import laboflieven.challenges.TestCases;
 import laboflieven.challenges.XorFinder;
 import laboflieven.examiners.ProgramFitnessExaminer;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
+import laboflieven.instructions.regular.Add;
+import laboflieven.instructions.regular.Div;
+import laboflieven.instructions.regular.Move;
+import laboflieven.instructions.regular.Sub;
 import laboflieven.registers.NumberNamingScheme;
 import laboflieven.registers.Register;
 import laboflieven.runners.RegularStatementRunner;
-import laboflieven.statements.*;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;

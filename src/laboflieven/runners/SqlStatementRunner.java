@@ -1,9 +1,9 @@
 package laboflieven.runners;
 
 import laboflieven.Program;
-import laboflieven.sqlinstructions.ColumnSelection;
-import laboflieven.sqlinstructions.Select;
-import laboflieven.sqlinstructions.TableSelection;
+import laboflieven.instructions.sqlinstructions.ColumnSelection;
+import laboflieven.instructions.sqlinstructions.Select;
+import laboflieven.instructions.sqlinstructions.TableSelection;
 
 import java.sql.*;
 import java.util.BitSet;

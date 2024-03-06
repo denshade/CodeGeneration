@@ -1,8 +1,8 @@
 package laboflieven.programiterators;
 
 import laboflieven.TestcaseInOutParameters;
-import laboflieven.accinstructions.AccInstructionOpcodeEnum;
-import laboflieven.accinstructions.InstructionFactory;
+import laboflieven.instructions.accinstructions.AccInstructionOpcodeEnum;
+import laboflieven.instructions.accinstructions.InstructionFactory;
 import laboflieven.challenges.P2;
 import laboflieven.challenges.TestCases;
 import laboflieven.common.AccInstructionOpcode;

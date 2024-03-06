@@ -5,7 +5,7 @@ import laboflieven.examiners.ProgramFitnessExaminer;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
 import laboflieven.programiterators.RandomGeneticProgramIterator;
 import laboflieven.runners.RegularStatementRunner;
-import laboflieven.statements.RegularInstructionOpcodeEnum;
+import laboflieven.instructions.regular.RegularInstructionOpcodeEnum;
 
 import java.util.ArrayList;
 import java.util.List;

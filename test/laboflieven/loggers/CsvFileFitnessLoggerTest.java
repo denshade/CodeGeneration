@@ -1,6 +1,6 @@
 package laboflieven.loggers;
 
-import laboflieven.statements.Add;
+import laboflieven.instructions.regular.Add;
 import laboflieven.registers.Register;
 import org.junit.jupiter.api.Test;
 

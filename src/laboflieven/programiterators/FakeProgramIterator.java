@@ -3,7 +3,7 @@ package laboflieven.programiterators;
 import laboflieven.InstructionMark;
 import laboflieven.Program;
 import laboflieven.ProgramResolution;
-import laboflieven.accinstructions.AccInstructionOpcodeEnum;
+import laboflieven.instructions.accinstructions.AccInstructionOpcodeEnum;
 import laboflieven.common.Configuration;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
 import laboflieven.recursionheuristics.AlwaysRecursionHeuristic;

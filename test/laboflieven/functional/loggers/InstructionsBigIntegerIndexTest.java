@@ -1,8 +1,8 @@
 package laboflieven.functional.loggers;
 
-import laboflieven.accinstructions.AccInstructionOpcodeEnum;
-import laboflieven.accinstructions.Add;
-import laboflieven.accinstructions.LoadIntoLeftAcc;
+import laboflieven.instructions.accinstructions.AccInstructionOpcodeEnum;
+import laboflieven.instructions.accinstructions.Add;
+import laboflieven.instructions.accinstructions.LoadIntoLeftAcc;
 import laboflieven.common.AccInstructionOpcode;
 import laboflieven.registers.Register;
 import org.junit.jupiter.api.Test;

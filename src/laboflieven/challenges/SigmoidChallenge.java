@@ -2,10 +2,11 @@ package laboflieven.challenges;
 
 import laboflieven.TestcaseInOutParameters;
 import laboflieven.InstructionMark;
-import laboflieven.accinstructions.*;
+  
 import laboflieven.common.Configuration;
 import laboflieven.examiners.AccumulatorProgramFitnessExaminer;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
+import laboflieven.instructions.accinstructions.*;
 import laboflieven.loggers.RandomSysOutAccFitnessLogger;
 import laboflieven.programiterators.AccPriorityProgramIterator;
 import laboflieven.recursionheuristics.AccHeuristic;

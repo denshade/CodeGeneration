@@ -1,5 +1,6 @@
 package laboflieven.accinstructions;
 
+import laboflieven.instructions.accinstructions.Jump2IfZero;
 import laboflieven.registers.Register;
 import org.junit.jupiter.api.Test;
 

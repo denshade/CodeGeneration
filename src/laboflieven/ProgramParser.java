@@ -1,7 +1,8 @@
 package laboflieven;
 
+import laboflieven.instructions.regular.*;
 import laboflieven.registers.Register;
-import laboflieven.statements.*;
+ 
 
 import java.util.ArrayList;
 import java.util.List;

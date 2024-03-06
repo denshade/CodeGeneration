@@ -2,7 +2,10 @@ package laboflieven.challenges;
 
 import laboflieven.InstructionMark;
 import laboflieven.Program;
-import laboflieven.accinstructions.*;
+import laboflieven.instructions.accinstructions.LoadAccLeftIntoRegister;
+import laboflieven.instructions.accinstructions.LoadAccLeftIntoVector;
+import laboflieven.instructions.accinstructions.LoadIntoLeftAcc;
+import laboflieven.instructions.accinstructions.LoadVectorSumIntoLeft;
 import laboflieven.runners.AccStatementRunner;
 import laboflieven.registers.Register;
 import org.junit.jupiter.api.Test;

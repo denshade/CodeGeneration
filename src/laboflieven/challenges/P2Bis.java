@@ -1,7 +1,7 @@
 package laboflieven.challenges;
 
 import laboflieven.TestcaseInOutParameters;
-import laboflieven.accinstructions.AccInstructionOpcodeEnum;
+import laboflieven.instructions.accinstructions.AccInstructionOpcodeEnum;
 import laboflieven.common.Configuration;
 import laboflieven.examiners.ProgramFitnessExaminer;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
@@ -12,7 +12,6 @@ import laboflieven.recursionheuristics.CombinedHeuristic;
 import laboflieven.recursionheuristics.ResultsNoDataAfterFiveHeuristic;
 import laboflieven.registers.NumberNamingScheme;
 import laboflieven.runners.AccStatementRunner;
-import laboflieven.registers.Register;
 
 import java.io.IOException;
 import java.util.ArrayList;

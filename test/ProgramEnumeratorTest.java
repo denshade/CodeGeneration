@@ -1,6 +1,6 @@
 import laboflieven.ProgramEnumerator;
 import laboflieven.common.RegularInstructionOpcode;
-import laboflieven.statements.*;
+import laboflieven.instructions.regular.*;
 import laboflieven.registers.Register;
 import org.junit.jupiter.api.Test;
 

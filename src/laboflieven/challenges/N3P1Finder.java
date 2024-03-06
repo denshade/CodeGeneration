@@ -1,22 +1,15 @@
 package laboflieven.challenges;
 
 import laboflieven.TestcaseInOutParameters;
-import laboflieven.accinstructions.AccInstructionOpcodeEnum;
-import laboflieven.accinstructions.InstructionFactory;
+import laboflieven.instructions.accinstructions.AccInstructionOpcodeEnum;
+import laboflieven.instructions.accinstructions.InstructionFactory;
 import laboflieven.common.Configuration;
 import laboflieven.examiners.AccumulatorProgramFitnessExaminer;
-import laboflieven.examiners.ItemAccumulatorProgramFitnessExaminer;
-import laboflieven.examiners.ProgramFitnessExaminer;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
 import laboflieven.loggers.TimingAccFitnessLogger;
-import laboflieven.programiterators.BruteForceProgramIterator;
 import laboflieven.programiterators.GeneralBruteForceProgramIterator;
-import laboflieven.programiterators.GeneralRandomGeneticProgramIterator;
-import laboflieven.programiterators.RandomProgramIterator;
 import laboflieven.recursionheuristics.NoInvertedHeuristic;
-import laboflieven.recursionheuristics.RecursionHeuristic;
 import laboflieven.runners.AccStatementRunner;
-import laboflieven.runners.RegularStatementRunner;
 
 import java.util.ArrayList;
 import java.util.HashMap;

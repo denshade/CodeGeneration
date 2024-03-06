@@ -1,11 +1,12 @@
 package laboflieven.challenges;
 
 import laboflieven.*;
-import laboflieven.accinstructions.AccInstructionOpcodeEnum;
+import laboflieven.instructions.accinstructions.AccInstructionOpcodeEnum;
 import laboflieven.common.Configuration;
 import laboflieven.common.RegularInstructionOpcode;
 import laboflieven.examiners.ProgramFitnessExaminer;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
+import laboflieven.instructions.regular.RegularInstructionOpcodeEnum;
 import laboflieven.loggers.BitmapFitnessLogger;
 import laboflieven.loggers.CsvFileFitnessLogger;
 import laboflieven.loggers.FitnessLogger;
@@ -13,7 +14,7 @@ import laboflieven.programiterators.*;
 import laboflieven.programiterators.ReverseProgramIterator;
 import laboflieven.runners.AccStatementRunner;
 import laboflieven.runners.RegularStatementRunner;
-import laboflieven.statements.*;
+ 
 
 import java.io.File;
 import java.io.IOException;

@@ -2,14 +2,16 @@ package laboflieven.programiterators;
 
 import laboflieven.InstructionMark;
 import laboflieven.ProgramResolution;
-import laboflieven.accinstructions.LoadAccLeftIntoRegister;
-import laboflieven.accinstructions.LoadIntoLeftAcc;
+import laboflieven.instructions.accinstructions.LoadAccLeftIntoRegister;
+import laboflieven.instructions.accinstructions.LoadIntoLeftAcc;
 import laboflieven.common.BestFitRegister;
 import laboflieven.common.Configuration;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
 import laboflieven.StoppedByUserException;
+import laboflieven.instructions.regular.InstructionFactory;
+import laboflieven.instructions.regular.InstructionFactoryInterface;
+import laboflieven.instructions.regular.RegularInstructionOpcodeEnum;
 import laboflieven.registers.Register;
-import laboflieven.statements.*;
 
 import java.util.*;
 
@@ -35,7 +37,7 @@ public class BestPartialProgramCombinationIterator implements ProgramIterator {
         this.evaluator = configuration.getFitnessExaminer();
         this.numberOfRegisters = configuration.getNumberOfRegisters(2);
         this.maximumInstructions = configuration.getMaxNrInstructions(6);
-        this.instructionFactory = configuration.getInstructionFactory(new laboflieven.accinstructions.InstructionFactory());
+        this.instructionFactory = configuration.getInstructionFactory(new laboflieven.instructions.accinstructions.InstructionFactory());
         this.enums = configuration.getInstructionOpcodes();
         registers = configuration.getNamingScheme().createRegisters(numberOfRegisters).toArray(new Register[0]);
         long startTime = System.currentTimeMillis();

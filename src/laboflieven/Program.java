@@ -1,9 +1,9 @@
 package laboflieven;
 
-import laboflieven.accinstructions.NoRegisterInstruction;
-import laboflieven.statements.DualRegisterInstruction;
+import laboflieven.instructions.accinstructions.NoRegisterInstruction;
+import laboflieven.instructions.regular.DualRegisterInstruction;
 import laboflieven.registers.Register;
-import laboflieven.statements.SingleRegisterInstruction;
+import laboflieven.instructions.regular.SingleRegisterInstruction;
 
 import java.util.List;
 import java.util.Map;
@@ -50,18 +50,18 @@ public class Program
             }
             for (Register reg : registers)
             {
-                if (instr instanceof laboflieven.statements.SingleRegisterInstruction)
+                if (instr instanceof SingleRegisterInstruction)
                 {
 
                     if (((SingleRegisterInstruction) instr).destination.name.equals(reg.name) && !((SingleRegisterInstruction) instr).destination.equals(reg)){
                         ((SingleRegisterInstruction) instr).destination = reg;
                     }
                 }
-                if (instr instanceof laboflieven.accinstructions.SingleRegisterInstruction)
+                if (instr instanceof laboflieven.instructions.accinstructions.SingleRegisterInstruction)
                 {
 
-                    if (((laboflieven.accinstructions.SingleRegisterInstruction) instr).getRegister().name.equals(reg.name) && !((laboflieven.accinstructions.SingleRegisterInstruction) instr).getRegister().equals(reg)){
-                        ((laboflieven.accinstructions.SingleRegisterInstruction) instr).setRegister(reg);
+                    if (((laboflieven.instructions.accinstructions.SingleRegisterInstruction) instr).getRegister().name.equals(reg.name) && !((laboflieven.instructions.accinstructions.SingleRegisterInstruction) instr).getRegister().equals(reg)){
+                        ((laboflieven.instructions.accinstructions.SingleRegisterInstruction) instr).setRegister(reg);
                         break; //Register found for this instruction has been found.
                     }
                 }

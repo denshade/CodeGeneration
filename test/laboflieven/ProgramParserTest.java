@@ -2,11 +2,10 @@ package laboflieven;
 
 import laboflieven.examiners.ProgramFitnessExaminer;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
+import laboflieven.instructions.regular.*;
 import laboflieven.registers.NumberNamingScheme;
 import laboflieven.registers.Register;
 import laboflieven.runners.RegularStatementRunner;
-import laboflieven.statements.*;
-import laboflieven.statements.Instruction;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;

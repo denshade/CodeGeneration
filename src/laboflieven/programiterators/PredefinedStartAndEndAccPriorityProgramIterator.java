@@ -2,15 +2,16 @@ package laboflieven.programiterators;
 
 import laboflieven.InstructionMark;
 import laboflieven.ProgramResolution;
-import laboflieven.accinstructions.*;
+  
 import laboflieven.common.AccInstructionOpcode;
 import laboflieven.common.BestFitRegister;
 import laboflieven.common.Configuration;
 import laboflieven.common.PriorityQueueAlgos;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
+import laboflieven.instructions.accinstructions.*;
 import laboflieven.recursionheuristics.AlwaysRecursionHeuristic;
 import laboflieven.recursionheuristics.RecursionHeuristic;
-import laboflieven.statements.InstructionFactoryInterface;
+import laboflieven.instructions.regular.InstructionFactoryInterface;
 import laboflieven.registers.Register;
 
 import java.util.ArrayList;

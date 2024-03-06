@@ -1,8 +1,8 @@
 package laboflieven.programiterators;
 
 import laboflieven.TestcaseInOutParameters;
-import laboflieven.accinstructions.Inc;
-import laboflieven.accinstructions.LoadAccLeftIntoRegister;
+import laboflieven.instructions.accinstructions.Inc;
+import laboflieven.instructions.accinstructions.LoadAccLeftIntoRegister;
 import laboflieven.challenges.ProgramTemplate;
 import laboflieven.challenges.TestCases;
 import laboflieven.examiners.MaxCostAccumulatorMatchAnyRegisterProgramFitnessExaminer;

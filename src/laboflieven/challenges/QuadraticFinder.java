@@ -7,7 +7,7 @@ import laboflieven.programiterators.RandomGeneticProgramIterator;
 import laboflieven.programiterators.ReverseProgramIterator;
 import laboflieven.registers.NumberNamingScheme;
 import laboflieven.runners.RegularStatementRunner;
-import laboflieven.statements.RegularInstructionOpcodeEnum;
+import laboflieven.instructions.regular.RegularInstructionOpcodeEnum;
 import laboflieven.registers.Register;
 
 import java.util.*;

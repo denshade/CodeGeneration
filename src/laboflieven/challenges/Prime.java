@@ -1,20 +1,18 @@
 package laboflieven.challenges;
 
-import laboflieven.accinstructions.*;
+  
 import laboflieven.common.Configuration;
 import laboflieven.examiners.ProgramFitnessExaminer;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
+import laboflieven.instructions.accinstructions.AccInstructionOpcodeEnum;
+import laboflieven.instructions.accinstructions.AccInstructionOpcodeEnumBuilder;
 import laboflieven.loggers.TimingAccFitnessLogger;
 import laboflieven.programiterators.AccPriorityProgramIterator;
-import laboflieven.programiterators.AccRandomGeneticProgramIterator;
 import laboflieven.TestcaseInOutParameters;
-import laboflieven.programiterators.GeneralBruteForceProgramIterator;
-import laboflieven.programiterators.PriorityProgramIterator;
 import laboflieven.runners.AccStatementRunner;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 public class Prime implements ProgramTemplate
 {

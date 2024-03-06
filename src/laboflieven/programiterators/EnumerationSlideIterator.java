@@ -2,13 +2,12 @@ package laboflieven.programiterators;
 
 import laboflieven.ProgramEnumerator;
 import laboflieven.ProgramResolution;
-import laboflieven.accinstructions.LoadAccLeftIntoRegister;
+import laboflieven.instructions.accinstructions.LoadAccLeftIntoRegister;
 import laboflieven.common.BestFitRegister;
 import laboflieven.common.InstructionOpcode;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
 import laboflieven.registers.NumberNamingScheme;
-import laboflieven.statements.InstructionFactoryInterface;
-import laboflieven.registers.Register;
+import laboflieven.instructions.regular.InstructionFactoryInterface;
 
 import java.math.BigInteger;
 import java.util.List;

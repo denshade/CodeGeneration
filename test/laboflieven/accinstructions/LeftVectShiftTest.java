@@ -1,6 +1,7 @@
 package laboflieven.accinstructions;
 
-import laboflieven.statements.VectorRegister;
+import laboflieven.instructions.accinstructions.LeftVectShift;
+import laboflieven.instructions.regular.VectorRegister;
 import org.junit.jupiter.api.Test;
 
 import java.util.Vector;

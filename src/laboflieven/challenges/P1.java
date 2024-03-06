@@ -4,7 +4,7 @@ import laboflieven.*;
 import laboflieven.common.Configuration;
 import laboflieven.examiners.ProgramFitnessExaminer;
 import laboflieven.loggers.AccPctBruteForceFitnessLogger;
-import laboflieven.accinstructions.AccInstructionOpcodeEnum;
+import laboflieven.instructions.accinstructions.AccInstructionOpcodeEnum;
 import laboflieven.programiterators.GeneralBruteForceProgramIterator;
 import laboflieven.recursionheuristics.AccHeuristic;
 import laboflieven.runners.AccStatementRunner;

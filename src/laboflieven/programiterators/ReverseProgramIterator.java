@@ -2,9 +2,11 @@ package laboflieven.programiterators;
 
 import laboflieven.InstructionMark;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
+import laboflieven.instructions.regular.InstructionFactory;
+import laboflieven.instructions.regular.InstructionFactoryInterface;
+import laboflieven.instructions.regular.RegularInstructionOpcodeEnum;
 import laboflieven.registers.NumberNamingScheme;
 import laboflieven.registers.Register;
-import laboflieven.statements.*;
 
 import java.util.*;
 

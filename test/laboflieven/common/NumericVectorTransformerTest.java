@@ -1,9 +1,9 @@
 package laboflieven.common;
 
 import laboflieven.InstructionMark;
-import laboflieven.accinstructions.AccInstructionOpcodeEnum;
-import laboflieven.accinstructions.Add;
-import laboflieven.accinstructions.Sub;
+import laboflieven.instructions.accinstructions.AccInstructionOpcodeEnum;
+import laboflieven.instructions.accinstructions.Add;
+import laboflieven.instructions.accinstructions.Sub;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;

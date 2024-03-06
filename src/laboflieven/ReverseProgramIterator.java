@@ -1,7 +1,9 @@
 package laboflieven;
 
+import laboflieven.instructions.regular.InstructionFactory;
+import laboflieven.instructions.regular.InstructionFactoryInterface;
+import laboflieven.instructions.regular.RegularInstructionOpcodeEnum;
 import laboflieven.registers.Register;
-import laboflieven.statements.*;
 
 import java.util.*;
 

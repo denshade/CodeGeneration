@@ -5,14 +5,14 @@ import laboflieven.Program;
 import laboflieven.common.Configuration;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
 import laboflieven.ProgramResolution;
-import laboflieven.accinstructions.AccInstructionOpcodeEnum;
-import laboflieven.accinstructions.InstructionFactory;
+import laboflieven.instructions.accinstructions.AccInstructionOpcodeEnum;
+import laboflieven.instructions.accinstructions.InstructionFactory;
 import laboflieven.common.BestFitRegister;
 import laboflieven.common.PriorityQueueAlgos;
 import laboflieven.recursionheuristics.AlwaysRecursionHeuristic;
 import laboflieven.recursionheuristics.RecursionHeuristic;
 import laboflieven.registers.NumberNamingScheme;
-import laboflieven.statements.InstructionFactoryInterface;
+import laboflieven.instructions.regular.InstructionFactoryInterface;
 import laboflieven.registers.Register;
 
 import java.util.*;

@@ -1,8 +1,10 @@
 package laboflieven;
 
 import laboflieven.common.InstructionOpcode;
+import laboflieven.instructions.regular.DualRegisterInstruction;
+import laboflieven.instructions.regular.InstructionFactoryInterface;
+import laboflieven.instructions.regular.SingleRegisterInstruction;
 import laboflieven.registers.Register;
-import laboflieven.statements.*;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
@@ -114,9 +116,9 @@ public class ProgramEnumerator
                     {
                         int index1 = getRegisterIndex(((SingleRegisterInstruction) currentInstruction).destination.name);
                         k += index1;
-                    } else if (currentInstruction instanceof laboflieven.accinstructions.SingleRegisterInstruction)
+                    } else if (currentInstruction instanceof laboflieven.instructions.accinstructions.SingleRegisterInstruction)
                     {
-                        int index1 = getRegisterIndex(((laboflieven.accinstructions.SingleRegisterInstruction) currentInstruction).getRegister().name);
+                        int index1 = getRegisterIndex(((laboflieven.instructions.accinstructions.SingleRegisterInstruction) currentInstruction).getRegister().name);
                         k += index1;
                     }
                     return k;

@@ -8,7 +8,7 @@ import laboflieven.runners.AccStatementRunner;
 import laboflieven.runners.RegularStatementRunner;
 import laboflieven.runners.StatementRunner;
 import laboflieven.registers.Register;
-import laboflieven.statements.RegularInstructionOpcodeEnum;
+import laboflieven.instructions.regular.RegularInstructionOpcodeEnum;
 
 import java.util.ArrayList;
 import java.util.List;

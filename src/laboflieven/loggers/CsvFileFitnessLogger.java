@@ -4,7 +4,7 @@ import laboflieven.InstructionMark;
 import laboflieven.common.InstructionOpcode;
 import laboflieven.common.RegularInstructionOpcode;
 import laboflieven.functional.loggers.InstructionIndexPair;
-import laboflieven.statements.RegularInstructionOpcodeEnum;
+import laboflieven.instructions.regular.RegularInstructionOpcodeEnum;
 
 import java.io.File;
 import java.io.FileWriter;

@@ -1,9 +1,9 @@
 package laboflieven.loggers;
 
 import laboflieven.common.RegularInstructionOpcode;
-import laboflieven.statements.Add;
+import laboflieven.instructions.regular.Add;
 import laboflieven.registers.Register;
-import laboflieven.statements.RegularInstructionOpcodeEnum;
+import laboflieven.instructions.regular.RegularInstructionOpcodeEnum;
 import org.junit.jupiter.api.Test;
 
 import javax.imageio.ImageIO;

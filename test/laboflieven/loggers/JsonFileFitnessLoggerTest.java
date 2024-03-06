@@ -1,6 +1,6 @@
 package laboflieven.loggers;
 
-import laboflieven.accinstructions.Add;
+import laboflieven.instructions.accinstructions.Add;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;

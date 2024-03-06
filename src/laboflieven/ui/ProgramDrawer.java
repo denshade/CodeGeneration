@@ -2,7 +2,7 @@ package laboflieven.ui;
 
 import laboflieven.*;
 import laboflieven.programiterators.RealRandomProgramIterator;
-import laboflieven.statements.RegularInstructionOpcodeEnum;
+import laboflieven.instructions.regular.RegularInstructionOpcodeEnum;
 
 import javax.swing.*;
 import java.awt.*;

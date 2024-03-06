@@ -2,16 +2,16 @@ package laboflieven.programiterators;
 
 import laboflieven.InstructionMark;
 import laboflieven.ProgramResolution;
-import laboflieven.accinstructions.AccInstructionOpcodeEnum;
-import laboflieven.accinstructions.LoadAccLeftIntoRegister;
-import laboflieven.accinstructions.LoadIntoLeftAcc;
+import laboflieven.instructions.accinstructions.AccInstructionOpcodeEnum;
+import laboflieven.instructions.accinstructions.LoadAccLeftIntoRegister;
+import laboflieven.instructions.accinstructions.LoadIntoLeftAcc;
 import laboflieven.common.ArrayListBestFitRegister;
 import laboflieven.common.Configuration;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
-import laboflieven.statements.InstructionFactory;
-import laboflieven.statements.InstructionFactoryInterface;
+import laboflieven.instructions.regular.InstructionFactory;
+import laboflieven.instructions.regular.InstructionFactoryInterface;
 import laboflieven.registers.Register;
-import laboflieven.statements.RegularInstructionOpcodeEnum;
+import laboflieven.instructions.regular.RegularInstructionOpcodeEnum;
 
 import java.util.*;
 import java.util.logging.Logger;
@@ -40,7 +40,7 @@ public class RandomProgramIterator implements ProgramIterator {
         this.evaluator = configuration.getFitnessExaminer();
         this.numberOfRegisters = configuration.getNumberOfRegisters(2);
         this.maximumInstructions = configuration.getMaxNrInstructions(6);
-        this.instructionFactory = configuration.getInstructionFactory(new laboflieven.accinstructions.InstructionFactory());
+        this.instructionFactory = configuration.getInstructionFactory(new laboflieven.instructions.accinstructions.InstructionFactory());
         this.enums = configuration.getInstructionOpcodes();
         this.accenums = configuration.getAccOperations();
         registers = configuration.getNamingScheme().createRegisters(numberOfRegisters).toArray(new Register[0]);

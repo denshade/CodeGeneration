@@ -1,9 +1,9 @@
 package laboflieven.functional.loggers;
 
 import laboflieven.InstructionMark;
-import laboflieven.accinstructions.AccRegisterInstruction;
-import laboflieven.statements.DualRegisterInstruction;
-import laboflieven.statements.SingleRegisterInstruction;
+import laboflieven.instructions.accinstructions.AccRegisterInstruction;
+import laboflieven.instructions.regular.DualRegisterInstruction;
+import laboflieven.instructions.regular.SingleRegisterInstruction;
 
 import java.math.BigInteger;
 import java.util.List;
@@ -47,7 +47,7 @@ public class RegistersBigIntegerIndex
             source = "R1";
         }else if (instruction instanceof AccRegisterInstruction && instruction.getInstructionOpcode().getNrRegisters() == 1)
         {
-            dest = ((laboflieven.accinstructions.SingleRegisterInstruction) instruction).getRegister().name;
+            dest = ((laboflieven.instructions.accinstructions.SingleRegisterInstruction) instruction).getRegister().name;
             source = "R1";
         }
     }

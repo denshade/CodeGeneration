@@ -1,14 +1,15 @@
 package laboflieven.programiterators;
 
 import laboflieven.Program;
-import laboflieven.accinstructions.*;
+
 import laboflieven.InstructionMark;
 import laboflieven.common.BestFitRegister;
 import laboflieven.common.PriorityQueueAlgos;
 import laboflieven.examiners.ProgramFitnessExaminer;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
+import laboflieven.instructions.accinstructions.*;
 import laboflieven.registers.NumberNamingScheme;
-import laboflieven.statements.InstructionFactoryInterface;
+import laboflieven.instructions.regular.InstructionFactoryInterface;
 import laboflieven.registers.Register;
 
 import java.util.*;

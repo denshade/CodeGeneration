@@ -4,7 +4,7 @@ import laboflieven.InstructionMark;
 import laboflieven.Program;
 import laboflieven.ProgramParser;
 import laboflieven.registers.NumberNamingScheme;
-import laboflieven.statements.Invert;
+import laboflieven.instructions.regular.Invert;
 import laboflieven.registers.Register;
 import org.junit.jupiter.api.Test;
 

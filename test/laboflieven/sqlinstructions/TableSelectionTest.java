@@ -1,5 +1,6 @@
 package laboflieven.sqlinstructions;
 
+import laboflieven.instructions.sqlinstructions.TableSelection;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;

@@ -2,9 +2,9 @@ package laboflieven.runners;
 
 import laboflieven.Program;
 import laboflieven.db.DatabaseLoader;
-import laboflieven.sqlinstructions.ColumnSelection;
-import laboflieven.sqlinstructions.Select;
-import laboflieven.sqlinstructions.TableSelection;
+import laboflieven.instructions.sqlinstructions.ColumnSelection;
+import laboflieven.instructions.sqlinstructions.Select;
+import laboflieven.instructions.sqlinstructions.TableSelection;
 import org.junit.jupiter.api.Test;
 
 import java.sql.Connection;

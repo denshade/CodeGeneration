@@ -7,8 +7,8 @@ import laboflieven.InstructionMark;
 import laboflieven.recursionheuristics.AlwaysRecursionHeuristic;
 import laboflieven.recursionheuristics.RecursionHeuristic;
 import laboflieven.registers.NumberNamingScheme;
-import laboflieven.statements.RegularInstructionOpcodeEnum;
-import laboflieven.statements.InstructionFactory;
+import laboflieven.instructions.regular.RegularInstructionOpcodeEnum;
+import laboflieven.instructions.regular.InstructionFactory;
 import laboflieven.registers.Register;
 
 import java.util.*;

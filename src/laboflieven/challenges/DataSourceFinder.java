@@ -3,7 +3,7 @@ package laboflieven.challenges;
 import laboflieven.Program;
 import laboflieven.ProgramResolution;
 import laboflieven.TestcaseInOutParameters;
-import laboflieven.accinstructions.AccInstructionOpcodeEnum;
+import laboflieven.instructions.accinstructions.AccInstructionOpcodeEnum;
 import laboflieven.common.CommandLineConfigLoader;
 import laboflieven.common.InstructionOpcode;
 import laboflieven.examiners.AccumulatorProgramFitnessExaminer;

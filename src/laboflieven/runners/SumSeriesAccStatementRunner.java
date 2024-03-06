@@ -2,7 +2,7 @@ package laboflieven.runners;
 
 import laboflieven.InstructionMark;
 import laboflieven.Program;
-import laboflieven.accinstructions.AccRegisterInstruction;
+import laboflieven.instructions.accinstructions.AccRegisterInstruction;
 import laboflieven.registers.Register;
 
 import java.util.HashMap;

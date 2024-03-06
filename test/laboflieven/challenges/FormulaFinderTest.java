@@ -1,9 +1,9 @@
 package laboflieven.challenges;
 
 import laboflieven.*;
-import laboflieven.accinstructions.AccInstructionOpcodeEnumBuilder;
-import laboflieven.accinstructions.AccProgramResolution;
-import laboflieven.accinstructions.AccInstructionOpcodeEnum;
+import laboflieven.instructions.accinstructions.AccInstructionOpcodeEnumBuilder;
+import laboflieven.instructions.accinstructions.AccProgramResolution;
+import laboflieven.instructions.accinstructions.AccInstructionOpcodeEnum;
 import laboflieven.common.Configuration;
 import laboflieven.examiners.ProgramFitnessExaminer;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;

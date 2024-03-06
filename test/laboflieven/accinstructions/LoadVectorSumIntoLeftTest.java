@@ -1,9 +1,10 @@
 package laboflieven.accinstructions;
 
 import laboflieven.Program;
+import laboflieven.instructions.accinstructions.*;
 import laboflieven.runners.AccStatementRunner;
 import laboflieven.registers.Register;
-import laboflieven.statements.VectorRegister;
+import laboflieven.instructions.regular.VectorRegister;
 import org.apache.commons.math3.primes.Primes;
 import org.junit.jupiter.api.Test;
 

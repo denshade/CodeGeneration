@@ -1,13 +1,6 @@
 package laboflieven.recursionheuristics;
 
-import laboflieven.InstructionMark;
 import laboflieven.Program;
-import laboflieven.statements.Instruction;
-import laboflieven.statements.Invert;
-import laboflieven.statements.Mul;
-import laboflieven.statements.Sqrt;
-
-import java.util.List;
 
 public class NoInvertedHeuristic implements RecursionHeuristic
 {

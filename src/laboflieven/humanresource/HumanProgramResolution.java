@@ -1,7 +1,6 @@
 package laboflieven.humanresource;
 
 import laboflieven.humanresource.model.HumanInstruction;
-import laboflieven.statements.Instruction;
 
 import java.util.ArrayList;
 import java.util.Collections;

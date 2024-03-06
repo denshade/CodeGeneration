@@ -1,7 +1,7 @@
 package laboflieven.common;
 
 import laboflieven.InstructionMark;
-import laboflieven.accinstructions.InstructionFactory;
+import laboflieven.instructions.accinstructions.InstructionFactory;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,7 +1,7 @@
 package laboflieven;
 
-import laboflieven.accinstructions.*;
 import laboflieven.challenges.TestCases;
+import laboflieven.instructions.accinstructions.*;
 import laboflieven.registers.NumberNamingScheme;
 import laboflieven.runners.AccStatementRunner;
 import laboflieven.registers.Register;

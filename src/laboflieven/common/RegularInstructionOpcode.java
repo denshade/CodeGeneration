@@ -1,7 +1,7 @@
 package laboflieven.common;
 
 
-import laboflieven.statements.RegularInstructionOpcodeEnum;
+import laboflieven.instructions.regular.RegularInstructionOpcodeEnum;
 
 import java.util.Objects;
 

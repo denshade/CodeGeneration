@@ -5,7 +5,7 @@ import laboflieven.examiners.ProgramFitnessExaminer;
 import laboflieven.loggers.CsvFileFitnessLogger;
 import laboflieven.programiterators.ReverseProgramIterator;
 import laboflieven.runners.RegularStatementRunner;
-import laboflieven.statements.RegularInstructionOpcodeEnum;
+import laboflieven.instructions.regular.RegularInstructionOpcodeEnum;
 
 import java.io.File;
 import java.io.IOException;

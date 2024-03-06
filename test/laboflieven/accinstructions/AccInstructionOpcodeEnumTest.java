@@ -1,5 +1,6 @@
 package laboflieven.accinstructions;
 
+import laboflieven.instructions.accinstructions.AccInstructionOpcodeEnum;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;

@@ -2,10 +2,10 @@ package laboflieven.runners;
 
 import laboflieven.InstructionMark;
 import laboflieven.Program;
-import laboflieven.statements.DualRegisterInstruction;
-import laboflieven.statements.Instruction;
+import laboflieven.instructions.regular.DualRegisterInstruction;
+import laboflieven.instructions.regular.Instruction;
 import laboflieven.registers.Register;
-import laboflieven.statements.SingleRegisterInstruction;
+import laboflieven.instructions.regular.SingleRegisterInstruction;
 
 import java.util.HashMap;
 import java.util.List;
