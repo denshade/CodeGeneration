@@ -28,7 +28,7 @@ public class Register
 
     public static List<Register> createRegisters(int count, String prefix)
     {
-        List<Register> registers = new ArrayList<Register>();
+        List<Register> registers = new ArrayList<>();
         for (int k = 1; k <= count; k++)
         {
             registers.add(new Register(prefix + k));
@@ -38,7 +38,7 @@ public class Register
 
     public static List<Register> createRegisters(int count)
     {
-        List<Register> registers = new ArrayList<Register>();
+        List<Register> registers = new ArrayList<>();
         for (int k = 1; k <= count; k++)
         {
             registers.add(new Register("R" + k));
@@ -50,7 +50,7 @@ public class Register
         return String.valueOf((char)('`'+index));
     }
     public static List<Register> createAlphabetRegisters(int count) {
-        List<Register> registers = new ArrayList<Register>();
+        List<Register> registers = new ArrayList<>();
         for (int k = 1; k <= count; k++)
         {
             registers.add(new Register(String.valueOf((char)('`'+k))));
