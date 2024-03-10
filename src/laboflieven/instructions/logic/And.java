@@ -2,15 +2,16 @@ package laboflieven.instructions.logic;
 
 public class And implements Formula
 {
-    private Formula formulaOrRegister1;
-    private Formula formulaOrRegister2;
+
+    private Formula left;
+    private Formula right;
 
     public And(Formula parent) {
     }
 
     @Override
     public boolean evaluate() {
-        return formulaOrRegister1.evaluate() && formulaOrRegister2.evaluate();
+        return left.evaluate() && right.evaluate();
     }
 
     @Override
@@ -37,4 +38,13 @@ public class And implements Formula
     public boolean canHaveRight() {
         return false;
     }
+
+    public void setLeft(Formula left) {
+        this.left = left;
+    }
+
+    public void setRight(Formula right) {
+        this.right = right;
+    }
+
 }
