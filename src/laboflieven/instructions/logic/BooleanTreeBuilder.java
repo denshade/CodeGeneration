@@ -35,21 +35,24 @@ public class BooleanTreeBuilder {
             return new RegisterFormula(symbolOrRegister.register);
         } else {
             Formula formula;
-            if (symbolOrRegister.symbol == Symbol.And) {
-                formula = new And(null);
-                formula.setLeft(buildTree(symbols));
-                formula.setRight(buildTree(symbols));
+            switch (symbolOrRegister.symbol) {
+                case And:
+                    formula = new And(null);
+                    break;
+                case Or:
+                    formula = new Or(null);
+                    break;
+                case Not:
+                    formula = new Not(null);
+                    break;
+                default:
+                    throw new IllegalStateException("Unknown symbol" + symbolOrRegister.symbol);
             }
-            else if (symbolOrRegister.symbol == Symbol.Or) {
-                formula = new And(null);
+            if (formula.canHaveLeft()) {
                 formula.setLeft(buildTree(symbols));
-                formula.setRight(buildTree(symbols));
             }
-            else if (symbolOrRegister.symbol == Symbol.Not) {
-                formula = new Not(null);
-                formula.setLeft(buildTree(symbols));
-            } else {
-                throw new IllegalStateException("Unknown symbol "+ symbolOrRegister);
+            if (formula.canHaveRight()) {
+                formula.setRight(buildTree(symbols));
             }
             return formula;
         }
