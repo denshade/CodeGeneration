@@ -47,4 +47,14 @@ public class RegisterFormula implements Formula {
     public boolean canHaveRight() {
         return false;
     }
+
+    @Override
+    public void setLeft(Formula left) {
+        throw new UnsupportedOperationException("setLeft not supported on register");
+    }
+
+    @Override
+    public void setRight(Formula right) {
+        throw new UnsupportedOperationException("setRight not supported on register");
+    }
 }

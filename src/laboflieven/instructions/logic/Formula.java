@@ -7,4 +7,8 @@ public interface Formula {
     Formula right();
     boolean canHaveLeft();
     boolean canHaveRight();
+
+    void setLeft(Formula left);
+    void setRight(Formula right);
+
 }

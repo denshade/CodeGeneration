@@ -35,6 +35,11 @@ public class Not implements Formula
         this.left = formula;
     }
 
+    @Override
+    public void setRight(Formula right) {
+        throw new UnsupportedOperationException("setRight not supported on Not");
+    }
+
 
     @Override
     public boolean canHaveLeft() {
