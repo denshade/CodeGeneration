@@ -40,12 +40,12 @@ public class BooleanTreeBuilder {
                 formula.setLeft(buildTree(symbols));
                 formula.setRight(buildTree(symbols));
             }
-            if (symbolOrRegister.symbol == Symbol.Or) {
+            else if (symbolOrRegister.symbol == Symbol.Or) {
                 formula = new And(null);
                 formula.setLeft(buildTree(symbols));
                 formula.setRight(buildTree(symbols));
             }
-            if (symbolOrRegister.symbol == Symbol.Not) {
+            else if (symbolOrRegister.symbol == Symbol.Not) {
                 formula = new Not(null);
                 formula.setLeft(buildTree(symbols));
             } else {
