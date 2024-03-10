@@ -5,6 +5,6 @@ public interface Formula {
     Formula parent();
     Formula left();
     Formula right();
-    boolean hasLeft();
-    boolean hasRight();
+    boolean canHaveLeft();
+    boolean canHaveRight();
 }

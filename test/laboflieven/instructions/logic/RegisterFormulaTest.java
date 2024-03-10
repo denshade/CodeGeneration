@@ -33,6 +33,7 @@ class RegisterFormulaTest {
     void templateRegisterHasNoLeftOrRight() {
         TemplateRegister<Boolean> a = new TemplateRegister<>("A", true);
         var formula = new RegisterFormula(a);
-
+        assertFalse(formula.canHaveLeft());
+        assertFalse(formula.canHaveRight());
     }
 }

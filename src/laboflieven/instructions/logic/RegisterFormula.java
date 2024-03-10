@@ -39,12 +39,12 @@ public class RegisterFormula implements Formula {
     }
 
     @Override
-    public boolean hasLeft() {
+    public boolean canHaveLeft() {
         return false;
     }
 
     @Override
-    public boolean hasRight() {
+    public boolean canHaveRight() {
         return false;
     }
 }
