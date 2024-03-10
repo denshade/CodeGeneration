@@ -28,6 +28,9 @@ class BooleanTreeBuilderTest {
         BooleanTreeBuilder builder = new BooleanTreeBuilder();
         var formula = builder.buildTree(stuff);
         assertNotNull(formula);
+        assertTrue(formula.evaluate());
+        r1.value = false;
+        assertFalse(formula.evaluate());
     }
 
 }
