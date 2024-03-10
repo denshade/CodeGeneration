@@ -1,21 +1,31 @@
 package laboflieven.instructions.logic;
 
-public class And implements Formula
-{
-    private Formula formulaOrRegister1;
-    private Formula formulaOrRegister2;
+import laboflieven.registers.TemplateRegister;
 
-    public And(Formula parent) {
+public class RegisterFormula implements Formula {
+
+    private TemplateRegister<Boolean> register;
+    private Formula parent;
+
+    RegisterFormula(Formula parent) {
+        this.parent = parent;
+    }
+
+    RegisterFormula() {
+    }
+
+    RegisterFormula(TemplateRegister<Boolean> register) {
+        this.register = register;
     }
 
     @Override
     public boolean evaluate() {
-        return formulaOrRegister1.evaluate() && formulaOrRegister2.evaluate();
+        return register.value;
     }
 
     @Override
     public Formula parent() {
-        return null;
+        return parent;
     }
 
     @Override
