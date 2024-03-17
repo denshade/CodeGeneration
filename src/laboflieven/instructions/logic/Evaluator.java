@@ -22,13 +22,12 @@ public class Evaluator {
     }
 
     private static boolean checkValuesThatYieldTrue(List<TemplateRegister<Boolean>> registers, List<List<Boolean>> solutionsThatYieldTrue, Formula form) {
-        for (int l = 0; l < solutionsThatYieldTrue.size(); l++) {
-            var scenario = solutionsThatYieldTrue.get(l);
+        for (List<Boolean> scenario : solutionsThatYieldTrue) {
             for (int i = 0; i < scenario.size(); i++) {
                 registers.get(i).value = scenario.get(i);
             }
             boolean trueVals = form.evaluate();
-            if(!trueVals) {
+            if (!trueVals) {
                 return false;
             }
         }
