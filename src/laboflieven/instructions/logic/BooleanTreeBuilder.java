@@ -34,20 +34,11 @@ public class BooleanTreeBuilder {
         if (symbolOrRegister.register != null) {
             return new RegisterFormula(symbolOrRegister.register);
         } else {
-            Formula formula;
-            switch (symbolOrRegister.symbol) {
-                case And:
-                    formula = new And(null);
-                    break;
-                case Or:
-                    formula = new Or(null);
-                    break;
-                case Not:
-                    formula = new Not(null);
-                    break;
-                default:
-                    throw new IllegalStateException("Unknown symbol" + symbolOrRegister.symbol);
-            }
+            Formula formula = switch (symbolOrRegister.symbol) {
+                case And -> new And(null);
+                case Or -> new Or(null);
+                case Not -> new Not(null);
+            };
             if (formula.canHaveLeft()) {
                 formula.setLeft(buildTree(symbols));
             }
