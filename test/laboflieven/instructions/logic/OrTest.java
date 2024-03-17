@@ -11,7 +11,7 @@ class OrTest {
 
         TemplateRegister<Boolean> a = new TemplateRegister<>("A", false);
         TemplateRegister<Boolean> b = new TemplateRegister<>("B", false);
-        var or = new Or(null);
+        var or = new Or();
         or.setLeft(new RegisterFormula(a));
         or.setRight(new RegisterFormula(b));
         assertFalse(or.evaluate());
@@ -22,7 +22,7 @@ class OrTest {
         TemplateRegister<Boolean> a = new TemplateRegister<>("A", true);
         TemplateRegister<Boolean> b = new TemplateRegister<>("B", false);
 
-        var or = new Or(null);
+        var or = new Or();
         or.setLeft(new RegisterFormula(a));
         or.setRight(new RegisterFormula(b));
         assertTrue(or.evaluate());

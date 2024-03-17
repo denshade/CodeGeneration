@@ -5,11 +5,6 @@ import laboflieven.registers.TemplateRegister;
 public class RegisterFormula implements Formula {
 
     private TemplateRegister<Boolean> register;
-    private Formula parent;
-
-    RegisterFormula(Formula parent) {
-        this.parent = parent;
-    }
 
     RegisterFormula() {
     }
@@ -23,10 +18,6 @@ public class RegisterFormula implements Formula {
         return register.value;
     }
 
-    @Override
-    public Formula parent() {
-        return parent;
-    }
 
     @Override
     public Formula left() {

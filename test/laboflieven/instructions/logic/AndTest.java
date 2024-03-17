@@ -12,7 +12,7 @@ class AndTest {
 
         TemplateRegister<Boolean> a = new TemplateRegister<>("A", true);
         TemplateRegister<Boolean> b = new TemplateRegister<>("B", false);
-        var and = new And(null);
+        var and = new And();
         and.setLeft(new RegisterFormula(a));
         and.setRight(new RegisterFormula(b));
         assertFalse(and.evaluate());
@@ -23,7 +23,7 @@ class AndTest {
         TemplateRegister<Boolean> a = new TemplateRegister<>("A", true);
         TemplateRegister<Boolean> b = new TemplateRegister<>("B", true);
 
-        var and = new And(null);
+        var and = new And();
         and.setLeft(new RegisterFormula(a));
         and.setRight(new RegisterFormula(b));
                 assertTrue(and.evaluate());

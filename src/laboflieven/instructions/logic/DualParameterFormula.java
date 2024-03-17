@@ -2,18 +2,10 @@ package laboflieven.instructions.logic;
 
 public abstract class DualParameterFormula implements Formula
 {
-    protected Formula parent;
     protected Formula left;
     protected Formula right;
 
-    public DualParameterFormula(Formula parent) {
-        this.parent= parent;
-    }
-
-
-    @Override
-    public Formula parent() {
-        return parent;
+    public DualParameterFormula() {
     }
 
     @Override

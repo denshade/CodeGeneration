@@ -2,23 +2,11 @@ package laboflieven.instructions.logic;
 
 public class Not implements Formula
 {
-
-    protected Formula parent;
     protected Formula left;
-
-    public Not(Formula parent) {
-        this.parent= parent;
-    }
-
 
     @Override
     public boolean evaluate() {
         return !left.evaluate();
-    }
-
-    @Override
-    public Formula parent() {
-        return parent;
     }
 
     @Override

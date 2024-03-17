@@ -11,11 +11,11 @@ class NotTest {
     void evaluate() {
 
         TemplateRegister<Boolean> a = new TemplateRegister<>("A", false);
-        var not = new Not(null);
+        var not = new Not();
         not.setLeft(new RegisterFormula(a));
         assertTrue(not.evaluate());
         TemplateRegister<Boolean> b = new TemplateRegister<>("A", true);
-        not = new Not(null);
+        not = new Not();
         not.setLeft(new RegisterFormula(b));
         assertFalse(not.evaluate());
     }

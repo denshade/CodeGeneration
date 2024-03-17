@@ -2,8 +2,6 @@ package laboflieven.instructions.logic;
 
 import laboflieven.registers.TemplateRegister;
 
-import java.text.Normalizer;
-import java.util.List;
 import java.util.Queue;
 
 public class BooleanTreeBuilder {
@@ -35,9 +33,9 @@ public class BooleanTreeBuilder {
             return new RegisterFormula(symbolOrRegister.register);
         } else {
             Formula formula = switch (symbolOrRegister.symbol) {
-                case And -> new And(null);
-                case Or -> new Or(null);
-                case Not -> new Not(null);
+                case And -> new And();
+                case Or -> new Or();
+                case Not -> new Not();
             };
             if (formula.canHaveLeft()) {
                 formula.setLeft(buildTree(symbols));

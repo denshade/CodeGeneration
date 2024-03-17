@@ -7,17 +7,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class RegisterFormulaTest {
 
-    @Test
-    void registerHasNoParent() {
-        var formula = new RegisterFormula();
-        assertNull(formula.parent());
-    }
-
-    @Test
-    void registerHasParent() {
-        var formula = new RegisterFormula(new And(null));
-        assertNotNull(formula.parent());
-    }
 
     @Test
     void valueIsValueOfRegister() {
