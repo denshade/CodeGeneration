@@ -6,5 +6,8 @@ public class And extends DualParameterFormula
     public boolean evaluate() {
         return left.evaluate() && right.evaluate();
     }
+    public String toString() {
+        return "(" + left.toString() + " And " + right.toString() + ")";
+    }
 
 }

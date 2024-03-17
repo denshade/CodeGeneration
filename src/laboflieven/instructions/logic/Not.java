@@ -38,4 +38,7 @@ public class Not implements Formula
     public boolean canHaveRight() {
         return false;
     }
+    public String toString() {
+        return "Not (" + left.toString() + ")";
+    }
 }

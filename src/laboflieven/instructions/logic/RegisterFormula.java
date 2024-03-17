@@ -48,4 +48,8 @@ public class RegisterFormula implements Formula {
     public void setRight(Formula right) {
         throw new UnsupportedOperationException("setRight not supported on register");
     }
+
+    public String toString() {
+        return register.name;
+    }
 }

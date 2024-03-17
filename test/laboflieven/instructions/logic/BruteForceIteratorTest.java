@@ -27,7 +27,7 @@ class BruteForceIteratorTest {
         );
         var i = new BruteForceIterator(evaluator,2);
         var formula = i.iterate(registers);
-
+        System.out.println(formula);
     }
 
 }

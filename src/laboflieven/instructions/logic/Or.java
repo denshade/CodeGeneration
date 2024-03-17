@@ -6,5 +6,7 @@ public class Or extends DualParameterFormula
     public boolean evaluate() {
         return left.evaluate() || right.evaluate();
     }
-
+    public String toString() {
+        return "("+left.toString() + " Or " + right.toString() + ")";
+    }
 }
