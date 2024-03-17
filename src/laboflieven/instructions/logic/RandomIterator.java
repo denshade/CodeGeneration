@@ -20,7 +20,7 @@ public class RandomIterator
                 if (evaluator.evaluate(form)) {
                     return form;
                 }
-            } catch (IllegalStateException ise) {
+            } catch (IllegalStateException ignored) {
             }
         }
     }
