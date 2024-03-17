@@ -16,10 +16,11 @@ class RandomIteratorTest {
 
     @Test
     void randomIterate() {
-        var i = new RandomIterator();
         TemplateRegister<Boolean> r1 = new TemplateRegister<>("R1");
         var registers = List.of(r1);
-        var formula = i.iterate(registers, List.of(List.of(true)), List.of(List.of(false)));
+        var evaluator = new Evaluator(registers, List.of(List.of(true)), List.of(List.of(false)));
+        var i = new RandomIterator(evaluator);
+        var formula = i.iterate(registers);
         r1.value = true;
         assertTrue(formula.evaluate());
         r1.value = false;
