@@ -30,6 +30,16 @@ public class BooleanTreeBuilder {
 
         public Symbol symbol;
         public TemplateRegister<Boolean> register;
+
+        public String toString() {
+            if (symbol != null) {
+                return symbol.toString();
+            }
+            if (register != null) {
+                return register.toString();
+            }
+            return null;
+        }
     }
 
     Formula buildTree(Queue<SymbolOrRegister> symbols) {
