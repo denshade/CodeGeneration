@@ -23,9 +23,7 @@ public class Evaluator {
 
     private static boolean checkValuesThatYieldTrue(List<TemplateRegister<Boolean>> registers, List<List<Boolean>> solutionsThatYieldTrue, Formula form) {
         for (List<Boolean> scenario : solutionsThatYieldTrue) {
-            for (int i = 0; i < scenario.size(); i++) {
-                registers.get(i).value = scenario.get(i);
-            }
+            fillScenarioInRegisters(registers, scenario);
             boolean trueVals = form.evaluate();
             if (!trueVals) {
                 return false;
@@ -33,18 +31,26 @@ public class Evaluator {
         }
         return true;
     }
+
+
     private static boolean checkValuesThatYieldFalse(List<TemplateRegister<Boolean>> registers, List<List<Boolean>> solutionsThatYieldTrue, Formula form) {
-        for (int l = 0; l < solutionsThatYieldTrue.size(); l++) {
-            var scenario = solutionsThatYieldTrue.get(l);
-            for (int i = 0; i < scenario.size(); i++) {
-                registers.get(i).value = scenario.get(i);
-            }
+        for (List<Boolean> scenario : solutionsThatYieldTrue) {
+            fillScenarioInRegisters(registers, scenario);
             boolean falseVals = form.evaluate();
             if(falseVals) {
                 return false;
             }
         }
         return true;
+    }
+
+    private static void fillScenarioInRegisters(List<TemplateRegister<Boolean>> registers, List<Boolean> scenario) {
+        for (int i = 0; i < scenario.size(); i++) {
+            if (scenario.size() != registers.size()) {
+                throw new IllegalArgumentException("Scenario does not have the same size as the amount of registers " + scenario.size() + " " + registers.size());
+            }
+            registers.get(i).value = scenario.get(i);
+        }
     }
 
 }
