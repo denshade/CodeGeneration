@@ -8,15 +8,19 @@ import java.util.*;
 public class RandomIterator
 {
     private final Evaluator evaluator;
+    private final int maxDepth;
+    private final BooleanTreeBuilder treeBuilder;
 
-    public RandomIterator(Evaluator evaluator) {
+    public RandomIterator(Evaluator evaluator, int maxDepth) {
         this.evaluator = evaluator;
+        this.maxDepth = maxDepth;
+        treeBuilder = new BooleanTreeBuilder(maxDepth);
     }
 
     public Formula iterate(List<TemplateRegister<Boolean>> registers) {
         while (true) {
             try {
-                var form = randomFormula(registers);
+                var form = randomFormula(registers, treeBuilder);
                 if (evaluator.evaluate(form)) {
                     return form;
                 }
@@ -25,13 +29,12 @@ public class RandomIterator
         }
     }
 
-    public static Formula randomFormula(List<TemplateRegister<Boolean>> registers) {
+    public static Formula randomFormula(List<TemplateRegister<Boolean>> registers, BooleanTreeBuilder treeBuilder) {
         Queue<BooleanTreeBuilder.SymbolOrRegister> q = new ArrayDeque();
         for (int i = 0; i < 100; i++){
             q.add(randomSymbol(registers));
         }
-        var builder = new BooleanTreeBuilder();
-        return builder.buildTree(q);
+        return treeBuilder.buildTree(q);
     }
 
     private static BooleanTreeBuilder.SymbolOrRegister randomSymbol(List<TemplateRegister<Boolean>> registers) {

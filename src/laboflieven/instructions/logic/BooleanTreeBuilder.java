@@ -5,12 +5,20 @@ import laboflieven.registers.TemplateRegister;
 import java.util.Queue;
 
 public class BooleanTreeBuilder {
+    private final int maxDepth;
+
     enum Symbol {
         And,
         Or,
         Not
     }
 
+    BooleanTreeBuilder(int maxDepth) {
+        this.maxDepth = maxDepth;
+    }
+    BooleanTreeBuilder() {
+        this.maxDepth = 10;
+    }
     public static class SymbolOrRegister {
 
         SymbolOrRegister(Symbol symbol) {
@@ -25,6 +33,13 @@ public class BooleanTreeBuilder {
     }
 
     Formula buildTree(Queue<SymbolOrRegister> symbols) {
+        return buildTree(symbols, 0);
+    }
+
+    Formula buildTree(Queue<SymbolOrRegister> symbols, int currentDepth) {
+        if (currentDepth > maxDepth) {
+            throw new IllegalStateException("Too deep");
+        }
         var symbolOrRegister = symbols.poll();
         if (symbolOrRegister == null) {
             throw new IllegalStateException("Insufficient tokens for formula");
@@ -38,10 +53,10 @@ public class BooleanTreeBuilder {
                 case Not -> new Not();
             };
             if (formula.canHaveLeft()) {
-                formula.setLeft(buildTree(symbols));
+                formula.setLeft(buildTree(symbols, currentDepth - 1));
             }
             if (formula.canHaveRight()) {
-                formula.setRight(buildTree(symbols));
+                formula.setRight(buildTree(symbols, currentDepth - 1));
             }
             return formula;
         }
