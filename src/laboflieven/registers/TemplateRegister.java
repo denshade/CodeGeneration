@@ -32,12 +32,12 @@ public class TemplateRegister<T> {
         return registers;
     }
 
-    public static List<TemplateRegister> createRegisters(int count)
+    public static List<TemplateRegister<Boolean>> createRegisters(int count)
     {
-        List<TemplateRegister> registers = new ArrayList<>();
+        List<TemplateRegister<Boolean>> registers = new ArrayList<>();
         for (int k = 1; k <= count; k++)
         {
-            registers.add(new TemplateRegister("R" + k));
+            registers.add(new TemplateRegister<>("R" + k));
         }
         return registers;
     }
