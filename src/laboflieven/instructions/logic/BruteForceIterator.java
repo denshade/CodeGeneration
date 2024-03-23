@@ -37,12 +37,4 @@ public class BruteForceIterator {
             indexList.update(currentIndexList);
         }
     }
-
-    private List<BooleanTreeBuilder.SymbolOrRegister> convertIndicesToSymbol(ArrayList<Integer> indices, List<BooleanTreeBuilder.SymbolOrRegister> options) {
-        var symbols = new ArrayList<BooleanTreeBuilder.SymbolOrRegister>();
-        for (int index: indices) {
-            symbols.add(options.get(index));
-        }
-        return symbols;
-    }
 }
