@@ -30,24 +30,13 @@ public class BruteForceIterator {
         options.add(new BooleanTreeBuilder.SymbolOrRegister(BooleanTreeBuilder.Symbol.And));
         options.add(new BooleanTreeBuilder.SymbolOrRegister(BooleanTreeBuilder.Symbol.Or));
         options.add(new BooleanTreeBuilder.SymbolOrRegister(BooleanTreeBuilder.Symbol.Not));
+        var indexList = new IndexList(options.size());
         while(true) {
             var formula = treeBuilder.buildTree(new ArrayDeque<>(convertIndicesToSymbol(currentIndexList, options)));
             if (evaluator.evaluate(formula)) {
                 return formula;
             }
-            //bump index.
-            boolean carry;
-            int currentIndex = 0;
-            do {
-                carry = false;
-                if (currentIndexList.get(currentIndex) + 1 == options.size()) {
-                    currentIndexList.set(currentIndex,0);
-                    currentIndex++;
-                    carry = true;
-                } else {
-                    currentIndexList.set(currentIndex, currentIndexList.get(currentIndex) + 1);
-                }
-            } while(carry);
+            indexList.update(currentIndexList);
         }
     }
 
