@@ -9,12 +9,10 @@ import java.util.List;
 public class BruteForceIterator {
 
     private final Evaluator evaluator;
-    private final int maxDepth;
     private final BooleanTreeBuilder treeBuilder;
 
     public BruteForceIterator(Evaluator evaluator, int maxDepth) {
         this.evaluator = evaluator;
-        this.maxDepth = maxDepth;
         treeBuilder = new BooleanTreeBuilder(maxDepth);
     }
 
