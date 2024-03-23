@@ -18,7 +18,7 @@ public class BruteForceIterator {
 
     public Formula iterate(List<TemplateRegister<Boolean>> registers) {
         var currentIndexList = new ArrayList<Integer>();
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 1000; i++) {
             currentIndexList.add(0);
         }
         var options = new ArrayList<BooleanTreeBuilder.SymbolOrRegister>();
@@ -28,9 +28,13 @@ public class BruteForceIterator {
         options.add(new BooleanTreeBuilder.SymbolOrRegister(BooleanTreeBuilder.Symbol.Not));
         var indexList = new IndexList(options.size());
         while(true) {
-            var formula = treeBuilder.buildTree(new ArrayDeque<BooleanTreeBuilder.SymbolOrRegister>(indexList.convertIndicesToSymbol(currentIndexList, options)));
-            if (evaluator.evaluate(formula)) {
-                return formula;
+            try {
+                var formula = treeBuilder.buildTree(new ArrayDeque<BooleanTreeBuilder.SymbolOrRegister>(indexList.convertIndicesToSymbol(currentIndexList, options)));
+                if (evaluator.evaluate(formula)) {
+                    return formula;
+                }
+            } catch (IllegalStateException e) {
+
             }
             indexList.update(currentIndexList);
         }

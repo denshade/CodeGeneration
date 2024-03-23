@@ -63,10 +63,10 @@ public class BooleanTreeBuilder {
                 case Not -> new Not();
             };
             if (formula.canHaveLeft()) {
-                formula.setLeft(buildTree(symbols, currentDepth - 1));
+                formula.setLeft(buildTree(symbols, currentDepth + 1));
             }
             if (formula.canHaveRight()) {
-                formula.setRight(buildTree(symbols, currentDepth - 1));
+                formula.setRight(buildTree(symbols, currentDepth + 1));
             }
             return formula;
         }

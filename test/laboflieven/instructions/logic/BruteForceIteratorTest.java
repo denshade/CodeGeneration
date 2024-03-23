@@ -3,6 +3,7 @@ package laboflieven.instructions.logic;
 import laboflieven.registers.TemplateRegister;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -28,6 +29,33 @@ class BruteForceIteratorTest {
         var i = new BruteForceIterator(evaluator,2);
         var formula = i.iterate(registers);
         System.out.println(formula);
+    }
+
+    @Test
+    void checkCsvSourceBrute() {
+        var booleanCsvSource = new BooleanCsvSource();
+        var s = booleanCsvSource.loadFromCsvString("""
+    true,true,false
+    true,false,true
+    """, false);
+        var paramsForSuccess = new ArrayList<List<Boolean>>();
+        var paramsForFailure = new ArrayList<List<Boolean>>();
+        for (var item : s) {
+            var selectedList = paramsForFailure;
+            if (item.get(item.size() - 1)) {
+                selectedList = paramsForSuccess;
+            }
+            selectedList.add(item.subList(0, item.size() - 1));
+        }
+
+        var registers = new ArrayList<TemplateRegister<Boolean>>();
+        for (int i = 0; i < paramsForSuccess.size() - 1; i++) {
+            registers.add(new TemplateRegister<>("R" + i));
+        }
+        var evaluator = new Evaluator(registers, paramsForSuccess, paramsForFailure);
+        var i = new BruteForceIterator(evaluator,2);
+        var formula = i.iterate(registers);
+
     }
 
 }
