@@ -22,9 +22,7 @@ public class BruteForceIterator {
             currentIndexList.add(0);
         }
         var options = new ArrayList<BooleanTreeBuilder.SymbolOrRegister>();
-        for (var register : registers) {
-            options.add(new BooleanTreeBuilder.SymbolOrRegister(register));
-        }
+        registers.forEach(r -> options.add(new BooleanTreeBuilder.SymbolOrRegister(r)));
         options.add(new BooleanTreeBuilder.SymbolOrRegister(BooleanTreeBuilder.Symbol.And));
         options.add(new BooleanTreeBuilder.SymbolOrRegister(BooleanTreeBuilder.Symbol.Or));
         options.add(new BooleanTreeBuilder.SymbolOrRegister(BooleanTreeBuilder.Symbol.Not));
