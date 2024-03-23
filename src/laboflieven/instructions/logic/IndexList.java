@@ -23,4 +23,12 @@ public class IndexList {
             }
         } while(carry);
     }
+
+    public List convertIndicesToSymbol(ArrayList<Integer> indices, List options) {
+        var symbols = new ArrayList<>();
+        for (int index: indices) {
+            symbols.add(options.get(index));
+        }
+        return symbols;
+    }
 }

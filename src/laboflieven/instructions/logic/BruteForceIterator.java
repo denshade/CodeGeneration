@@ -30,7 +30,7 @@ public class BruteForceIterator {
         options.add(new BooleanTreeBuilder.SymbolOrRegister(BooleanTreeBuilder.Symbol.Not));
         var indexList = new IndexList(options.size());
         while(true) {
-            var formula = treeBuilder.buildTree(new ArrayDeque<>(convertIndicesToSymbol(currentIndexList, options)));
+            var formula = treeBuilder.buildTree(new ArrayDeque<BooleanTreeBuilder.SymbolOrRegister>(indexList.convertIndicesToSymbol(currentIndexList, options)));
             if (evaluator.evaluate(formula)) {
                 return formula;
             }
