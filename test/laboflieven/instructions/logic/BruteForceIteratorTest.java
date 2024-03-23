@@ -35,8 +35,9 @@ class BruteForceIteratorTest {
     void checkCsvSourceBrute() {
         var booleanCsvSource = new BooleanCsvSource();
         var s = booleanCsvSource.loadFromCsvString("""
-    true,false
-    false,true
+    true,true,false
+    true,false,true
+    false,false,true
     """, false);
         var paramsForSuccess = new ArrayList<List<Boolean>>();
         var paramsForFailure = new ArrayList<List<Boolean>>();
@@ -48,7 +49,7 @@ class BruteForceIteratorTest {
             selectedList.add(item.subList(0, item.size() - 1));
         }
 
-        List<TemplateRegister<Boolean>> registers = TemplateRegister.createRegisters(paramsForSuccess.size());
+        List<TemplateRegister<Boolean>> registers = TemplateRegister.createRegisters(paramsForSuccess.get(0).size());
         var evaluator = new Evaluator(registers, paramsForSuccess, paramsForFailure);
         var i = new BruteForceIterator(evaluator,2);
         var formula = i.iterate(registers);
