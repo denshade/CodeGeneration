@@ -39,18 +39,9 @@ class BruteForceIteratorTest {
     true,false,true
     false,false,true
     """, false);
-        var paramsForSuccess = new ArrayList<List<Boolean>>();
-        var paramsForFailure = new ArrayList<List<Boolean>>();
-        for (var item : s) {
-            var selectedList = paramsForFailure;
-            if (item.get(item.size() - 1)) {
-                selectedList = paramsForSuccess;
-            }
-            selectedList.add(item.subList(0, item.size() - 1));
-        }
-
-        List<TemplateRegister<Boolean>> registers = TemplateRegister.createAlphabetRegisters(paramsForSuccess.get(0).size());
-        var evaluator = new Evaluator(registers, paramsForSuccess, paramsForFailure);
+        var pair = SplitBooleanSource.split(s);
+        List<TemplateRegister<Boolean>> registers = TemplateRegister.createAlphabetRegisters(pair.successRecords.get(0).size());
+        var evaluator = new Evaluator(registers, pair.successRecords, pair.failRecords);
         var i = new BruteForceIterator(evaluator,2);
         var formula = i.iterate(registers);
         System.out.println(formula);
