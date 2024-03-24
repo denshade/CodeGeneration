@@ -17,12 +17,6 @@ public class BruteForceRunner {
             var pair = SplitBooleanSource.split(s);
             String line = validateInput(pair);
             if (line != null) return line;
-            if (pair.successRecords.isEmpty()) {
-                throw new IllegalArgumentException("No success records found. Just return false always.");
-            }
-            if (pair.failRecords.isEmpty()) {
-                throw new IllegalArgumentException("No fail records found. Just return true always.");
-            }
 
             List<TemplateRegister<Boolean>> registers = TemplateRegister.createAlphabetRegisters(pair.successRecords.get(0).size());
             if (useHeader) {
@@ -43,6 +37,12 @@ public class BruteForceRunner {
     }
 
     private String validateInput(SplitBooleanSource.ListPair pair) {
+        if (pair.successRecords.isEmpty()) {
+            throw new IllegalArgumentException("No success records found. Just return false always.");
+        }
+        if (pair.failRecords.isEmpty()) {
+            throw new IllegalArgumentException("No fail records found. Just return true always.");
+        }
         Set<String> alreadyKnownPairs = new HashSet<>();
         for (var line: pair.successRecords) {
             if (alreadyKnownPairs.contains(line.toString())) {
