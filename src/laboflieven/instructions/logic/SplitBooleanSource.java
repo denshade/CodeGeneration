@@ -1,7 +1,5 @@
 package laboflieven.instructions.logic;
 
-import org.apache.commons.math3.util.Pair;
-
 import java.util.ArrayList;
 import java.util.List;
 

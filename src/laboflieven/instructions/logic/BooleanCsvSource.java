@@ -4,6 +4,7 @@ import laboflieven.TestcaseInOutParameters;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class BooleanCsvSource {
 
@@ -19,9 +20,14 @@ public class BooleanCsvSource {
             }
             String[] parts = line.split(",");
             List<Boolean> points = new ArrayList<>();
-            for (int k = 0; k < parts.length; k++) {
-                String part = parts[k].replaceAll("\"", "");
-                points.add(Boolean.parseBoolean(part));
+            for (String s : parts) {
+                String part = s.replaceAll("\"", "").toLowerCase(Locale.ROOT).trim();
+                boolean value = switch (part) {
+                    case "true", "1" -> true;
+                    case "false", "0" -> false;
+                    default -> throw new IllegalArgumentException("Invalid value " + part + " expecting true, false or 0, 1");
+                };
+                points.add(value);
             }
             collection.add(points);
         }

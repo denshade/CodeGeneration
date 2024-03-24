@@ -12,19 +12,30 @@ public class BruteForceRunner {
 
     public String loadFromString(String csv, boolean useHeader) {
         var booleanCsvSource = new BooleanCsvSource();
-        var s = booleanCsvSource.loadFromCsvString(csv, useHeader);
-        var pair = SplitBooleanSource.split(s);
-        String line = validateInput(pair);
-        if (line != null) return line;
-        List<TemplateRegister<Boolean>> registers = TemplateRegister.createAlphabetRegisters(pair.successRecords.get(0).size());
-        if (useHeader) {
-            registers = Arrays.stream(csv.split("\n")[0].split(",")).map(r -> new TemplateRegister<Boolean>(r)).collect(Collectors.toList());
-            removeOutcomeRegister(registers);
+        try {
+            var s = booleanCsvSource.loadFromCsvString(csv, useHeader);
+            var pair = SplitBooleanSource.split(s);
+            String line = validateInput(pair);
+            if (line != null) return line;
+            if (pair.successRecords.isEmpty()) {
+                throw new IllegalArgumentException("No success records found. Just return false always.");
+            }
+            if (pair.failRecords.isEmpty()) {
+                throw new IllegalArgumentException("No fail records found. Just return true always.");
+            }
+
+            List<TemplateRegister<Boolean>> registers = TemplateRegister.createAlphabetRegisters(pair.successRecords.get(0).size());
+            if (useHeader) {
+                registers = Arrays.stream(csv.split("\n")[0].split(",")).map(r -> new TemplateRegister<Boolean>(r)).collect(Collectors.toList());
+                removeOutcomeRegister(registers);
+            }
+            var evaluator = new Evaluator(registers, pair.successRecords, pair.failRecords);
+            var i = new BruteForceIterator(evaluator,2);
+            var formula = i.iterate(registers);
+            return formula.toString();
+        } catch (IllegalArgumentException exception) {
+            return exception.toString();
         }
-        var evaluator = new Evaluator(registers, pair.successRecords, pair.failRecords);
-        var i = new BruteForceIterator(evaluator,2);
-        var formula = i.iterate(registers);
-        return formula.toString();
     }
 
     private void removeOutcomeRegister(List<TemplateRegister<Boolean>> registers) {

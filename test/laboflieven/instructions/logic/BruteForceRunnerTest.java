@@ -1,11 +1,8 @@
 package laboflieven.instructions.logic;
 
-import laboflieven.registers.TemplateRegister;
 import org.junit.jupiter.api.Test;
 
-import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class BruteForceRunnerTest {
 
@@ -42,6 +39,33 @@ false,false,true
         assertEquals("Not (l)", outcome);
     }
 
-    //use the source to name the variables.
+    //Bad input.
+    @Test
+    void invalidInput() {
+        var runner = new BruteForceRunner();
+        var outcome = runner.loadFromString("""
+true,true,potato
+true,true,true
+""", false);
+        assertEquals("java.lang.IllegalArgumentException: Invalid value potato expecting true, false or 0, 1", outcome);
+    }
+    @Test
+    void onlyFailures() {
+        var runner = new BruteForceRunner();
+        var outcome = runner.loadFromString("""
+true,true,false
+""", false);
+        assertEquals("java.lang.IllegalArgumentException: No success records found. Just return false always.", outcome);
+    }
+
+    @Test
+    void onlySuccesses() {
+        var runner = new BruteForceRunner();
+        var outcome = runner.loadFromString("""
+true,true,true
+""", false);
+        assertEquals("java.lang.IllegalArgumentException: No fail records found. Just return true always.", outcome);
+    }
+
 
 }
