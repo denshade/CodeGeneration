@@ -2,9 +2,11 @@ package laboflieven.instructions.logic;
 
 import laboflieven.registers.TemplateRegister;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class BruteForceRunner {
 
@@ -14,12 +16,19 @@ public class BruteForceRunner {
         var pair = SplitBooleanSource.split(s);
         String line = validateInput(pair);
         if (line != null) return line;
-
         List<TemplateRegister<Boolean>> registers = TemplateRegister.createAlphabetRegisters(pair.successRecords.get(0).size());
+        if (useHeader) {
+            registers = Arrays.stream(csv.split("\n")[0].split(",")).map(r -> new TemplateRegister<Boolean>(r)).collect(Collectors.toList());
+            removeOutcomeRegister(registers);
+        }
         var evaluator = new Evaluator(registers, pair.successRecords, pair.failRecords);
         var i = new BruteForceIterator(evaluator,2);
         var formula = i.iterate(registers);
         return formula.toString();
+    }
+
+    private void removeOutcomeRegister(List<TemplateRegister<Boolean>> registers) {
+        registers.remove(registers.size() - 1);
     }
 
     private String validateInput(SplitBooleanSource.ListPair pair) {

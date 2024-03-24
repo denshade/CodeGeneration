@@ -30,6 +30,18 @@ true,true,true
         assertEquals("Conflicting pair. This pair is a duplicate: [true, true]", outcome);
     }
 
+    @Test
+    void useRegistersFromHeader() {
+        var runner = new BruteForceRunner();
+        var outcome = runner.loadFromString("""
+k,l,o
+true,true,false
+true,false,true
+false,false,true
+""", true);
+        assertEquals("Not (l)", outcome);
+    }
+
     //use the source to name the variables.
 
 }
