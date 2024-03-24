@@ -2,6 +2,8 @@ package laboflieven.instructions.logic;
 
 import laboflieven.registers.TemplateRegister;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
@@ -30,6 +32,12 @@ public class BruteForceRunner {
         } catch (IllegalArgumentException exception) {
             return exception.toString();
         }
+    }
+
+    public static void main(String[] args) {
+        System.out.println("Reading data from stdin");
+        String data =  new BufferedReader(new InputStreamReader(System.in)).lines().collect(Collectors.joining("\n"));
+        System.out.println(new BruteForceRunner().loadFromString(data, true));
     }
 
     private void removeOutcomeRegister(List<TemplateRegister<Boolean>> registers) {
