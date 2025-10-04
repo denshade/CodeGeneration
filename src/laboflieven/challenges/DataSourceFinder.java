@@ -33,6 +33,8 @@ import java.util.stream.Collectors;
  517 NR_REGISTERS=1 CSV_FILE=C:\Users\densh\OneDrive\Documents\GitHub\CodeGeneration\src\laboflieven\challenges\primes.csv PROGRAM_ITERATOR=priority MAX_NR_OF_INSTRUCTIONS=7 RECURSION_HEURISTIC=Acc RND_ADDED=false CUT_POPULATION_AT_MAX=10000000 ACC_OPERATIONS=LoadIntoLeftAcc,LoadVectorSumIntoLeft,LoadAccLeftIntoVector,Dec,Jump2IfLte,Inc,LoadAccLeftIntoRegister,LoadAccRightIntoRegister,Quit
  1001 NR_REGISTERS=1 CSV_FILE=C:\Users\densh\OneDrive\Documents\GitHub\CodeGeneration\src\laboflieven\challenges\primes.csv PROGRAM_ITERATOR=brute MAX_NR_OF_INSTRUCTIONS=7 RECURSION_HEURISTIC=Acc RND_ADDED=false CUT_POPULATION_AT_MAX=10000000 ACC_OPERATIONS=LoadIntoLeftAcc,LoadVectorSumIntoLeft,LoadAccLeftIntoVector,Dec,Jump2IfLte,Inc,LoadAccLeftIntoRegister,LoadAccRightIntoRegister,Quit
  NR_REGISTERS=3 CSV_FILE=C:\temp\slingersummary.csv PROGRAM_ITERATOR=brute MAX_NR_OF_INSTRUCTIONS=7 RECURSION_HEURISTIC=Acc RND_ADDED=false CUT_POPULATION_AT_MAX=10000000 ACC_OPERATIONS=LoadIntoLeftAcc,LoadVectorSumIntoLeft,LoadAccLeftIntoVector,Dec,Jump2IfLte,Inc,LoadAccLeftIntoRegister,LoadAccRightIntoRegister,Quit
+
+ NR_REGISTERS=2 CSV_FILE=C:\temp\P918.csv PROGRAM_ITERATOR=brute MAX_NR_OF_INSTRUCTIONS=7 RECURSION_HEURISTIC=Acc RND_ADDED=false CUT_POPULATION_AT_MAX=10000000
  */
 public class DataSourceFinder {
     public static void main(String[] args) throws IOException {
