@@ -3,11 +3,13 @@ package laboflieven.programiterators;
 import laboflieven.ProgramResolution;
 import laboflieven.common.Configuration;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.ExecutorCompletionService;
+import java.util.concurrent.Future;
 import java.util.Objects;
 import java.util.function.Supplier;
-import java.util.logging.Logger;
 
 public class MultiThreadedProgramIterator implements ProgramIterator
 {
@@ -46,15 +48,41 @@ public class MultiThreadedProgramIterator implements ProgramIterator
     public ProgramResolution iterate(Configuration config)
     {
         var pool = Executors.newFixedThreadPool(threads);
-        for (int i = 0; i < threads; i++) {
-            pool.execute(() -> iteratorFactory.get().iterate(config));
-        }
+        var completionService = new ExecutorCompletionService<ProgramResolution>(pool);
+        List<Future<ProgramResolution>> futures = new ArrayList<>(threads);
         try {
-            Thread.sleep(3600000);
-            //pool.awaitTermination(1, TimeUnit.HOURS); //this blocks all threads.
+            for (int i = 0; i < threads; i++) {
+                futures.add(completionService.submit(() -> iteratorFactory.get().iterate(config)));
+            }
+
+            ProgramResolution best = null;
+            for (int i = 0; i < threads; i++) {
+                ProgramResolution result = completionService.take().get();
+                if (result == null) {
+                    continue;
+                }
+                if (best == null || result.weight < best.weight) {
+                    best = result;
+                }
+                if (isSolutionFound(result, config)) {
+                    return result;
+                }
+            }
+            return best;
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            Thread.currentThread().interrupt();
+            return null;
+        } catch (Exception e) {
+            throw new RuntimeException("Failed while running multi-threaded iterators", e);
+        } finally {
+            for (Future<ProgramResolution> future : futures) {
+                future.cancel(true);
+            }
+            pool.shutdownNow();
         }
-        return null;
+    }
+
+    private boolean isSolutionFound(ProgramResolution result, Configuration config) {
+        return result.weight <= config.getErrorTolerance(0.0001);
     }
 }
