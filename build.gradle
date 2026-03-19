@@ -1,0 +1,48 @@
+plugins {
+    id 'java'
+}
+
+repositories {
+    mavenCentral()
+}
+
+java {
+    // Match modern JDK usage; project already uses features like `var` (Java 10+).
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
+
+sourceSets {
+    main {
+        java {
+            srcDir 'src'
+        }
+    }
+    test {
+        java {
+            srcDir 'test'
+        }
+    }
+}
+
+dependencies {
+    implementation 'org.apache.commons:commons-math3:3.6.1'
+    implementation 'com.googlecode.json-simple:json-simple:1.1.1'
+
+    // Keep all JUnit Jupiter/Platform artifacts on compatible versions.
+    testImplementation platform('org.junit:junit-bom:5.14.0')
+    testImplementation 'org.junit.jupiter:junit-jupiter-api'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+    // Ensure consistent bytecode even when the local JDK is newer.
+    options.release = 17
+}
+

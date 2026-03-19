@@ -15,6 +15,14 @@ public class Program
 {
     private final List<InstructionMark> instructions;
     private final List<Register> registers;
+    /**
+     * Binding rewrites instruction register references to point at the {@link #registers} instances
+     * stored in this program. This is expensive and should only be done once per Program instance.
+     *
+     * Thread-safety: binding is guarded with double-checked locking so concurrent evaluations
+     * don't race during the first bind.
+     */
+    private volatile boolean registersBound = false;
 
 
     public Program(List<InstructionMark> instructions, List<Register> registers) {
@@ -32,7 +40,16 @@ public class Program
 
     public void initializeRegisters(Map<String, Double> registerValues)
     {
-        bindRegisters();
+        // bind is expensive; perform it only once (per Program instance).
+        // Double-checked locking ensures thread safety while keeping the fast path lock-free.
+        if (!registersBound) {
+            synchronized (this) {
+                if (!registersBound) {
+                    bindRegisters();
+                    registersBound = true;
+                }
+            }
+        }
         for (Register register : getRegisters())
         {
             /*if (!registerValues.containsKey(register.name)){

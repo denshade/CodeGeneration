@@ -6,6 +6,7 @@ import laboflieven.common.Configuration;
 import laboflieven.examiners.AccumulatorMatchAnyRegisterProgramFitnessExaminer;
 import laboflieven.examiners.ProgramFitnessExaminerInterface;
 import laboflieven.programiterators.GeneralBruteForceProgramIterator;
+import laboflieven.programiterators.MultiThreadedProgramIterator;
 import laboflieven.registers.NumberNamingScheme;
 import laboflieven.runners.AccStatementRunner;
 import laboflieven.registers.Register;
@@ -42,7 +43,7 @@ public class AbsFinder {
         ProgramFitnessExaminerInterface evaluator = new AccumulatorMatchAnyRegisterProgramFitnessExaminer(collection, runner);
         //JsonFileFitnessLogger csvLogger = new JsonFileFitnessLogger(new File("c:\\temp\\test.json"));
         //evaluator.addListener(csvLogger);
-        var iterator = new GeneralBruteForceProgramIterator();
+        var iterator = new MultiThreadedProgramIterator(10);
 //        var iterator = new AccPriorityProgramIterator();
 //        var iterator = new SimulatedAnnealingIterator(new InstructionFactory(), 100, 2);
 //        var iterator = new GeneralRandomGeneticProgramIterator();

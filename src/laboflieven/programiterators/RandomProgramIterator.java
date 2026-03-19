@@ -47,13 +47,16 @@ public class RandomProgramIterator implements ProgramIterator {
         long startTime = System.currentTimeMillis();
         long runTime = System.currentTimeMillis() - startTime;
         while (runTime < configuration.getMaxDurationSeconds(3600) * 1000 && bestFit.getBestScore() > 0.0001) {
-            loop();
+            if (loop()) {
+                // Stop immediately when we've found a valid program.
+                break;
+            }
             runTime = System.currentTimeMillis() - startTime;
         }
         return new ProgramResolution(bestFit.getBest(), bestFit.getBestScore());
     }
 
-    public void loop() {
+    public boolean loop() {
         var instructions = new ArrayList<InstructionMark>();
         instructions.add(new LoadIntoLeftAcc(registers[0]));
         for (int i = 0; i < maximumInstructions - 2; i++)
@@ -62,16 +65,17 @@ public class RandomProgramIterator implements ProgramIterator {
             instructions.add(actualInstruction);
         }
         instructions.add(new LoadAccLeftIntoRegister(registers[0]));
-        eval(instructions, Arrays.asList(registers));
+        return eval(instructions, Arrays.asList(registers));
     }
-    private void eval(List<InstructionMark> instructions, List<Register> registers) {
+    private boolean eval(List<InstructionMark> instructions, List<Register> registers) {
         double val =  evaluator.calculateFitness(instructions, registers);
         bestFit.register(val, instructions);
         if (instructions.size() == maximumInstructions && val < 0.0001) {
             positiveSolutions.add(new ArrayList<>(instructions));
             System.out.println("Found a program! " + positiveSolutions);
+            return true;
         }
-
+        return false;
     }
 
     public static int difference(List<InstructionMark> instructions) {
