@@ -14,7 +14,7 @@ class InstructionFactoryTest {
     @Test
     void createInstruction() {
         InstructionFactory fact = new InstructionFactory();
-        assertEquals("laboflieven.accinstructions.Pow", fact.createInstruction(new laboflieven.common.AccInstructionOpcode(AccInstructionOpcodeEnum.Pow)).getClass().getCanonicalName());
+        assertEquals("laboflieven.instructions.accinstructions.Pow", fact.createInstruction(new laboflieven.common.AccInstructionOpcode(AccInstructionOpcodeEnum.Pow)).getClass().getCanonicalName());
         assertEquals("left = R1", fact.createInstructionP(AccInstructionOpcodeEnum.LoadIntoLeftAcc, new Register("R1")).toString().trim());
     }
 

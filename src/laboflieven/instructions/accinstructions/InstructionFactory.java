@@ -43,6 +43,7 @@ public class InstructionFactory implements InstructionFactoryInterface {
         put(AccInstructionOpcodeEnum.LoadVectorIntoLeft, new LoadVectorIntoLeft());
         put(AccInstructionOpcodeEnum.LoadVectorIntoRight, new LoadVectorIntoRight());
         put(AccInstructionOpcodeEnum.LeftVectShift, new LeftVectShift());
+        put(AccInstructionOpcodeEnum.LeftVectRoundRobin, new LeftVectRoundRobin());
         put(AccInstructionOpcodeEnum.LeftVectPushExponents, new LeftVectPushExponents());
         put(AccInstructionOpcodeEnum.Dec, new Dec());
         put(AccInstructionOpcodeEnum.LoadVectorSumIntoLeft, new LoadVectorSumIntoLeft());
