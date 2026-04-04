@@ -27,8 +27,14 @@ public class ProgramParser {
         if (s.contains("+=")){
             i = new Add(parseRegister(parts[2]), parseRegister(parts[0]));
         }
-        if (s.contains("Cos")){
-            i = new Cos(parseRegister(parts[1]));
+        if (s.contains("Cos") || s.contains("cos(")) {
+            if (s.contains("cos(")) {
+                int open = s.indexOf('(');
+                int close = s.lastIndexOf(')');
+                i = new Cos(parseRegister(s.substring(open + 1, close)));
+            } else {
+                i = new Cos(parseRegister(parts[1]));
+            }
         }
         if (s.contains("/=")){
             i = new Div(parseRegister(parts[2]), parseRegister(parts[0]));
