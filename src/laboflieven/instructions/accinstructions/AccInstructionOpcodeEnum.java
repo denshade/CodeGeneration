@@ -12,7 +12,8 @@ public enum AccInstructionOpcodeEnum
     JumpIfLteStart(0), JumpIfGteStart(0)/*JumpIfLte, JumpIfGte*/, Jump2IfGte(0), Jump2IfLte(0), Jump2IfEq(0), Jump2IfNeq(0),
     Jump2IfZero(0), Quit(0), Pow(0), Swap(0), PI(0), E(0), Custom(0),
     LoadAccRightIntoVector(0), LoadAccLeftIntoVector(0), LoadVectorIntoLeft(0), LoadVectorIntoRight(0),
-    LeftVectShift(0), LeftVectRoundRobin(0), LeftVectPushExponents(0), Dec(0), LoadVectorSumIntoLeft(0), PushToJumpRegister(0);
+    LeftVectShift(0), LeftVectRoundRobin(0), LeftVectFillSequence(0), LeftVectPushExponents(0), Dec(0), LoadVectorSumIntoLeft(0),
+    VectAdd(0), VectSub(0), VectMul(0), VectDiv(0), PushToJumpRegister(0);
 
     private final int nrRegisters;
 
